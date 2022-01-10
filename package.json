@@ -1,0 +1,25 @@
+{
+  "name": "polypay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "npm run install-client && npm run install-server",
+    "build": "npm run build-client",
+    "start": "npm run start-server",
+    "install-client": "cd client && npm install && cd ..",
+    "install-server": "cd server && npm install && cd ..",
+    "build-client": "cd client && npm run build && cd ..",
+    "start-server": "cd server && npm start && cd .."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ritaog/polypay.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ritaog/polypay/issues"
+  },
+  "homepage": "https://github.com/ritaog/polypay#readme"
+}
