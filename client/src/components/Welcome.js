@@ -4,7 +4,7 @@ import axios from "axios";
 const Welcome = () => {
   const [message, setMessage] = useState("");
 
-  //grab text from backend once page is rendered
+  //grabs data from backend once page is rendered
   useEffect(() => {
     const getData = async () => {
       const response = await axios.get("http://localhost:5000/api/welcome");
