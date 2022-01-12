@@ -2,7 +2,7 @@ import React from "react";
 import Welcome from "./components/Welcome";
 
 const App = () => {
-  return <Welcome />;
+  return  <Welcome />;
 };
 
 export default App;
