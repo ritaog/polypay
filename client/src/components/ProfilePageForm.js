@@ -7,7 +7,7 @@ const ProfilePageForm = () => {
             This is ProfilePageForm
             
         <div>
-    <form action="/action_page.php">
+    <form>
     <label htmlfor="name">Name</label>
     <input type="text" id="name" name="name" placeholder="Your name.."/>
 
