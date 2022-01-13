@@ -1,10 +1,16 @@
 import mongoose from "mongoose";
 
 
-const testSchema = new mongoose.Schema({
-    userName: {type:String},
-    companyName: {type:String},
-    productName: {type:String}
+const vendorProfile = mongoose.model("vendorProfile",{
+    vendorName:{type:String},
+    companyName:{type:String},
+    companyAddress:{type:String},
+    emailAddress:{type:String},
+    phoneNo:{type:String},
 })
-
-export default mongoose.model("Test", testSchema);
+async function addVendor(profileData) {
+    let newProfile = new vendorProfile(profileData)
+    let createdProfile = await newProfile.save()
+    return createdProfile.id
+}
+module.exports = {addVendor}
