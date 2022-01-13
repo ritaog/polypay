@@ -1,7 +1,5 @@
 import express from "express";
-import VendorProfile from "../models/test.js"
-
-// const { addVendor } = require("../models/test")
+import VendorProfile from "../models/vendorProfileModel.js"
 
 const router = express.Router();
 
@@ -10,8 +8,8 @@ router.get("/welcome", (_, res) => {
   res.send("Hello World!!!!");
 });
 
-
-router.post("/add", async (req, res) => {
+// POST endpoint || description: takes data from VendorProfileForm and sends to DB
+router.post("/addVendorProfile", async (req, res) => {
   let incomingData = req.body;
   let newProfile = await new VendorProfile(incomingData);
   let newId = await newProfile.save();
