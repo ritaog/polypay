@@ -10,6 +10,7 @@ router.post ("/add", async (_, res) => {
     companyName: "PolyTest",
     productName: "none"
     }
+
 const test = await new Test(testObjects)
 await test.save()
 res.json("success")

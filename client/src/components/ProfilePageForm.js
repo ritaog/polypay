@@ -4,42 +4,43 @@ import { useState } from 'react'
 
 
 const ProfilePageForm = () => {
-const [name, setName] = useState("")
-const [companyName, setCompanyName] = useState("")
-const [companyAddress, setCompanyAddress] = useState("")
-const [emailAddress, setEmailAddress] = useState("")
-const [phoneNo, setPhoneNo] = useState("")
+    const [name, setName] = useState("")
+    const [companyName, setCompanyName] = useState("")
+    const [companyAddress, setCompanyAddress] = useState("")
+    const [emailAddress, setEmailAddress] = useState("")
+    const [phoneNo, setPhoneNo] = useState("")
 
-const onInputUpdate = (event,setter) => {
-let newValue = event.target.value 
-console.log(event.target.value)
-setter(newValue)
-}
+    const onInputUpdate = (event,setter) => {
+        let newValue = event.target.value 
+        console.log(event.target.value)
+        setter(newValue)
+    }
 
-const postData = async (event) => {
-    event.preventDefault()
-let vendorProfile = {
-    vendorName:name,
-    companyName:companyName,
-    companyAddress:companyAddress,
-    emailAddress:emailAddress,
-    phoneNo:phoneNo
+    const postData = async (event) => {
+        event.preventDefault()
+        let vendorProfile = {
+            vendorName:name,
+            companyName:companyName,
+            companyAddress:companyAddress,
+            emailAddress:emailAddress,
+            phoneNo:phoneNo
 
-} 
+    } 
 
-console.log("vendor Profile", vendorProfile )
+    console.log("vendor Profile", JSON.stringify(vendorProfile));
 
-const response = await fetch ("/api/add", {
-    method: "POST",
-    body: JSON.stringify(vendorProfile),
-    headers: {
-      "Content-Type": "application/json",
-    },
-})
-console.log(response)
-}
+    const response = await fetch("http://localhost:5000/api/add", {
+        method: "POST",
+        body: JSON.stringify(vendorProfile),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    let newId = await response.json()
+    console.log(newId)
+    }
     return (
-    <div>
+        <div>
             This is ProfilePageForm
             
         <div className="profile-page-form">

@@ -1,6 +1,7 @@
 import express from "express";
+import VendorProfile from "../models/test.js"
 
-const {addVendor} = require("../models/test")
+// const { addVendor } = require("../models/test")
 
 const router = express.Router();
 
@@ -10,10 +11,12 @@ router.get("/welcome", (_, res) => {
 });
 
 
-router.post ("/add", async (_, res) => {
-  let vendorProfile = req.body
-  let newId = await addVendor(vendorProfile)
-  res.json(newId)
+router.post("/add", async (req, res) => {
+  let incomingData = req.body;
+  let newProfile = await new VendorProfile(incomingData);
+  let newId = await newProfile.save();
+  console.log(newId);
+  res.json(newId);
 });
 
 
