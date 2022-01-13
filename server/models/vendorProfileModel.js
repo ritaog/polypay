@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 const VendorProfileSchema = new mongoose.Schema({
-    vendorName:{type:String},
+    vendorName:{type:String, required:true},
     companyName:{type:String},
     companyAddress:{type:String},
     emailAddress:{type:String},

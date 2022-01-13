@@ -24,8 +24,8 @@ const ProfilePageForm = () => {
       emailAddress: emailAddress,
       phoneNo: phoneNo,
     }
-
-    const response = await axios.post('api/addVendorProfile', vendorProfile)
+    console.log(vendorProfile)
+    const response = await axios.post('vendor/addVendorProfile', vendorProfile)
     console.log(response)
  
   }
@@ -63,7 +63,7 @@ const ProfilePageForm = () => {
 
           <label htmlFor="email">Email Address </label>
           <input
-            type="text"
+            type="email"
             id="email"
             name="emailAddress"
             placeholder="Email address.."
@@ -72,7 +72,7 @@ const ProfilePageForm = () => {
 
           <label htmlFor="pNumber">Phone No </label>
           <input
-            type="number"
+            type="tel"
             id="pNumber"
             name="phoneNumber"
             placeholder="Phone Number.."

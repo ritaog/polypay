@@ -1,8 +1,7 @@
 import express, { json } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import apiRouter from "./routes/apiRouter.js";
-import testRouter from "./routes/testRouter.js";
+import vendorRouter from "./routes/vendorRouter.js";
 import connectDb from "./config/db.js";
 
 const app = express();
@@ -16,10 +15,7 @@ connectDb()
 
 /////////////////////ROUTES//////////////
 //description: http://localhost:5000/api
-app.use("/api", apiRouter);
-
-//test router
-app.use("/test", testRouter);
+app.use("/vendor", vendorRouter);
 
 //Server
 app.listen(PORT, () => {
