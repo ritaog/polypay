@@ -1,6 +1,7 @@
 import React from 'react'
 import './ProfilePageForm.css'
 import { useState } from 'react'
+import axios from 'axios'
 
 const ProfilePageForm = () => {
   const [name, setName] = useState('')
@@ -24,15 +25,9 @@ const ProfilePageForm = () => {
       phoneNo: phoneNo,
     }
 
-    const response = await fetch('/api/addVendorProfile', {
-      method: 'POST',
-      body: JSON.stringify(vendorProfile),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    let newId = await response.json()
-    console.log(newId)
+    const response = await axios.post('api/addVendorProfile', vendorProfile)
+    console.log(response)
+ 
   }
   return (
     <div>
