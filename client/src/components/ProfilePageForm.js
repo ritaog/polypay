@@ -12,7 +12,6 @@ const ProfilePageForm = () => {
 
     const onInputUpdate = (event,setter) => {
         let newValue = event.target.value 
-        console.log(event.target.value)
         setter(newValue)
     }
 
@@ -26,8 +25,6 @@ const ProfilePageForm = () => {
             phoneNo:phoneNo
 
     } 
-
-    console.log("vendor Profile", JSON.stringify(vendorProfile));
 
     const response = await fetch("http://localhost:5000/api/add", {
         method: "POST",
