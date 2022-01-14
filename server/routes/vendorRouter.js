@@ -1,5 +1,6 @@
 import express from "express";
-import VendorProfile from "../models/vendorProfileModel.js"
+// import VendorProfile from "../models/vendorProfileModel.js"
+
 
 const router = express.Router();
 
@@ -16,6 +17,8 @@ router.post("/addVendorProfile", async (req, res) => {
   console.log(newId);
   res.json(newId);
 });
+
+
 
 
 

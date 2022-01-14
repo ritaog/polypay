@@ -10,4 +10,19 @@ const VendorProfileSchema = new mongoose.Schema({
     phoneNo:{type:Number}
 })
 
-export default mongoose.model("VendorProfile", VendorProfileSchema);
+const VendorProfile = mongoose.model("VendorProfile", VendorProfileSchema)
+
+async function findUserByEmail(email) {
+    let profile = await VendorProfile.findOne({ email })
+    return profile
+}
+
+async function findById(id) {
+    let user = await VendorProfile.findById(id)
+    return user
+}
+
+export default {
+    findUserByEmail,
+    findById,
+}
