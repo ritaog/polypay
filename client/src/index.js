@@ -8,8 +8,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<LoginPage />} />
-      <Route path="/welcome" element={<App />} />
+      <Route path="/" element={user ? <App /> : <LoginPage />} />
+      {/* <Route path="/Home" element={} /> */}
       <Route path="/profile" element={<ProfilePage />} />
     </Routes>
   </BrowserRouter>,
