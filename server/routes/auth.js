@@ -48,7 +48,7 @@ passport.deserializeUser(function (id, done) {
 router.post('/login', passport.authenticate('local'), function (req, res) {
   // If this function gets called, authentication was successful.
   // `req.user` contains the authenticated user.
-  console.log('req.user is:', req.user)
+  if (req.body)
   res.sendStatus(200)
 })
 
