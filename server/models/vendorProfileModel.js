@@ -13,7 +13,7 @@ const VendorProfileSchema = new mongoose.Schema({
 const VendorProfile = mongoose.model("VendorProfile", VendorProfileSchema)
 
 async function findUserByEmail(email) {
-    let profile = await VendorProfile.findOne({ email })
+    let profile = await VendorProfile.findOne({ "emailAddress": email })
     return profile
 }
 

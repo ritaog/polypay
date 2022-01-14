@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000
 dotenv.config({ path: './config/config.env' })
 app.use(session({ secret: 'cats' }))
 app.use(json())
-// app.use(cors())
+app.use(cors())
 
 app.use(passport.initialize())
 app.use(passport.session())

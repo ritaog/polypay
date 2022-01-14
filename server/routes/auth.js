@@ -17,12 +17,8 @@ passport.use(
     console.log('passport is trying to verify user', username)
     VendorProfile.findUserByEmail(username)
       .then((user) => {
-        if (!user) {
-          done(null, false, { message: 'Incorrect username.' })
-          return
-        }
-        if (user.password !== password) {
-          done(null, false, { message: 'Incorrect password.' })
+        if (!user || user.password !== password) {
+          done(null, false, { message: 'Incorrect username/password.' })
           return
         }
         done(null, user)
