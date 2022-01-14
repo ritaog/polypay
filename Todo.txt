@@ -1,0 +1,5 @@
+/////////////// Things To Do ///////////
+- create endpoint that fetches user from database
+- make sure password is encrypted (hashed) in the database
+- create facebook login/instagram link
+- 

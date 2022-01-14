@@ -52,4 +52,8 @@ router.post('/login', passport.authenticate('local'), function (req, res) {
   res.sendStatus(200)
 })
 
+// router.get('/loggedInUser', function (req, res) {
+//   res.send(req.user)
+// })
+
 export default router
