@@ -6,6 +6,7 @@ const VendorProfileSchema = new mongoose.Schema({
     companyName:{type:String},
     companyAddress:{type:String},
     emailAddress:{type:String},
+    password:{type:String},
     phoneNo:{type:Number}
 })
 

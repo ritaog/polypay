@@ -8,6 +8,7 @@ const ProfilePageForm = () => {
   const [companyName, setCompanyName] = useState('')
   const [companyAddress, setCompanyAddress] = useState('')
   const [emailAddress, setEmailAddress] = useState('')
+  const [password, setPassword] = useState('')
   const [phoneNo, setPhoneNo] = useState('')
 
   const onInputUpdate = (event, setter) => {
@@ -22,7 +23,8 @@ const ProfilePageForm = () => {
       companyName: companyName,
       companyAddress: companyAddress,
       emailAddress: emailAddress,
-      phoneNo: phoneNo,
+      password: password,
+      phoneNo: phoneNo
     }
     console.log(vendorProfile)
     const response = await axios.post('vendor/addVendorProfile', vendorProfile)
@@ -68,6 +70,15 @@ const ProfilePageForm = () => {
             name="emailAddress"
             placeholder="Email address.."
             onChange={(event) => onInputUpdate(event, setEmailAddress)}
+          />
+
+          <label htmlFor="pword">Password </label>
+          <input
+            type="text"
+            id="pword"
+            name="password"
+            placeholder="Password..."
+            onChange={(event) => onInputUpdate(event, setPassword)}
           />
 
           <label htmlFor="pNumber">Phone No </label>
