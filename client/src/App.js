@@ -1,8 +1,8 @@
 import React from 'react'
-import Welcome from './components/Welcome'
+import HomePage from './pages/HomePage'
 import ProfilePage from './pages/ProfilePage'
 import LoginPage from './pages/LoginPage'
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 const App = () => {
@@ -24,8 +24,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={user ? <Welcome /> : <LoginPage />} />
-        {/* <Route path="/Home" element={} /> */}
+        <Route path="/" element={ <LoginPage />} />
+        <Route path="/Home" element={<HomePage /> } />
         <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </BrowserRouter>

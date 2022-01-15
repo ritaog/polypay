@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const Welcome = () => {
+const HomePage = () => {
   const [message, setMessage] = useState('')
 
   //grabs data from backend once page is rendered
@@ -21,4 +21,4 @@ const Welcome = () => {
   )
 }
 
-export default Welcome
+export default HomePage

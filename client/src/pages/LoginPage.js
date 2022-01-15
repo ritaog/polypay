@@ -23,7 +23,7 @@ const  handleSubmit = async (event) => {
   const response = await axios.post('auth/login', user)
   console.log(response)
   
-  navigate("/welcome")
+  navigate("/Home")
 }
 
 
