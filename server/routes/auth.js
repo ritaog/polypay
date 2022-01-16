@@ -4,9 +4,8 @@ const router = express.Router()
 
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
-// import { findUserByEmail } from "../models/vendorProfileModel.js"
 
-import VendorProfile from '../models/vendorProfileModel.js'
+import VendorProfile from '../models/vendorFunctions.js'
 
 passport.use(
   new LocalStrategy(
@@ -47,10 +46,7 @@ passport.deserializeUser(function (id, done) {
     .catch(done)
 })
 
-router.post(
-  '/login',
-  passport.authenticate('local'),
-  async function (req, res) {
+router.post('/login',passport.authenticate('local'), async function (req, res) {
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
     res.send(req.user)
@@ -78,7 +74,8 @@ router.post('/validateFb', async function (req, res) {
     permanentToken: permToken.access_token
   }
 
-  res.json(instaAccess)
+  let updatedUser = await VendorProfile.findUserAndUpdate(data.userData._id, instaAccess)
+  res.json(updatedUser)
 
 })
 
