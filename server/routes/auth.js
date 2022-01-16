@@ -3,7 +3,7 @@ const router = express.Router()
 
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
-
+// import { findUserByEmail } from "../models/vendorProfileModel.js"
 
 import VendorProfile from '../models/vendorProfileModel.js'
 
@@ -45,11 +45,10 @@ passport.deserializeUser(function (id, done) {
     .catch(done)
 })
 
-router.post('/login', passport.authenticate('local'), function (req, res) {
+router.post('/login', passport.authenticate('local'), async function (req, res) {
   // If this function gets called, authentication was successful.
   // `req.user` contains the authenticated user.
-  console.log(req.body)
-  res.sendStatus(200)
+  res.send(req.user)
 })
 
 // router.get('/loggedInUser', function (req, res) {

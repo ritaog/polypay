@@ -2,30 +2,31 @@ import React from 'react'
 
 import './LoginPage.css'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
+const LoginPage = ({ getObject }) => {
+  const [emailAddress, setEmailAddress] = useState('')
+  const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
-const LoginPage = () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault()
 
-const [ emailAddress, setEmailAddress  ] = useState("")
-const [ password, setPassword  ] = useState("")
-const navigate = useNavigate()
+    const user = {
+      emailAddress,
+      password,
+    }
 
-const  handleSubmit = async (event) => {
-  event.preventDefault()
+    const response = await axios.post('auth/login', user)
 
-  const user = {
-    emailAddress,
-    password
+    // let param = response
+
+    // param = response
+    getObject(response.data)
+
+    navigate('/Home')
   }
-
-  const response = await axios.post('auth/login', user)
-  console.log(response)
-  
-  navigate("/Home")
-}
-
 
   return (
     <div className="app">

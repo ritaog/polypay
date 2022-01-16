@@ -1,5 +1,6 @@
 import express from "express";
-// import VendorProfile from "../models/vendorProfileModel.js"
+
+ // import VendorProfile from "../models/vendorProfileModel.js"
 
 
 const router = express.Router();
@@ -26,7 +27,11 @@ router.post("/addVendorProfile", mustBeLoggedIn, async (req, res) => {
   res.json(newId);
 });
 
+//GET endpoint || description: http://localhost:5000/api/welcome
+router.get("/getUser", (req, res) => {
 
+  res.send("Hello World!!!!");
+});
 
 
 
