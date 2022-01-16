@@ -5,23 +5,25 @@ import axios from 'axios'
 
 const HomePage = ({ userData }) => {
   const [message, setMessage] = useState()
-  const [accessToken, setAccessToken] = useState()
+  const [dataBundle, setDataBundle] = useState()
 
   const responseFacebook = (response) => {
-    console.log('fb response', response)
-    setAccessToken(response)
+    let userDataBundle = {
+      userData,
+      response
+    }
+    setDataBundle(userDataBundle)
   }
 
   useEffect(() => {
     const getData = async () => {
-      console.log(accessToken)
-      const response = await axios.post('auth/validateFb', accessToken)
+      const response = await axios.post('auth/validateFb', dataBundle)
       console.log(response)
     }
-    if (accessToken){
+    if (dataBundle){
       getData()
     }
-  }, [accessToken])
+  }, [dataBundle])
 
   //grabs data from backend once page is rendered
   useEffect(() => {

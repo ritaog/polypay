@@ -24,7 +24,9 @@ const ProfilePageForm = () => {
       companyAddress: companyAddress,
       emailAddress: emailAddress,
       password: password,
-      phoneNo: phoneNo
+      phoneNo: phoneNo,
+      instagramBusinessId: '',
+      permanentToken: ''
     }
     console.log(vendorProfile)
     const response = await axios.post('vendor/addVendorProfile', vendorProfile)

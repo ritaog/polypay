@@ -58,28 +58,27 @@ router.post(
 )
 
 router.post('/validateFb', async function (req, res) {
-  let key = req.body
-  // console.log(process.env.FB_SECRET)
-  // console.log(key.accessToken)
+  let data = req.body
 
   let response1 = await fetch(
-    `https://graph.facebook.com/v12.0/me/accounts?access_token=${key.accessToken}`
+    `https://graph.facebook.com/v12.0/me/accounts?access_token=${data.response.accessToken}`
   )
   let instaPageId = await response1.json()
   let response2 = await fetch(
-    `https://graph.facebook.com/v12.0/${instaPageId.data[0].id}?fields=instagram_business_account&access_token=${key.accessToken}`
+    `https://graph.facebook.com/v12.0/${instaPageId.data[0].id}?fields=instagram_business_account&access_token=${data.response.accessToken}`
   )
   let instaBusiId = await response2.json()
   let response3 = await fetch(
-    `https://graph.facebook.com/v12.0/oauth/access_token?grant_type=fb_exchange_token&client_id=${process.env.FB_APP_ID}&client_secret=${process.env.FB_SECRET}&fb_exchange_token=${key.accessToken}`
+    `https://graph.facebook.com/v12.0/oauth/access_token?grant_type=fb_exchange_token&client_id=${process.env.FB_APP_ID}&client_secret=${process.env.FB_SECRET}&fb_exchange_token=${data.response.accessToken}`
   )
-  let permToken = await response3.json()
-  console.log('temp token:', key.accessToken)
-  console.log('user page id:', instaPageId.data[0].id)
-  console.log('insta busi account id:', instaBusiId.instagram_business_account.id)
-  console.log('insta permamnent token:', permToken.access_token)
+  let permToken = await response3.json()  
 
-  res.sendStatus(200)
+  const instaAccess = {
+    instagramBusinessId: instaBusiId.instagram_business_account.id,
+    permanentToken: permToken.access_token
+  }
+
+  res.json(instaAccess)
 
 })
 
