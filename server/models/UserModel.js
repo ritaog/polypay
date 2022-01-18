@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const UserSchema = new mongoose.Schema({
   userName: { type: String, required: true},
   userType: { type: String, required: true},
@@ -15,5 +14,6 @@ const UserSchema = new mongoose.Schema({
   permanentToken: String,
   saleItems: [String],
 })
+
 export default mongoose.model("User", UserSchema)
 
