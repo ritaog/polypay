@@ -44,7 +44,7 @@ const HomePage = ({ userData }) => {
       <div>
         <FacebookLogin
           appId="2632625433548280"
-          autoLoad={true}
+          autoLoad={false}
           fields="name,email,picture"
           scope="
           public_profile, 
