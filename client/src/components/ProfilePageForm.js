@@ -8,10 +8,10 @@ const ProfilePageForm = () => {
   const [name, setName] = useState('')
   const [companyName, setCompanyName] = useState('')
   const [companyAddress, setCompanyAddress] = useState('')
+  const [companyType, setCompanyType] = useState('')
   const [emailAddress, setEmailAddress] = useState('')
   const [password, setPassword] = useState('')
   const [phoneNo, setPhoneNo] = useState('')
-
   const navigate = useNavigate()
 
   const onInputUpdate = (event, setter) => {
@@ -21,24 +21,26 @@ const ProfilePageForm = () => {
 
   const postData = async (event) => {
     event.preventDefault()
-    let vendorProfile = {
-      vendorName: name,
+    let userProfile = {
+      userName: name,
+      userType: 'vendor',
       companyName: companyName,
       companyAddress: companyAddress,
+      companyType: companyType,
       emailAddress: emailAddress,
       password: password,
       phoneNo: phoneNo,
+      userReview: 5,
       instagramBusinessId: '',
-      permanentToken: ''
+      permanentToken: '',
+      saleItems: [],
     }
-    console.log(vendorProfile)
-    const response = await axios.post('vendor/addVendorProfile', vendorProfile)
+    console.log(userProfile)
+    const response = await axios.post('vendor/addUser', userProfile)
     console.log(response.statusText)
     if (response.statusText === 'OK') {
       navigate('/')
     }
-    
- 
   }
   return (
     <div>
@@ -47,6 +49,7 @@ const ProfilePageForm = () => {
         <form>
           <label htmlFor="name">Name</label>
           <input
+            value={name}
             type="text"
             id="name"
             name="name"
@@ -56,6 +59,7 @@ const ProfilePageForm = () => {
 
           <label htmlFor="cname">Company Name </label>
           <input
+            value={companyName}
             type="text"
             id="cname"
             name="companyName"
@@ -65,6 +69,7 @@ const ProfilePageForm = () => {
 
           <label htmlFor="cAddress">Company Address </label>
           <input
+            value={companyAddress}
             type="text"
             id="cAddress"
             name="companyAddress"
@@ -72,8 +77,20 @@ const ProfilePageForm = () => {
             onChange={(event) => onInputUpdate(event, setCompanyAddress)}
           />
 
+          <label htmlFor="cType">Company Type:</label>
+          <select name="companyType" id="cType">
+            <option value="">--Please choose an option--</option>
+            <option value="artisan">Artisan</option>
+            <option value="independent">Independent</option>
+            <option value="consignment">consignment</option>
+            <option value="vintage">Vintage</option>
+            <option value="resale">Resale</option>
+            <option value="other">Other</option>
+          </select>
+
           <label htmlFor="email">Email Address </label>
           <input
+            value={emailAddress}
             type="email"
             id="email"
             name="emailAddress"
@@ -83,6 +100,7 @@ const ProfilePageForm = () => {
 
           <label htmlFor="pword">Password </label>
           <input
+            value={password}
             type="text"
             id="pword"
             name="password"
@@ -92,6 +110,7 @@ const ProfilePageForm = () => {
 
           <label htmlFor="pNumber">Phone No </label>
           <input
+            value={phoneNo}
             type="tel"
             id="pNumber"
             name="phoneNumber"

@@ -1,11 +1,11 @@
 import express from 'express'
 import fetch from 'node-fetch'
+import { findUserByEmail, findById, findUserAndUpdate } from '../models/controller.js'
 const router = express.Router()
 
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 
-import VendorProfile from '../models/vendorFunctions.js'
 
 passport.use(
   new LocalStrategy(
@@ -15,7 +15,7 @@ passport.use(
     },
     function (username, password, done) {
       console.log('passport is trying to verify user', username)
-      VendorProfile.findUserByEmail(username)
+      findUserByEmail(username)
         .then((user) => {
           if (!user || user.password !== password) {
             done(null, false, { message: 'Incorrect username/password.' })
@@ -35,7 +35,7 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (id, done) {
   console.log('passport is trying to recover the user from a cookie')
-  VendorProfile.findById(id)
+  findById(id)
     .then((user) => {
       if (!user) {
         done(new Error('email not found or it was deleted'))
@@ -74,10 +74,18 @@ router.post('/validateFb', async function (req, res) {
     permanentToken: permToken.access_token
   }
 
-  let updatedUser = await VendorProfile.findUserAndUpdate(data.userData._id, instaAccess)
+  let updatedUser = await findUserAndUpdate(data.userData._id, instaAccess)
+  // return updatedUser
   res.json(updatedUser)
 
 })
+
+// async function findUserAndUpdate(id, userData) {
+//   let updatedUser = await VendorProfile.findByIdAndUpdate(id, userData)
+//   return updatedUser
+// }
+
+
 
 // router.get('/loggedInUser', function (req, res) {
 //   res.send(req.user)

@@ -6,7 +6,7 @@ import session from 'express-session'
 import passport from 'passport'
 
 
-import vendorRouter from './routes/vendorRouter.js'
+import vendorRouter from './routes/UserRouter.js'
 import authRoutes from './routes/auth.js'
 
 const app = express()

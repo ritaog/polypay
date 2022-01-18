@@ -4,7 +4,6 @@ import ProfilePageForm from '../components/ProfilePageForm'
 const ProfilePage = () => {
   return (
     <div>
-      This is the profile page
       <ProfilePageForm/>
     </div>
   )
