@@ -2,7 +2,7 @@ import React from 'react'
 
 import './LoginPage.css'
 import { useState } from 'react'
-import { useNavigate} from 'react-router-dom'
+import { useNavigate, Link} from 'react-router-dom'
 import axios from 'axios'
 
 const LoginPage = ({ getObject }) => {
@@ -61,6 +61,9 @@ const LoginPage = ({ getObject }) => {
               </div>
               <div className="button-container">
                 <input type="submit" />
+              </div>
+              <div>
+                <Link to={'/profile'}>Sign Up</Link>
               </div>
             </form>
           </div>

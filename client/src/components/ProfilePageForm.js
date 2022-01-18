@@ -1,6 +1,7 @@
 import React from 'react'
 import './ProfilePageForm.css'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const ProfilePageForm = () => {
@@ -10,6 +11,8 @@ const ProfilePageForm = () => {
   const [emailAddress, setEmailAddress] = useState('')
   const [password, setPassword] = useState('')
   const [phoneNo, setPhoneNo] = useState('')
+
+  const navigate = useNavigate()
 
   const onInputUpdate = (event, setter) => {
     let newValue = event.target.value
@@ -30,7 +33,11 @@ const ProfilePageForm = () => {
     }
     console.log(vendorProfile)
     const response = await axios.post('vendor/addVendorProfile', vendorProfile)
-    console.log(response)
+    console.log(response.statusText)
+    if (response.statusText === 'OK') {
+      navigate('/')
+    }
+    
  
   }
   return (
