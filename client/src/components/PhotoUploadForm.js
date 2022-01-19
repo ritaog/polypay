@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
-const PhotoUpload = () => {
-  
-  
-  const [ uploadPhoto, setUploadPhoto ] = useState()
-  const [photos, setPhotos] = useState([])
+const PhotoUpload = ({userData}) => {
+
+  console.log(userData)
+
+  const [uploadPhoto, setUploadPhoto] = useState([])
+  const [photoUrls, setPhotoUrls] = useState([])
   const [price, setPrice] = useState('')
   const [quantity, setQuantity] = useState('')
   const [caption, setCaption] = useState('')
@@ -12,6 +13,30 @@ const PhotoUpload = () => {
   const [canShip, setCanShip] = useState(false)
   const [location, setLocation] = useState('')
   const [postTime, setPostTime] = useState('')
+
+  const postData = {
+    vendorName: userData.userName,
+    vendorId: userData._id,
+    price: price,
+    quantity: quantity,
+    photos: photoUrls,
+    description: caption,
+    about: about,
+    canShip: canShip,
+    available: false,
+    postTime: postTime,
+    location: location,
+  }
+
+  useEffect(() => {
+    const postSaleItem = () => {
+      // let response = await axios.post('/', postData)
+      console.log(postData)
+    }
+    if (postData.photos.length > 0) {
+      postSaleItem()
+    }
+  }, [postData.photos])
 
   const onInputUpdate = (event, setter) => {
     let newValue = event.target.value
@@ -23,36 +48,13 @@ const PhotoUpload = () => {
     setter(newValue)
   }
 
-  const capturePostData = async (event) => {
-    event.preventDefault()
-
-    const postData = {
-      vendorName: '',
-      price: price,
-      quantity: quantity,
-      photos: photos,
-      description: caption,
-      about: about,
-      canShip: canShip,
-      available: false,
-      postTime: postTime,
-      location: location,
-    }
-
-    // const response = await axios.post('/', postData)
-    console.log(postData)
-  }
-
-  const uploadImage = async (event) => {
+  const sendData = async (event) => {
     event.preventDefault()
     console.log(uploadPhoto)
     const imageData = new FormData()
-
     imageData.append('image', uploadPhoto)
-    console.log(imageData)
-
-    let response = await axios.post('/upload/uploadImage', imageData)
-    setPhotos([response.data.secure_url])
+    let response = await axios.post('/saleItem/image', imageData)
+    setPhotoUrls([response.data.secure_url])
   }
 
   return (
@@ -68,7 +70,6 @@ const PhotoUpload = () => {
             onChange={(event) => setUploadPhoto(event.target.files[0])}
             multiple={false}
           />
-          <button onClick={uploadImage}>Upload Image</button>
         </div>
 
         <div>
@@ -151,7 +152,7 @@ const PhotoUpload = () => {
           />
         </div>
 
-        <input type="submit" value="Submit" onClick={capturePostData} />
+        <input type="submit" value="Submit" onClick={sendData} />
       </form>
     </div>
   )

@@ -11,7 +11,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 const App = () => {
 
-  const [ user, setUser ] = useState()
+  const [ user, setUser ] = useState({})
    const getObject = (userObj) => {
     console.log(userObj)
     setUser(userObj)
@@ -22,7 +22,7 @@ const App = () => {
       const response = await axios.get('auth/getLoggedInUser')
       setUser(response.data)
     }
-    getUser()
+      getUser()
   }, [])
 
   return (

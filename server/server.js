@@ -6,7 +6,7 @@ import connectDb from './config/db.js'
 import session from 'express-session'
 import passport from 'passport'
 
-import uploadRouter from './routes/uploadRouter.js'
+import saleItemRouter from './routes/saleItemRouter.js'
 import vendorRouter from './routes/userRouter.js'
 import authRoutes from './routes/auth.js'
 
@@ -35,7 +35,7 @@ connectDb()
  
 /////////////////////ROUTES//////////////
 //description: http://localhost:5000/api
-app.use('/upload', uploadRouter)
+app.use('/saleItem', saleItemRouter)
 app.use('/vendor', vendorRouter)
 app.use('/auth', authRoutes)
 

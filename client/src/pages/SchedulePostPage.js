@@ -2,11 +2,12 @@ import axios from "axios"
 import PhotoUpload from "../components/PhotoUploadForm"
 
 
-const SchedulePostPage = () => {
+const SchedulePostPage = ({userData}) => {
+  console.log(userData)
   return (
     <div>
       <h1>Schedule A Post:</h1>
-      <PhotoUpload />
+      <PhotoUpload userData={userData}/>
     </div>
   )
 }
