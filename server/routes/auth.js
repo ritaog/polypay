@@ -38,6 +38,7 @@ passport.deserializeUser(function (id, done) {
   findById(id)
     .then((user) => {
       if (!user) {
+        
         done(new Error('email not found or it was deleted'))
         return
       }
@@ -46,9 +47,12 @@ passport.deserializeUser(function (id, done) {
     .catch(done)
 })
 
-router.post('/login',passport.authenticate('local'), async function (req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
+router.post('/login', passport.authenticate('local'), async function (req, res) {
+    res.send(req.user)
+  }
+)
+
+router.get('/getLoggedInUser', async function (req, res) {
     res.send(req.user)
   }
 )

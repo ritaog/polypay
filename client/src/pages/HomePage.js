@@ -1,29 +1,10 @@
 import { useState, useEffect } from 'react'
-import FacebookLogin from 'react-facebook-login'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 
 const HomePage = ({ userData }) => {
   const [message, setMessage] = useState()
-  const [dataBundle, setDataBundle] = useState()
-
-  const responseFacebook = (response) => {
-    let userDataBundle = {
-      userData,
-      response
-    }
-    setDataBundle(userDataBundle)
-  }
-
-  useEffect(() => {
-    const getData = async () => {
-      const response = await axios.post('auth/validateFb', dataBundle)
-      console.log(response)
-    }
-    if (dataBundle){
-      getData()
-    }
-  }, [dataBundle])
 
   //grabs data from backend once page is rendered
   useEffect(() => {
@@ -38,28 +19,14 @@ const HomePage = ({ userData }) => {
     <div>
       <h1>Polypay says: {message}</h1>
       <h1>
-        Hello: {JSON.stringify(userData.vendorName)} please connect your
-        instagram account through fb.
+        Hello: {userData ? JSON.stringify(userData.userName) : "Guest"}
+  
       </h1>
       <div>
-        <FacebookLogin
-          appId="2632625433548280"
-          autoLoad={false}
-          fields="name,email,picture"
-          scope="
-          public_profile, 
-          instagram_basic, 
-          pages_show_list,
-          pages_read_engagement, 
-          ads_management, 
-          business_management, 
-          instagram_content_publish, 
-          pages_read_engagement,
-          instagram_manage_comments
-          "
-          // onClick={componentClicked}
-          callback={responseFacebook}
-        />
+        <Link to={'/LinkAccounts'}>Link Your Account To Your Platforms</Link>
+      </div>
+      <div>
+        <Link to={'/SchedulePost'}>Schedule A Post</Link>
       </div>
     </div>
   )

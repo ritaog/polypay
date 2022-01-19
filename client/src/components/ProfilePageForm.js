@@ -78,7 +78,11 @@ const ProfilePageForm = () => {
           />
 
           <label htmlFor="cType">Company Type:</label>
-          <select name="companyType" id="cType">
+          <select
+            name="companyType"
+            id="cType"
+            onChange={(event) => onInputUpdate(event, setCompanyType)}
+          >
             <option value="">--Please choose an option--</option>
             <option value="artisan">Artisan</option>
             <option value="independent">Independent</option>

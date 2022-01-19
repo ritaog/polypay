@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useNavigate, Link} from 'react-router-dom'
 import axios from 'axios'
 
-const LoginPage = ({ getObject }) => {
+const LoginPage = ({ getObject, userData }) => {
   const [emailAddress, setEmailAddress] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
@@ -20,9 +20,6 @@ const LoginPage = ({ getObject }) => {
 
     const response = await axios.post('auth/login', user)
 
-    // let param = response
-
-    // param = response
     getObject(response.data)
 
     navigate('/Home')
