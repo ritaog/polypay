@@ -79,20 +79,10 @@ router.post('/validateFb', async function (req, res) {
   }
 
   let updatedUser = await findUserAndUpdate(data.userData._id, instaAccess)
-  // return updatedUser
   res.json(updatedUser)
 
 })
 
-// async function findUserAndUpdate(id, userData) {
-//   let updatedUser = await VendorProfile.findByIdAndUpdate(id, userData)
-//   return updatedUser
-// }
 
-
-
-// router.get('/loggedInUser', function (req, res) {
-//   res.send(req.user)
-// })
 
 export default router
