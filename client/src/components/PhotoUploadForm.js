@@ -2,10 +2,9 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 const PhotoUpload = ({userData}) => {
 
-  console.log(userData)
+
 
   const [uploadPhoto, setUploadPhoto] = useState([])
-  const [photoUrls, setPhotoUrls] = useState([])
   const [price, setPrice] = useState('')
   const [quantity, setQuantity] = useState('')
   const [caption, setCaption] = useState('')
@@ -19,7 +18,7 @@ const PhotoUpload = ({userData}) => {
     vendorId: userData._id,
     price: price,
     quantity: quantity,
-    photos: photoUrls,
+    photos: [],
     description: caption,
     about: about,
     canShip: canShip,
@@ -28,15 +27,15 @@ const PhotoUpload = ({userData}) => {
     location: location,
   }
 
-  useEffect(() => {
-    const postSaleItem = () => {
-      // let response = await axios.post('/', postData)
-      console.log(postData)
-    }
-    if (postData.photos.length > 0) {
-      postSaleItem()
-    }
-  }, [postData.photos])
+  // useEffect(() => {
+  //   const postSaleItem = () => {
+  //     // let response = await axios.post('/', postData)
+  //     console.log(postData)
+  //   }
+  //   if (postData.photos.length > 0) {
+  //     postSaleItem()
+  //   }
+  // }, [postData.photos])
 
   const onInputUpdate = (event, setter) => {
     let newValue = event.target.value
@@ -50,11 +49,11 @@ const PhotoUpload = ({userData}) => {
 
   const sendData = async (event) => {
     event.preventDefault()
-    console.log(uploadPhoto)
     const imageData = new FormData()
     imageData.append('image', uploadPhoto)
-    let response = await axios.post('/saleItem/image', imageData)
-    setPhotoUrls([response.data.secure_url])
+    imageData.append('formData', JSON.stringify(postData))
+    const response = await axios.post('/saleItem/upload', imageData)
+    console.log(response)
   }
 
   return (

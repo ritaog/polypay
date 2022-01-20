@@ -2,6 +2,7 @@ import mongoose from "mongoose"
 
 const SaleItemSchema = new mongoose.Schema({
   vendorName: {type: String, required: true},
+  vendorId: String, 
   price: {type: Number, required: true},
   quantity: {type: Number, required: true},
   photos: [String],
