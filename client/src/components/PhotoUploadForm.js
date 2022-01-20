@@ -52,8 +52,10 @@ const PhotoUpload = ({userData}) => {
     const imageData = new FormData()
     imageData.append('image', uploadPhoto)
     imageData.append('formData', JSON.stringify(postData))
-    const response = await axios.post('/saleItem/upload', imageData)
-    console.log(response)
+    const responseUpload = await axios.post('/saleItem/upload', imageData)
+    console.log(responseUpload)
+    const responseSchedule = await axios.post('/saleItem/schedule', responseUpload.data)
+    console.log(responseSchedule)
   }
 
   return (
