@@ -27,40 +27,40 @@ const PhotoUpload = ({userData}) => {
     location: location,
   }
 
-  // useEffect(() => {
-  //   const postSaleItem = () => {
-  //     // let response = await axios.post('/', postData)
-  //     console.log(postData)
-  //   }
-  //   if (postData.photos.length > 0) {
-  //     postSaleItem()
-  //   }
-  // }, [postData.photos])
-
+  // function that passes setter and input events to specific states, saves writing for each input on form
   const onInputUpdate = (event, setter) => {
     let newValue = event.target.value
     setter(newValue)
   }
 
+  // similar to onInputUpdate but slightly different to work with the check box
   const onCheckBox = (event, setter) => {
     let newValue = event.target.checked
     setter(newValue)
   }
 
+  // handles the submitting of all data collected from form states. then sends data to backend for uploading to cloudinary and instagram
   const submitHandler = async (event) => {
     event.preventDefault()
+
+    // assigns a new form data constructor to append data to to send to back end. 'image' is file selected by user to be uploaded to instagram
+    // "formData" is all the data collected from the schedule post form to be sent to back end 
     const imageData = new FormData()
     imageData.append('image', uploadPhoto)
     imageData.append('formData', JSON.stringify(postData))
+
+    // first post sends photo file and form data to back end. response is the compiled sale item object with image url from cloudinary
     const responseUpload = await axios.post('/saleItem/upload', imageData)
 
     console.log(responseUpload)
-
+    
+    // shortcut to combine the response from first post and user data from user state to be sent to back end as one object
     const saleItemDataBundle = {
       ...responseUpload.data,...userData
     }
     console.log(saleItemDataBundle)
 
+    // second post sends combine object from above to back end to be posted to instagram and added to the users sale que
     const responseSchedule = await axios.post('/saleItem/schedule', saleItemDataBundle)
 
     console.log(responseSchedule)

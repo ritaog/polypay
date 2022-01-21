@@ -11,12 +11,16 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 const App = () => {
 
+  // User state set by user log in
   const [ user, setUser ] = useState({})
-   const getObject = (userObj) => {
+
+  // function that sets user. this function is pased to the '/' which we are using as the log in page for now
+  const getObject = (userObj) => {
     console.log(userObj)
     setUser(userObj)
   }
 
+  // useEffect checks browser for cookies on reload and if there is a passport cookie the user state is retrieved 
   useEffect(() => {
     const getUser = async () => {
       const response = await axios.get('auth/getLoggedInUser')

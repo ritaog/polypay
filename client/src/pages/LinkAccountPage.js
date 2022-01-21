@@ -6,7 +6,10 @@ import { Link } from 'react-router-dom'
 const LinkAccountPage = ({ userData }) => {
   const [dataBundle, setDataBundle] = useState()
 
+  // from "react-facebook-login" once user has clicked button to link facebook account. returns response from facebook with
+  // temporary access token. this is used to generate permanent access to users instagram account
   const responseFacebook = (response) => {
+    // bundles together data from response from facebook above and userData from the users state passed down from 'app.js'
     let userDataBundle = {
       userData,
       response,
@@ -14,6 +17,7 @@ const LinkAccountPage = ({ userData }) => {
     setDataBundle(userDataBundle)
   }
 
+  // once data bundle has been saved. data is sent to the "/validateFb" endpoint in back end to generate instagram business id and permanent access token
   useEffect(() => {
     const getData = async () => {
       const response = await axios.post('auth/validateFb', dataBundle)

@@ -10,18 +10,21 @@ const LoginPage = ({ getObject, userData }) => {
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
+  // submit handler that sends entered email and password to '/login' endpoint to be authenticated
   const handleSubmit = async (event) => {
     event.preventDefault()
-
     const user = {
       emailAddress,
       password,
     }
 
+    // data is sent to login endpoint
     const response = await axios.post('auth/login', user)
 
+    // response from authentication endpoint (userdata if corrrect email/password) is assigned to the users state function on 'app.js'
     getObject(response.data)
 
+    // navigates to home page
     navigate('/Home')
   }
 
