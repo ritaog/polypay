@@ -2,7 +2,7 @@ import React from 'react'
 
 import './LoginPage.css'
 import { useState } from 'react'
-import { useNavigate, Link} from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 
 const LoginPage = ({ getObject, userData }) => {
