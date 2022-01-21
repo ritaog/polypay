@@ -1,5 +1,7 @@
 import mongoose from "mongoose"
 
+// Sale Item Schema
+
 const SaleItemSchema = new mongoose.Schema({
   vendorName: {type: String, required: true},
   vendorId: String, 

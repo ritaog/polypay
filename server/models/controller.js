@@ -1,5 +1,7 @@
 import User from './UserModel.js'
 
+// Controller for User Models
+
 export async function findUserByEmail(email) {
   let profile = await User.findOne({ emailAddress: email })
   return profile

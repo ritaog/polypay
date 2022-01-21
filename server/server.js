@@ -34,7 +34,7 @@ app.use(passport.session())
 connectDb()
  
 /////////////////////ROUTES//////////////
-//description: http://localhost:5000/api
+//description: http://localhost:5000/
 app.use('/saleItem', saleItemRouter)
 app.use('/vendor', vendorRouter)
 app.use('/auth', authRoutes)

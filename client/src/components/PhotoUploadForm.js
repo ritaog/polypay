@@ -47,7 +47,7 @@ const PhotoUpload = ({userData}) => {
     setter(newValue)
   }
 
-  const sendData = async (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault()
     const imageData = new FormData()
     imageData.append('image', uploadPhoto)
@@ -161,7 +161,7 @@ const PhotoUpload = ({userData}) => {
           />
         </div>
 
-        <input type="submit" value="Submit" onClick={sendData} />
+        <input type="submit" value="Submit" onClick={submitHandler} />
       </form>
     </div>
   )

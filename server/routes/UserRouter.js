@@ -19,18 +19,20 @@ router.get("/welcome", (_, res) => {
 
 // POST endpoint || description: takes data from userForm and sends to DB
 router.post("/addUser", async (req, res) => {
+  // receives new profile data from front end
   let incomingData = req.body;
+
+  // adds received data to User constructor
   let newProfile = await new User(incomingData);
+
+  // saves new user data to users collection database
   let newId = await newProfile.save()
   console.log(newId);
+  
+  // sends id back to front end
   res.json(newId);
 });
 
-//GET endpoint || description: http://localhost:5000/api/welcome
-router.get("/getUser", (req, res) => {
-
-  res.send("Hello World!!!!");
-});
 
 
 
