@@ -45,7 +45,7 @@ const App = () => {
         />
         <Route path="/profile" element={<ProfilePage />} />
         <Route
-          path="/portfolio"
+          path="/portfolio/:id"
           element={<DisplayItemsPage userData={user} />}
         />
       </Routes>

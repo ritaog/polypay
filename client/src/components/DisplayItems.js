@@ -16,7 +16,7 @@ const DisplayItems = (userData) => {
 
   const returnedItems = saleItems.map((item) => {
     return (
-      <div>
+      <div key={item._id}>
         <p>{item.description}</p>
         <h3>{item.price}</h3>
         <img src={item.photos[0]} alt={item.vendorName}></img>
