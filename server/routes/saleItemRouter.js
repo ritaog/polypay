@@ -6,11 +6,9 @@ import SaleItem from '../models/saleItemModel.js'
 
 const router = express.Router()
 
-
 // POST endpoint || Receives the saleItem object and the file to be uploaded to cloudinary, returns saleItem object with image url
 router.post('/upload', upload.single('image'), async (req, res) => {
-  
-  // sends file sent from front end to be uploaded to instagram to cloudinary. uses cloudinary upload config in "../utils/cloudinary.js" 
+  // sends file sent from front end to be uploaded to instagram to cloudinary. uses cloudinary upload config in "../utils/cloudinary.js"
   const result = await cloudinary.uploader.upload(req.file.path)
 
   // parses received formData from front end and parses to JSON
@@ -39,21 +37,20 @@ router.post('/schedule', async (req, res) => {
   // Date() constructor is used to find the current time of the request
   let currentTime = new Date()
 
-  // uses the postTime the was selected by user in front end. adds time to Date() constructor 
+  // uses the postTime the was selected by user in front end. adds time to Date() constructor
   let scheduleTime = new Date(postItem.postTime)
 
-  console.log("current time", currentTime.getTime())
-  console.log("schedule  time", scheduleTime.getTime())
+  console.log('current time', currentTime.getTime())
+  console.log('schedule  time', scheduleTime.getTime())
 
   // .getTime() used on both scheduleTime and current time converts date received from user in front end and current time into milliseconds
   // times are subtracted to determine the delay time for post
   const delayTime = scheduleTime.getTime() - currentTime.getTime()
 
-  console.log("delay time",delayTime)
+  console.log('delay time', delayTime)
 
   // function that is called after specified delay determined on line 49, delay statement is on line 69
   const postSaleItem = async () => {
-
     // incoming cloudinary url is spliced at specifice spot. this is because first part of url is always the same and aspect ratio and width
     // must be added manually => (ar_4:5,c_scale,w_1080). this is because instagram requires a specific ar and width.
     const urlSplice = postItem.photos[0].split('').splice(50).join('')
@@ -88,18 +85,21 @@ router.post('/schedule', async (req, res) => {
     res.send(resPostText)
   }
 
-  // delay statement that calls postSaleItem after determined delay time. if delay time is less than 0 it is posted immediately 
+  // delay statement that calls postSaleItem after determined delay time. if delay time is less than 0 it is posted immediately
   if (delayTime > 0) {
     // timeout function for delay
     setTimeout(postSaleItem, delayTime)
-  }
-  else {
+  } else {
     postSaleItem()
   }
 })
 
-
-
-
+//GET endpoint || description: localhost:5000/SaleItem/listSaleItems
+router.get('/listSaleItems', async (req, res) => {
+  const user = req.user
+  console.log('This is the user', user)
+  const response = await SaleItem.find({ vendorId: user._id })
+  res.json(response)
+})
 
 export default router
