@@ -55,9 +55,12 @@ const PhotoUpload = ({userData}) => {
     console.log(responseUpload)
     
     // shortcut to combine the response from first post and user data from user state to be sent to back end as one object
+    const {instagramBusinessId, permanentToken, saleItems} = userData
+
     const saleItemDataBundle = {
-      ...responseUpload.data,...{instagramBusinessId: userData.instagramBusinessId},...{permanentToken: userData.permanentToken},...{saleItems: userData.saleItems}
+      ...responseUpload.data, instagramBusinessId, permanentToken, saleItems
     }
+
     console.log("saleItemDataBundle",saleItemDataBundle)
 
     // second post sends combine object from above to back end to be posted to instagram and added to the users sale que
