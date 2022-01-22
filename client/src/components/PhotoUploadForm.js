@@ -56,9 +56,9 @@ const PhotoUpload = ({userData}) => {
     
     // shortcut to combine the response from first post and user data from user state to be sent to back end as one object
     const saleItemDataBundle = {
-      ...responseUpload.data,...userData
+      ...responseUpload.data,...{instagramBusinessId: userData.instagramBusinessId},...{permanentToken: userData.permanentToken},...{saleItems: userData.saleItems}
     }
-    console.log(saleItemDataBundle)
+    console.log("saleItemDataBundle",saleItemDataBundle)
 
     // second post sends combine object from above to back end to be posted to instagram and added to the users sale que
     const responseSchedule = await axios.post('/saleItem/schedule', saleItemDataBundle)

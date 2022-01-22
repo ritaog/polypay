@@ -3,6 +3,7 @@ import fetch from 'node-fetch'
 import cloudinary from '../utils/cloudinary.js'
 import upload from '../utils/multer.js'
 import SaleItem from '../models/saleItemModel.js'
+import { findUserAndUpdate } from '../models/controller.js'
 
 const router = express.Router()
 
@@ -32,7 +33,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 router.post('/schedule', async (req, res) => {
   // sale item data from front end is received
   let postItem = req.body
-  console.log(postItem)
+  console.log("postItem", postItem)
 
   // Date() constructor is used to find the current time of the request
   let currentTime = new Date()
@@ -81,7 +82,15 @@ router.post('/schedule', async (req, res) => {
     // converts response from second api call to json
     const resPostText = await resPost.json()
 
-    // sends response for post back to front end
+    // new array spread to add new sale item id to user saleItems array
+    let updatedSaleItems = {
+      saleItems: [...postItem.saleItems, postItem._id]
+    }
+
+    // function from "../models/controller.js" finds user by id and updates sale items array with new array created on line 86
+    await findUserAndUpdate(postItem.vendorId, updatedSaleItems)
+    
+    // sends instagram response back to front end
     res.send(resPostText)
   }
 
