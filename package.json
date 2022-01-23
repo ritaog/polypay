@@ -1,7 +1,6 @@
 {
   "name": "polypay",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "install": "npm run install-client && npm run install-server",
@@ -21,5 +20,6 @@
   "bugs": {
     "url": "https://github.com/ritaog/polypay/issues"
   },
-  "homepage": "https://github.com/ritaog/polypay#readme"
+  "homepage": "https://github.com/ritaog/polypay#readme",
+  "description": ""
 }
