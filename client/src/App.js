@@ -35,10 +35,10 @@ const App = () => {
           element={<LoginPage userData={user} getObject={getObject} />}
         />
         <Route path="/Home" element={<HomePage userData={user} />} />
-        {/* <Route
+        <Route
           path="/LinkAccounts"
           element={<LinkAccountPage userData={user} />}
-        /> */}
+        />
         <Route
           path="/SchedulePost"
           element={<SchedulePostPage userData={user} />}
