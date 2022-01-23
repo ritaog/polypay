@@ -1,5 +1,5 @@
 import express from "express";
-import User from "../models/UserModel.js"
+import User from "../models/userModel.js"
 
 
 const router = express.Router();
@@ -29,7 +29,7 @@ router.post("/addUser", async (req, res) => {
   let newId = await newProfile.save()
   console.log(newId);
   
-  
+
   // sends id back to front end
   res.json(newId);
 });
