@@ -13,10 +13,10 @@ import vendorRouter from './routes/userRouter.js'
 import authRoutes from './routes/auth.js'
 
 const app = express()
+dotenv.config({ path: './config/config.env' })
+
 const PORT = process.env.PORT || 5000
 
-
-dotenv.config({ path: './config/config.env' })
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(session({ secret: 'meow-meow', resave: true, saveUninitialized: true }))
