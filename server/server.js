@@ -5,6 +5,8 @@ import bodyParser from 'body-parser'
 import connectDb from './config/db.js'
 import session from 'express-session'
 import passport from 'passport'
+import path from 'path'
+const __dirname = path.resolve()
 
 import saleItemRouter from './routes/saleItemRouter.js'
 import vendorRouter from './routes/userRouter.js'
@@ -38,6 +40,10 @@ connectDb()
 app.use('/saleItem', saleItemRouter)
 app.use('/vendor', vendorRouter)
 app.use('/auth', authRoutes)
+app.use('/', express.static('../client/build'))
+app.use('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'))
+})
 
 //Server
 app.listen(PORT, () => {
