@@ -8,7 +8,7 @@ const HomePage = ({ userData }) => {
   //grabs data from backend once page is rendered
   useEffect(() => {
     const getData = async () => {
-      const response = await axios.get('vendor/welcome')
+      const response = await axios.get('user/welcome')
       setMessage(response.data)
     }
     getData()
