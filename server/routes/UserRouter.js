@@ -1,8 +1,7 @@
-import express from "express";
-import User from "../models/userModel.js"
+import express from 'express'
+import User from '../models/userModel.js'
 
-
-const router = express.Router();
+const router = express.Router()
 
 // const mustBeLoggedIn = async (req, res, next) => {
 //   if (req.user) {
@@ -11,29 +10,26 @@ const router = express.Router();
 //   }
 //   res.sendStatus(401)
 // }
- 
+
 //GET endpoint || description: http://localhost:5000/api/welcome
-router.get("/welcome", (_, res) => {
-  res.send("Hello World!!!!");
-});
+router.get('/welcome', (_, res) => {
+  res.send('Hello World!!!!')
+})
 
 // POST endpoint || description: takes data from userForm and sends to DB
-router.post("/addUser", async (req, res) => {
+router.post('/addUser', async (req, res) => {
   // receives new profile data from front end
-  let incomingData = req.body;
+  let incomingData = req.body
 
   // adds received data to User constructor
-  let newProfile = await new User(incomingData);
+  let newProfile = await new User(incomingData)
 
   // saves new user data to users collection database
   let newId = await newProfile.save()
-  console.log(newId);
-  
+  console.log(newId)
+
   // sends id back to front end
-  res.json(newId);
-});
+  res.json(newId)
+})
 
-
-
-
-export default router;
+export default router
