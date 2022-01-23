@@ -2,6 +2,7 @@
   "name": "polypay",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {"node": "14.18.1"},
   "scripts": {
     "install": "npm run install-client && npm run install-server",
     "build": "npm run build-client",
