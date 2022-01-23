@@ -36,7 +36,7 @@ const ProfilePageForm = () => {
       saleItems: [],
     }
     console.log(userProfile)
-    const response = await axios.post('vendor/addUser', userProfile)
+    const response = await axios.post('user/addUser', userProfile)
     console.log(response.statusText)
     if (response.statusText === 'OK') {
       navigate('/')
