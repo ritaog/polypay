@@ -1,4 +1,4 @@
-import User from './UserModel.js'
+import User from './userModel.js'
 
 // Controller for User Models
 
