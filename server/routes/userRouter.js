@@ -29,6 +29,7 @@ router.post("/addUser", async (req, res) => {
   let newId = await newProfile.save()
   console.log(newId);
   
+  
   // sends id back to front end
   res.json(newId);
 });
