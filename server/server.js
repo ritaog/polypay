@@ -9,7 +9,7 @@ import path from 'path'
 const __dirname = path.resolve()
 
 import saleItemRouter from './routes/saleItemRouter.js'
-import userRouter from './routes/userRouter.js'
+// import userRouter from './routes/userRouter.js'
 import authRoutes from './routes/auth.js'
 
 const app = express()
@@ -38,7 +38,7 @@ connectDb()
 /////////////////////ROUTES//////////////
 //description: http://localhost:5000/
 app.use('/saleItem', saleItemRouter)
-app.use('/user', userRouter)
+// app.use('/user', userRouter)
 app.use('/auth', authRoutes)
 app.use('/', express.static('../client/build'))
 app.use('*', (req, res) => {
