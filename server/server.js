@@ -9,7 +9,7 @@ import path from 'path'
 const __dirname = path.resolve()
 
 import saleItemRouter from './routes/saleItemRouter.js'
-import userRouter from './routes/UserRouter.js'
+import userRouter from './routes/userRouter.js'
 import authRoutes from './routes/auth.js'
 
 const app = express()
