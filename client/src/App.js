@@ -2,7 +2,7 @@ import React from 'react'
 import HomePage from './pages/HomePage'
 import ProfilePage from './pages/ProfilePage'
 import LoginPage from './pages/LoginPage'
-import LinkAccountPage from './pages/LinkAccountPage'
+// import LinkAccountPage from './pages/LinkAccountPage'
 import SchedulePostPage from './pages/SchedulePostPage'
 import DisplayItemsPage from './pages/DisplayItemsPage'
 import axios from 'axios'
@@ -35,10 +35,10 @@ const App = () => {
           element={<LoginPage userData={user} getObject={getObject} />}
         />
         <Route path="/Home" element={<HomePage userData={user} />} />
-        <Route
+        {/* <Route
           path="/LinkAccounts"
           element={<LinkAccountPage userData={user} />}
-        />
+        /> */}
         <Route
           path="/SchedulePost"
           element={<SchedulePostPage userData={user} />}
