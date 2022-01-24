@@ -45,8 +45,12 @@ const App = () => {
         />
         <Route path="/profile" element={<ProfilePage />} />
         <Route
-          path="/portfolio/:id"
+          path="/portfolio"
           element={<DisplayItemsPage userData={user} />}
+        />
+        <Route
+          path="/portfolio/:id"
+          element={<DisplayItemsPage />}
         />
       </Routes>
     </BrowserRouter>

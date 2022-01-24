@@ -26,7 +26,7 @@ const HomePage = ({ userData }) => {
       </div>
 
       <div>
-        <Link to={`/portfolio/${userData._id}`}>View all items for sale</Link>
+        <Link to={'/portfolio'}>View all items for sale</Link>
       </div>
     </div>
   )

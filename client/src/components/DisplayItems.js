@@ -2,16 +2,26 @@ import axios from 'axios'
 import './DisplayItem.css'
 import { useState, useEffect } from 'react'
 
-const DisplayItems = (userData) => {
+const DisplayItems = ({userData, profileId}) => {
   const [saleItems, setSaleItems] = useState([])
-
   useEffect(() => {
-    const getSaleItems = async () => {
-      const response = await axios.get('/saleItem/listSaleItems')
-      //console.log(response.data)
+    const getSaleItemsByProfileId = async () => {
+        const response = await axios.get('/saleItem/listSaleItemsById/' + profileId)
       setSaleItems(response.data)
     }
-    getSaleItems()
+    if (profileId) {
+      getSaleItemsByProfileId()
+    }
+  }, [profileId])
+
+  useEffect(() => {
+    const getSaleItemsByLoggedUser = async () => {
+      const response = await axios.get('/saleItem/listSaleItemsByLoggedUser')
+      setSaleItems(response.data)
+    }
+    if (!profileId) {
+      getSaleItemsByLoggedUser()
+    }
   }, [])
 
   const returnedItems = saleItems.map((item) => {

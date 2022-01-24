@@ -104,10 +104,17 @@ router.post('/schedule', async (req, res) => {
 })
 
 //GET endpoint || description: localhost:5000/SaleItem/listSaleItems
-router.get('/listSaleItems', async (req, res) => {
-  const user = req.user
-  console.log('This is the user', user)
-  const response = await SaleItem.find({ vendorId: user._id })
+router.get('/listSaleItemsById/:id', async (req, res) => {
+  const userId = req.params.id
+  console.log('userId', userId);
+  const response = await SaleItem.find({ vendorId: userId })
+  res.json(response)
+})
+
+router.get('/listSaleItemsByLoggedUser', async (req, res) => {
+  const userId = req.user
+  console.log('userId', userId._id)
+  const response = await SaleItem.find({ vendorId: userId._id })
   res.json(response)
 })
 
