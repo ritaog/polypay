@@ -1,13 +1,16 @@
 import React from 'react'
+import axios from 'axios'
+import { useState, useEffect } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import ProfilePage from './pages/ProfilePage'
 import LoginPage from './pages/LoginPage'
 import LinkAccountPage from './pages/LinkAccountPage'
 import SchedulePostPage from './pages/SchedulePostPage'
 import DisplayItemsPage from './pages/DisplayItemsPage'
-import axios from 'axios'
-import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import CheckoutPage from './pages/CheckoutPage'
+
+
 
 const App = () => {
   //user state set by user login
@@ -51,6 +54,10 @@ const App = () => {
         <Route
           path="/portfolio/:id"
           element={<DisplayItemsPage />}
+        />
+         <Route
+          path="/checkout/:id"
+          element={<CheckoutPage/>}
         />
       </Routes>
     </BrowserRouter>

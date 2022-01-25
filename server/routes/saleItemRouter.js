@@ -103,7 +103,7 @@ router.post('/schedule', async (req, res) => {
   }
 })
 
-//GET endpoint || description: localhost:5000/SaleItem/listSaleItems
+//GET endpoint || description: localhost:5000/saleItem/listSaleItems
 router.get('/listSaleItemsById/:id', async (req, res) => {
   const userId = req.params.id
   console.log('userId', userId);
@@ -115,6 +115,14 @@ router.get('/listSaleItemsByLoggedUser', async (req, res) => {
   const userId = req.user
   console.log('userId', userId._id)
   const response = await SaleItem.find({ vendorId: userId._id })
+  res.json(response)
+})
+
+//GET endpoint || description: localhost:5000/saleItem/getSaleItemById
+router.get('/getSaleItemById/:id', async (req, res) => {
+  const saleItemId = req.params.id
+  console.log('saleItemId', saleItemId);
+  const response = await SaleItem.findById(saleItemId)
   res.json(response)
 })
 
