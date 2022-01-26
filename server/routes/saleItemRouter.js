@@ -111,6 +111,7 @@ router.get('/listSaleItemsById/:id', async (req, res) => {
   res.json(response)
 })
 
+// GET endpoint || description: localhost:5000/saleItem/listSaleItemsByLoggedUser
 router.get('/listSaleItemsByLoggedUser', async (req, res) => {
   const userId = req.user
   console.log('userId', userId._id)

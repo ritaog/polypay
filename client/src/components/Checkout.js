@@ -21,7 +21,7 @@ const Checkout = () => {
 
 
         <p>{saleItem.description}</p>
-        <img src={saleItem.photos[0]} alt={saleItem.vendorName}></img>
+        <img src={saleItem.photos} alt={saleItem.vendorName}></img>
         <p>{saleItem.vendorName}</p>
         <p>Price{saleItem.price}</p>
         <p>Quantity Available{saleItem.quantity}</p>
