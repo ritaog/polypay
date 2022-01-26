@@ -23,7 +23,7 @@ const DisplayItems = ({userData, profileId}) => {
     if (!profileId) {
       getSaleItemsByLoggedUser()
     }
-  }, [])
+  }, [profileId])
 
   const returnedItems = saleItems.map((item) => {
     return (
