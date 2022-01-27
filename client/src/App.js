@@ -33,11 +33,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<HomePage userData={user} />} />
         <Route
-          path="/"
+          path="/Login"
           element={<LoginPage userData={user} getObject={getObject} />}
         />
-        <Route path="/Home" element={<HomePage userData={user} />} />
         <Route
           path="/LinkAccounts"
           element={<LinkAccountPage userData={user} />}
@@ -51,14 +51,8 @@ const App = () => {
           path="/portfolio"
           element={<DisplayItemsPage userData={user} />}
         />
-        <Route
-          path="/portfolio/:id"
-          element={<DisplayItemsPage />}
-        />
-         <Route
-          path="/checkout/:id"
-          element={<CheckoutPage/>}
-        />
+        <Route path="/portfolio/:id" element={<DisplayItemsPage />} />
+        <Route path="/checkout/:id" element={<CheckoutPage />} />
       </Routes>
     </BrowserRouter>
   )

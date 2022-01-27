@@ -25,7 +25,7 @@ const LoginPage = ({ getObject, userData }) => {
     getObject(response.data)
 
     // navigates to home page
-    navigate('/Home')
+    navigate('/')
   }
 
   return (
