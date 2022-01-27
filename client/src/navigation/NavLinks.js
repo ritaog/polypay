@@ -1,5 +1,5 @@
 import React from 'react';
-import LogInButton from '../components/LogInButton';
+import LogInButton from '../ui/LogInButton';
 import UserIcon from './UserIcon'
 
 const NavLinks = ({userData}) => {
