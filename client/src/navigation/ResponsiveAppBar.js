@@ -14,7 +14,6 @@ import MenuItem from '@mui/material/MenuItem'
 
 import SignUpButton from './SignUpModal'
 
-const pages = ['Link Profile', 'Schedule Post', 'View All']
 const settings = ['Profile', 'Scheduled Posts', 'Dashboard', 'Logout']
 
 const ResponsiveAppBar = ({ userData, getUserState }) => {
@@ -76,16 +75,31 @@ const ResponsiveAppBar = ({ userData, getUserState }) => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem onClick={handleCloseNavMenu}>
                   <Typography
                     textAlign="center"
                     sx={{ display: { color: 'black' } }}
                   >
-                    {page}
+                    Link Account
                   </Typography>
                 </MenuItem>
-              ))}
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography
+                    textAlign="center"
+                    sx={{ display: { color: 'black' } }}
+                  >
+                    Schedule Post
+                  </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography
+                    textAlign="center"
+                    sx={{ display: { color: 'black' } }}
+                  >
+                    View All
+                  </Typography>
+                </MenuItem>
+
             </Menu>
           </Box>
           <Typography
@@ -100,15 +114,18 @@ const ResponsiveAppBar = ({ userData, getUserState }) => {
             PolyPay
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button href='/' sx={{ my: 2, color: 'black', display: 'block' }}>
+              Home
+            </Button>
+            <Button href='/linkaccounts' sx={{ my: 2, color: 'black', display: 'block' }}>
+              Link Profile
+            </Button>
+            <Button href='/schedulepost' sx={{ my: 2, color: 'black', display: 'block' }}>
+              Schedule Post
+            </Button>
+            <Button href='/portfolio' sx={{ my: 2, color: 'black', display: 'block' }}>
+              View All
+            </Button>
           </Box>
 
           <Typography
@@ -127,7 +144,7 @@ const ResponsiveAppBar = ({ userData, getUserState }) => {
                 </IconButton>
               </Tooltip>
             ) : (
-              <SignUpButton getUserState={getUserState}/>
+              <SignUpButton getUserState={getUserState} />
             )}
 
             <Menu
