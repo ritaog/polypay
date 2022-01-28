@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react'
 import FacebookLogin from 'react-facebook-login'
+import LinkFacebookCard from '../components/ui/LinkFaceBookCard'
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+import Box from '@mui/material/Box'
+import { styled } from '@mui/material/styles'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
@@ -28,39 +33,41 @@ const LinkAccountPage = ({ userData }) => {
     }
   }, [dataBundle])
 
+  const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }))
+
   return (
     <div>
-      <h1>
-        {userData
-          ? JSON.stringify(userData.userName)
-          : 'log in to link accounts:'}{' '}
-        please connect your instagram account through fb.
-      </h1>
+      <Box spacing={1} sx={{ width: '100%' }}>
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="stretch"
+          rowSpacing={1}
+          sx={{ padding: '0 300px 0 300px' }}
+        >
+          <Grid item xs={8}>
+            <Item sx={{ margin: '10px' }}>
+              <LinkFacebookCard userData={userData} />
+            </Item>
+            <Item sx={{ margin: '10px' }}>
+              <LinkFacebookCard userData={userData} />
+            </Item>
+            <Item sx={{ margin: '10px' }}>
+              <LinkFacebookCard userData={userData} />
+            </Item>
+            <Item sx={{ margin: '10px' }}>
+              <LinkFacebookCard userData={userData} />
+            </Item>
+          </Grid>
+        </Grid>
+      </Box>
       <div>
-        <div>
-          <Link to={'/'}>Log in page</Link>
-        </div>
-        <br/>
-        <div>
-          <FacebookLogin
-            appId="2632625433548280"
-            autoLoad={false}
-            fields="name,email,picture"
-            scope="
-          public_profile, 
-          instagram_basic, 
-          pages_show_list,
-          pages_read_engagement, 
-          ads_management, 
-          business_management, 
-          instagram_content_publish, 
-          pages_read_engagement,
-          instagram_manage_comments
-          "
-            // onClick={componentClicked}
-            callback={responseFacebook}
-          />
-        </div>
       </div>
     </div>
   )
