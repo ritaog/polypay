@@ -11,6 +11,7 @@ import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
+import Link from '@mui/material/Link'
 
 import SignUpButton from './SignUpModal'
 
@@ -52,7 +53,7 @@ const ResponsiveAppBar = ({ userData, getUserState }) => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex', color: 'black' } }}
+            sx={{ mr: 2, display: { xs: 'none', md: 'flex', color: 'black', fontWeight: '600' } }}
           >
             PolyPay
           </Typography>
@@ -75,31 +76,30 @@ const ResponsiveAppBar = ({ userData, getUserState }) => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography
-                    textAlign="center"
-                    sx={{ display: { color: 'black' } }}
-                  >
-                    Link Account
-                  </Typography>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography
-                    textAlign="center"
-                    sx={{ display: { color: 'black' } }}
-                  >
-                    Schedule Post
-                  </Typography>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography
-                    textAlign="center"
-                    sx={{ display: { color: 'black' } }}
-                  >
-                    View All
-                  </Typography>
-                </MenuItem>
-
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography
+                  textAlign="center"
+                  sx={{ display: { color: 'black' } }}
+                >
+                  Link Account
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography
+                  textAlign="center"
+                  sx={{ display: { color: 'black' } }}
+                >
+                  Schedule Post
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography
+                  textAlign="center"
+                  sx={{ display: { color: 'black' } }}
+                >
+                  View All
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Typography
@@ -114,16 +114,25 @@ const ResponsiveAppBar = ({ userData, getUserState }) => {
             PolyPay
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button href='/' sx={{ my: 2, color: 'black', display: 'block' }}>
+            <Button href="/" sx={{ my: 2, color: 'black', display: 'block' }}>
               Home
             </Button>
-            <Button href='/linkaccounts' sx={{ my: 2, color: 'black', display: 'block' }}>
+            <Button
+              href="/linkaccounts"
+              sx={{ my: 2, color: 'black', display: 'block' }}
+            >
               Link Profile
             </Button>
-            <Button href='/schedulepost' sx={{ my: 2, color: 'black', display: 'block' }}>
+            <Button
+              href="/schedulepost"
+              sx={{ my: 2, color: 'black', display: 'block' }}
+            >
               Schedule Post
             </Button>
-            <Button href='/portfolio' sx={{ my: 2, color: 'black', display: 'block' }}>
+            <Button
+              href="/portfolio"
+              sx={{ my: 2, color: 'black', display: 'block' }}
+            >
               View All
             </Button>
           </Box>
@@ -163,11 +172,27 @@ const ResponsiveAppBar = ({ userData, getUserState }) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem
+                component={Link}
+                href="/profile"
+                onClick={handleCloseUserMenu}
+              >
+                <Typography textAlign="center">Profile</Typography>
+              </MenuItem>
+              <MenuItem
+                component={Link}
+                href="/"
+                onClick={handleCloseUserMenu}
+              >
+                <Typography textAlign="center">Dashboard</Typography>
+              </MenuItem>
+              <MenuItem
+                component={Link}
+                href="/"
+                onClick={handleCloseUserMenu}
+              >
+                <Typography textAlign="center">Sign Out</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

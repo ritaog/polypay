@@ -10,7 +10,7 @@ import LinkAccountPage from './pages/LinkAccountPage'
 import SchedulePostPage from './pages/SchedulePostPage'
 import DisplayItemsPage from './pages/DisplayItemsPage'
 import CheckoutPage from './pages/CheckoutPage'
-import ResponsiveAppBar from './navigation/ResponsiveAppBar'
+import ResponsiveAppBar from './components/navigation/ResponsiveAppBar'
 
 
 const App = () => {
