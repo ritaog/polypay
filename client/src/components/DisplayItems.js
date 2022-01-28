@@ -1,13 +1,16 @@
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import './DisplayItem.css'
 import { useState, useEffect } from 'react'
+import TitlebarImageList from './ui/TitleBarImageList'
 
-const DisplayItems = ({userData, profileId}) => {
+const DisplayItems = ({ userData, profileId }) => {
   const [saleItems, setSaleItems] = useState([])
   useEffect(() => {
     const getSaleItemsByProfileId = async () => {
-        const response = await axios.get('/saleItem/listSaleItemsById/' + profileId)
+      const response = await axios.get(
+        '/saleItem/listSaleItemsById/' + profileId
+      )
       setSaleItems(response.data)
     }
     if (profileId) {
@@ -25,22 +28,25 @@ const DisplayItems = ({userData, profileId}) => {
     }
   }, [profileId])
 
-  const returnedItems = saleItems.map((item) => {
-    return (
-      
-      <div key={item._id}>
-        <p>{item.description}</p>
-        <h3>{item.price}</h3>
-        <Link to = {`/checkout/${item._id}`}>
-        <img src={item.photos[0]} alt={item.vendorName}></img>
-        <button>Add to cart</button>
-        </Link>
-      </div>
- 
-    )
-  })
+  // const returnedItems = saleItems.map((item) => {
+  //   return (
+  //     <div key={item._id}>
+  //       <p>{item.description}</p>
+  //       <h3>{item.price}</h3>
+  //       <Link to={`/checkout/${item._id}`}>
+  //         <img src={item.photos[0]} alt={item.vendorName}></img>
+  //         <button>Add to cart</button>
+  //       </Link>
+  //     </div>
+  //   )
+  // })
 
-  return <div>{returnedItems}</div>
+  return (
+    <div>
+      <TitlebarImageList />
+
+    </div>
+  )
 }
 
 export default DisplayItems

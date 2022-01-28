@@ -1,37 +1,26 @@
-import { useState, useEffect } from 'react'
-import FacebookLogin from 'react-facebook-login'
+// import { useState, useEffect } from 'react'
+// import FacebookLogin from 'react-facebook-login'
 import LinkFacebookCard from '../components/ui/LinkFaceBookCard'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
-import axios from 'axios'
-import { Link } from 'react-router-dom'
+// import axios from 'axios'
+// import { Link } from 'react-router-dom'
 
 const LinkAccountPage = ({ userData }) => {
-  const [dataBundle, setDataBundle] = useState()
-
-  // from "react-facebook-login" once user has clicked button to link facebook account. returns response from facebook with
-  // temporary access token. this is used to generate permanent access to users instagram account
-  const responseFacebook = (response) => {
-    // bundles together data from response from facebook above and userData from the users state passed down from 'app.js'
-    let userDataBundle = {
-      userData,
-      response,
-    }
-    setDataBundle(userDataBundle)
-  }
+  // const [dataBundle, setDataBundle] = useState()
 
   // once data bundle has been saved. data is sent to the "/validateFb" endpoint in back end to generate instagram business id and permanent access token
-  useEffect(() => {
-    const getData = async () => {
-      const response = await axios.post('auth/validateFb', dataBundle)
-      console.log(response)
-    }
-    if (dataBundle) {
-      getData()
-    }
-  }, [dataBundle])
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const response = await axios.post('auth/validateFb', dataBundle)
+  //     console.log(response)
+  //   }
+  //   if (dataBundle) {
+  //     getData()
+  //   }
+  // }, [dataBundle])
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,

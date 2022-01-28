@@ -1,3 +1,5 @@
+
+
 import DisplayItems from '../components/DisplayItems'
 import { useParams } from 'react-router-dom'
 
