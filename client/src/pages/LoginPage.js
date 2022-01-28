@@ -25,7 +25,7 @@ const LoginPage = ({ getObject, userData }) => {
     getObject(response.data)
 
     // navigates to home page
-    navigate('/Home')
+    navigate('/')
   }
 
   return (
@@ -48,7 +48,7 @@ const LoginPage = ({ getObject, userData }) => {
                 />
               </div>
               <div className="input-container">
-                <label>Password </label>
+                <label>Password</label>
                 <input
                   value={password}
                   type="password"

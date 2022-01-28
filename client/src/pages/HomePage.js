@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+// import ResponsiveAppBar from '../navigation/ResponsiveAppBar'
 
 const HomePage = ({ userData }) => {
   const [message, setMessage] = useState()
@@ -17,7 +18,6 @@ const HomePage = ({ userData }) => {
   return (
     <div>
       <h1>Polypay says: {message}</h1>
-      <h1>Hello: {userData ? JSON.stringify(userData.userName) : 'Guest'}</h1>
       <div>
         <Link to={'/linkaccounts'}>Link Your Account To Your Platforms</Link>
       </div>
