@@ -114,22 +114,14 @@ const ResponsiveAppBar = ({ userData, getUserState }) => {
               Home
             </Button>
             <Button
-              href="/linkaccounts"
               sx={{ my: 2, color: 'black', display: 'block' }}
             >
-              Link Profile
+              About
             </Button>
             <Button
-              href="/schedulepost"
               sx={{ my: 2, color: 'black', display: 'block' }}
             >
-              Schedule Post
-            </Button>
-            <Button
-              href="/portfolio"
-              sx={{ my: 2, color: 'black', display: 'block' }}
-            >
-              View All
+              Blog
             </Button>
           </Box>
 
