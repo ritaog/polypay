@@ -10,7 +10,8 @@ import LinkAccountPage from './pages/LinkAccountPage'
 import SchedulePostPage from './pages/SchedulePostPage'
 import DisplayItemsPage from './pages/DisplayItemsPage'
 import CheckoutPage from './pages/CheckoutPage'
-import ResponsiveAppBar from './components/navigation/ResponsiveAppBar'
+// import ResponsiveAppBar from './components/navigation/ResponsiveAppBar'
+import ClippedDrawer from './components/navigation/ClippedDrawer'
 
 
 const App = () => {
@@ -33,7 +34,8 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <ResponsiveAppBar userData={user} getUserState={getObject}/>
+      {/* <ResponsiveAppBar userData={user} getUserState={getObject} /> */}
+      <ClippedDrawer userData={user} getUserState={getObject}/>
       <Routes>
         <Route path="/" element={<HomePage userData={user} />} />
         <Route

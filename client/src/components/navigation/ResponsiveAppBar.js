@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
-import MenuIcon from '@mui/icons-material/Menu'
+// import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
@@ -36,15 +36,15 @@ const ResponsiveAppBar = ({ userData, getUserState }) => {
     <AppBar position="static" sx={{ display: { backgroundColor: 'white' } }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2, display: { color: 'black' } }}
-          >
-            <MenuIcon />
-          </IconButton>
+          > */}
+            {/* <MenuIcon />
+          </IconButton> */}
           <Typography
             variant="h6"
             noWrap

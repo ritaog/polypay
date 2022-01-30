@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
-// import { Link } from 'react-router-dom'
 import axios from 'axios'
-// import ResponsiveAppBar from '../navigation/ResponsiveAppBar'
+// import ClippedDrawer from '../components/navigation/ClippedDrawer'
 
 const HomePage = ({ userData }) => {
   const [message, setMessage] = useState()
