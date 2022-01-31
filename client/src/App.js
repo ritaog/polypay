@@ -5,12 +5,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import "./App.css"
 import HomePage from './pages/HomePage'
 import ProfilePage from './pages/ProfilePage'
-import LoginPage from './pages/LoginPage'
 import LinkAccountPage from './pages/LinkAccountPage'
 import SchedulePostPage from './pages/SchedulePostPage'
 import DisplayItemsPage from './pages/DisplayItemsPage'
 import CheckoutPage from './pages/CheckoutPage'
-// import ResponsiveAppBar from './components/navigation/ResponsiveAppBar'
 import ClippedDrawer from './components/navigation/ClippedDrawer'
 
 
@@ -42,16 +40,6 @@ const App = () => {
               userData={user}
               getUserState={getObject}
               children={<HomePage userData={user} />}
-            />
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <ClippedDrawer
-              userData={user}
-              getUserState={getObject}
-              children={<LoginPage userData={user} getObject={getObject} />}
             />
           }
         />

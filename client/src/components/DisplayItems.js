@@ -1,7 +1,5 @@
-// import axios from 'axios'
-// import { Link } from 'react-router-dom'
+
 import './DisplayItem.css'
-// import { useState, useEffect } from 'react'
 import SaleListUser from './ui/SaleListUser'
 import SaleListGuest from './ui/SaleListGuest'
 
