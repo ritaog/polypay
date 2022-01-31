@@ -15,13 +15,12 @@ import ScheduleIcon from '@mui/icons-material/Schedule'
 import PhotoIcon from '@mui/icons-material/Photo'
 
 import { useNavigate } from 'react-router-dom'
- 
+
 import ResponsiveAppBar from './ResponsiveAppBar'
 
 const drawerWidth = 240
 
-export default function ClippedDrawer({userData, getUserState}) {
-
+export default function ClippedDrawer({ userData, getUserState }) {
   const navigate = useNavigate()
 
   return (
@@ -47,19 +46,42 @@ export default function ClippedDrawer({userData, getUserState}) {
         <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
           <List>
-            <ListItem button onClick={() => {navigate('/linkaccounts')}}>
+            <ListItem
+              button
+              onClick={() => {
+                navigate('/linkaccounts')
+              }}
+            >
               <AccountBoxIcon />
-              <ListItemText primary="Link Profiles" />
+              <ListItemText
+                primary="Link Profiles"
+                sx={{ paddingLeft: '10px' }}
+              />
             </ListItem>
 
-            <ListItem button onClick={() => {navigate('/schedulepost')}}>
+            <ListItem
+              button
+              onClick={() => {
+                navigate('/schedulepost')
+              }}
+            >
               <ScheduleIcon />
-              <ListItemText primary="Schedule Post" />
+              <ListItemText
+                primary="Schedule Post"
+                sx={{ paddingLeft: '10px' }}
+              />
             </ListItem>
 
-            <ListItem button onClick={() => {navigate('/portfolio')}}>
+            <ListItem
+              button
+              onClick={() => {
+                navigate('/portfolio')
+              }}
+            >
               <PhotoIcon />
-              <ListItemText primary="View All" />
+              <ListItemText 
+                primary="View All" 
+                sx={{ paddingLeft: '10px' }} />
             </ListItem>
           </List>
           <Divider />
