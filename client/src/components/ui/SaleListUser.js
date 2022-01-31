@@ -9,28 +9,20 @@ import InfoIcon from '@mui/icons-material/Info'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
-export default function TitlebarImageList({userData, profileId }) {
+export default function SaleListUser({userData}) {
 
   const [saleItems, setSaleItems] = useState([])
 
-  if (userData._id) {
-    profileId.id = userData._id
-    console.log("in if statment", profileId)
-  }
-
   useEffect(() => {  
-    const getSaleItemsByProfileId = async () => {
-      const response = await axios.get(
-        '/saleItem/listSaleItemsById/' + profileId.id
-      )
-      console.log('profileId.id', profileId.id);
+    const getSaleItemsByLoggedUser = async () => {
+      const response = await axios.get('/saleItem/listSaleItemsByLoggedUser')
       console.log('response', response.data);
       setSaleItems(response.data)
     }
-    if (profileId) {
-      getSaleItemsByProfileId()
+    if (userData) {
+      getSaleItemsByLoggedUser()
     }
-  }, [profileId])
+  }, [userData])
 
   let vendorName = saleItems[0]
 

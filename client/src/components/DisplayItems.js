@@ -2,15 +2,19 @@
 // import { Link } from 'react-router-dom'
 import './DisplayItem.css'
 // import { useState, useEffect } from 'react'
-import TitlebarImageList from './ui/TitleBarImageList'
+import SaleListUser from './ui/SaleListUser'
+import SaleListGuest from './ui/SaleListGuest'
 
 const DisplayItems = ({ userData, profileId }) => {
- 
-
+  console.log('userData', userData);
+  console.log('profileId', profileId);
   return (
     <div>
-      <TitlebarImageList userData={userData} profileId={profileId}/>
-
+      {profileId ? (
+        <SaleListUser userData={userData} />
+        ) : (
+        <SaleListGuest profileId={profileId} />
+      )}
     </div>
   )
 }
