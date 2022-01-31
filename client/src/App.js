@@ -101,7 +101,7 @@ const App = () => {
             <ClippedDrawer
               userData={user}
               getUserState={getObject}
-              children={<DisplayItemsPage />}
+              children={<DisplayItemsPage userData={user}/>}
             />
           }
         />

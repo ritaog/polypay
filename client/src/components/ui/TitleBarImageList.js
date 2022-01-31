@@ -6,35 +6,68 @@ import ListSubheader from '@mui/material/ListSubheader'
 import IconButton from '@mui/material/IconButton'
 import InfoIcon from '@mui/icons-material/Info'
 
-export default function TitlebarImageList() {
+import axios from 'axios'
+import { useState, useEffect } from 'react'
+
+export default function TitlebarImageList({userData, profileId }) {
+
+  const [saleItems, setSaleItems] = useState([])
+
+  if (userData._id) {
+    profileId.id = userData._id
+    console.log("in if statment", profileId)
+  }
+
+  useEffect(() => {  
+    const getSaleItemsByProfileId = async () => {
+      const response = await axios.get(
+        '/saleItem/listSaleItemsById/' + profileId.id
+      )
+      console.log('profileId.id', profileId.id);
+      console.log('response', response.data);
+      setSaleItems(response.data)
+    }
+    if (profileId) {
+      getSaleItemsByProfileId()
+    }
+  }, [profileId])
+
+  let vendorName = saleItems[0]
+
   return (
-    <ImageList sx={{ width: 500, height: 450 }}>
-      <ImageListItem key="Subheader" cols={2}>
-        <ListSubheader component="div">December</ListSubheader>
-      </ImageListItem>
-      {itemData.map((item) => (
-        <ImageListItem key={item.img}>
-          <img
-            src={`${item.img}?w=248&fit=crop&auto=format`}
-            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-            alt={item.title}
-            loading="lazy"
-          />
-          <ImageListItemBar
-            title={item.title}
-            subtitle={item.author}
-            actionIcon={
-              <IconButton
-                sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                aria-label={`info about ${item.title}`}
-              >
-                <InfoIcon />
-              </IconButton>
-            }
-          />
+    <div>
+      <ImageList sx={{ width: 500, height: 1000 }}>
+        <ImageListItem key="Subheader" cols={2}>
+          <ListSubheader component="div">
+            {userData ? userData.userName : (vendorName ? vendorName.vendorName : '')}
+          </ListSubheader>
         </ImageListItem>
-      ))}
-    </ImageList>
+        {saleItems
+          ? saleItems.map((item) => (
+              <ImageListItem key={item.photos[0]}>
+                <img
+                  src={`${item.photos[0]}?w=248&fit=crop&auto=format`}
+                  srcSet={`${item.photos[0]}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                  alt={item.description}
+                  loading="lazy"
+                />
+                <ImageListItemBar
+                  title={item.price}
+                  subtitle={item.quantity}
+                  actionIcon={
+                    <IconButton
+                      sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+                      aria-label={`info about ${item.title}`}
+                    >
+                      <InfoIcon />
+                    </IconButton>
+                  }
+                />
+              </ImageListItem>
+            ))
+          : ''}
+      </ImageList>
+    </div>
   )
 }
 
