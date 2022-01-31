@@ -34,29 +34,87 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      {/* <ResponsiveAppBar userData={user} getUserState={getObject} /> */}
-      <ClippedDrawer userData={user} getUserState={getObject}/>
       <Routes>
-        <Route path="/" element={<HomePage userData={user} />} />
+        <Route
+          path="/"
+          element={
+            <ClippedDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<HomePage userData={user} />}
+            />
+          }
+        />
         <Route
           path="/login"
-          element={<LoginPage userData={user} getObject={getObject} />}
+          element={
+            <ClippedDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<LoginPage userData={user} getObject={getObject} />}
+            />
+          }
         />
         <Route
           path="/linkaccounts"
-          element={<LinkAccountPage userData={user} />}
+          element={
+            <ClippedDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<LinkAccountPage userData={user} />}
+            />
+          }
         />
         <Route
           path="/schedulepost"
-          element={<SchedulePostPage userData={user} />}
+          element={
+            <ClippedDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<SchedulePostPage userData={user} />}
+            />
+          }
         />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route
+          path="/profile"
+          element={
+            <ClippedDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<ProfilePage />}
+            />
+          }
+        />
         <Route
           path="/portfolio"
-          element={<DisplayItemsPage userData={user} />}
+          element={
+            <ClippedDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<DisplayItemsPage userData={user} />}
+            />
+          }
         />
-        <Route path="/portfolio/:id" element={<DisplayItemsPage />} />
-        <Route path="/checkout/:id" element={<CheckoutPage />} />
+        <Route
+          path="/portfolio/:id"
+          element={
+            <ClippedDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<DisplayItemsPage />}
+            />
+          }
+        />
+        <Route
+          path="/checkout/:id"
+          element={
+            <ClippedDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<CheckoutPage />}
+            />
+          }
+        />
       </Routes>
     </BrowserRouter>
   )
