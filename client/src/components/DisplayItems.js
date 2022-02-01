@@ -4,8 +4,6 @@ import SaleListUser from './ui/SaleListUser'
 import SaleListGuest from './ui/SaleListGuest'
 
 const DisplayItems = ({ userData, profileId, guest }) => {
-  console.log('userData', userData);
-  console.log('profileId', profileId);
   return (
     <div>
       {(guest) ? (

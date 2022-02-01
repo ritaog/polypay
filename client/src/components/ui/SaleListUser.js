@@ -17,7 +17,7 @@ export default function SaleListUser({userData}) {
 
   useEffect(() => {  
     const getSaleItemsByLoggedUser = async () => {
-      const response = await axios.get('/saleItem/listUserSaleItemsByLoggedUser')
+      const response = await axios.get('/saleItem/listSaleItemsByLoggedUser')
       console.log('responseUser', response.data);
 
       response.data.sort(function (a, b) {
