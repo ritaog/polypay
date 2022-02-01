@@ -9,8 +9,7 @@ import LinkAccountPage from './pages/LinkAccountPage'
 import SchedulePostPage from './pages/SchedulePostPage'
 import DisplayItemsPage from './pages/DisplayItemsPage'
 import CheckoutPage from './pages/CheckoutPage'
-import ClippedDrawer from './components/navigation/ClippedDrawer'
-
+import ResponsiveDrawer from './components/navigation/ResponsiveDrawer'
 
 const App = () => {
   //user state set by user login
@@ -36,7 +35,7 @@ const App = () => {
         <Route
           path="/"
           element={
-            <ClippedDrawer
+            <ResponsiveDrawer
               userData={user}
               getUserState={getObject}
               children={<HomePage userData={user} />}
@@ -46,7 +45,7 @@ const App = () => {
         <Route
           path="/linkaccounts"
           element={
-            <ClippedDrawer
+            <ResponsiveDrawer
               userData={user}
               getUserState={getObject}
               children={<LinkAccountPage userData={user} />}
@@ -56,7 +55,7 @@ const App = () => {
         <Route
           path="/schedulepost"
           element={
-            <ClippedDrawer
+            <ResponsiveDrawer
               userData={user}
               getUserState={getObject}
               children={<SchedulePostPage userData={user} />}
@@ -66,7 +65,7 @@ const App = () => {
         <Route
           path="/profile"
           element={
-            <ClippedDrawer
+            <ResponsiveDrawer
               userData={user}
               getUserState={getObject}
               children={<ProfilePage />}
@@ -76,7 +75,7 @@ const App = () => {
         <Route
           path="/portfolio"
           element={
-            <ClippedDrawer
+            <ResponsiveDrawer
               userData={user}
               getUserState={getObject}
               children={<DisplayItemsPage userData={user} />}
@@ -86,17 +85,17 @@ const App = () => {
         <Route
           path="/portfolio/:id"
           element={
-            <ClippedDrawer
+            <ResponsiveDrawer
               userData={user}
               getUserState={getObject}
-              children={<DisplayItemsPage userData={user}/>}
+              children={<DisplayItemsPage userData={user} />}
             />
           }
         />
         <Route
           path="/checkout/:id"
           element={
-            <ClippedDrawer
+            <ResponsiveDrawer
               userData={user}
               getUserState={getObject}
               children={<CheckoutPage />}

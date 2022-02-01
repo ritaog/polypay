@@ -35,15 +35,6 @@ const ResponsiveAppBar = ({ userData, getUserState }) => {
     <AppBar position="static" sx={{ display: { backgroundColor: 'white' } }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2, display: { color: 'black' } }}
-          > */}
-            {/* <MenuIcon />
-          </IconButton> */}
           <Typography
             variant="h6"
             noWrap

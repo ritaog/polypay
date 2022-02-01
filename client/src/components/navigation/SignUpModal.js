@@ -60,7 +60,16 @@ export default function BasicModal({getUserState}) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button
+        onClick={handleOpen}
+        sx={{
+          backgroundColor: '#f35275',
+          color: 'white',
+          '&:hover': { backgroundColor: '#6c19ff' },
+        }}
+      >
+        Sign Up
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}

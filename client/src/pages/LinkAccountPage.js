@@ -44,7 +44,7 @@ const LinkAccountPage = ({ userData }) => {
             <Item sx={{ margin: '10px' }}>
               <LinkFacebookCard userData={userData} />
             </Item>
-            <Item sx={{ margin: '10px' }}>
+            {/* <Item sx={{ margin: '10px' }}>
               <LinkFacebookCard userData={userData} />
             </Item>
             <Item sx={{ margin: '10px' }}>
@@ -52,8 +52,8 @@ const LinkAccountPage = ({ userData }) => {
             </Item>
             <Item sx={{ margin: '10px' }}>
               <LinkFacebookCard userData={userData} />
-            </Item>
-          </Grid>
+  </Item> */}
+          </Grid> 
         </Grid>
       </Box>
       <div>
