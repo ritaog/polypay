@@ -5,8 +5,6 @@ import ImageListItemBar from '@mui/material/ImageListItemBar'
 import ListSubheader from '@mui/material/ListSubheader'
 import IconButton from '@mui/material/IconButton'
 import InfoIcon from '@mui/icons-material/Info'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
 
 import axios from 'axios'
 import { useState, useEffect } from 'react'
@@ -31,20 +29,12 @@ export default function SaleListUser({userData}) {
     }
   }, [userData])
 
-  let vendorName = saleItems[0]
-
   return (
     <div>
-      <Card sx={{ maxWidth: 530 }}>
-        <CardContent sx={{justifyContent: "center"}}>
-          <ImageList sx={{ width: 500 }}>
+          <ImageList sx={{ width: '100%' }}>
             <ImageListItem key="Subheader" cols={2}>
               <ListSubheader component="div">
-                {userData
-                  ? userData.userName
-                  : vendorName
-                  ? vendorName.vendorName
-                  : ''}
+                {userData ? `${userData.userName}'s Recent Posts` : ''}
               </ListSubheader>
             </ImageListItem>
             {saleItems
@@ -72,8 +62,6 @@ export default function SaleListUser({userData}) {
                 ))
               : ''}
           </ImageList>
-        </CardContent>
-      </Card>
     </div>
   )
 }

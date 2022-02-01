@@ -23,12 +23,10 @@ import MenuItem from '@mui/material/MenuItem'
 import Link from '@mui/material/Link'
 import SignUpButton from './SignUpModal'
 import AccordionButton from './AccordianButton'
-import { useNavigate } from 'react-router-dom'
 
 const drawerWidth = 240
 
 function ResponsiveDrawer({ userData, getUserState, children }) {
-  const navigate = useNavigate()
   const { window } = { userData, getUserState, children }
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [anchorElUser, setAnchorElUser] = React.useState(null)

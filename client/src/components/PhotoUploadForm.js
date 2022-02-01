@@ -2,8 +2,6 @@ import { useState } from 'react'
 import axios from 'axios'
 const PhotoUpload = ({userData}) => {
 
-
-
   const [uploadPhoto, setUploadPhoto] = useState([])
   const [price, setPrice] = useState('')
   const [quantity, setQuantity] = useState('')

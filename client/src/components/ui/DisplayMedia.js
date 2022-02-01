@@ -5,8 +5,6 @@ import ImageListItemBar from '@mui/material/ImageListItemBar'
 import ListSubheader from '@mui/material/ListSubheader'
 import IconButton from '@mui/material/IconButton'
 import InfoIcon from '@mui/icons-material/Info'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
 
 import axios from 'axios'
 import { useState, useEffect } from 'react'
@@ -27,17 +25,13 @@ export default function SaleListUser({ userData }) {
     }
   }, [userData])
 
-  let vendorName = saleItems[0]
-
   return (
     <div>
           <ImageList sx={{ width: '100%' }}>
             <ImageListItem key="Subheader" cols={2}>
               <ListSubheader component="div">
                 {userData
-                  ? userData.userName
-                  : vendorName
-                  ? vendorName.vendorName
+                  ? `${userData.userName}'s Media Library`
                   : ''}
               </ListSubheader>
             </ImageListItem>
