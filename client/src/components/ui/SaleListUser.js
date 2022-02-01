@@ -19,6 +19,11 @@ export default function SaleListUser({userData}) {
     const getSaleItemsByLoggedUser = async () => {
       const response = await axios.get('/saleItem/listSaleItemsByLoggedUser')
       console.log('response', response.data);
+
+      response.data.sort(function (a, b) {
+        return new Date(b.postTime) - new Date(a.postTime)
+      })
+
       setSaleItems(response.data)
     }
     if (userData) {
