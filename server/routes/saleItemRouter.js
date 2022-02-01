@@ -3,6 +3,7 @@ import fetch from 'node-fetch'
 import cloudinary from '../utils/cloudinary.js'
 import upload from '../utils/multer.js'
 import SaleItem from '../models/saleItemModel.js'
+import User from '../models/userModel.js'
 import { findUserAndUpdate } from '../models/controller.js'
 
 const router = express.Router()
@@ -83,9 +84,13 @@ router.post('/schedule', async (req, res) => {
     const resPostText = await resPost.json()
 
     // new array spread to add new sale item id to user saleItems array
+    console.log('postSaleItem', postItem.saleItems)
+    console.log('post_id', postItem._id)
+    postItem.saleItems.unshift(postItem._id)
     let updatedSaleItems = {
-      saleItems: [...postItem.saleItems, postItem._id]
+      saleItems: postItem.saleItems
     }
+    console.log('updatedSaleItems', updatedSaleItems);
 
     // function from "../models/controller.js" finds user by id and updates sale items array with new array created on line 86
     await findUserAndUpdate(postItem.vendorId, updatedSaleItems)
@@ -107,16 +112,24 @@ router.post('/schedule', async (req, res) => {
 router.get('/listSaleItemsById/:id', async (req, res) => {
   const userId = req.params.id
   console.log('userId', userId);
-  const response = await SaleItem.find({ vendorId: userId })
+  const responseUser = await User.findOne({ _id: userId })
+  console.log('responseListSaleItem', responseUser);
+  responseUser.saleItems.map((id) => {
+    console.log('id', id);
+  })
   res.json(response)
 })
 
 // GET endpoint || description: localhost:5000/saleItem/listSaleItemsByLoggedUser
 router.get('/listSaleItemsByLoggedUser', async (req, res) => {
-  const userId = req.user
-  console.log('userId', userId._id)
-  const response = await SaleItem.find({ vendorId: userId._id })
-  res.json(response)
+  const userId = req.user.id
+  console.log('userId', userId)
+  const responseUser = await User.findOne({ _id: userId })
+  const saleItemArray = await SaleItem.find({_id: { $in: responseUser.saleItems }})
+  
+  console.log('saleItemArray', saleItemArray);
+ 
+  res.json(saleItemArray)
 })
 
 //GET endpoint || description: localhost:5000/saleItem/getSaleItemById
