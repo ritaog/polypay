@@ -109,7 +109,7 @@ router.post('/schedule', async (req, res) => {
 })
 
 //GET endpoint || description: localhost:5000/saleItem/listSaleItems
-router.get('/listSaleItemsById/:id', async (req, res) => {
+router.get('/listUserSaleItemsById/:id', async (req, res) => {
   const userId = req.params.id
   console.log('userId', userId);
   const responseUser = await User.findOne({ _id: userId })

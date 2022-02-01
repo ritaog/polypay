@@ -17,7 +17,7 @@ export default function SaleListGuest({ userData, profileId }) {
   useEffect(() => {
     const getSaleItemsByProfileId = async () => {
       const response = await axios.get(
-        '/saleItem/listSaleItemsById/' + profileId.id
+        '/saleItem/listUserSaleItemsById/' + profileId.id
       )
       console.log('responseGuest', response);
       response.data.sort(function (a, b) {
