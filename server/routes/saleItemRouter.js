@@ -113,30 +113,22 @@ router.get('/listSaleItemsById/:id', async (req, res) => {
   const userId = req.params.id
   console.log('userId', userId);
   const responseUser = await User.findOne({ _id: userId })
-  console.log('responseListSaleItem', responseUser);
-  responseUser.saleItems.map((id) => {
-    console.log('id', id);
-  })
-  res.json(response)
+  const saleItemArray = await SaleItem.find({ _id: { $in: responseUser.saleItems }})
+  res.json(saleItemArray)
 })
 
 // GET endpoint || description: localhost:5000/saleItem/listSaleItemsByLoggedUser
 router.get('/listSaleItemsByLoggedUser', async (req, res) => {
   const userId = req.user.id
-  console.log('userId', userId)
   const responseUser = await User.findOne({ _id: userId })
   const saleItemArray = await SaleItem.find({_id: { $in: responseUser.saleItems }})
-  
-  console.log('saleItemArray', saleItemArray);
- 
   res.json(saleItemArray)
 })
 
 //GET endpoint || description: localhost:5000/saleItem/getSaleItemById
 router.get('/getSaleItemById/:id', async (req, res) => {
-  const saleItemId = req.params.id
-  console.log('saleItemId', saleItemId);
-  const response = await SaleItem.findById(saleItemId)
+  const userId = req.params.id
+  const response = await SaleItem.findOne({_id: userId})
   res.json(response)
 })
 

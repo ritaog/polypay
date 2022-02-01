@@ -8,7 +8,7 @@ const DisplayItems = ({ userData, profileId }) => {
   console.log('profileId', profileId);
   return (
     <div>
-      {profileId ? (
+      {(profileId && !userData) ? (
         <SaleListUser userData={userData} />
         ) : (
         <SaleListGuest profileId={profileId} />

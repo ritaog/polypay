@@ -12,15 +12,17 @@ import { useState, useEffect } from 'react'
 export default function SaleListGuest({ userData, profileId }) {
   
   const [saleItems, setSaleItems] = useState([])
-
+  console.log("in guest", profileId.id)
 
   useEffect(() => {
     const getSaleItemsByProfileId = async () => {
       const response = await axios.get(
         '/saleItem/listSaleItemsById/' + profileId.id
       )
-      console.log('profileId.id', profileId.id)
-      console.log('response', response.data)
+      console.log('response', response);
+      response.data.sort(function (a, b) {
+        return new Date(b.postTime) - new Date(a.postTime)
+      })
       setSaleItems(response.data)
     }
     if (profileId) {
