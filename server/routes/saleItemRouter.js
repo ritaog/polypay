@@ -124,6 +124,12 @@ router.get('/listSaleItemsByLoggedUser', async (req, res) => {
   const saleItemArray = await SaleItem.find({_id: { $in: responseUser.saleItems }})
   res.json(saleItemArray)
 })
+// GET endpoint || description: localhost:5000/saleItem/listImagesBLoggedUser
+router.get('/listImagesByLoggedUser', async (req, res) => {
+  const userId = req.user.id
+  const saleItemArray = await SaleItem.find({vendorId: userId})
+  res.json(saleItemArray)
+})
 
 //GET endpoint || description: localhost:5000/saleItem/getSaleItemById
 router.get('/getSaleItemById/:id', async (req, res) => {

@@ -8,6 +8,7 @@ import ProfilePage from './pages/ProfilePage'
 import LinkAccountPage from './pages/LinkAccountPage'
 import SchedulePostPage from './pages/SchedulePostPage'
 import DisplayItemsPage from './pages/DisplayItemsPage'
+import MediaLibraryPage from './pages/MediaLibraryPage'
 import CheckoutPage from './pages/CheckoutPage'
 import ResponsiveDrawer from './components/navigation/ResponsiveDrawer'
 
@@ -79,6 +80,16 @@ const App = () => {
               userData={user}
               getUserState={getObject}
               children={<DisplayItemsPage userData={user} />}
+            />
+          }
+        />
+        <Route
+          path="/medialibrary"
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<MediaLibraryPage userData={user} />}
             />
           }
         />

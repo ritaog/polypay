@@ -22,9 +22,7 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import Link from '@mui/material/Link'
 import SignUpButton from './SignUpModal'
-import AccountBoxIcon from '@mui/icons-material/AccountBox'
-import ScheduleIcon from '@mui/icons-material/Schedule'
-import PhotoIcon from '@mui/icons-material/Photo'
+import AccordionButton from './AccordianButton'
 import { useNavigate } from 'react-router-dom'
 
 const drawerWidth = 240
@@ -52,39 +50,13 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
       <Toolbar />
       <Divider />
       <List>
-        <ListItem
-          button
-          onClick={() => {
-            navigate('/linkaccounts')
-          }}
-        >
-          <AccountBoxIcon />
-          <ListItemText primary="Link Profiles" sx={{ paddingLeft: '10px' }} />
-        </ListItem>
-
-        <ListItem
-          button
-          onClick={() => {
-            navigate('/schedulepost')
-          }}
-        >
-          <ScheduleIcon />
-          <ListItemText primary="Schedule Post" sx={{ paddingLeft: '10px' }} />
-        </ListItem>
-
-        <ListItem
-          button
-          onClick={() => {
-            navigate('/portfolio')
-          }}
-        >
-          <PhotoIcon />
-          <ListItemText primary="Media Library" sx={{ paddingLeft: '10px' }} />
+        <ListItem>
+          <AccordionButton />
         </ListItem>
       </List>
       <Divider />
       <List>
-        {['Posts', 'Sales', 'Messages', 'Account', 'Help'].map(
+        {['About Us', 'Contact Us', 'Help'].map(
           (text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
