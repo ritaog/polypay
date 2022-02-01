@@ -31,9 +31,7 @@ export default function SaleListUser({ userData }) {
 
   return (
     <div>
-      <Card sx={{ maxWidth: 530 }}>
-        <CardContent sx={{ justifyContent: 'center' }}>
-          <ImageList sx={{ width: 500 }}>
+          <ImageList sx={{ width: '100%' }}>
             <ImageListItem key="Subheader" cols={2}>
               <ListSubheader component="div">
                 {userData
@@ -68,8 +66,6 @@ export default function SaleListUser({ userData }) {
                 ))
               : ''}
           </ImageList>
-        </CardContent>
-      </Card>
     </div>
   )
 }
