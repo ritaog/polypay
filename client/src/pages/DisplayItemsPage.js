@@ -9,7 +9,7 @@ const DisplayItemsPage = ({ userData }) => {
 
   return (
     <div>
-      <h1>Display Items as a Grid</h1>
+      {/* <h1>Display Items as a Grid</h1> */}
       <DisplayItems userData={userData} profileId={profileId} />
     </div>
   )

@@ -79,7 +79,7 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
           }}
         >
           <PhotoIcon />
-          <ListItemText primary="View All" sx={{ paddingLeft: '10px' }} />
+          <ListItemText primary="Media Library" sx={{ paddingLeft: '10px' }} />
         </ListItem>
       </List>
       <Divider />
