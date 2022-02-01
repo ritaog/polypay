@@ -19,7 +19,7 @@ export default function SaleListGuest({ userData, profileId }) {
       const response = await axios.get(
         '/saleItem/listSaleItemsById/' + profileId.id
       )
-      console.log('response', response);
+      console.log('responseGuest', response);
       response.data.sort(function (a, b) {
         return new Date(b.postTime) - new Date(a.postTime)
       })

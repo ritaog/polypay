@@ -26,7 +26,7 @@ const App = () => {
       const response = await axios.get('auth/getLoggedInUser')
       setUser(response.data)
     }
-    getUser()
+      getUser()
   }, [])
 
   return (
@@ -83,12 +83,12 @@ const App = () => {
           }
         />
         <Route
-          path="/portfolio/:id"
+          path="/sales/:id"
           element={
             <ResponsiveDrawer
               userData={user}
               getUserState={getObject}
-              children={<DisplayItemsPage userData={user} />}
+              children={<DisplayItemsPage userData={user} guest={true}/>}
             />
           }
         />
