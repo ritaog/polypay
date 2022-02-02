@@ -3,19 +3,28 @@ import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import PhotoUploadForm from '../components/PhotoUploadForm'
-import PhotoUpload from '../components/ui/PhotoUpload'
+import PhotoUpload from '../components/imageUpload/PhotoUpload'
 import SaleListUser from '../components/ui/SaleListUser'
 import DisplayMedia from '../components/ui/DisplayMedia'
+import { useState } from 'react'
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}))
+
 
 const SchedulePostPage = ({ userData }) => {
-  console.log(userData)
+
+  const [imageSelect, setImageSelect] = useState('');
+
+  const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }))
+
+  const imageSelectHandler = (image) => {
+    console.log('image', image);
+    setImageSelect(image)
+  }
   return (
     <div>
       <h1>Schedule A Post:</h1>
@@ -33,12 +42,12 @@ const SchedulePostPage = ({ userData }) => {
           </Grid>
           <Grid item xs={6}>
             <Item>
-              <DisplayMedia userData={userData}/>
+              <DisplayMedia userData={userData} imageSelectHandler={imageSelectHandler}/>
             </Item>
           </Grid>
           <Grid item xs={6}>
             <Item>
-              <PhotoUpload />
+              <PhotoUpload imageSelect={imageSelect}/>
             </Item>
           </Grid>
         </Grid>

@@ -87,7 +87,7 @@ export default function CustomizedTimeline() {
           variant="body2"
           color="text.secondary"
         >
-          14:00 pm
+          4:00 pm
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />

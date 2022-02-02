@@ -9,7 +9,7 @@ import InfoIcon from '@mui/icons-material/Info'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
-export default function SaleListUser({ userData }) {
+export default function SaleListUser({ userData, imageSelectHandler }) {
   const [saleItems, setSaleItems] = useState([])
 
   useEffect(() => {
@@ -43,6 +43,7 @@ export default function SaleListUser({ userData }) {
                       srcSet={`${item.photos[0]}?w=248&fit=crop&auto=format&dpr=2 2x`}
                       alt={item.description}
                       loading="lazy"
+                      onClick={() => {imageSelectHandler(item)}}
                     />
                     <ImageListItemBar
                       title={item.price}
