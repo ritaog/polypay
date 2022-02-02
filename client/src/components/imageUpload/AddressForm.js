@@ -21,7 +21,7 @@ export default function AddressForm({imageSelect}) {
             name="address1"
             value={imageSelect ? imageSelect._id : ''}
             label="Select Image"
-            fullWidth
+            fullwidth='true'
             variant="standard"
           />
         </Grid>
@@ -38,7 +38,7 @@ export default function AddressForm({imageSelect}) {
             id="address2"
             name="address2"
             label="Photo Caption"
-            fullWidth
+            fullwidth='true'
             variant="standard"
           />
         </Grid>

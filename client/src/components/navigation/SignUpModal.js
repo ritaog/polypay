@@ -103,7 +103,7 @@ export default function BasicModal({getUserState}) {
                     }}
                     margin="normal"
                     required
-                    fullWidth
+                    fullwidth="true"
                     id="email"
                     label="Email Address"
                     name="email"
@@ -116,7 +116,7 @@ export default function BasicModal({getUserState}) {
                     }}
                     margin="normal"
                     required
-                    fullWidth
+                    fullwidth="true"
                     name="password"
                     label="Password"
                     type="password"
@@ -129,7 +129,7 @@ export default function BasicModal({getUserState}) {
                   />
                   <Button
                     type="submit"
-                    fullWidth
+                    fullwidth="true"
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                   >
