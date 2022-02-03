@@ -1,12 +1,12 @@
 import { styled } from '@mui/material/styles'
-import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
-import PhotoUploadForm from '../components/PhotoUploadForm'
-import PhotoUpload from '../components/imageUpload/PhotoUpload'
+import Masonry from '@mui/lab/Masonry';
 import SaleListUser from '../components/ui/SaleListUser'
 import DisplayMedia from '../components/ui/DisplayMedia'
+
 import { useState } from 'react'
+import PostScheduler from '../components/imageUpload/PostScheduler'
 
 
 
@@ -29,28 +29,20 @@ const SchedulePostPage = ({ userData }) => {
     <div>
       <h1>Schedule A Post:</h1>
       <Box sx={{ width: '100%' }}>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={6}>
-            <Item>
-              <SaleListUser userData={userData} />
-            </Item>
-          </Grid>
-          <Grid item xs={6}>
-            <Item>
-              <PhotoUploadForm userData={userData} />
-            </Item>
-          </Grid>
-          <Grid item xs={6}>
-            <Item>
-              <DisplayMedia userData={userData} imageSelectHandler={imageSelectHandler}/>
-            </Item>
-          </Grid>
-          <Grid item xs={6}>
-            <Item>
-              <PhotoUpload imageSelect={imageSelect}/>
-            </Item>
-          </Grid>
-        </Grid>
+        <Masonry columns={2} spacing={2}>
+          <Item>
+            <DisplayMedia
+              userData={userData}
+              imageSelectHandler={imageSelectHandler}
+            />
+          </Item>
+          <Item>
+            <PostScheduler imageSelect={imageSelect} />
+          </Item>
+          <Item>
+            <SaleListUser userData={userData} />
+          </Item>
+        </Masonry>
       </Box>
     </div>
   )

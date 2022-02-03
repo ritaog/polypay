@@ -9,13 +9,12 @@ import StepLabel from '@mui/material/StepLabel'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import AddressForm from './AddressForm'
-import PaymentForm from './PaymentForm'
-import Review from './Review'
+import ImageSelect from './ImageSelect'
+import PostInfo from './PostInfo'
+import Scheduler from './Scheduler'
 
 
-
-export default function Checkout({imageSelect}) {
+export default function PostScheduler({imageSelect}) {
   const [activeStep, setActiveStep] = React.useState(0)
 
   const handleNext = () => {
@@ -26,16 +25,16 @@ export default function Checkout({imageSelect}) {
     setActiveStep(activeStep - 1)
   }
 
-  const steps = ['Choose Image', 'Payment details', 'Review your order']
+  const steps = ['Choose Image', 'Quantity and Availability', 'Schedule Post Time']
 
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <AddressForm imageSelect={imageSelect} />
+        return <ImageSelect imageSelect={imageSelect} />
       case 1:
-        return <PaymentForm />
+        return <PostInfo />
       case 2:
-        return <Review />
+        return <Scheduler />
       default:
         throw new Error('Unknown step')
     }
@@ -65,12 +64,10 @@ export default function Checkout({imageSelect}) {
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
+                  Your post is scheduled!
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
+                  Your post will be posted to instagram at: TIME AND DATE
                 </Typography>
               </React.Fragment>
             ) : (
