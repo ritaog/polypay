@@ -28,7 +28,7 @@ const style = {
   p: 4,
 }
 
-export default function BasicModal({getUserState}) {
+export default function SignUpModal({ getUserState }) {
   const [open, setOpen] = React.useState(false)
   const [emailAddress, setEmailAddress] = useState('')
   const [password, setPassword] = useState('')

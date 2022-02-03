@@ -5,6 +5,7 @@ import Box from '@mui/material/Box'
 import DisplayMedia from '../components/ui/DisplayMedia'
 import Masonry from '@mui/lab/Masonry'
 import TimeLine from '../components/ui/TimeLine'
+// import AddImage from '../components/ui/AddImage'
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -15,23 +16,18 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const MediaLibraryPage = ({ userData }) => {
   return (
-    <div>
+    <Box sx={{ width: '100%' }}>
       <div>Media Library</div>
-      <Box sx={{ width: '100%' }}>
-        <Masonry columns={2} spacing={2}>
- 
-
-              <Item>
-                <DisplayMedia userData={userData} />
-              </Item>
-
-              <Item>
-                <TimeLine />
-              </Item>
-
-        </Masonry>
-      </Box>
-    </div>
+      <Masonry columns={2} spacing={2}>
+        <Item>
+          <DisplayMedia userData={userData} />
+        </Item>
+        <Item>
+          <TimeLine />
+        </Item>
+        <Item>{/* <AddImage /> */}</Item>
+      </Masonry>
+    </Box>
   )
 }
 
