@@ -13,9 +13,35 @@ import ImageSelect from './ImageSelect'
 import PostInfo from './PostInfo'
 import Scheduler from './Scheduler'
 
-
-export default function PostScheduler({imageSelect}) {
+export default function PostScheduler({ imageSelect }) {
   const [activeStep, setActiveStep] = React.useState(0)
+
+  // const [title, setTitle] = useState('')
+  // const [price, setPrice] = useState('')
+  // const [quantity, setQuantity] = useState('')
+  // const [caption, setCaption] = useState('')
+  // const [about, setAbout] = useState('')
+  // const [canShip, setCanShip] = useState(false)
+  // const [location, setLocation] = useState('')
+  // const [postTime, setPostTime] = useState('')
+
+  // const scheduleHandler = async () => {
+  // shortcut to combine the response from first post and user data from user state to be sent to back end as one object
+  // const { instagramBusinessId, permanentToken, saleItems } = userData
+  // const saleItemDataBundle = {
+  //   ...responseUpload.data,
+  //   instagramBusinessId,
+  //   permanentToken,
+  //   saleItems,
+  // }
+  // console.log('saleItemDataBundle', saleItemDataBundle)
+  // second post sends combine object from above to back end to be posted to instagram and added to the users sale que
+  // const responseSchedule = await axios.post(
+  //   '/saleItem/schedule',
+  //   saleItemDataBundle
+  // )
+  // console.log(responseSchedule)
+  // }
 
   const handleNext = () => {
     setActiveStep(activeStep + 1)
@@ -25,7 +51,11 @@ export default function PostScheduler({imageSelect}) {
     setActiveStep(activeStep - 1)
   }
 
-  const steps = ['Choose Image', 'Quantity and Availability', 'Schedule Post Time']
+  const steps = [
+    'Choose Image',
+    'Quantity and Availability',
+    'Schedule Post Time',
+  ]
 
   function getStepContent(step) {
     switch (step) {
