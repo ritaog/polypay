@@ -3,7 +3,6 @@ import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
 
-
 const Img = styled('img')({
   margin: 'auto',
   display: 'block',
@@ -11,17 +10,17 @@ const Img = styled('img')({
   maxHeight: '100%',
 })
 
-export default function ImageSelect({imageSelect}) {
-  console.log('imageSelect', imageSelect);
+export default function ImageSelect({ imageSelect, setCaption }) {
+  console.log('imageSelect', imageSelect)
   return (
     <React.Fragment>
-      <Grid container spacing={1}>
+      <Grid container spacing={1} sx={{ height: '35em' }}>
         <Grid item xs={12} sx={{ padding: '10px' }}>
           <TextField
             required
             id="imageTitle"
             name="imageTitle"
-            value={imageSelect ? imageSelect._id : ''}
+            value={imageSelect ? imageSelect.postTitle : ''}
             label="Select Image"
             fullwidth="true"
             variant="standard"
@@ -41,6 +40,9 @@ export default function ImageSelect({imageSelect}) {
             name="address2"
             multiline
             maxRows={4}
+            onChange={(e) => {
+              setCaption(e.target.value)
+            }}
             label="Photo Caption"
             fullwidth="true"
             variant="standard"

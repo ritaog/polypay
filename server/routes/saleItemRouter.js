@@ -34,7 +34,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 router.post('/schedule', async (req, res) => {
   // sale item data from front end is received
   let postItem = req.body
-  console.log("postItem", postItem)
+  console.log('postItem', postItem.id)
 
   // Date() constructor is used to find the current time of the request
   let currentTime = new Date()
@@ -85,16 +85,16 @@ router.post('/schedule', async (req, res) => {
 
     // new array spread to add new sale item id to user saleItems array
     console.log('postSaleItem', postItem.saleItems)
-    console.log('post_id', postItem._id)
-    postItem.saleItems.unshift(postItem._id)
+    console.log('post_id', postItem.id)
+    postItem.saleItems.unshift(postItem.id)
     let updatedSaleItems = {
-      saleItems: postItem.saleItems
+      saleItems: postItem.saleItems,
     }
-    console.log('updatedSaleItems', updatedSaleItems);
+    console.log('updatedSaleItems', updatedSaleItems)
 
     // function from "../models/controller.js" finds user by id and updates sale items array with new array created on line 86
     await findUserAndUpdate(postItem.vendorId, updatedSaleItems)
-    
+
     // sends instagram response back to front end
     res.send(resPostText)
   }
@@ -111,9 +111,11 @@ router.post('/schedule', async (req, res) => {
 //GET endpoint || description: localhost:5000/saleItem/listSaleItems
 router.get('/listUserSaleItemsById/:id', async (req, res) => {
   const userId = req.params.id
-  console.log('userId', userId);
+  console.log('userId', userId)
   const responseUser = await User.findOne({ _id: userId })
-  const saleItemArray = await SaleItem.find({ _id: { $in: responseUser.saleItems }})
+  const saleItemArray = await SaleItem.find({
+    _id: { $in: responseUser.saleItems },
+  })
   res.json(saleItemArray)
 })
 
@@ -121,20 +123,22 @@ router.get('/listUserSaleItemsById/:id', async (req, res) => {
 router.get('/listSaleItemsByLoggedUser', async (req, res) => {
   const userId = req.user.id
   const responseUser = await User.findOne({ _id: userId })
-  const saleItemArray = await SaleItem.find({_id: { $in: responseUser.saleItems }})
+  const saleItemArray = await SaleItem.find({
+    _id: { $in: responseUser.saleItems },
+  })
   res.json(saleItemArray)
 })
 // GET endpoint || description: localhost:5000/saleItem/listImagesBLoggedUser
 router.get('/listImagesByLoggedUser', async (req, res) => {
   const userId = req.user.id
-  const saleItemArray = await SaleItem.find({vendorId: userId})
+  const saleItemArray = await SaleItem.find({ vendorId: userId })
   res.json(saleItemArray)
 })
 
 //GET endpoint || description: localhost:5000/saleItem/getSaleItemById
 router.get('/getSaleItemById/:id', async (req, res) => {
   const userId = req.params.id
-  const response = await SaleItem.findOne({_id: userId})
+  const response = await SaleItem.findOne({ _id: userId })
   res.json(response)
 })
 

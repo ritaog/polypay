@@ -1,18 +1,15 @@
 import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
-import Masonry from '@mui/lab/Masonry';
+import Masonry from '@mui/lab/Masonry'
 import SaleListUser from '../components/ui/SaleListUser'
 import DisplayMedia from '../components/ui/DisplayMedia'
 
 import { useState } from 'react'
 import PostScheduler from '../components/imageUpload/PostScheduler'
 
-
-
 const SchedulePostPage = ({ userData }) => {
-
-  const [imageSelect, setImageSelect] = useState('');
+  const [imageSelect, setImageSelect] = useState('')
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -22,7 +19,7 @@ const SchedulePostPage = ({ userData }) => {
   }))
 
   const imageSelectHandler = (image) => {
-    console.log('image', image);
+    console.log('image', image)
     setImageSelect(image)
   }
   return (
@@ -37,7 +34,7 @@ const SchedulePostPage = ({ userData }) => {
             />
           </Item>
           <Item>
-            <PostScheduler imageSelect={imageSelect} />
+            <PostScheduler imageSelect={imageSelect} userData={userData} />
           </Item>
           <Item>
             <SaleListUser userData={userData} />

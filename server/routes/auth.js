@@ -2,7 +2,7 @@ import express from 'express'
 import fetch from 'node-fetch'
 import {
   findUserByEmail,
-  findById,
+  findUserById,
   findUserAndUpdate,
 } from '../models/controller.js'
 const router = express.Router()
@@ -33,7 +33,6 @@ passport.use(
             return
           }
           done(null, user)
-          
         })
         .catch(done)
     }
@@ -48,7 +47,7 @@ passport.serializeUser(function (user, done) {
 // passport middle ware checks if there is a cookie saved in the browser and returns logged in user
 passport.deserializeUser(function (id, done) {
   console.log('passport is trying to recover the user from a cookie')
-  findById(id)
+  findUserById(id)
     .then((user) => {
       if (!user) {
         done(new Error('email not found or it was deleted'))

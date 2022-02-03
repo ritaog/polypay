@@ -5,22 +5,23 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import StaticDateTimePicker from '@mui/lab/StaticDateTimePicker'
 import DateTimePicker from '@mui/lab/DateTimePicker'
-import { useState } from 'react'
 
-export default function Scheduler() {
-  const [value, setValue] = useState(new Date())
+export default function Scheduler({ setPostTime, postTime }) {
   return (
     <React.Fragment>
-      <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
+      <Grid
+        container
+        spacing={2}
+        sx={{ justifyContent: 'center', height: '35em' }}
+      >
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Grid item>
             <StaticDateTimePicker
               displayStaticWrapperAs="desktop"
               openTo="day"
-              value={value}
-              onChange={(newValue) => {
-                console.log('newValue', newValue)
-                setValue(newValue)
+              value={postTime}
+              onChange={(e) => {
+                setPostTime(e)
               }}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -29,7 +30,10 @@ export default function Scheduler() {
             <DateTimePicker
               label="Post Time"
               readOnly
-              value={value}
+              value={postTime}
+              onChange={(e) => {
+                console.log(e)
+              }}
               renderInput={(params) => <TextField {...params} />}
               sx={{ paddingTop: '10px' }}
             />
