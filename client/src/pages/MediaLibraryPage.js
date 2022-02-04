@@ -19,7 +19,7 @@ const MediaLibraryPage = ({ userData }) => {
     <Box sx={{ width: '100%' }}>
       <div>Media Library</div>
       <Masonry columns={2} spacing={2}>
-        <Item>
+        <Item sx={{maxWidth: '50%', minWidth: '350px'}}>
           <DisplayMedia userData={userData} />
         </Item>
         <Item>
