@@ -1,13 +1,16 @@
+
+
 import DisplayItems from '../components/DisplayItems'
 import { useParams } from 'react-router-dom'
 
-const DisplayItemsPage = ({ userData }) => {
+const DisplayItemsPage = ({ userData, guest }) => {
   const profileId = useParams()
-  console.log('profileId', profileId);
+
+
   return (
     <div>
-      <h1>Display Items as a Grid</h1>
-      <DisplayItems userData={userData} profileId={profileId.id} />
+      {/* <h1>Display Items as a Grid</h1> */}
+      <DisplayItems userData={userData} profileId={profileId} guest={guest}/>
     </div>
   )
 }

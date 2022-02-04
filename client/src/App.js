@@ -1,21 +1,24 @@
 import React from 'react'
-import HomePage from './pages/HomePage'
-import ProfilePage from './pages/ProfilePage'
-import LoginPage from './pages/LoginPage'
-import LinkAccountPage from './pages/LinkAccountPage'
-import SchedulePostPage from './pages/SchedulePostPage'
-import DisplayItemsPage from './pages/DisplayItemsPage'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import "./App.css"
+import HomePage from './pages/HomePage'
+import ProfilePage from './pages/ProfilePage'
+import LinkAccountPage from './pages/LinkAccountPage'
+import SchedulePostPage from './pages/SchedulePostPage'
+import DisplayItemsPage from './pages/DisplayItemsPage'
+import MediaLibraryPage from './pages/MediaLibraryPage'
+import CheckoutPage from './pages/CheckoutPage'
+import ResponsiveDrawer from './components/navigation/ResponsiveDrawer'
 
 const App = () => {
   //user state set by user login
   const [user, setUser] = useState({})
   //function that sets user: this function is passed to the "/"
-  const getObject = (userObj) => {
-    console.log(userObj)
-    setUser(userObj)
+  const getObject = (userData) => {
+    console.log(userData)
+    setUser(userData)
   }
 
   // useEffect checks browser for cookies on reload and if there is a passport cookie the user state is retrieved
@@ -24,7 +27,7 @@ const App = () => {
       const response = await axios.get('auth/getLoggedInUser')
       setUser(response.data)
     }
-    getUser()
+      getUser()
   }, [])
 
   return (
@@ -32,25 +35,84 @@ const App = () => {
       <Routes>
         <Route
           path="/"
-          element={<LoginPage userData={user} getObject={getObject} />}
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<HomePage userData={user} />}
+            />
+          }
         />
-        <Route path="/Home" element={<HomePage userData={user} />} />
         <Route
-          path="/LinkAccounts"
-          element={<LinkAccountPage userData={user} />}
+          path="/link-accounts"
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<LinkAccountPage userData={user} />}
+            />
+          }
         />
         <Route
-          path="/SchedulePost"
-          element={<SchedulePostPage userData={user} />}
+          path="/schedule-post"
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<SchedulePostPage userData={user} />}
+            />
+          }
         />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route
+          path="/profile"
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<ProfilePage userData={user}/>}
+            />
+          }
+        />
         <Route
           path="/portfolio"
-          element={<DisplayItemsPage userData={user} />}
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<DisplayItemsPage userData={user} />}
+            />
+          }
         />
         <Route
-          path="/portfolio/:id"
-          element={<DisplayItemsPage />}
+          path="/media-library"
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<MediaLibraryPage userData={user} />}
+            />
+          }
+
+        />
+        <Route
+          path="/sales/:id"
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<DisplayItemsPage userData={user} guest={true}/>}
+            />
+          }
+        />
+        <Route
+          path="/checkout/:id"
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<CheckoutPage />}
+            />
+          }
         />
       </Routes>
     </BrowserRouter>
