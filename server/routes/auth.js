@@ -1,6 +1,10 @@
 import express from 'express'
 import fetch from 'node-fetch'
-import { findUserByEmail, findById, findUserAndUpdate } from '../models/controller.js'
+import {
+  findUserByEmail,
+  findUserById,
+  findUserAndUpdate,
+} from '../models/controller.js'
 const router = express.Router()
 
 import passport from 'passport'
@@ -12,16 +16,16 @@ import { Strategy as LocalStrategy } from 'passport-local'
 passport.use(
   // creates local strategy constructor for passport to authenticate user
   new LocalStrategy(
-  // usernameField => tells passport to look for username in 'emailAddress' in User object
-  // passwordField => tells passport to look for password in 'password' in User object
+    // usernameField => tells passport to look for username in 'emailAddress' in User object
+    // passwordField => tells passport to look for password in 'password' in User object
     {
       usernameField: 'emailAddress',
       passwordField: 'password',
     },
-  // function call from passport receives username and password from inputs on front end
+    // function call from passport receives username and password from inputs on front end
     function (username, password, done) {
       console.log('passport is trying to verify user', username)
-  // calls User model controller and finds user by email and compares 'usernameField' and 'passwordField' with User object
+      // calls User model controller and finds user by email and compares 'usernameField' and 'passwordField' with User object
       findUserByEmail(username)
         .then((user) => {
           if (!user || user.password !== password) {
@@ -40,13 +44,12 @@ passport.serializeUser(function (user, done) {
   console.log('passport wants to store this user in a cookie', user)
   done(null, user.id)
 })
-// passport middle ware checks if there is a cookie saved in the browser and returns logged in user 
+// passport middle ware checks if there is a cookie saved in the browser and returns logged in user
 passport.deserializeUser(function (id, done) {
   console.log('passport is trying to recover the user from a cookie')
-  findById(id)
+  findUserById(id)
     .then((user) => {
       if (!user) {
-        
         done(new Error('email not found or it was deleted'))
         return
       }
@@ -55,17 +58,20 @@ passport.deserializeUser(function (id, done) {
     .catch(done)
 })
 
-// POST Endpoint || login endpoint, uses the passport middle above, to authenticate if username and password from log in matches user in database 
-router.post('/login', passport.authenticate('local'), async function (req, res) {
+// POST Endpoint || login endpoint, uses the passport middle above, to authenticate if username and password from log in matches user in database
+router.post(
+  '/login',
+  passport.authenticate('local'),
+  async function (req, res) {
+    console.log(req.user)
     res.send(req.user)
   }
 )
 
 // GET endpoint || when endpoint is called checks for user cookie in browser and returns user if there is
 router.get('/getLoggedInUser', async function (req, res) {
-    res.send(req.user)
-  }
-)
+  res.send(req.user)
+})
 
 // POST endpoint || this endpoint is used to connect users facebook account and generate a permanent token for instagram graph api calls
 router.post('/validateFb', async function (req, res) {
@@ -96,7 +102,7 @@ router.post('/validateFb', async function (req, res) {
 
   // response3 is converted to json to read permanent token
   const permToken = await response3.json()
-  
+
   // instaAccess is the two results needed to make future api calls with instagram graph api the business id of the instagram page and the permamnent access token for the user
   const instaAccess = {
     instagramBusinessId: instaBusiId.instagram_business_account.id,
@@ -109,7 +115,5 @@ router.post('/validateFb', async function (req, res) {
   // updated user is sent back to the front end
   res.json(updatedUser)
 })
-
-
 
 export default router

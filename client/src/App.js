@@ -2,15 +2,15 @@ import React from 'react'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import "./App.css"
 import HomePage from './pages/HomePage'
 import ProfilePage from './pages/ProfilePage'
-import LoginPage from './pages/LoginPage'
 import LinkAccountPage from './pages/LinkAccountPage'
 import SchedulePostPage from './pages/SchedulePostPage'
 import DisplayItemsPage from './pages/DisplayItemsPage'
+import MediaLibraryPage from './pages/MediaLibraryPage'
 import CheckoutPage from './pages/CheckoutPage'
-
-
+import ResponsiveDrawer from './components/navigation/ResponsiveDrawer'
 
 const App = () => {
   //user state set by user login
@@ -27,32 +27,92 @@ const App = () => {
       const response = await axios.get('auth/getLoggedInUser')
       setUser(response.data)
     }
-    getUser()
+      getUser()
   }, [])
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage userData={user} />} />
         <Route
-          path="/login"
-          element={<LoginPage userData={user} getObject={getObject} />}
+          path="/"
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<HomePage userData={user} />}
+            />
+          }
         />
         <Route
           path="/linkaccounts"
-          element={<LinkAccountPage userData={user} />}
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<LinkAccountPage userData={user} />}
+            />
+          }
         />
         <Route
           path="/schedulepost"
-          element={<SchedulePostPage userData={user} />}
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<SchedulePostPage userData={user} />}
+            />
+          }
         />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route
+          path="/profile"
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<ProfilePage />}
+            />
+          }
+        />
         <Route
           path="/portfolio"
-          element={<DisplayItemsPage userData={user} />}
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<DisplayItemsPage userData={user} />}
+            />
+          }
         />
-        <Route path="/portfolio/:id" element={<DisplayItemsPage />} />
-        <Route path="/checkout/:id" element={<CheckoutPage />} />
+        <Route
+          path="/medialibrary"
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<MediaLibraryPage userData={user} />}
+            />
+          }
+        />
+        <Route
+          path="/sales/:id"
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<DisplayItemsPage userData={user} guest={true}/>}
+            />
+          }
+        />
+        <Route
+          path="/checkout/:id"
+          element={
+            <ResponsiveDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<CheckoutPage />}
+            />
+          }
+        />
       </Routes>
     </BrowserRouter>
   )

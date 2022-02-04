@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
+// import ClippedDrawer from '../components/navigation/ClippedDrawer'
 
 const HomePage = ({ userData }) => {
   const [message, setMessage] = useState()
@@ -17,21 +17,6 @@ const HomePage = ({ userData }) => {
   return (
     <div>
       <h1>Polypay says: {message}</h1>
-      <h1>Hello: {userData ? JSON.stringify(userData.userName) : 'Guest'}</h1>
-      <div>
-        <Link to={'/linkaccounts'}>Link Your Account To Your Platforms</Link>
-      </div>
-      <div>
-        <Link to={'/schedulepost'}>Schedule A Post</Link>
-      </div>
-
-      <div>
-        <Link to={'/portfolio'}>View all items for sale</Link>
-      </div>
-
-      <div>
-        <Link to={'/login'}>login/signup</Link>
-      </div>
     </div>
   )
 }
