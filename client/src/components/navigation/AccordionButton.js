@@ -57,7 +57,7 @@ export default function CustomizedAccordions() {
             <ListItem
               button
               onClick={() => {
-                navigate('/schedulepost')
+                navigate('/schedule-post')
               }}
             >
               <AddIcon />
@@ -69,7 +69,7 @@ export default function CustomizedAccordions() {
             <ListItem
               button
               onClick={() => {
-                navigate('/medialibrary')
+                navigate('/media-library')
               }}
             >
               <PhotoIcon />
@@ -99,7 +99,7 @@ export default function CustomizedAccordions() {
             <ListItem
               button
               onClick={() => {
-                navigate('/linkaccounts')
+                navigate('/link-accounts')
               }}
             >
               <AccountBoxIcon />

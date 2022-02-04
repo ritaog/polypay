@@ -1,4 +1,5 @@
 import express from "express";
+import { findUserAndUpdate } from "../models/controller.js";
 import User from "../models/userModel.js"
 
 
@@ -33,6 +34,13 @@ router.post("/addUser", async (req, res) => {
   // sends id back to front end
   res.json(newId);
 });
+
+// PUT endpoint || description: http://localhost:5000/user/updateUser
+router.put("/updateUser", async (req,res) => {
+  let updateUserData = req.body
+  const response = findUserAndUpdate(updateUserData._id, updateUserData)
+  res.send(response)
+})
 
 
 

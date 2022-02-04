@@ -68,7 +68,7 @@ export default function SignUpModal({ getUserState }) {
           '&:hover': { backgroundColor: '#6c19ff' },
         }}
       >
-        Sign Up
+        Sign In
       </Button>
       <Modal
         open={open}
@@ -137,7 +137,7 @@ export default function SignUpModal({ getUserState }) {
                   </Button>
                   <Grid container>
                     <Grid item>
-                      <Link href="#" variant="body2">
+                      <Link href="/profile" variant="body2">
                         {"Don't have an account? Sign Up"}
                       </Link>
                     </Grid>

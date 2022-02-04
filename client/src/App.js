@@ -16,9 +16,9 @@ const App = () => {
   //user state set by user login
   const [user, setUser] = useState({})
   //function that sets user: this function is passed to the "/"
-  const getObject = (userObj) => {
-    console.log(userObj)
-    setUser(userObj)
+  const getObject = (userData) => {
+    console.log(userData)
+    setUser(userData)
   }
 
   // useEffect checks browser for cookies on reload and if there is a passport cookie the user state is retrieved
@@ -44,7 +44,7 @@ const App = () => {
           }
         />
         <Route
-          path="/linkaccounts"
+          path="/link-accounts"
           element={
             <ResponsiveDrawer
               userData={user}
@@ -54,7 +54,7 @@ const App = () => {
           }
         />
         <Route
-          path="/schedulepost"
+          path="/schedule-post"
           element={
             <ResponsiveDrawer
               userData={user}
@@ -69,7 +69,7 @@ const App = () => {
             <ResponsiveDrawer
               userData={user}
               getUserState={getObject}
-              children={<ProfilePage />}
+              children={<ProfilePage userData={user}/>}
             />
           }
         />
@@ -84,7 +84,7 @@ const App = () => {
           }
         />
         <Route
-          path="/medialibrary"
+          path="/media-library"
           element={
             <ResponsiveDrawer
               userData={user}
@@ -92,6 +92,7 @@ const App = () => {
               children={<MediaLibraryPage userData={user} />}
             />
           }
+
         />
         <Route
           path="/sales/:id"

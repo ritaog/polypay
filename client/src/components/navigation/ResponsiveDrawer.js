@@ -22,7 +22,8 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import Link from '@mui/material/Link'
 import SignUpButton from './SignUpModal'
-import AccordionButton from './AccordianButton'
+import AccordionButton from './AccordionButton'
+import axios from 'axios'
 
 const drawerWidth = 240
 
@@ -37,6 +38,14 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
+  }
+
+  const handleSignOut = async () => {
+    setAnchorElUser(null)
+
+    let logout = await axios.get('auth/logout')
+    console.log('Trying to logout', logout)
+    getUserState(null)
   }
 
   const handleDrawerToggle = () => {
@@ -124,7 +133,7 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
             component="h2"
             sx={{ display: { color: 'black', paddingRight: '10px' } }}
           >
-            {userData ? userData.userName : 'Guest'}
+            {userData ? userData.userName : 'Welcome'}
           </Typography>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -164,7 +173,7 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
               <MenuItem component={Link} href="/" onClick={handleCloseUserMenu}>
                 <Typography textAlign="center">Dashboard</Typography>
               </MenuItem>
-              <MenuItem component={Link} href="/" onClick={handleCloseUserMenu}>
+              <MenuItem component={Link} href="/" onClick={handleSignOut}>
                 <Typography textAlign="center">Sign Out</Typography>
               </MenuItem>
             </Menu>

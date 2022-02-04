@@ -68,6 +68,13 @@ router.post(
   }
 )
 
+// GET endpoint || endpoint logs out user
+router.get('/logout', function (req, res) {
+  console.log('get server logout')
+  req.logout()
+  res.redirect('/')
+})
+
 // GET endpoint || when endpoint is called checks for user cookie in browser and returns user if there is
 router.get('/getLoggedInUser', async function (req, res) {
   res.send(req.user)
