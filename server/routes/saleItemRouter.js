@@ -4,7 +4,7 @@ import cloudinary from '../utils/cloudinary.js'
 import upload from '../utils/multer.js'
 import SaleItem from '../models/saleItemModel.js'
 import User from '../models/userModel.js'
-import { findUserAndUpdate } from '../models/controller.js'
+import { findUserAndUpdate, findSaleItemAndUpdate } from '../models/controller.js'
 
 const router = express.Router()
 
@@ -24,7 +24,10 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 
   // saves "newData" to the saleItems collection in database
   const newItem = await newData.save()
-  console.log(newItem)
+
+  console.log('newItem', newItem)
+
+  // await findUserAndUpdate(postItem.vendorId, updatedSaleItems)
 
   // sends result from database back to front end
   res.json(newItem)
@@ -41,6 +44,30 @@ router.post('/schedule', async (req, res) => {
 
   // uses the postTime the was selected by user in front end. adds time to Date() constructor
   let scheduleTime = new Date(postItem.postTime)
+
+  console.log('postItem', postItem)
+
+  postItem.saleItems.unshift(postItem.id)
+
+  let updatedInfo = {
+    vendorName: postItem.vendorName,
+    vendorId: postItem.vendorId,
+    postTitle: postItem.postTitle,
+    price: postItem.price,
+    quantity: postItem.quantity,
+    photos: postItem.photos,
+    description: postItem.description,
+    about: postItem.about,
+    canShip: postItem.canShip,
+    available: postItem.available,
+    postTime: postItem.postTime,
+    location: postItem.location
+  }
+
+  await findUserAndUpdate(postItem.vendorId, {saleItems: postItem.saleItems})
+  await findSaleItemAndUpdate(postItem.id, updatedInfo)
+
+  console.log('postItem', postItem)
 
   console.log('current time', currentTime.getTime())
   console.log('schedule  time', scheduleTime.getTime())
@@ -84,16 +111,13 @@ router.post('/schedule', async (req, res) => {
     const resPostText = await resPost.json()
 
     // new array spread to add new sale item id to user saleItems array
-    console.log('postSaleItem', postItem.saleItems)
-    console.log('post_id', postItem.id)
-    postItem.saleItems.unshift(postItem.id)
-    let updatedSaleItems = {
-      saleItems: postItem.saleItems,
-    }
-    console.log('updatedSaleItems', updatedSaleItems)
+    
+    
+    const updatedSaleItem = await findSaleItemAndUpdate(postItem.id, { available: 'Posted' })
+
+    console.log('updatedSaleItem', updatedSaleItem);
 
     // function from "../models/controller.js" finds user by id and updates sale items array with new array created on line 86
-    await findUserAndUpdate(postItem.vendorId, updatedSaleItems)
 
     // sends instagram response back to front end
     res.send(resPostText)

@@ -21,7 +21,7 @@ export default function Scheduler({ setPostTime, postTime }) {
               openTo="day"
               value={postTime}
               onChange={(e) => {
-                setPostTime(e)
+                setPostTime(new Date(e))
               }}
               renderInput={(params) => <TextField {...params} />}
             />

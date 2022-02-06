@@ -11,7 +11,6 @@ const Img = styled('img')({
 })
 
 export default function ImageSelect({ imageSelect, setCaption, setPostTitle }) {
-  console.log('imageSelect', imageSelect)
   return (
     <React.Fragment>
       <Grid container spacing={1} sx={{ height: '35em' }}>

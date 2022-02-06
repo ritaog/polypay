@@ -68,7 +68,7 @@ export default function CustomizedTimeline({ userData }) {
 
   useEffect(() => {
     const getPosts = async () => {
-      const response = await axios.get('/saleItem/listImagesByLoggedUser')
+      const response = await axios.get('/saleItem/listSaleItemsByLoggedUser')
       setPosts(response.data)
     }
     if (userData) {

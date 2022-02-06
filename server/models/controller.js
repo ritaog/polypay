@@ -18,6 +18,11 @@ export async function findSaleItemById(id) {
   return saleItem
 }
 
+export async function findSaleItemAndUpdate(id, saleItemData) {
+  let updatedSaleItem = await SaleItem.findByIdAndUpdate(id, saleItemData)
+  return updatedSaleItem
+}
+
 export async function findUserAndUpdate(id, userData) {
   let updatedUser = await User.findByIdAndUpdate(id, userData)
   return updatedUser
