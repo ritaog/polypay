@@ -36,8 +36,8 @@ export default function SaleListUser({userData}) {
               </ListSubheader>
             </ImageListItem>
             {saleItems
-              ? saleItems.map((item) => (
-                  <ImageListItem key={item.photos[0]}>
+              ? saleItems.map((item, index) => (
+                  <ImageListItem key={index}>
                     <img
                       src={`${item.photos[0]}?w=248&fit=crop&auto=format`}
                       srcSet={`${item.photos[0]}?w=248&fit=crop&auto=format&dpr=2 2x`}

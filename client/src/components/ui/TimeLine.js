@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Timeline, { timelineClasses } from '@mui/lab/Timeline'
+import Timeline from '@mui/lab/Timeline'
 import TimelineItem from '@mui/lab/TimelineItem'
 import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import TimelineConnector from '@mui/lab/TimelineConnector'
@@ -64,7 +64,7 @@ export default function CustomizedTimeline({ userData }) {
     if (!timeline[0]) {
       setTimeline(createYear(2022))
     }
-  }, [])
+  }, [timeline])
 
   useEffect(() => {
     const getPosts = async () => {
@@ -74,14 +74,13 @@ export default function CustomizedTimeline({ userData }) {
     if (userData) {
       getPosts()
     }
-  }, [])
+  }, [userData])
 
   const sortedTimeline = sortTimeLine(timeline, posts)
 
   let timeLineDisplay = sortedTimeline.map((timePoint, index) => {
     return timePoint._id ? (
-      <TimelineItem key={index}>
-        {/* {const postDate = new Date(timpoint.postTime)} */}
+      <TimelineItem key={index._id}>
         <TimelineOppositeContent
           sx={{ m: 'auto 0' }}
           align="right"
@@ -101,11 +100,13 @@ export default function CustomizedTimeline({ userData }) {
           </TimelineDot>
           <TimelineConnector />
         </TimelineSeparator>
-        <TimelineContent sx={{ py: '20px', px: 2 }}>
+        <TimelineContent sx={{ py: '12px', px: 2 }}>
           <Typography variant="h12" component="span">
             {timePoint.postTitle}
           </Typography>
-          {/* <Typography>{timePoint.description}</Typography> */}
+          <Typography variant="caption" component="div">
+            {'Status: ' + timePoint.available}
+          </Typography>
         </TimelineContent>
       </TimelineItem>
     ) : (
@@ -113,7 +114,7 @@ export default function CustomizedTimeline({ userData }) {
         <TimelineOppositeContent
           sx={{ m: 'auto 0' }}
           align="right"
-          variant="body2"
+          variant="h4"
           color="text.secondary"
         >
           {months[timePoint.getMonth()]}

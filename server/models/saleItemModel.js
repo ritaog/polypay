@@ -12,7 +12,7 @@ const SaleItemSchema = new mongoose.Schema({
   description: String,
   about: String,
   canShip: Boolean,
-  available: Boolean,
+  available: String,
   postTime: { type: Date, required: true },
   location: String,
 })
