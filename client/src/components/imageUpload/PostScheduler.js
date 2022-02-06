@@ -20,6 +20,7 @@ export default function PostScheduler({ imageSelect, userData }) {
   const navigate = useNavigate()
   const [activeStep, setActiveStep] = React.useState(0)
 
+  const [postTitle, setPostTitle] = useState('');
   const [price, setPrice] = useState('')
   const [quantity, setQuantity] = useState('')
   const [caption, setCaption] = useState('')
@@ -32,7 +33,7 @@ export default function PostScheduler({ imageSelect, userData }) {
     id: imageSelect._id,
     vendorName: imageSelect.vendorName,
     vendorId: imageSelect.vendorId,
-    postTitle: imageSelect.postTitle,
+    postTitle: postTitle,
     price: price,
     quantity: quantity,
     photos: imageSelect.photos,
@@ -78,7 +79,7 @@ export default function PostScheduler({ imageSelect, userData }) {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <ImageSelect imageSelect={imageSelect} setCaption={setCaption} />
+        return <ImageSelect imageSelect={imageSelect} setCaption={setCaption} setPostTitle={setPostTitle}/>
       case 1:
         return (
           <PostInfo

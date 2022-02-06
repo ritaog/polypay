@@ -10,7 +10,7 @@ const Img = styled('img')({
   maxHeight: '100%',
 })
 
-export default function ImageSelect({ imageSelect, setCaption }) {
+export default function ImageSelect({ imageSelect, setCaption, setPostTitle }) {
   console.log('imageSelect', imageSelect)
   return (
     <React.Fragment>
@@ -20,7 +20,7 @@ export default function ImageSelect({ imageSelect, setCaption }) {
             required
             id="imageTitle"
             name="imageTitle"
-            value={imageSelect ? imageSelect.postTitle : ''}
+            onChange={(e) => {setPostTitle(e.target.value)}}
             label="Select Image"
             fullwidth="true"
             variant="standard"
