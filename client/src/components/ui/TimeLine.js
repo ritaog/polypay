@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Timeline from '@mui/lab/Timeline'
+import Timeline, { timelineClasses } from '@mui/lab/Timeline'
 import TimelineItem from '@mui/lab/TimelineItem'
 import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import TimelineConnector from '@mui/lab/TimelineConnector'
@@ -8,18 +8,91 @@ import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent'
 import TimelineDot from '@mui/lab/TimelineDot'
 import LaptopMacIcon from '@mui/icons-material/LaptopMac'
 import Typography from '@mui/material/Typography'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
-export default function CustomizedTimeline() {
-  return (
-    <Timeline position="alternate">
-      <TimelineItem>
+export default function CustomizedTimeline({ userData }) {
+  const [timeline, setTimeline] = useState([])
+  const [posts, setPosts] = useState([])
+
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
+
+  const createYear = (year) => {
+    let tempArr = []
+    for (let index = 0; index < 12; index++) {
+      tempArr.push(new Date(year, index))
+    }
+    return tempArr
+  }
+
+  const sortTimeLine = (timelineMonths, userPosts) => {
+    
+    let monthsInSeconds = timelineMonths.map((month) => {
+      return [month.getTime(), month]
+    })
+
+    let postsInSeconds = userPosts.map((post) => {
+      let postDate = new Date(post.postTime)
+      return [postDate.getTime(), post]
+    })
+
+    let combinedDates = [...monthsInSeconds, ...postsInSeconds]
+
+    combinedDates.sort()
+
+    let sortedTimePoints = combinedDates.map((date) => {
+      return date[1]
+    })
+
+    return sortedTimePoints
+  }
+
+  useEffect(() => {
+    if (!timeline[0]) {
+      setTimeline(createYear(2022))
+    }
+  }, [])
+
+  useEffect(() => {
+    const getPosts = async () => {
+      const response = await axios.get('/saleItem/listImagesByLoggedUser')
+      setPosts(response.data)
+    }
+    if (userData) {
+      getPosts()
+    }
+  }, [])
+
+  const sortedTimeline = sortTimeLine(timeline, posts)
+
+  let timeLineDisplay = sortedTimeline.map((timePoint, index) => {
+    return timePoint._id ? (
+      <TimelineItem key={index}>
+        {/* {const postDate = new Date(timpoint.postTime)} */}
         <TimelineOppositeContent
           sx={{ m: 'auto 0' }}
           align="right"
           variant="body2"
           color="text.secondary"
         >
-          9:30 am
+          {`${months[new Date(timePoint.postTime).getMonth()]} ${new Date(
+            timePoint.postTime
+          ).getDate()} at ${new Date(timePoint.postTime).getHours()}:${new Date(
+            timePoint.postTime
+          ).getMinutes()}`}
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineConnector />
@@ -28,81 +101,36 @@ export default function CustomizedTimeline() {
           </TimelineDot>
           <TimelineConnector />
         </TimelineSeparator>
-        <TimelineContent sx={{ py: '12px', px: 2 }}>
-          <Typography variant="h6" component="span">
-            Post 1
+        <TimelineContent sx={{ py: '20px', px: 2 }}>
+          <Typography variant="h12" component="span">
+            {timePoint.postTitle}
           </Typography>
-          <Typography>Instagram description</Typography>
+          {/* <Typography>{timePoint.description}</Typography> */}
         </TimelineContent>
       </TimelineItem>
-      <TimelineItem>
+    ) : (
+      <TimelineItem key={index}>
         <TimelineOppositeContent
           sx={{ m: 'auto 0' }}
+          align="right"
           variant="body2"
           color="text.secondary"
         >
-          10:00 am
+          {months[timePoint.getMonth()]}
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineConnector />
-          <TimelineDot color="primary">
-            <LaptopMacIcon />
-          </TimelineDot>
+          <TimelineDot></TimelineDot>
           <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent sx={{ py: '12px', px: 2 }}>
-          <Typography variant="h6" component="span">
-            Post 2
-          </Typography>
-          <Typography>Or info on the post</Typography>
+          <Typography variant="h6" component="span"></Typography>
         </TimelineContent>
       </TimelineItem>
-      <TimelineItem>
-        <TimelineOppositeContent
-          sx={{ m: 'auto 0' }}
-          variant="body2"
-          color="text.secondary"
-        >
-          12:00 am
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <TimelineConnector />
-          <TimelineDot color="primary" variant="outlined">
-            <LaptopMacIcon />
-          </TimelineDot>
-          <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
-        </TimelineSeparator>
-        <TimelineContent sx={{ py: '12px', px: 2 }}>
-          <Typography variant="h6" component="span">
-            Post 3
-          </Typography>
-          <Typography>
-            though this could be a neat way to show when posts go up
-          </Typography>
-        </TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineOppositeContent
-          sx={{ m: 'auto 0' }}
-          variant="body2"
-          color="text.secondary"
-        >
-          4:00 pm
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
-          <TimelineDot color="secondary">
-            <LaptopMacIcon />
-          </TimelineDot>
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent sx={{ py: '12px', px: 2 }}>
-          <Typography variant="h6" component="span">
-            Post 4
-          </Typography>
-          <Typography>Let me know if you like</Typography>
-        </TimelineContent>
-      </TimelineItem>
-    </Timeline>
-  )
+    )
+  })
+
+  // console.log('timeLineDisplay', timeLineDisplay);
+
+  return <Timeline position="right">{timeLineDisplay}</Timeline>
 }

@@ -36,7 +36,7 @@ const SchedulePostPage = ({ userData }) => {
           <Item sx={{ maxWidth: '50%', minWidth: '350px' }}>
             <PostScheduler imageSelect={imageSelect} userData={userData} />
           </Item>
-          <Item sx={{ maxWidth: '50%', minWidth: '350px' }}>
+          <Item sx={{ maxWidth: '50%', minWidth: '350px'}}>
             <SaleListUser userData={userData} />
           </Item>
         </Masonry>
