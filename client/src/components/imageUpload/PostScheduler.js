@@ -60,6 +60,7 @@ export default function PostScheduler({ imageSelect, userData }) {
     // second post sends combine object from above to back end to be posted to instagram and added to the users sale que
     const response = await axios.post('saleItem/schedule', saleItemDataBundle)
     console.log('response', response)
+    window.location.reload(false)
   }
 
   const handleNext = () => {
@@ -121,7 +122,7 @@ export default function PostScheduler({ imageSelect, userData }) {
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Your post will be posted at: TIME AND DATE
+                  Your post will be posted at: {postTime}
                 </Typography>
                 <Button variant="contained" onClick={scheduleHandler}>
                   OKAY!

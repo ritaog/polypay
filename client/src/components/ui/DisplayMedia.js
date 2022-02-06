@@ -40,7 +40,7 @@ export default function SaleListUser({ userData, imageSelectHandler }) {
 
     // first post sends photo file and form data to back end. response is the compiled sale item object with image url from cloudinary
     const responseUpload = await axios.post('/saleItem/upload', imageData)
-
+    window.location.reload(false)
     console.log(responseUpload)
   }
 
