@@ -22,7 +22,7 @@ const MediaLibraryPage = ({ userData }) => {
         <Item sx={{maxWidth: '50%', minWidth: '350px'}}>
           <DisplayMedia userData={userData} />
         </Item>
-        <Item>
+        <Item sx={{maxWidth: '50%', minWidth: '350px'}}>
           <TimeLine />
         </Item>
         <Item>{/* <AddImage /> */}</Item>
