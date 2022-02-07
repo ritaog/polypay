@@ -20,7 +20,7 @@ export default function ImageSelect({ imageSelect, setCaption, setPostTitle }) {
             id="imageTitle"
             name="imageTitle"
             onChange={(e) => {setPostTitle(e.target.value)}}
-            label="Select Image"
+            label="Image Title"
             fullwidth="true"
             variant="standard"
             sx={{ width: 200 }}

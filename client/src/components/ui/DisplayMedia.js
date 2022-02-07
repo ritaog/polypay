@@ -59,8 +59,8 @@ export default function SaleListUser({ userData, imageSelectHandler }) {
 
   return (
     <div>
-      <ImageList sx={{ width: '100%', margin: '0px' }}>
-        <ImageListItem key="Subheader" cols={2}>
+      <ImageList sx={{ width: '100%', margin: '0px' }} cols={3}>
+        <ImageListItem key="Subheader" cols={3}>
           <ListSubheader component="div">
             <Grid
               container
@@ -93,8 +93,11 @@ export default function SaleListUser({ userData, imageSelectHandler }) {
           </ListSubheader>
         </ImageListItem>
         {saleItems
-          ? saleItems.map((item,index) => (
-              <ImageListItem key={item._id + index + 'media'} sx={{'&:hover': {cursor: 'pointer'}}}>
+          ? saleItems.map((item, index) => (
+              <ImageListItem
+                key={item._id + index + 'media'}
+                sx={{ '&:hover': { cursor: 'pointer' } }}
+              >
                 <img
                   src={`${item.photos[0]}?w=248&fit=crop&auto=format`}
                   srcSet={`${item.photos[0]}?w=248&fit=crop&auto=format&dpr=2 2x`}

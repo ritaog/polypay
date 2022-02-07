@@ -6,10 +6,11 @@ import TimelineConnector from '@mui/lab/TimelineConnector'
 import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent'
 import TimelineDot from '@mui/lab/TimelineDot'
-import LaptopMacIcon from '@mui/icons-material/LaptopMac'
+import InstagramIcon from '@mui/icons-material/Instagram'
 import Typography from '@mui/material/Typography'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Box } from '@mui/system'
 
 export default function CustomizedTimeline({ userData }) {
   const [timeline, setTimeline] = useState([])
@@ -80,35 +81,37 @@ export default function CustomizedTimeline({ userData }) {
 
   let timeLineDisplay = sortedTimeline.map((timePoint, index) => {
     return timePoint._id ? (
-      <TimelineItem key={timePoint + index + 'timeline'}>
-        <TimelineOppositeContent
-          sx={{ m: 'auto 0' }}
-          align="right"
-          variant="body2"
-          color="text.secondary"
-        >
-          {`${months[new Date(timePoint.postTime).getMonth()]} ${new Date(
-            timePoint.postTime
-          ).getDate()} at ${new Date(timePoint.postTime).getHours()}:${new Date(
-            timePoint.postTime
-          ).getMinutes()}`}
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <TimelineConnector />
-          <TimelineDot>
-            <LaptopMacIcon />
-          </TimelineDot>
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent sx={{ py: '12px', px: 2 }}>
-          <Typography variant="h12" component="span">
-            {timePoint.postTitle}
-          </Typography>
-          <Typography variant="caption" component="div">
-            {'Status: ' + timePoint.available}
-          </Typography>
-        </TimelineContent>
-      </TimelineItem>
+      <React.Fragment>
+        <TimelineItem key={timePoint + index + 'timeline'}>
+          <TimelineOppositeContent
+            sx={{ m: 'auto 0' }}
+            align="right"
+            variant="body2"
+            color="text.secondary"
+          >
+            {`${months[new Date(timePoint.postTime).getMonth()]} ${new Date(
+              timePoint.postTime
+            ).getDate()} at ${new Date(
+              timePoint.postTime
+            ).getHours()}:${new Date(timePoint.postTime).getMinutes()}`}
+          </TimelineOppositeContent>
+          <TimelineSeparator>
+            <TimelineConnector />
+            <TimelineDot>
+              <InstagramIcon />
+            </TimelineDot>
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent sx={{ py: '12px', px: 2 }}>
+            <Typography variant="h12" component="span">
+              {timePoint.postTitle}
+            </Typography>
+            <Typography variant="caption" component="div">
+              {'Status: ' + timePoint.available}
+            </Typography>
+          </TimelineContent>
+        </TimelineItem>
+      </React.Fragment>
     ) : (
       <TimelineItem key={index}>
         <TimelineOppositeContent
