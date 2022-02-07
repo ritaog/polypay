@@ -35,8 +35,8 @@ export default function ImageSelect({ imageSelect, setCaption, setPostTitle }) {
         </Grid>
         <Grid item xs={12} sx={{ padding: '10px' }}>
           <TextField
-            id="address2"
-            name="address2"
+            id="caption"
+            name="caption"
             multiline
             maxRows={4}
             onChange={(e) => {
