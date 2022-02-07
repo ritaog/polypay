@@ -6,7 +6,7 @@ import SaleListUser from '../components/ui/SaleListUser'
 import DisplayMedia from '../components/ui/DisplayMedia'
 
 import { useState } from 'react'
-import PostScheduler from '../components/imageUpload/PostScheduler'
+import PostScheduler from '../components/imageScheduler/PostScheduler'
 
 const SchedulePostPage = ({ userData }) => {
   const [imageSelect, setImageSelect] = useState('')

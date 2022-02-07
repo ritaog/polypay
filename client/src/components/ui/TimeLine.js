@@ -80,7 +80,7 @@ export default function CustomizedTimeline({ userData }) {
 
   let timeLineDisplay = sortedTimeline.map((timePoint, index) => {
     return timePoint._id ? (
-      <TimelineItem key={index._id}>
+      <TimelineItem key={timePoint + index + 'timeline'}>
         <TimelineOppositeContent
           sx={{ m: 'auto 0' }}
           align="right"

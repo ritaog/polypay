@@ -37,7 +37,7 @@ export default function SaleListUser({userData}) {
             </ImageListItem>
             {saleItems
               ? saleItems.map((item, index) => (
-                  <ImageListItem key={index}>
+                  <ImageListItem key={item._id + index + 'user'}>
                     <img
                       src={`${item.photos[0]}?w=248&fit=crop&auto=format`}
                       srcSet={`${item.photos[0]}?w=248&fit=crop&auto=format&dpr=2 2x`}

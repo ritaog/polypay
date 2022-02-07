@@ -93,8 +93,8 @@ export default function SaleListUser({ userData, imageSelectHandler }) {
           </ListSubheader>
         </ImageListItem>
         {saleItems
-          ? saleItems.map((item) => (
-              <ImageListItem key={item.photos[0]} sx={{'&:hover': {cursor: 'pointer'}}}>
+          ? saleItems.map((item,index) => (
+              <ImageListItem key={item._id + index + 'media'} sx={{'&:hover': {cursor: 'pointer'}}}>
                 <img
                   src={`${item.photos[0]}?w=248&fit=crop&auto=format`}
                   srcSet={`${item.photos[0]}?w=248&fit=crop&auto=format&dpr=2 2x`}
