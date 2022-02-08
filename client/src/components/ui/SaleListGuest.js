@@ -6,12 +6,11 @@ import IconButton from '@mui/material/IconButton'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
-import Modal from '@mui/material/Modal'
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
+import BuyItemModal from '../modals/BuyItemModal'
 
 import axios from 'axios'
 import { useState, useEffect } from 'react'
@@ -27,6 +26,8 @@ const style = {
   bgcolor: 'white',
   boxShadow: 24,
   p: 4,
+  outline: 'none',
+  borderRadius: '25px'
 }
 
 const Backdrop = styled('div')`
@@ -42,9 +43,15 @@ const Backdrop = styled('div')`
 
 export default function SaleListGuest({ userData, profileId }) {
   const [saleItems, setSaleItems] = useState([])
-
+  const [buyModalItem, setBuyModalItem] = useState({})
   const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
+
+  const handleOpenModal = (item) => {
+    setOpen(true)
+    setBuyModalItem(item)
+    console.log('item', item);
+  }
+  
   const handleClose = () => setOpen(false)
 
   useEffect(() => {
@@ -71,41 +78,49 @@ export default function SaleListGuest({ userData, profileId }) {
 
   let displayItems = saleItems.map((item) => {
     return (
-      <Grid item xs={12} md={4}>
-        <Item sx={{ height: '300px', width: '300px', overflow: 'hidden', padding: '0px' }}>
-          { 
-          <>
-      
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                  BackdropComponent={Backdrop}
-                >
-                  <Box sx={style}>
-                    <Typography
-                      id="modal-modal-title"
-                      variant="h6"
-                      component="h2"
+      <Grid
+        item
+        xs={12}
+        md={4}
+        key={item._id + 'sale-list-guest'}
+        sx={{ padding: '5px' }}
+      >
+        <Item
+          sx={{
+            height: '300px',
+            width: '300px',
+            overflow: 'hidden',
+            padding: '0px',
+            borderRadius: '0px',
+            '&:hover': {
+              cursor: 'pointer'
+            },
+          }}
+        >
+          {
+            <>
+              <ImageListItem>
+                <img
+                  src={`${item.photos[0]}?w=164&h=164&fit=crop&auto=format`}
+                  srcSet={`${item.photos[0]}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                  alt={item.photos[0]}
+                  onClick={() => handleOpenModal(item)}
+                  loading="lazy"
+                />
+                <ImageListItemBar
+                  title={`Price: $ ${item.price}`}
+                  subtitle={`Status: ${item.available}`}
+                  position="bottom"
+                  actionIcon={
+                    <IconButton
+                      sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+                      aria-label={`info about ${item.title}`}
                     >
-                      Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                      Duis mollis, est non commodo luctus, nisi erat porttitor
-                      ligula.
-                    </Typography>
-                  </Box>
-                </Modal>
-            <ImageListItem key={item}>
-            <img
-              src={`${item.photos[0]}?w=164&h=164&fit=crop&auto=format`}
-              srcSet={`${item.photos[0]}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.photos[0]}
-              onClick={handleOpen}
-              loading="lazy"
-            />
-            </ImageListItem>
+                      <InstagramIcon />
+                    </IconButton>
+                  }
+                />
+              </ImageListItem>
             </>
           }
         </Item>
@@ -113,8 +128,12 @@ export default function SaleListGuest({ userData, profileId }) {
     )
   })
 
+  console.log('first', displayItems);
+
   return (
     <div>
+      <BuyItemModal handleClose={handleClose} style={style} Backdrop={Backdrop} open={open} buyModalItem={buyModalItem} />
+
       <Card sx={{ maxWidth: '100vw' }}>
         <CardContent sx={{ justifyContent: 'center' }}>
           <Box sx={{ flexGrow: 1 }}>
@@ -122,71 +141,21 @@ export default function SaleListGuest({ userData, profileId }) {
               container
               rowSpacing={1}
               columnSpacing={3}
-              container
               direction="row"
               justifyContent="space-around"
               alignItems="center"
             >
-              <ImageList sx={{ width: '100vh', height: '100%' }} cols={3} rowHeight={164}>
-              {displayItems}
+              <ImageList
+                sx={{ width: '100vh', height: '100%' }}
+                cols={3}
+                rowHeight={300}
+              >
+                {displayItems}
               </ImageList>
             </Grid>
           </Box>
-          {/* <ImageList
-            sx={{ width: '1000px', height: '100%' }}
-            cols={3}
-            rowHeight={300}
-          >
-            {saleItems.map((item) => (
-              <>
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                  BackdropComponent={Backdrop}
-                >
-                  <Box sx={style}>
-                    <Typography
-                      id="modal-modal-title"
-                      variant="h6"
-                      component="h2"
-                    >
-                      Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                      Duis mollis, est non commodo luctus, nisi erat porttitor
-                      ligula.
-                    </Typography>
-                  </Box>
-                </Modal>
-                <ImageListItem
-                  key={item._id + 'guest'}
-                  sx={{ overflow: 'hidden' }}
-                >
-                  <img
-                    src={`${item.photos[0]}?w=164&h=164&fit=crop&auto=format`}
-                    srcSet={`${item.photos[0]}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                    alt={item.title}
-                    loading="lazy"
-                    onClick={handleOpen}
-                  />
-                  <ImageListItemBar
-                    title={'Price: ' + '$' + item.price}
-                    subtitle={'Status: ' + item.available}
-                    actionIcon={
-                      <IconButton
-                        sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                        aria-label={`info about ${item.title}`}
-                      >
-                        <InstagramIcon />
-                      </IconButton>
-                    }
-                  />
-                </ImageListItem>
-              </>
-            ))}
-          </ImageList> */}
+                 
+  
         </CardContent>
       </Card>
     </div>
