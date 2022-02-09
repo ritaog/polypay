@@ -20,7 +20,7 @@ const Checkout = () => {
       <p>{saleItem.description}</p>
       <img src={saleItem.photos} alt={saleItem.vendorName}></img>
       <p>{saleItem.vendorName}</p>
-      <p>Price{saleItem.price.$numberDecimal}</p>
+      <p>Price{parseFloat(saleItem.price.$numberDecimal)}</p>
       <p>Quantity Available{saleItem.quantity}</p>
       <p>Location{saleItem.location}</p>
       <p>Can this item be shipped{saleItem.canShip}</p>
