@@ -173,7 +173,7 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
               <MenuItem component={Link} href="/" onClick={handleCloseUserMenu}>
                 <Typography textAlign="center">Dashboard</Typography>
               </MenuItem>
-              <MenuItem component={Link} href="/" onClick={handleSignOut}>
+              <MenuItem component={Button} href="/" onClick={handleSignOut}>
                 <Typography textAlign="center">Sign Out</Typography>
               </MenuItem>
             </Menu>
