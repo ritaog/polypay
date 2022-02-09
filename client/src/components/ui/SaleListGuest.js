@@ -46,7 +46,7 @@ const Backdrop = styled('div')`
 
 export default function SaleListGuest({ userData, profileId }) {
   const [saleItems, setSaleItems] = useState([])
-  const [buyModalItem, setBuyModalItem] = useState({})
+  const [buyModalItem, setBuyModalItem] = useState()
   const [open, setOpen] = useState(false)
 
   const handleOpenModal = (item) => {
@@ -125,18 +125,17 @@ export default function SaleListGuest({ userData, profileId }) {
     )
   })
 
-  console.log('first', displayItems)
+  console.log('first', buyModalItem)
 
   return (
     <div>
-      <BuyItemModal
-        handleClose={handleClose}
-        style={style}
-        Backdrop={Backdrop}
-        open={open}
-        buyModalItem={buyModalItem}
-      />
-
+        <BuyItemModal
+          handleClose={handleClose}
+          style={style}
+          Backdrop={Backdrop}
+          open={open}
+          buyModalItem={buyModalItem}
+        />
       <Card sx={{ maxWidth: '100%' }}>
         <CardContent>
           <Box>
