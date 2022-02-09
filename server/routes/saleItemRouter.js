@@ -4,7 +4,10 @@ import cloudinary from '../utils/cloudinary.js'
 import upload from '../utils/multer.js'
 import SaleItem from '../models/saleItemModel.js'
 import User from '../models/userModel.js'
-import { findUserAndUpdate, findSaleItemAndUpdate } from '../models/controller.js'
+import {
+  findUserAndUpdate,
+  findSaleItemAndUpdate,
+} from '../models/controller.js'
 
 const router = express.Router()
 
@@ -61,10 +64,10 @@ router.post('/schedule', async (req, res) => {
     canShip: postItem.canShip,
     available: postItem.available,
     postTime: postItem.postTime,
-    location: postItem.location
+    location: postItem.location,
   }
 
-  await findUserAndUpdate(postItem.vendorId, {saleItems: postItem.saleItems})
+  await findUserAndUpdate(postItem.vendorId, { saleItems: postItem.saleItems })
   await findSaleItemAndUpdate(postItem.id, updatedInfo)
 
   console.log('postItem', postItem)
@@ -111,11 +114,12 @@ router.post('/schedule', async (req, res) => {
     const resPostText = await resPost.json()
 
     // new array spread to add new sale item id to user saleItems array
-    
-    
-    const updatedSaleItem = await findSaleItemAndUpdate(postItem.id, { available: 'Posted' })
 
-    console.log('updatedSaleItem', updatedSaleItem);
+    const updatedSaleItem = await findSaleItemAndUpdate(postItem.id, {
+      available: 'Posted',
+    })
+
+    console.log('updatedSaleItem', updatedSaleItem)
 
     // function from "../models/controller.js" finds user by id and updates sale items array with new array created on line 86
 

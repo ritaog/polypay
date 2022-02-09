@@ -21,13 +21,16 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '70vw',
+  width: '900px',
+  minWidth: '800px',
   height: '70vh',
+  minHeight: '400px',
   bgcolor: 'white',
   boxShadow: 24,
   p: 4,
+  padding: '0px',
   outline: 'none',
-  borderRadius: '25px'
+  borderRadius: '25px',
 }
 
 const Backdrop = styled('div')`
@@ -37,7 +40,7 @@ const Backdrop = styled('div')`
   bottom: 0;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.3);
   -webkit-tap-highlight-color: transparent;
 `
 
@@ -49,9 +52,9 @@ export default function SaleListGuest({ userData, profileId }) {
   const handleOpenModal = (item) => {
     setOpen(true)
     setBuyModalItem(item)
-    console.log('item', item);
+    console.log('item', item)
   }
-  
+
   const handleClose = () => setOpen(false)
 
   useEffect(() => {
@@ -78,13 +81,7 @@ export default function SaleListGuest({ userData, profileId }) {
 
   let displayItems = saleItems.map((item) => {
     return (
-      <Grid
-        item
-        xs={12}
-        md={4}
-        key={item._id + 'sale-list-guest'}
-        sx={{ padding: '5px' }}
-      >
+      <Grid item key={item._id + 'sale-list-guest'} sx={{ padding: '5px' }}>
         <Item
           sx={{
             height: '300px',
@@ -93,7 +90,7 @@ export default function SaleListGuest({ userData, profileId }) {
             padding: '0px',
             borderRadius: '0px',
             '&:hover': {
-              cursor: 'pointer'
+              cursor: 'pointer',
             },
           }}
         >
@@ -108,7 +105,7 @@ export default function SaleListGuest({ userData, profileId }) {
                   loading="lazy"
                 />
                 <ImageListItemBar
-                  title={`Price: $ ${item.price}`}
+                  title={`Price: $ ${item.price.$numberDecimal}`}
                   subtitle={`Status: ${item.available}`}
                   position="bottom"
                   actionIcon={
@@ -128,34 +125,30 @@ export default function SaleListGuest({ userData, profileId }) {
     )
   })
 
-  console.log('first', displayItems);
+  console.log('first', displayItems)
 
   return (
     <div>
-      <BuyItemModal handleClose={handleClose} style={style} Backdrop={Backdrop} open={open} buyModalItem={buyModalItem} />
+      <BuyItemModal
+        handleClose={handleClose}
+        style={style}
+        Backdrop={Backdrop}
+        open={open}
+        buyModalItem={buyModalItem}
+      />
 
-      <Card sx={{ maxWidth: '100vw' }}>
-        <CardContent sx={{ justifyContent: 'center' }}>
-          <Box sx={{ flexGrow: 1 }}>
+      <Card sx={{ maxWidth: '100%' }}>
+        <CardContent>
+          <Box>
             <Grid
               container
-              rowSpacing={1}
-              columnSpacing={3}
               direction="row"
-              justifyContent="space-around"
-              alignItems="center"
+              alignItems="flex-start"
+              justifyContent="center"
             >
-              <ImageList
-                sx={{ width: '100vh', height: '100%' }}
-                cols={3}
-                rowHeight={300}
-              >
-                {displayItems}
-              </ImageList>
+              {displayItems}
             </Grid>
           </Box>
-                 
-  
         </CardContent>
       </Card>
     </div>

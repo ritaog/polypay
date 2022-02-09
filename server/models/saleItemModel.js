@@ -6,7 +6,7 @@ const SaleItemSchema = new mongoose.Schema({
   vendorName: { type: String, required: true },
   vendorId: String,
   postTitle: String,
-  price: { type: Number, required: true },
+  price: { type: mongoose.Types.Decimal128, required: true },
   quantity: { type: Number, required: true },
   photos: [String],
   description: String,
