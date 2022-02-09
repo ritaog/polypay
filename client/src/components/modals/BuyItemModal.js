@@ -17,13 +17,12 @@ import { useState } from 'react'
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
-  padding: theme.spacing(1),
+  padding: '0px',
   textAlign: 'center',
   color: theme.palette.text.secondary,
   borderRadius: '0px',
   boxShadow: 0,
   height: '600px',
-  padding: '0px',
 }))
 
 const Img = styled('img')({
