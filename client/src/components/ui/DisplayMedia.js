@@ -18,8 +18,8 @@ export default function SaleListUser({ userData, imageSelectHandler }) {
   const [uploadPhoto, setUploadPhoto] = useState([])
 
   const postData = {
-    vendorName: userData.userName,
-    vendorId: userData._id,
+    vendorName: userData?.userName,
+    vendorId: userData?._id,
     postTitle: '',
     price: 0,
     quantity: 0,
