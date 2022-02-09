@@ -8,6 +8,12 @@ import Paper from '@mui/material/Paper'
 import Avatar from '@mui/material/Avatar'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import IconButton from '@mui/material/IconButton'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputLabel from '@mui/material/InputLabel'
+import FormControl from '@mui/material/FormControl'
+import Stack from '@mui/material/Stack'
+import Button from '@mui/material/Button'
+import { useState } from 'react'
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -16,8 +22,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   borderRadius: '0px',
   boxShadow: 0,
-  height: '70vh',
-  minHeight: '400px',
+  height: '600px',
   padding: '0px',
 }))
 
@@ -30,6 +35,16 @@ const Img = styled('img')({
 
 const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
   console.log('buyModalItem', buyModalItem)
+
+  const minValue = 1
+  const maxValue = buyModalItem?.quantity
+  const [purchaseQuantity, setPurchaseQuantity] = useState(1)
+
+  const handleQuant = (e) => {
+    const newValue = Math.min(Math.max(e.target.value, minValue), maxValue)
+    setPurchaseQuantity(newValue)
+  }
+
   return (
     <Modal
       open={open}
@@ -91,13 +106,15 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
                   {' '}
                 </Grid>
                 <Grid item md={10} sx={{ paddingTop: '10px' }}>
-                  <Typography
-                    variant="body2"
-                    align="left"
-                    sx={{ color: 'black' }}
-                  >
-                    {buyModalItem ? buyModalItem.about : ''}
-                  </Typography>
+                  <Box sx={{ height: '150px' }}>
+                    <Typography
+                      variant="body2"
+                      align="left"
+                      sx={{ color: 'black' }}
+                    >
+                      {buyModalItem ? buyModalItem.about : ''}
+                    </Typography>
+                  </Box>
                 </Grid>
                 <Grid item md={1}>
                   {' '}
@@ -106,16 +123,53 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
               <Grid
                 container
                 direction="row"
+                justifyContent="between"
+                alignItems="flex-end"
+                sx={{ paddingTop: '30px', paddingRight: '30px' }}
+              >
+                <Grid item md={3}>
+                  <FormControl fullWidth sx={{ m: 1 }}>
+                    <InputLabel htmlFor="price">Quantity</InputLabel>
+                    <OutlinedInput
+                      id="price"
+                      placeholder="0"
+                      type="number"
+                      min="0"
+                      onChange={(e) => {
+                        handleQuant(e)
+                      }}
+                      value={purchaseQuantity}
+                      label="Amount"
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid
+                  item
+                  md={9}
+                  sx={{ display: 'flex', justifyContent: 'right' }}
+                >{`Price: $${
+                  buyModalItem
+                    ? parseFloat(buyModalItem.price.$numberDecimal) *
+                      purchaseQuantity
+                    : ''
+                }`}</Grid>
+              </Grid>
+              <Grid
+                container
+                direction="row"
                 justifyContent="flex-end"
                 alignItems="flex-end"
-                sx={{ paddingTop: '30px' }}
+                sx={{ paddingTop: '10px', paddingRight: '30px' }}
               >
-                <Grid item>{`Price: $
-                  ${
-                    buyModalItem
-                      ? parseFloat(buyModalItem.price.$numberDecimal)
-                      : ''
-                  }
+                <Grid item>{`Taxes: $${
+                  buyModalItem
+                    ? (
+                        parseFloat(buyModalItem.price.$numberDecimal) *
+                        purchaseQuantity *
+                        0.08
+                      ).toFixed(2)
+                    : ''
+                }
                 
                 `}</Grid>
               </Grid>
@@ -124,17 +178,17 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
                 direction="row"
                 justifyContent="flex-end"
                 alignItems="flex-end"
-                sx={{ paddingTop: '10px' }}
+                sx={{ paddingTop: '10px', paddingRight: '30px' }}
               >
-                <Grid item>{`Taxes: $
-                  
-                  ${
-                    buyModalItem
-                      ? (
-                          parseFloat(buyModalItem.price.$numberDecimal) * 0.08
-                        ).toFixed(2)
-                      : ''
-                  }
+                <Grid item>{`Fees: $${
+                  buyModalItem
+                    ? (
+                        parseFloat(buyModalItem.price.$numberDecimal) *
+                        purchaseQuantity *
+                        0.02
+                      ).toFixed(2)
+                    : ''
+                }
                 
                 `}</Grid>
               </Grid>
@@ -143,19 +197,39 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
                 direction="row"
                 justifyContent="flex-end"
                 alignItems="flex-end"
-                sx={{ paddingTop: '10px' }}
+                sx={{ paddingTop: '10px', paddingRight: '30px' }}
               >
-                <Grid item>hi</Grid>
+                <Grid item>{`Total: $${
+                  buyModalItem
+                    ? (
+                        parseFloat(buyModalItem.price.$numberDecimal) *
+                          purchaseQuantity +
+                        parseFloat(buyModalItem.price.$numberDecimal) *
+                          purchaseQuantity *
+                          0.08 +
+                        parseFloat(buyModalItem.price.$numberDecimal) *
+                          purchaseQuantity *
+                          0.02
+                      ).toFixed(2)
+                    : ''
+                }
+                
+                `}</Grid>
               </Grid>
-              <Grid
-                container
-                direction="row"
-                justifyContent="flex-end"
-                alignItems="flex-end"
-                sx={{ paddingTop: '10px' }}
+              <Box
+                sx={{
+                  display: 'flex',
+                  direction: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'flex-end',
+                  height: '80px',
+                }}
               >
-                <Grid item>hi</Grid>
-              </Grid>
+                <Stack spacing={2} direction="row">
+                  <Button variant="contained">Add To Cart</Button>
+                  <Button variant="contained">Buy Now</Button>
+                </Stack>
+              </Box>
             </Item>
           </Grid>
         </Grid>
