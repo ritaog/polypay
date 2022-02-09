@@ -65,11 +65,12 @@ const ProfileEditForm = ({ existingValues }) => {
       <select
         name="companyType"
         id="cType"
+        value={existingValues.companyType}
         onChange={(event) => onInputUpdate(event, setCompanyType)}
       >
-        <option value={existingValues.companyType}>
+        {/* <option value={existingValues.companyType}>
           {existingValues.companyType}
-        </option>
+        </option> */}
         <option value="artisan">artisan</option>
         <option value="independent">independent</option>
         <option value="consignment">consignment</option>

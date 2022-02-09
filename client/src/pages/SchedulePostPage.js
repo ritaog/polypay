@@ -6,7 +6,7 @@ import SaleListUser from '../components/ui/SaleListUser'
 import DisplayMedia from '../components/ui/DisplayMedia'
 
 import { useState } from 'react'
-import PostScheduler from '../components/imageUpload/PostScheduler'
+import PostScheduler from '../components/imageScheduler/PostScheduler'
 
 const SchedulePostPage = ({ userData }) => {
   const [imageSelect, setImageSelect] = useState('')
@@ -27,16 +27,16 @@ const SchedulePostPage = ({ userData }) => {
       <h1>Schedule A Post:</h1>
       <Box sx={{ width: '100%' }}>
         <Masonry columns={2} spacing={2}>
-          <Item>
+          <Item sx={{ maxWidth: '50%', minWidth: '350px' }}>
             <DisplayMedia
               userData={userData}
               imageSelectHandler={imageSelectHandler}
             />
           </Item>
-          <Item>
+          <Item sx={{ maxWidth: '50%', minWidth: '350px' }}>
             <PostScheduler imageSelect={imageSelect} userData={userData} />
           </Item>
-          <Item>
+          <Item sx={{ maxWidth: '50%', minWidth: '350px'}}>
             <SaleListUser userData={userData} />
           </Item>
         </Masonry>

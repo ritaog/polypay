@@ -3,7 +3,10 @@ import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
-import StaticDateTimePicker from '@mui/lab/StaticDateTimePicker'
+import Checkbox from '@mui/material/Checkbox'
+import FormControl from '@mui/material/FormControl'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormGroup from '@mui/material/FormGroup'
 import DateTimePicker from '@mui/lab/DateTimePicker'
 
 export default function Scheduler({ setPostTime, postTime }) {
@@ -16,27 +19,26 @@ export default function Scheduler({ setPostTime, postTime }) {
       >
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Grid item>
-            <StaticDateTimePicker
-              displayStaticWrapperAs="desktop"
-              openTo="day"
-              value={postTime}
-              onChange={(e) => {
-                setPostTime(e)
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </Grid>
-          <Grid item>
             <DateTimePicker
               label="Post Time"
-              readOnly
               value={postTime}
               onChange={(e) => {
-                console.log(e)
+                setPostTime(new Date(e))
               }}
               renderInput={(params) => <TextField {...params} />}
               sx={{ paddingTop: '10px' }}
             />
+          </Grid>
+          <Grid item>
+            <FormGroup>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Post Now"
+                onChange={(e) => {
+                  if (e.target.checked) setPostTime(new Date())
+                }}
+              />
+            </FormGroup>
           </Grid>
         </LocalizationProvider>
       </Grid>

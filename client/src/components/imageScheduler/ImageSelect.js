@@ -10,8 +10,7 @@ const Img = styled('img')({
   maxHeight: '100%',
 })
 
-export default function ImageSelect({ imageSelect, setCaption }) {
-  console.log('imageSelect', imageSelect)
+export default function ImageSelect({ imageSelect, setCaption, setPostTitle }) {
   return (
     <React.Fragment>
       <Grid container spacing={1} sx={{ height: '35em' }}>
@@ -20,8 +19,8 @@ export default function ImageSelect({ imageSelect, setCaption }) {
             required
             id="imageTitle"
             name="imageTitle"
-            value={imageSelect ? imageSelect.postTitle : ''}
-            label="Select Image"
+            onChange={(e) => {setPostTitle(e.target.value)}}
+            label="Image Title"
             fullwidth="true"
             variant="standard"
             sx={{ width: 200 }}
@@ -36,8 +35,8 @@ export default function ImageSelect({ imageSelect, setCaption }) {
         </Grid>
         <Grid item xs={12} sx={{ padding: '10px' }}>
           <TextField
-            id="address2"
-            name="address2"
+            id="caption"
+            name="caption"
             multiline
             maxRows={4}
             onChange={(e) => {

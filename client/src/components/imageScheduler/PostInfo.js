@@ -19,8 +19,8 @@ export default function PostInfo({
 }) {
   return (
     <React.Fragment>
-      <Grid container spacing={3} sx={{ padding: '0px', height: '35em' }}>
-        <Grid item xs={12} md={12} sx={{ paddingTop: '0px' }}>
+      <Grid container spacing={3} sx={{ height: '35em' }}>
+        <Grid item xs={12} md={12}>
           {' '}
           <TextField
             id="outlined-textarea"
