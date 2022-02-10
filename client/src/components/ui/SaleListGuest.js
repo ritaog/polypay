@@ -71,19 +71,16 @@ export default function SaleListGuest({ userData, profileId }) {
   }, [profileId])
 
   const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
+    textAlign: 'center'
   }))
 
   let displayItems = saleItems.map((item) => {
     return (
-      <Grid item key={item._id + 'sale-list-guest'} sx={{ padding: '5px' }}>
+      <Grid item key={item._id + 'sale-list-guest'}  sx={{ padding: '5px' }}>
         <Item
           sx={{
-            height: '300px',
-            width: '300px',
+            maxHeight: '300px',
+            maxWidth: '300px',
             overflow: 'hidden',
             padding: '0px',
             borderRadius: '0px',
@@ -136,7 +133,6 @@ export default function SaleListGuest({ userData, profileId }) {
         />
       <Card sx={{ maxWidth: '100%' }}>
         <CardContent>
-          <Box>
             <Grid
               container
               direction="row"
@@ -145,7 +141,6 @@ export default function SaleListGuest({ userData, profileId }) {
             >
               {displayItems}
             </Grid>
-          </Box>
         </CardContent>
       </Card>
     </div>
