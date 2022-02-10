@@ -105,7 +105,7 @@ export default function SaleListGuest({ userData, profileId }) {
                 <ImageListItemBar
                   title={`Price: $ ${parseFloat(item.price.$numberDecimal)}`}
                   subtitle={`Status: ${item.available}`}
-                  position="bottom"
+                  position="top"
                   actionIcon={
                     <IconButton
                       sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
