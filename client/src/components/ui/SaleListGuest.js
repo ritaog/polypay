@@ -11,6 +11,12 @@ import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import BuyItemModal from '../modals/BuyItemModal'
 
+import CardMedia from '@mui/material/CardMedia'
+import CardActions from '@mui/material/CardActions'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container'
+
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 // import { styled, Box } from '@mui/system'
@@ -71,52 +77,90 @@ export default function SaleListGuest({ userData, profileId }) {
   }, [profileId])
 
   const Item = styled(Paper)(({ theme }) => ({
-    textAlign: 'center'
+    textAlign: 'center',
   }))
 
   let displayItems = saleItems.map((item) => {
     return (
-      <Grid item key={item._id + 'sale-list-guest'}  sx={{ padding: '5px' }}>
-        <Item
+      <Grid
+        item
+        key={`display-${item._id}`}
+        xs={4}
+        sm={4}
+        md={4}
+        sx={{ minHeight: '100px', minWidth: '100px' }}
+      >
+        <Card
           sx={{
-            maxHeight: '300px',
-            maxWidth: '300px',
-            overflow: 'hidden',
-            padding: '0px',
+            minWidth: '100%',
+            display: 'flex',
+            flexDirection: 'column',
             borderRadius: '0px',
+            padding: '1px',
+
             '&:hover': {
               cursor: 'pointer',
             },
           }}
         >
-          {
-            <>
-              <ImageListItem>
-                <img
-                  src={`${item.photos[0]}?w=164&h=164&fit=crop&auto=format`}
-                  srcSet={`${item.photos[0]}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.photos[0]}
-                  onClick={() => handleOpenModal(item)}
-                  loading="lazy"
-                />
-                <ImageListItemBar
-                  title={`Price: $ ${parseFloat(item.price.$numberDecimal)}`}
-                  subtitle={`Status: ${item.available}`}
-                  position="top"
-                  actionIcon={
-                    <IconButton
-                      sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                      aria-label={`info about ${item.title}`}
-                    >
-                      <InstagramIcon />
-                    </IconButton>
-                  }
-                />
-              </ImageListItem>
-            </>
-          }
-        </Item>
+          <CardMedia
+            onClick={() => handleOpenModal(item)}
+            component="img"
+            sx={{
+              height: '100%',
+              width: '100%',
+            }}
+            image={`https://res.cloudinary.com/ddcynhc98/image/upload/c_crop,h_1500,w_1500/${item.photos[0]
+              .split('')
+              .splice(50)
+              .join('')}`}
+            alt="random"
+          />
+        </Card>
       </Grid>
+
+      // <Grid item key={item._id + 'sale-list-guest'}  sx={{ padding: '1px' }}>
+      //   <Item
+      //     sx={{
+      //       maxHeight: '100px',
+      //       maxWidth: '100px',
+      //       overflow: 'hidden',
+      //       padding: '0px',
+      //       borderRadius: '0px',
+      //       '&:hover': {
+      //         cursor: 'pointer',
+      //       },
+      //     }}
+      //   >
+      //     {
+      //       <>
+      //         <ImageListItem>
+      //           <img
+      //             src={`${item.photos[0]}?w=164&h=164&fit=crop&auto=format`}
+      //             srcSet={`${item.photos[0]}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+      //             alt={item.photos[0]}
+      //             onClick={() => handleOpenModal(item)}
+      //             loading="lazy"
+      //           />
+      //           <ImageListItemBar
+      //             title={`Price: $ ${parseFloat(item.price.$numberDecimal)}`}
+      //             subtitle={`Status: ${item.available}`}
+      //             position="top"
+      //             sx={{height: '30px'}}
+      // actionIcon={
+      // <IconButton
+      //   sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+      //   aria-label={`info about ${item.title}`}
+      // >
+      //   <InstagramIcon />
+      // </IconButton>
+      // }
+      //     />
+      //   </ImageListItem>
+      // </>
+      //       }
+      //     </Item>
+      //   </Grid>
     )
   })
 
@@ -124,25 +168,30 @@ export default function SaleListGuest({ userData, profileId }) {
 
   return (
     <div>
-        <BuyItemModal
-          handleClose={handleClose}
-          style={style}
-          Backdrop={Backdrop}
-          open={open}
-          buyModalItem={buyModalItem}
-        />
-      <Card sx={{ maxWidth: '100%' }}>
-        <CardContent>
-            <Grid
+      <BuyItemModal
+        handleClose={handleClose}
+        style={style}
+        Backdrop={Backdrop}
+        open={open}
+        buyModalItem={buyModalItem}
+      />
+      {/* <Card sx={{ maxWidth: '100%' }}>
+        <CardContent> */}
+      {/* <Grid
               container
               direction="row"
               alignItems="flex-start"
               justifyContent="center"
-            >
-              {displayItems}
-            </Grid>
-        </CardContent>
-      </Card>
+            > */}
+      <Container sx={{ py: 4, minWidth: '80px' }} maxWidth="md">
+        {/* End hero unit */}
+        <Grid container spacing={0}>
+          {displayItems}
+        </Grid>
+      </Container>
+      {/* </Grid> */}
+      {/* </CardContent>
+      </Card> */}
     </div>
   )
 }
