@@ -1,20 +1,9 @@
 import * as React from 'react'
-import ImageListItem from '@mui/material/ImageListItem'
-import ImageListItemBar from '@mui/material/ImageListItemBar'
-import IconButton from '@mui/material/IconButton'
-import InstagramIcon from '@mui/icons-material/Instagram'
 import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
-import Box from '@mui/material/Box'
 import BuyItemModal from '../modals/BuyItemModal'
-
 import CardMedia from '@mui/material/CardMedia'
-import CardActions from '@mui/material/CardActions'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 
 import axios from 'axios'
@@ -75,10 +64,6 @@ export default function SaleListGuest({ userData, profileId }) {
       getSaleItemsByProfileId()
     }
   }, [profileId])
-
-  const Item = styled(Paper)(({ theme }) => ({
-    textAlign: 'center',
-  }))
 
   let displayItems = saleItems.map((item) => {
     return (
