@@ -8,9 +8,9 @@ const DisplayItemsPage = ({ userData, guest }) => {
 
 
   return (
-    <div>
+    <div style={{padding: '0px'}}>
       {/* <h1>Display Items as a Grid</h1> */}
-      <DisplayItems userData={userData} profileId={profileId} guest={guest}/>
+      <DisplayItems userData={userData} profileId={profileId} guest={guest} />
     </div>
   )
 }

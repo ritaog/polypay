@@ -170,7 +170,7 @@ export default function SaleListGuest({ userData, profileId }) {
               alignItems="flex-start"
               justifyContent="center"
             > */}
-      <Container sx={{ py: 4, minWidth: '80px' }} maxWidth="md">
+      <Container sx={{ py: 4, minWidth: '80px', padding: '0px' }} maxWidth="md">
         {/* End hero unit */}
         <Grid container spacing={0}>
           {displayItems}

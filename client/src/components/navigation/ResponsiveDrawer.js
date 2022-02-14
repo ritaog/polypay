@@ -228,6 +228,8 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          padding: '0px',
+          paddingTop: '24px'
         }}
       >
         <Toolbar />
