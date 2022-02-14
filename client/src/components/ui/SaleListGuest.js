@@ -15,9 +15,11 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '900px',
-  minWidth: '800px',
-  height: '600px',
+  width: '40%',
+  maxWidth: '600px',
+  minWidth: '325px',
+  height: '75%',
+  minHeight: '650px',
   bgcolor: 'white',
   boxShadow: 24,
   p: 4,
@@ -149,7 +151,7 @@ export default function SaleListGuest({ userData, profileId }) {
     )
   })
 
-  console.log('first', buyModalItem)
+  // console.log('first', buyModalItem)
 
   return (
     <div>
