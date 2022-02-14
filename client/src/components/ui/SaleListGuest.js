@@ -39,7 +39,7 @@ const Backdrop = styled('div')`
   -webkit-tap-highlight-color: transparent;
 `
 
-export default function SaleListGuest({ userData, profileId }) {
+export default function SaleListGuest({ profileId, setVendorName }) {
   const [saleItems, setSaleItems] = useState([])
   const [buyModalItem, setBuyModalItem] = useState()
   const [open, setOpen] = useState(false)
@@ -60,7 +60,9 @@ export default function SaleListGuest({ userData, profileId }) {
       response.data.sort(function (a, b) {
         return new Date(b.postTime) - new Date(a.postTime)
       })
+      // console.log('response.data', response.data[0].vendorName)
       setSaleItems(response.data)
+      setVendorName(response.data[0].vendorName)
     }
     if (profileId) {
       getSaleItemsByProfileId()
