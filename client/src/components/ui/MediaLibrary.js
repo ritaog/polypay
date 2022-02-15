@@ -1,10 +1,20 @@
 import React from 'react'
-import { Typography, Card, CardContent, Grid, CardMedia } from '@mui/material'
+import {
+  Typography,
+  Card,
+  CardContent,
+  Grid,
+  CardMedia,
+  Button,
+  Box,
+} from '@mui/material'
 
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const MediaLibrary = ({ userData }) => {
+  const navigate = useNavigate()
   const [saleItems, setSaleItems] = useState([])
 
   useEffect(() => {
@@ -21,8 +31,35 @@ const MediaLibrary = ({ userData }) => {
     }
   }, [userData])
 
-  const handlePhotoUpload = (e) => {
-    console.log('uploadPhoto')
+  const handlePhotoUpload = async (e) => {
+    // assigns a new form data constructor to append data to to send to back end. 'image' is file selected by user to be uploaded to instagram
+    // "formData" is all the data collected from the schedule post form to be sent to back end
+
+    console.log('uploadPhoto', e.target.files[0])
+    const postData = {
+      vendorName: userData?.userName,
+      vendorId: userData?._id,
+      postTitle: '',
+      price: 0,
+      quantity: 0,
+      photos: [],
+      description: '',
+      about: '',
+      canShip: false,
+      available: 'Scheduled',
+      postTime: new Date(),
+      location: '',
+    }
+
+    const imageData = new FormData()
+    imageData.append('image', e.target.files[0])
+    imageData.append('formData', JSON.stringify(postData))
+
+    // first post sends photo file and form data to back end. response is the compiled sale item object with image url from cloudinary
+    const responseUpload = await axios.post('/saleItem/upload', imageData)
+    if (responseUpload) {
+      navigate(0)
+    }  
   }
 
   const handlePostSchedule = (e) => {
@@ -30,7 +67,7 @@ const MediaLibrary = ({ userData }) => {
   }
 
   saleItems.push({
-    _id: 12345,
+    _id: 'upload-image',
     blankPhoto: 'images/480px-OOjs_UI_icon_add.png',
   })
 
@@ -60,17 +97,26 @@ const MediaLibrary = ({ userData }) => {
           }}
         >
           {item.blankPhoto ? (
-            <CardMedia
-              onClick={(e) => {handlePhotoUpload(e)}}
-              component="img"
-              sx={{
-                height: '100%',
-                width: '100%',
-                border: '1px solid lightGray',
+            <Button
+            component="label"
+              onChange={(e) => {
+                handlePhotoUpload(e)
               }}
-              image={item.blankPhoto}
-              alt="random"
-            />
+            >
+              <Box>
+                <CardMedia
+                  component="img"
+                  sx={{
+                    height: '100%',
+                    width: '100%',
+                    border: '1px solid lightGray',
+                  }}
+                  image={item.blankPhoto}
+                  alt="random"
+                />
+                <input type="file" hidden/>
+              </Box>
+            </Button>
           ) : (
             <CardMedia
               onClick={(e) => {
@@ -102,8 +148,15 @@ const MediaLibrary = ({ userData }) => {
         scrollbarWidth: 'none',
       }}
     >
-      <CardContent sx={{ padding: '16px 0' }}>
-        <Typography>MediaLibrary</Typography>
+      <CardContent sx={{ padding: '0 0' }}>
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Grid item><Typography variant="h4" component="div" sx={{margin: '5px 5px'}}>Media Library</Typography></Grid>
+        </Grid>
         <Grid container>{displayItems}</Grid>
       </CardContent>
     </Card>
