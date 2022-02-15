@@ -1,16 +1,16 @@
-/* input, select {
+ input, select {
     width: 100%;
-    padding: 12px 20px;
+    padding: 10px 20px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(226, 219, 219);
     border-radius: 4px;
     box-sizing: border-box;
   }
   
   input[type=submit] {
     width: 100%;
-    background-color: black;
+    background-color: rgb(25, 12, 99);
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -21,7 +21,7 @@
 
   button {
     width: 100%;
-    background-color: black;
+    background-color: rgb(209, 28, 28);
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -31,11 +31,11 @@
   }
   
   input[type=submit]:hover {
-    background-color: #313131;
+    background-color: #20020f;
   }
   
   .profile-page-form {
     border-radius: 5px;
-    background-color: #f2f2f2;
+    background-color: #ab5ccf;
     padding: 20px 100px 20px 100px;
-  } */
+  } 

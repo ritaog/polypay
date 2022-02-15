@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+
 const ProfilePageForm = () => {
   const [name, setName] = useState('')
   const [companyName, setCompanyName] = useState('')
@@ -12,6 +13,8 @@ const ProfilePageForm = () => {
   const [emailAddress, setEmailAddress] = useState('')
   const [password, setPassword] = useState('')
   const [phoneNo, setPhoneNo] = useState('')
+  const [selectedImage, setSelectedImage] = useState(null);
+    
   const navigate = useNavigate()
 
   const onInputUpdate = (event, setter) => {
@@ -32,11 +35,16 @@ const ProfilePageForm = () => {
       phoneNo: phoneNo,
       userReview: 5,
       instagramBusinessId: '',
+      selectedImage:'',
       permanentToken: '',
       saleItems: [],
     }
+    const imageData = new FormData()
+    imageData.append('image', selectedImage)
+    imageData.append('formData', JSON.stringify(userProfile))
+
     console.log(userProfile)
-    const response = await axios.post('user/addUser', userProfile)
+    const response = await axios.post('user/addUser', imageData)
     console.log(response.statusText)
     if (response.statusText === 'OK') {
       navigate('/')
@@ -121,6 +129,24 @@ const ProfilePageForm = () => {
             placeholder="Phone Number.."
             onChange={(event) => onInputUpdate(event, setPhoneNo)}
           />
+          <div>
+      {selectedImage && (
+        <div>
+        <img alt="not fount" width={"100px"} src={URL.createObjectURL(selectedImage)} />
+        <br />
+        <button onClick={()=>setSelectedImage(null)}>Remove</button>
+        </div>
+      )}
+      
+      <input
+        type="file"
+        name="myImage"
+        onChange={(event) => {
+          console.log(event.target.files[0]);
+          setSelectedImage(event.target.files[0]);
+        }}
+      />
+    </div>
 
           <input type="submit" value="Submit" onClick={postData} />
         </form>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-//import CSS
+
 
 const ProfileEditForm = ({ existingValues }) => {
 
@@ -11,6 +11,7 @@ const ProfileEditForm = ({ existingValues }) => {
   const [emailAddress, setEmailAddress] = useState('')
   const [password, setPassword] = useState('')
   const [phoneNo, setPhoneNo] = useState('')
+  const [selectedImage, setSelectedImage] = useState ('')
 
   useEffect(() => {
     if (existingValues) {
@@ -21,6 +22,7 @@ const ProfileEditForm = ({ existingValues }) => {
       setEmailAddress(existingValues.emailAddress)
       setPassword(existingValues.password)
       setPhoneNo(existingValues.phoneNo)
+      setSelectedImage(existingValues.selectedImage)
     }
   }, [existingValues])
 
@@ -38,6 +40,7 @@ const ProfileEditForm = ({ existingValues }) => {
       emailAddress,
       password,
       phoneNo,
+      selectedImage
     }
     const response = await axios.put('/user/updateUser', updatedUserDetails)
     console.log('response', response);
@@ -46,7 +49,9 @@ const ProfileEditForm = ({ existingValues }) => {
   return (
     <div>
       <h2>User Edit Form </h2>
-      <label> Name </label>
+      <div className = "profile-edit-page">
+      <form>
+       <label> Name </label>
       <input
         value={userName}
         onChange={(event) => onInputUpdate(event, setUserName)}
@@ -93,7 +98,27 @@ const ProfileEditForm = ({ existingValues }) => {
         value={phoneNo}
         onChange={(event) => onInputUpdate(event, setPhoneNo)}
       />
-      <button onClick={postData}>Save</button>
+      <div>
+      {selectedImage && (
+        <div>
+        <img alt="not fount" width={"100px"} src={URL.createObjectURL(selectedImage)} />
+        <br />
+        <button onClick={()=>setSelectedImage(null)}>Remove</button>
+        </div>
+      )}
+      
+      <input
+        type="file"
+        name="myImage"
+        onChange={(event) => {
+          console.log(event.target.files[0]);
+          setSelectedImage(event.target.files[0]);
+        }}
+      />
+    </div>
+    <input type="submit" value="Submit" onClick={postData} />
+        </form>
+      </div>
     </div>
   )
 }
@@ -113,5 +138,6 @@ const ProfileEditForm = ({ existingValues }) => {
 //     </div>
 //   )
 // // }
+// <button onClick={postData}>Save</button>
 
 export default ProfileEditForm
