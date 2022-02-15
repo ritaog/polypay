@@ -55,7 +55,42 @@ const MediaLibrary = ({userData}) => {
                 },
               }}
             >
-              <CardMedia
+              {item.blankPhoto ? (
+                <CardMedia
+                  onClick={() => {
+                    console.log('click')
+                  }}
+                  component="img"
+                  sx={{
+                    height: '100%',
+                    width: '100%',
+                  }}
+                  // image={`https://res.cloudinary.com/ddcynhc98/image/upload/c_crop,h_1500,w_1500/${item.photos[0]
+                  //   .split('')
+                  //   .splice(50)
+                  //   .join('')}`}
+                  image={'images/no-image-icon-23487.png'}
+                  alt="random"
+                />
+              ) : (
+                <CardMedia
+                  onClick={() => {
+                    console.log('click')
+                  }}
+                  component="img"
+                  sx={{
+                    height: '100%',
+                    width: '100%',
+                  }}
+                  image={`https://res.cloudinary.com/ddcynhc98/image/upload/c_crop,h_1500,w_1500/${item.photos[0]
+                    .split('')
+                    .splice(50)
+                    .join('')}`}
+                  // image={'images/no-image-icon-23487.png'}
+                  alt="random"
+                />
+              )}
+              {/* <CardMedia
                 onClick={() => {
                   console.log('click')
                 }}
@@ -64,14 +99,13 @@ const MediaLibrary = ({userData}) => {
                   height: '100%',
                   width: '100%',
                 }}
-
-                // image={`https://res.cloudinary.com/ddcynhc98/image/upload/c_crop,h_1500,w_1500/${item.photos[0]
-                //   .split('')
-                //   .splice(50)
-                //   .join('')}`}
+                image={`https://res.cloudinary.com/ddcynhc98/image/upload/c_crop,h_1500,w_1500/${item.photos[0]
+                  .split('')
+                  .splice(50)
+                  .join('')}`}
                 image={'images/no-image-icon-23487.png'}
                 alt="random"
-              />
+              /> */}
             </Card>
           </Grid>
         )
