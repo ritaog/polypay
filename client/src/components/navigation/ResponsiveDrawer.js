@@ -88,7 +88,7 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-          display: { backgroundColor: 'white' },
+          display: { backgroundColor: 'pink' },
         }}
       >
         <Toolbar>
@@ -140,7 +140,7 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
             {userData ? (
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="User Name" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="User Name" src={userData?.photos?.[0] ||"/static/images/avatar/2.jpg" }/>
                 </IconButton>
               </Tooltip>
             ) : (

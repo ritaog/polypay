@@ -123,4 +123,9 @@ router.post('/validateFb', async function (req, res) {
   res.json(updatedUser)
 })
 
+// upload pic
+// app.get("/image.png", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./uploads/image.png"));
+// });
+
 export default router
