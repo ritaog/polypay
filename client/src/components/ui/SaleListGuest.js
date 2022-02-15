@@ -60,7 +60,6 @@ export default function SaleListGuest({ profileId, setVendorName }) {
       response.data.sort(function (a, b) {
         return new Date(b.postTime) - new Date(a.postTime)
       })
-      // console.log('response.data', response.data[0].vendorName)
       setSaleItems(response.data)
       setVendorName(response.data[0].vendorName)
     }
@@ -107,53 +106,8 @@ export default function SaleListGuest({ profileId, setVendorName }) {
           />
         </Card>
       </Grid>
-
-      // <Grid item key={item._id + 'sale-list-guest'}  sx={{ padding: '1px' }}>
-      //   <Item
-      //     sx={{
-      //       maxHeight: '100px',
-      //       maxWidth: '100px',
-      //       overflow: 'hidden',
-      //       padding: '0px',
-      //       borderRadius: '0px',
-      //       '&:hover': {
-      //         cursor: 'pointer',
-      //       },
-      //     }}
-      //   >
-      //     {
-      //       <>
-      //         <ImageListItem>
-      //           <img
-      //             src={`${item.photos[0]}?w=164&h=164&fit=crop&auto=format`}
-      //             srcSet={`${item.photos[0]}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-      //             alt={item.photos[0]}
-      //             onClick={() => handleOpenModal(item)}
-      //             loading="lazy"
-      //           />
-      //           <ImageListItemBar
-      //             title={`Price: $ ${parseFloat(item.price.$numberDecimal)}`}
-      //             subtitle={`Status: ${item.available}`}
-      //             position="top"
-      //             sx={{height: '30px'}}
-      // actionIcon={
-      // <IconButton
-      //   sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-      //   aria-label={`info about ${item.title}`}
-      // >
-      //   <InstagramIcon />
-      // </IconButton>
-      // }
-      //     />
-      //   </ImageListItem>
-      // </>
-      //       }
-      //     </Item>
-      //   </Grid>
     )
   })
-
-  // console.log('first', buyModalItem)
 
   return (
     <div>
@@ -164,23 +118,11 @@ export default function SaleListGuest({ profileId, setVendorName }) {
         open={open}
         buyModalItem={buyModalItem}
       />
-      {/* <Card sx={{ maxWidth: '100%' }}>
-        <CardContent> */}
-      {/* <Grid
-              container
-              direction="row"
-              alignItems="flex-start"
-              justifyContent="center"
-            > */}
       <Container sx={{ py: 4, minWidth: '80px', padding: '0px' }} maxWidth="md">
-        {/* End hero unit */}
         <Grid container spacing={0}>
           {displayItems}
         </Grid>
       </Container>
-      {/* </Grid> */}
-      {/* </CardContent>
-      </Card> */}
     </div>
   )
 }
