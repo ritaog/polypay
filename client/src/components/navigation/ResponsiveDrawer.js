@@ -24,6 +24,7 @@ import Link from '@mui/material/Link'
 import SignUpButton from '../modals/SignUpModal'
 import AccordionButton from './AccordionButton'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const drawerWidth = 240
 
@@ -31,6 +32,7 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
   const { window } = { userData, getUserState, children }
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [anchorElUser, setAnchorElUser] = React.useState(null)
+  const navigate = useNavigate()
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget)
@@ -46,6 +48,8 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
     let logout = await axios.get('auth/logout')
     console.log('Trying to logout', logout)
     getUserState(null)
+    navigate('/')
+    
   }
 
   const handleDrawerToggle = () => {
@@ -173,7 +177,7 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
               <MenuItem component={Link} href="/" onClick={handleCloseUserMenu}>
                 <Typography textAlign="center">Dashboard</Typography>
               </MenuItem>
-              <MenuItem component={Link} href="/" onClick={handleSignOut}>
+              <MenuItem component={Button} onClick={handleSignOut}>
                 <Typography textAlign="center">Sign Out</Typography>
               </MenuItem>
             </Menu>
@@ -224,6 +228,8 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          padding: '0px',
+          paddingTop: '24px'
         }}
       >
         <Toolbar />

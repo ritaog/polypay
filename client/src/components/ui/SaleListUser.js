@@ -45,8 +45,8 @@ export default function SaleListUser({userData}) {
                   loading="lazy"
                 />
                 <ImageListItemBar
-                  title={"Price: " + "$" + item.price}
-                  subtitle={"Status: " + item.available}
+                  title={`Price: $ ${parseFloat(item.price.$numberDecimal)}`}
+                  subtitle={'Status: ' + item.available}
                   actionIcon={
                     <IconButton
                       sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
