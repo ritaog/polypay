@@ -37,8 +37,17 @@ router.post("/addUser", upload.single('image'), async (req, res) => {
 });
 
 // PUT endpoint || description: http://localhost:5000/user/updateUser
-router.put("/updateUser", async (req,res) => {
-  let updateUserData = req.body
+router.put('/updateUser', upload.single('image'), async (req, res) => {
+  let incomingData = JSON.parse(req.body.formData)
+  let updateUserData
+  if(req.file) {
+    const result = await cloudinary.uploader.upload(req.file.path)
+    updateUserData = {...incomingData, photos: [result.secure_url]}
+  } else {
+    updateUserData = incomingData 
+  }
+  console.log('updateUserData', updateUserData) 
+
   const response = findUserAndUpdate(updateUserData._id, updateUserData)
   res.send(response)
 })

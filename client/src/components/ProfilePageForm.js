@@ -6,13 +6,13 @@ import axios from 'axios'
 
 
 const ProfilePageForm = () => {
-  const [name, setName] = useState('')
-  const [companyName, setCompanyName] = useState('')
-  const [companyAddress, setCompanyAddress] = useState('')
-  const [companyType, setCompanyType] = useState('')
-  const [emailAddress, setEmailAddress] = useState('')
-  const [password, setPassword] = useState('')
-  const [phoneNo, setPhoneNo] = useState('')
+  const [name, setName] = useState()
+  const [companyName, setCompanyName] = useState()
+  const [companyAddress, setCompanyAddress] = useState()
+  const [companyType, setCompanyType] = useState()
+  const [emailAddress, setEmailAddress] = useState()
+  const [password, setPassword] = useState()
+  const [phoneNo, setPhoneNo] = useState()
   const [selectedImage, setSelectedImage] = useState(null);
     
   const navigate = useNavigate()
@@ -91,6 +91,7 @@ const ProfilePageForm = () => {
           <label htmlFor="cType">Company Type:</label>
           <select
             name="companyType"
+            value={companyType}
             className="input-form"
             id="cType"
             onChange={(event) => onInputUpdate(event, setCompanyType)}
