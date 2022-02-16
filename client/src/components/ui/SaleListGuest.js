@@ -66,7 +66,7 @@ export default function SaleListGuest({ profileId, setVendorName }) {
     if (profileId) {
       getSaleItemsByProfileId()
     }
-  }, [profileId])
+  }, [profileId, setVendorName])
 
   let displayItems = saleItems.map((item) => {
     return (

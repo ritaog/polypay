@@ -12,10 +12,13 @@ import {
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import SchedulePostModal from '../modals/SchedulePostModal'
 
 const MediaLibrary = ({ userData }) => {
   const navigate = useNavigate()
   const [saleItems, setSaleItems] = useState([])
+  const [open, setOpen] = React.useState(false)
+  const handleClose = () => setOpen(false)
 
   useEffect(() => {
     const getSaleItemsByLoggedUser = async () => {
@@ -23,7 +26,10 @@ const MediaLibrary = ({ userData }) => {
       response.data.sort(function (a, b) {
         return new Date(b.postTime) - new Date(a.postTime)
       })
-
+      response.data.push({
+        _id: 'upload-image',
+        blankPhoto: 'images/480px-OOjs_UI_icon_add.png',
+      })
       setSaleItems(response.data)
     }
     if (userData) {
@@ -59,19 +65,13 @@ const MediaLibrary = ({ userData }) => {
     const responseUpload = await axios.post('/saleItem/upload', imageData)
     if (responseUpload) {
       navigate(0)
-    }  
+    }
   }
 
   const handlePostSchedule = (e) => {
+    setOpen(true)
     console.log('schedule photo', e.target.src)
   }
-
-  saleItems.push({
-    _id: 'upload-image',
-    blankPhoto: 'images/480px-OOjs_UI_icon_add.png',
-  })
-
-  console.log('saleItems', saleItems)
 
   let displayItems = saleItems.map((item, index) => {
     return (
@@ -98,12 +98,13 @@ const MediaLibrary = ({ userData }) => {
         >
           {item.blankPhoto ? (
             <Button
-            component="label"
+              component="label"
               onChange={(e) => {
                 handlePhotoUpload(e)
               }}
             >
-              <Box>
+              {/* <Box> */}
+                <input type="file" hidden />
                 <CardMedia
                   component="img"
                   sx={{
@@ -114,8 +115,7 @@ const MediaLibrary = ({ userData }) => {
                   image={item.blankPhoto}
                   alt="random"
                 />
-                <input type="file" hidden/>
-              </Box>
+              {/* </Box> */}
             </Button>
           ) : (
             <CardMedia
@@ -146,8 +146,10 @@ const MediaLibrary = ({ userData }) => {
         height: '875px',
         overflowY: 'scroll',
         scrollbarWidth: 'none',
+        // minWidth: '200px'
       }}
     >
+      <SchedulePostModal open={open} handleClose={handleClose} />
       <CardContent sx={{ padding: '0 0' }}>
         <Grid
           container
@@ -155,7 +157,11 @@ const MediaLibrary = ({ userData }) => {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid item><Typography variant="h4" component="div" sx={{margin: '5px 5px'}}>Media Library</Typography></Grid>
+          <Grid item>
+            <Typography variant="h4" component="div" sx={{ margin: '5px 5px' }}>
+              Media Library
+            </Typography>
+          </Grid>
         </Grid>
         <Grid container>{displayItems}</Grid>
       </CardContent>

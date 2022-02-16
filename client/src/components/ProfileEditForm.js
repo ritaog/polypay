@@ -1,9 +1,9 @@
+import './ProfilePageForm.css'
+
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-
 const ProfileEditForm = ({ existingValues }) => {
-
   const [userName, setUserName] = useState('')
   const [companyName, setCompanyName] = useState('')
   const [companyAddress, setCompanyAddress] = useState('')
@@ -11,7 +11,7 @@ const ProfileEditForm = ({ existingValues }) => {
   const [emailAddress, setEmailAddress] = useState('')
   const [password, setPassword] = useState('')
   const [phoneNo, setPhoneNo] = useState('')
-  const [selectedImage, setSelectedImage] = useState ('')
+  const [selectedImage, setSelectedImage] = useState('')
 
   useEffect(() => {
     if (existingValues) {
@@ -40,83 +40,94 @@ const ProfileEditForm = ({ existingValues }) => {
       emailAddress,
       password,
       phoneNo,
-      selectedImage
+      selectedImage,
     }
     const response = await axios.put('/user/updateUser', updatedUserDetails)
-    console.log('response', response);
+    console.log('response', response)
   }
 
   return (
     <div>
       <h2>User Edit Form </h2>
-      <div className = "profile-edit-page">
-      <form>
-       <label> Name </label>
-      <input
-        value={userName}
-        onChange={(event) => onInputUpdate(event, setUserName)}
-      />
-      <label> Company Name </label>
-      <input
-        value={companyName}
-        onChange={(event) => onInputUpdate(event, setCompanyName)}
-      />
-      <label> Company Address </label>
-      <input
-        value={companyAddress}
-        onChange={(event) => onInputUpdate(event, setCompanyAddress)}
-      />
-      <label htmlFor="cType">Company Type:</label>
-      <select
-        name="companyType"
-        id="cType"
-        value={existingValues.companyType}
-        onChange={(event) => onInputUpdate(event, setCompanyType)}
-      >
-        {/* <option value={existingValues.companyType}>
+      <div className="profile-page-form">
+        <form>
+          <label> Name </label>
+          <input
+            value={userName}
+            className="input-form"
+            onChange={(event) => onInputUpdate(event, setUserName)}
+          />
+          <label> Company Name </label>
+          <input
+            value={companyName}
+            className="input-form"
+            onChange={(event) => onInputUpdate(event, setCompanyName)}
+          />
+          <label> Company Address </label>
+          <input
+            value={companyAddress}
+            className="input-form"
+            onChange={(event) => onInputUpdate(event, setCompanyAddress)}
+          />
+          <label htmlFor="cType">Company Type:</label>
+          <select
+            name="companyType"
+            id="cType"
+            value={existingValues.companyType}
+            className="input-form"
+            onChange={(event) => onInputUpdate(event, setCompanyType)}
+          >
+            {/* <option value={existingValues.companyType}>
           {existingValues.companyType}
         </option> */}
-        <option value="artisan">artisan</option>
-        <option value="independent">independent</option>
-        <option value="consignment">consignment</option>
-        <option value="vintage">vintage</option>
-        <option value="resale">resale</option>
-        <option value="other">other</option>
-      </select>
-      <label> Email Address </label>
-      <input
-        value={emailAddress}
-        onChange={(event) => onInputUpdate(event, setEmailAddress)}
-      />
-      <label> Password </label>
-      <input
-        value={password}
-        onChange={(event) => onInputUpdate(event, setPassword)}
-      />
-      <label> Phone No </label>
-      <input
-        value={phoneNo}
-        onChange={(event) => onInputUpdate(event, setPhoneNo)}
-      />
-      <div>
-      {selectedImage && (
-        <div>
-        <img alt="not fount" width={"100px"} src={URL.createObjectURL(selectedImage)} />
-        <br />
-        <button onClick={()=>setSelectedImage(null)}>Remove</button>
-        </div>
-      )}
-      
-      <input
-        type="file"
-        name="myImage"
-        onChange={(event) => {
-          console.log(event.target.files[0]);
-          setSelectedImage(event.target.files[0]);
-        }}
-      />
-    </div>
-    <input type="submit" value="Submit" onClick={postData} />
+            <option value="artisan">artisan</option>
+            <option value="independent">independent</option>
+            <option value="consignment">consignment</option>
+            <option value="vintage">vintage</option>
+            <option value="resale">resale</option>
+            <option value="other">other</option>
+          </select>
+          <label> Email Address </label>
+          <input
+            value={emailAddress}
+            className="input-form"
+            onChange={(event) => onInputUpdate(event, setEmailAddress)}
+          />
+          <label> Password </label>
+          <input
+            value={password}
+            className="input-form"
+            onChange={(event) => onInputUpdate(event, setPassword)}
+          />
+          <label> Phone No </label>
+          <input
+            value={phoneNo}
+            className="input-form"
+            onChange={(event) => onInputUpdate(event, setPhoneNo)}
+          />
+          <div>
+            {selectedImage && (
+              <div>
+                <img
+                  alt="not fount"
+                  width={'100px'}
+                  src={URL.createObjectURL(selectedImage)}
+                />
+                <br />
+                <button className='input-button' onClick={() => setSelectedImage(null)}>Remove</button>
+              </div>
+            )}
+
+            <input
+              type="file"
+              name="myImage"
+              onChange={(event) => {
+                console.log(event.target.files[0])
+                setSelectedImage(event.target.files[0])
+              }}
+            />
+          </div>
+          <input type="submit" value="Submit" className="input-submit" onClick={postData} />
         </form>
       </div>
     </div>

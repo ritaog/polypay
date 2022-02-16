@@ -1,41 +1,41 @@
-import { styled } from '@mui/material/styles'
-import Paper from '@mui/material/Paper'
+// import { styled } from '@mui/material/styles'
+// import Paper from '@mui/material/Paper'
 import { Grid } from '@mui/material'
 import Box from '@mui/material/Box'
-import Masonry from '@mui/lab/Masonry'
-import SaleListUser from '../components/ui/SaleListUser'
-import DisplayMedia from '../components/ui/DisplayMedia'
+// import Masonry from '@mui/lab/Masonry'
+// import SaleListUser from '../components/ui/SaleListUser'
+// import DisplayMedia from '../components/ui/DisplayMedia'
 
-import { useState } from 'react'
-import PostScheduler from '../components/imageScheduler/PostScheduler'
+// import { useState } from 'react'
+// import PostScheduler from '../components/imageScheduler/PostScheduler'
 import MediaLibrary from '../components/ui/MediaLibrary'
 import MediaCalender from '../components/ui/MediaCalender'
 
 const SchedulePostPage = ({ userData }) => {
-  const [imageSelect, setImageSelect] = useState('')
+  // const [imageSelect, setImageSelect] = useState('')
 
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }))
+  // const Item = styled(Paper)(({ theme }) => ({
+  //   ...theme.typography.body2,
+  //   padding: theme.spacing(1),
+  //   textAlign: 'center',
+  //   color: theme.palette.text.secondary,
+  // }))
 
-  const imageSelectHandler = (image) => {
-    console.log('image', image)
-    setImageSelect(image)
-  }
+  // const imageSelectHandler = (image) => {
+  //   console.log('image', image)
+  //   setImageSelect(image)
+  // }
   return (
-    <Box >
+    <Box>
       <Grid
         container
         spacing={3}
         sx={{ padding: '0 20px 0 20px', height: '100%' }}
       >
-        <Grid item xs={4} sm={4} md={4}>
+        <Grid item xs={3} sm={3} md={3} >
           <MediaLibrary userData={userData} />
         </Grid>
-        <Grid item xs={8} sm={8} md={8}>
+        <Grid item xs={9} sm={9} md={9}>
           <MediaCalender userData={userData} />
         </Grid>
       </Grid>

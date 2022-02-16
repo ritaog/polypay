@@ -58,6 +58,7 @@ const ProfilePageForm = () => {
           <label htmlFor="name">Name</label>
           <input
             value={name}
+            className="input-form"
             type="text"
             id="name"
             name="name"
@@ -68,6 +69,7 @@ const ProfilePageForm = () => {
           <label htmlFor="cname">Company Name </label>
           <input
             value={companyName}
+            className="input-form"
             type="text"
             id="cname"
             name="companyName"
@@ -78,6 +80,7 @@ const ProfilePageForm = () => {
           <label htmlFor="cAddress">Company Address </label>
           <input
             value={companyAddress}
+            className="input-form"
             type="text"
             id="cAddress"
             name="companyAddress"
@@ -88,6 +91,7 @@ const ProfilePageForm = () => {
           <label htmlFor="cType">Company Type:</label>
           <select
             name="companyType"
+            className="input-form"
             id="cType"
             onChange={(event) => onInputUpdate(event, setCompanyType)}
           >
@@ -103,6 +107,7 @@ const ProfilePageForm = () => {
           <label htmlFor="email">Email Address </label>
           <input
             value={emailAddress}
+            className="input-form"
             type="email"
             id="email"
             name="emailAddress"
@@ -113,6 +118,7 @@ const ProfilePageForm = () => {
           <label htmlFor="pword">Password </label>
           <input
             value={password}
+            className="input-form"
             type="text"
             id="pword"
             name="password"
@@ -123,6 +129,7 @@ const ProfilePageForm = () => {
           <label htmlFor="pNumber">Phone No </label>
           <input
             value={phoneNo}
+            className="input-form"
             type="tel"
             id="pNumber"
             name="phoneNumber"
@@ -130,25 +137,29 @@ const ProfilePageForm = () => {
             onChange={(event) => onInputUpdate(event, setPhoneNo)}
           />
           <div>
-      {selectedImage && (
-        <div>
-        <img alt="not fount" width={"100px"} src={URL.createObjectURL(selectedImage)} />
-        <br />
-        <button onClick={()=>setSelectedImage(null)}>Remove</button>
-        </div>
-      )}
-      
-      <input
-        type="file"
-        name="myImage"
-        onChange={(event) => {
-          console.log(event.target.files[0]);
-          setSelectedImage(event.target.files[0]);
-        }}
-      />
-    </div>
+            {selectedImage && (
+              <div>
+                <img
+                  alt="not fount"
+                  width={'100px'}
+                  src={URL.createObjectURL(selectedImage)}
+                />
+                <br />
+                <button className="input-button" onClick={() => setSelectedImage(null)}>Remove</button>
+              </div>
+            )}
 
-          <input type="submit" value="Submit" onClick={postData} />
+            <input
+              type="file"
+              name="myImage"
+              onChange={(event) => {
+                console.log(event.target.files[0])
+                setSelectedImage(event.target.files[0])
+              }}
+            />
+          </div>
+
+          <input type="submit" value="Submit" className="input-submit" onClick={postData} />
         </form>
       </div>
     </div>
