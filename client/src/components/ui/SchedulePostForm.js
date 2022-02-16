@@ -1,0 +1,147 @@
+import React from 'react'
+import AdapterDateFns from '@mui/lab/AdapterDateFns'
+import LocalizationProvider from '@mui/lab/LocalizationProvider'
+import DateTimePicker from '@mui/lab/DateTimePicker'
+import {
+  Grid,
+  Box,
+  TextField,
+  FormControlLabel,
+  Button,
+  Typography,
+  Switch,
+  ButtonGroup,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
+} from '@mui/material'
+import { useState } from 'react'
+const SchedulePostForm = () => {
+  const [counter, setCounter] = useState(0)
+  const [postTime, setPostTime] = useState()
+  const handleIncrement = () => {
+    setCounter(counter + 1)
+  }
+
+  const handleDecrement = () => {
+    if (counter > 0) {
+      setCounter(counter - 1)
+    }
+  }
+  return (
+    <Grid item xs={12} sm={12} md={12}>
+      <Box
+        sx={{
+          width: '100%',
+          padding: ' 10px 10px 10px 10px',
+        }}
+      >
+        <TextField fullWidth label="Product Title" id="fullWidth" />
+      </Box>
+      <Box
+        sx={{
+          width: '100%',
+          padding: ' 0 10px 10px 10px',
+        }}
+      >
+        <TextField
+          fullWidth
+          label=" Instagram Description & Hashtags (optional)"
+          id="fullWidth"
+          multiline
+          rows={6}
+        />
+      </Box>
+      <Box
+        sx={{
+          width: '100%',
+          padding: ' 0 10px 10px 10px',
+        }}
+      >
+        <TextField
+          fullWidth
+          label="About Your Product"
+          id="fullWidth"
+          multiline
+          rows={4}
+        />
+      </Box>
+      <Box
+        sx={{
+          padding: ' 0 10px 10px 10px',
+        }}
+      >
+        <FormControlLabel
+          value="end"
+          control={<Switch color="primary" />}
+          label="Save Hashtags (pre-populates future posts)"
+          labelPlacement="end"
+        />
+      </Box>
+      <Box>
+        <ButtonGroup
+          size="large"
+          aria-label="small outlined button group"
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            marginRight: '20px',
+          }}
+        >
+          <Typography
+            variant="h7"
+            component="span"
+            sx={{ paddingRight: '20px' }}
+          >
+            Quantity Available
+          </Typography>
+          <Button onClick={handleDecrement}>-</Button>
+          <Button>{counter}</Button>
+          <Button onClick={handleIncrement}>+</Button>
+        </ButtonGroup>
+      </Box>
+      <Box sx={{ display: 'flex', justifyContent: "flex-end", padding: ' 20px 20px 10px 10px' }}>
+        <FormControl>
+          <InputLabel htmlFor="price">Price</InputLabel>
+          <OutlinedInput
+            id="price"
+            placeholder="0.00"
+            type="number"
+            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+            onChange={(e) => {
+              // setPrice(e.target.value)
+            }}
+            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+            label="Amount"
+          />
+        </FormControl>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          marginRight: '20px',
+          padding: ' 10px 20px 10px 20px',
+        }}
+      >
+        <Typography variant="h7" sx={{ paddingRight: '20px' }}>
+          Schedule Time
+        </Typography>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DateTimePicker
+            renderInput={(props) => <TextField {...props} />}
+            value={postTime}
+            onChange={(newValue) => {
+              setPostTime(newValue)
+            }}
+          />
+        </LocalizationProvider>
+      </Box>
+    </Grid>
+  )
+}
+
+export default SchedulePostForm

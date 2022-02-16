@@ -6,7 +6,6 @@ import {
   Grid,
   CardMedia,
   Button,
-  Box,
 } from '@mui/material'
 
 import axios from 'axios'
@@ -17,6 +16,7 @@ import SchedulePostModal from '../modals/SchedulePostModal'
 const MediaLibrary = ({ userData }) => {
   const navigate = useNavigate()
   const [saleItems, setSaleItems] = useState([])
+  const [scheduleItem, setScheduleItem] = useState()
   const [open, setOpen] = React.useState(false)
   const handleClose = () => setOpen(false)
 
@@ -68,9 +68,11 @@ const MediaLibrary = ({ userData }) => {
     }
   }
 
-  const handlePostSchedule = (e) => {
+  const handlePostSchedule = (item) => {
+
+    setScheduleItem(item)
     setOpen(true)
-    console.log('schedule photo', e.target.src)
+    console.log('schedule photo', item)
   }
 
   let displayItems = saleItems.map((item, index) => {
@@ -119,8 +121,8 @@ const MediaLibrary = ({ userData }) => {
             </Button>
           ) : (
             <CardMedia
-              onClick={(e) => {
-                handlePostSchedule(e)
+              onClick={() => {
+                handlePostSchedule(item)
               }}
               component="img"
               sx={{
@@ -149,7 +151,7 @@ const MediaLibrary = ({ userData }) => {
         // minWidth: '200px'
       }}
     >
-      <SchedulePostModal open={open} handleClose={handleClose} />
+      <SchedulePostModal open={open} handleClose={handleClose} scheduleItem={scheduleItem} userData={userData}/>
       <CardContent sx={{ padding: '0 0' }}>
         <Grid
           container
