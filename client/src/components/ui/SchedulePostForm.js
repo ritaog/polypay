@@ -54,6 +54,18 @@ const SchedulePostForm = () => {
           rows={6}
         />
       </Box>
+          <Box
+            sx={{
+              padding: ' 0 10px 10px 10px',
+            }}
+          >
+            <FormControlLabel
+              value="end"
+              control={<Switch color="primary" />}
+              label="Save Hashtags (pre-populates future posts)"
+              labelPlacement="end"
+            />
+          </Box>
       <Box
         sx={{
           width: '100%',
@@ -66,18 +78,6 @@ const SchedulePostForm = () => {
           id="fullWidth"
           multiline
           rows={4}
-        />
-      </Box>
-      <Box
-        sx={{
-          padding: ' 0 10px 10px 10px',
-        }}
-      >
-        <FormControlLabel
-          value="end"
-          control={<Switch color="primary" />}
-          label="Save Hashtags (pre-populates future posts)"
-          labelPlacement="end"
         />
       </Box>
       <Box>

@@ -103,7 +103,7 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                 style={{
                   overflowY: 'scroll',
                   overflowX: 'hidden',
-                  height: '70%',
+                  height: '72%',
                 }}
               >
                 <Grid
@@ -113,111 +113,12 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <SchedulePostFormFooter children={<SchedulePostForm />} />
+                    <SchedulePostForm />
                   </Grid>
                 </Grid>
               </div>
-              {/* <Box
-                sx={{
-                  width: '100%',
-                  padding: ' 0 20px 10px 20px',
-                }}
-              >
-                <TextField
-                  fullWidth
-                  label="Description & Hashtags (optional)"
-                  id="fullWidth"
-                  multiline
-                  rows={6}
-                />
-              </Box>
               <Box
-                sx={{
-                  width: '100%',
-                  padding: ' 0 20px 10px 20px',
-                }}
-              >
-                <TextField
-                  fullWidth
-                  label="Description & Hashtags (optional)"
-                  id="fullWidth"
-                  multiline
-                  rows={6}
-                />
-              </Box>
-              <Box
-                sx={{
-                  width: '100%',
-                  padding: ' 0 20px 10px 20px',
-                }}
-              >
-                <TextField
-                  fullWidth
-                  label="Description & Hashtags (optional)"
-                  id="fullWidth"
-                  multiline
-                  rows={6}
-                />
-              </Box>
-              <Box
-                sx={{
-                  padding: ' 0 20px 10px 20px',
-                }}
-              >
-                <FormControlLabel
-                  value="end"
-                  control={<Switch color="primary" />}
-                  label="Save Hashtags (pre-populates future posts)"
-                  labelPlacement="end"
-                />
-              </Box>
-              <Box>
-                <ButtonGroup
-                  size="large"
-                  aria-label="small outlined button group"
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    alignItems: 'center',
-                    marginRight: '20px',
-                  }}
-                >
-                  <Typography
-                    variant="h7"
-                    component="span"
-                    sx={{ paddingRight: '20px' }}
-                  >
-                    Quantity Available
-                  </Typography>
-                  <Button onClick={handleDecrement}>-</Button>
-                  <Button>{counter}</Button>
-                  <Button onClick={handleIncrement}>+</Button>
-                </ButtonGroup>
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  alignItems: 'center',
-                  marginRight: '20px',
-                  padding: ' 20px 20px 10px 20px',
-                }}
-              >
-                <Typography variant="h7" sx={{ paddingRight: '20px' }}>
-                  Schedule Post Time
-                </Typography>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DateTimePicker
-                    renderInput={(props) => <TextField {...props} />}
-                    value={postTime}
-                    onChange={(newValue) => {
-                      setPostTime(newValue)
-                    }}
-                  />
-                </LocalizationProvider>
-              </Box> */}
-              <Box
-                sx={{ borderTop: '1px solid lightGray', paddingRight: "20px", height: '100px', display: "flex", justifyContent: "flex-end", alignItems: "center" }}
+                sx={{ borderTop: '1px solid lightGray', paddingRight: "20px", height: '70px', display: "flex", justifyContent: "flex-end", alignItems: "center" }}
               >
                 <Stack spacing={2} direction="row">
                   <Button variant="text" size="large">Post Now</Button>
