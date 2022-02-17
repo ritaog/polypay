@@ -6,7 +6,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import {
   Modal,
   Grid,
-  FormControlLabel,
+  Stack,
   Switch,
   Avatar,
   Typography,
@@ -24,9 +24,8 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '80%',
-  minWidth: '1100px',
-  height: '80%',
+  width: '1100px',
+  height: '750px',
   minHeight: '650px',
   bgcolor: 'white',
   boxShadow: 24,
@@ -50,7 +49,7 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
       >
         <Box sx={style}>
           <Grid container>
-            <Grid item xs={7} sm={7} md={7} >
+            <Grid item xs={7} sm={7} md={7}>
               {scheduleItem ? (
                 <Image
                   src={scheduleItem.photos[0]}
@@ -65,48 +64,59 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
             </Grid>
 
             <Grid item xs={5} sm={5} md={5}>
-              <Grid
-                container
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="center"
-                spacing={0}
-                sx={{ borderBottom: '1px solid lightGray' }}
+              <div>
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={0}
+                  sx={{ borderBottom: '1px solid lightGray' }}
+                >
+                  <Grid item xs={1} sm={1} md={1} sx={{ margin: '10px' }}>
+                    {scheduleItem ? (
+                      <Avatar
+                        alt={userData.userName}
+                        src={userData.photos[0]}
+                      />
+                    ) : (
+                      ''
+                    )}
+                  </Grid>
+                  <Grid item xs={9} sm={9} md={9}>
+                    <Typography align="left">
+                      {scheduleItem ? scheduleItem.vendorName : ''}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={1} sm={1} md={1}>
+                    <IconButton
+                      aria-label="delete"
+                      onClick={handleClose}
+                      sx={{ margin: '10px' }}
+                    >
+                      <CloseOutlinedIcon />
+                    </IconButton>
+                  </Grid>
+                </Grid>
+              </div>
+              <div
+                style={{
+                  overflowY: 'scroll',
+                  overflowX: 'hidden',
+                  height: '70%',
+                }}
               >
-                <Grid item xs={1} sm={1} md={1} sx={{ margin: '10px' }}>
-                  {scheduleItem ? (
-                    <Avatar alt={userData.userName} src={userData.photos[0]} />
-                  ) : (
-                    ''
-                  )}
+                <Grid
+                  container
+                  direction="column"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                >
+                  <Grid item>
+                    <SchedulePostFormFooter children={<SchedulePostForm />} />
+                  </Grid>
                 </Grid>
-                <Grid item xs={9} sm={9} md={9}>
-                  <Typography align="left">
-                    {scheduleItem ? scheduleItem.vendorName : ''}
-                  </Typography>
-                </Grid>
-                <Grid item xs={1} sm={1} md={1}>
-                  <IconButton
-                    aria-label="delete"
-                    onClick={handleClose}
-                    sx={{ margin: '10px' }}
-                  >
-                    <CloseOutlinedIcon />
-                  </IconButton>
-                </Grid>
-              </Grid>
-              <Grid
-                container
-                direction="column"
-                justifyContent="flex-end"
-                alignItems="center"
-                
-              >
-                <Grid item>
-                  <SchedulePostFormFooter children={<SchedulePostForm />} />
-                </Grid>
-              </Grid>
-
+              </div>
               {/* <Box
                 sx={{
                   width: '100%',
@@ -206,6 +216,14 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                   />
                 </LocalizationProvider>
               </Box> */}
+              <Box
+                sx={{ borderTop: '1px solid lightGray', paddingRight: "20px", height: '100px', display: "flex", justifyContent: "flex-end", alignItems: "center" }}
+              >
+                <Stack spacing={2} direction="row">
+                  <Button variant="text" size="large">Post Now</Button>
+                  <Button variant="contained" size="large">Schedule</Button>
+                </Stack>
+              </Box>
             </Grid>
           </Grid>
         </Box>

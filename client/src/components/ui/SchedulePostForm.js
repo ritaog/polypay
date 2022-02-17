@@ -2,6 +2,7 @@ import React from 'react'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import DateTimePicker from '@mui/lab/DateTimePicker'
+import InstagramIcon from '@mui/icons-material/Instagram'
 import {
   Grid,
   Box,
@@ -102,7 +103,13 @@ const SchedulePostForm = () => {
           <Button onClick={handleIncrement}>+</Button>
         </ButtonGroup>
       </Box>
-      <Box sx={{ display: 'flex', justifyContent: "flex-end", padding: ' 20px 20px 10px 10px' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          padding: ' 20px 20px 10px 10px',
+        }}
+      >
         <FormControl>
           <InputLabel htmlFor="price">Price</InputLabel>
           <OutlinedInput
@@ -124,7 +131,7 @@ const SchedulePostForm = () => {
           justifyContent: 'flex-end',
           alignItems: 'center',
           marginRight: '20px',
-          padding: ' 10px 20px 10px 20px',
+          padding: ' 10px 0 10px 20px',
         }}
       >
         <Typography variant="h7" sx={{ paddingRight: '20px' }}>
@@ -139,6 +146,23 @@ const SchedulePostForm = () => {
             }}
           />
         </LocalizationProvider>
+      </Box>
+      <Box
+        sx={{
+          padding: ' 0 10px 10px 10px',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+        }}
+      >
+        <InstagramIcon sx={{ marginRight: '20px', color: 'gray', fontSize: "35px" }} />
+
+        <FormControlLabel
+          value="end"
+          control={<Switch color="primary" />}
+          label="Publish to Instagram"
+          labelPlacement="end"
+        />
       </Box>
     </Grid>
   )
