@@ -11,6 +11,7 @@ import DisplayItemsPage from './pages/DisplayItemsPage'
 import MediaLibraryPage from './pages/MediaLibraryPage'
 import CheckoutPage from './pages/CheckoutPage'
 import ResponsiveDrawer from './components/navigation/ResponsiveDrawer'
+import LinkFacebookCardModal from './components/modals/SetUpMyStuffModals/LinkFacebookCardModal'
 
 const App = () => {
   //user state set by user login
@@ -49,7 +50,8 @@ const App = () => {
             <ResponsiveDrawer
               userData={user}
               getUserState={getObject}
-              children={<LinkAccountPage userData={user} />}
+              // children={<LinkAccountPage userData={user} />} this is original.  I am playing with
+              children={<LinkFacebookCardModal userData={user} />}
             />
           }
         />
