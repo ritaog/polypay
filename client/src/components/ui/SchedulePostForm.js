@@ -17,19 +17,21 @@ import {
   OutlinedInput,
   InputAdornment,
 } from '@mui/material'
-import { useState } from 'react'
-const SchedulePostForm = () => {
-  const [counter, setCounter] = useState(0)
-  const [postTime, setPostTime] = useState()
-  const handleIncrement = () => {
-    setCounter(counter + 1)
-  }
+// import { useState } from 'react'
 
-  const handleDecrement = () => {
-    if (counter > 0) {
-      setCounter(counter - 1)
-    }
-  }
+const SchedulePostForm = ({
+  setPostTitle,
+  setPrice,
+  setCaption,
+  setAbout,
+  setCanShip,
+  setLocation,
+  setPostTime,
+  handleIncrement,
+  handleDecrement,
+  quantity,
+  postTime,
+}) => {
   return (
     <Grid item xs={12} sm={12} md={12}>
       <Box
@@ -38,7 +40,14 @@ const SchedulePostForm = () => {
           padding: ' 10px 10px 10px 10px',
         }}
       >
-        <TextField fullWidth label="Product Title" id="fullWidth" />
+        <TextField
+          fullWidth
+          label="Product Title"
+          id="fullWidth"
+          onChange={(e) => {
+            setPostTitle(e.target.value)
+          }}
+        />
       </Box>
       <Box
         sx={{
@@ -52,20 +61,23 @@ const SchedulePostForm = () => {
           id="fullWidth"
           multiline
           rows={6}
+          onChange={(e) => {
+            setCaption(e.target.value)
+          }}
         />
       </Box>
-          <Box
-            sx={{
-              padding: ' 0 10px 10px 10px',
-            }}
-          >
-            <FormControlLabel
-              value="end"
-              control={<Switch color="primary" />}
-              label="Save Hashtags (pre-populates future posts)"
-              labelPlacement="end"
-            />
-          </Box>
+      <Box
+        sx={{
+          padding: ' 0 10px 10px 10px',
+        }}
+      >
+        <FormControlLabel
+          value="end"
+          control={<Switch color="primary" />}
+          label="Save Hashtags (pre-populates future posts)"
+          labelPlacement="end"
+        />
+      </Box>
       <Box
         sx={{
           width: '100%',
@@ -78,6 +90,39 @@ const SchedulePostForm = () => {
           id="fullWidth"
           multiline
           rows={4}
+          onChange={(e) => {
+            setAbout(e.target.value)
+          }}
+        />
+      </Box>
+      <Box
+        sx={{
+          width: '100%',
+          padding: ' 10px 10px 10px 10px',
+        }}
+      >
+        <TextField
+          fullWidth
+          label="Location"
+          id="fullWidth"
+          onChange={(e) => {
+            setLocation(e.target.value)
+          }}
+        />
+      </Box>
+      <Box
+        sx={{
+          padding: ' 0 10px 10px 10px',
+        }}
+      >
+        <FormControlLabel
+          value="end"
+          control={<Switch color="primary" />}
+          label="Item Available to Ship"
+          labelPlacement="end"
+          onChange={(e) => {
+            setCanShip(e.target.checked)
+          }}
         />
       </Box>
       <Box>
@@ -99,7 +144,7 @@ const SchedulePostForm = () => {
             Quantity Available
           </Typography>
           <Button onClick={handleDecrement}>-</Button>
-          <Button>{counter}</Button>
+          <Button>{quantity}</Button>
           <Button onClick={handleIncrement}>+</Button>
         </ButtonGroup>
       </Box>
@@ -118,7 +163,7 @@ const SchedulePostForm = () => {
             type="number"
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             onChange={(e) => {
-              // setPrice(e.target.value)
+              setPrice(e.target.value)
             }}
             startAdornment={<InputAdornment position="start">$</InputAdornment>}
             label="Amount"
@@ -155,7 +200,9 @@ const SchedulePostForm = () => {
           alignItems: 'center',
         }}
       >
-        <InstagramIcon sx={{ marginRight: '20px', color: 'gray', fontSize: "35px" }} />
+        <InstagramIcon
+          sx={{ marginRight: '20px', color: 'gray', fontSize: '35px' }}
+        />
 
         <FormControlLabel
           value="end"

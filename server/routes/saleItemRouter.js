@@ -80,7 +80,7 @@ router.post('/schedule', async (req, res) => {
   const delayTime = scheduleTime.getTime() - currentTime.getTime()
 
   console.log('delay time', delayTime)
-
+  res.status(202).json({postStatus: "scheduled", postTime: scheduleTime})
   // function that is called after specified delay determined on line 49, delay statement is on line 69
   const postSaleItem = async () => {
     // incoming cloudinary url is spliced at specifice spot. this is because first part of url is always the same and aspect ratio and width
@@ -124,7 +124,6 @@ router.post('/schedule', async (req, res) => {
     // function from "../models/controller.js" finds user by id and updates sale items array with new array created on line 86
 
     // sends instagram response back to front end
-    res.send(resPostText)
   }
 
   // delay statement that calls postSaleItem after determined delay time. if delay time is less than 0 it is posted immediately

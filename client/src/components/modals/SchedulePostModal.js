@@ -2,22 +2,19 @@ import * as React from 'react'
 import Box from '@mui/material/Box'
 import Image from 'mui-image'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-
+import SchedulePostForm from '../ui/SchedulePostForm'
 import {
   Modal,
   Grid,
   Stack,
-  Switch,
   Avatar,
   Typography,
   IconButton,
-  TextField,
   Button,
-  ButtonGroup,
 } from '@mui/material'
+import axios from 'axios'
 import { useState } from 'react'
-import SchedulePostForm from '../ui/SchedulePostForm'
-import SchedulePostFormFooter from '../ui/SchedulePostFormFooter'
+import { useNavigate } from 'react-router-dom'
 
 const style = {
   position: 'absolute',
@@ -33,11 +30,65 @@ const style = {
   padding: '0px',
   outline: 'none',
   borderRadius: '25px',
-  overflow: 'hidden'
+  overflow: 'hidden',
 }
 
 const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
+  const navigate = useNavigate()
+  const [postTitle, setPostTitle] = useState('')
+  const [price, setPrice] = useState('')
+  const [quantity, setQuantity] = useState(0)
+  const [caption, setCaption] = useState('')
+  const [about, setAbout] = useState('')
+  const [canShip, setCanShip] = useState(false)
+  const [location, setLocation] = useState('')
+  const [postTime, setPostTime] = useState(new Date())
 
+  const handleIncrement = () => {
+    setQuantity(quantity + 1)
+  }
+
+  const handleDecrement = () => {
+    if (quantity > 0) {
+      setQuantity(quantity - 1)
+    }
+  }
+
+  const handleSubmit = async (postNow) => {
+    const postData = {
+      id: scheduleItem._id,
+      vendorName: scheduleItem.vendorName,
+      vendorId: scheduleItem.vendorId,
+      postTitle: postTitle,
+      price: price,
+      quantity: quantity,
+      photos: scheduleItem.photos,
+      description: caption,
+      about: about,
+      canShip: canShip,
+      available: 'Scheduled',
+      postTime: postTime,
+      location: location,
+    }
+    // shortcut to combine the response from first post and user data from user state to be sent to back end as one object
+    const { instagramBusinessId, permanentToken, saleItems } = userData
+    const saleItemDataBundle = {
+      ...postData,
+      instagramBusinessId,
+      permanentToken,
+      saleItems,
+    }
+
+    if (postNow) {
+      saleItemDataBundle.postTime = new Date()
+    }
+
+    // second post sends combine object from above to back end to be posted to instagram and added to the users sale que
+    const response = await axios.post('saleItem/schedule', saleItemDataBundle)
+    if (response.statusText === 'Accepted') {
+      navigate(0)
+    }
+  }
 
   return (
     <div>
@@ -103,7 +154,7 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                 style={{
                   overflowY: 'scroll',
                   overflowX: 'hidden',
-                  height: '72%',
+                  height: '610px',
                 }}
               >
                 <Grid
@@ -113,16 +164,53 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <SchedulePostForm />
+                    <SchedulePostForm
+                      setPostTitle={setPostTitle}
+                      setPrice={setPrice}
+                      setQuantity={setQuantity}
+                      setCaption={setCaption}
+                      setAbout={setAbout}
+                      setCanShip={setCanShip}
+                      setLocation={setLocation}
+                      setPostTime={setPostTime}
+                      handleSubmit={handleSubmit}
+                      handleIncrement={handleIncrement}
+                      handleDecrement={handleDecrement}
+                      quantity={quantity}
+                      postTime={postTime}
+                    />
                   </Grid>
                 </Grid>
               </div>
               <Box
-                sx={{ borderTop: '1px solid lightGray', paddingRight: "20px", height: '70px', display: "flex", justifyContent: "flex-end", alignItems: "center" }}
+                sx={{
+                  borderTop: '1px solid lightGray',
+                  paddingRight: '20px',
+                  height: '70px',
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  alignItems: 'center',
+                }}
               >
                 <Stack spacing={2} direction="row">
-                  <Button variant="text" size="large">Post Now</Button>
-                  <Button variant="contained" size="large">Schedule</Button>
+                  <Button
+                    variant="text"
+                    size="large"
+                    onClick={() => {
+                      handleSubmit(true)
+                    }}
+                  >
+                    Post Now
+                  </Button>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    onClick={() => {
+                      handleSubmit(false)
+                    }}
+                  >
+                    Schedule
+                  </Button>
                 </Stack>
               </Box>
             </Grid>
