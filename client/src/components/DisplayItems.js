@@ -39,14 +39,13 @@ import SaleListUser from './ui/SaleListUser'
   //   )
   // })
 
-const DisplayItems = ({ userData, profileId, guest }) => {
+const DisplayItems = ({profileId}) => {
   return (
     <div>
-      {(guest) ? (
+    
         <SaleListGuest profileId={profileId} />
-        ) : (
-        <SaleListUser userData={userData} />
-      )}
+       
+   
     </div>
   )
 }

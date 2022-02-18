@@ -144,7 +144,7 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
             {userData ? (
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="User Name" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="User Name" src={userData?.photos?.[0] ||"/static/images/avatar/2.jpg" }/>
                 </IconButton>
               </Tooltip>
             ) : (
@@ -228,6 +228,8 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          padding: '0px',
+          paddingTop: '24px'
         }}
       >
         <Toolbar />

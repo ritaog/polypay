@@ -1,19 +1,23 @@
+import './ProfilePageForm.css'
+
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-//import CSS
 
 const ProfileEditForm = ({ existingValues }) => {
-
-  const [userName, setUserName] = useState('')
-  const [companyName, setCompanyName] = useState('')
-  const [companyAddress, setCompanyAddress] = useState('')
-  const [companyType, setCompanyType] = useState('')
-  const [emailAddress, setEmailAddress] = useState('')
-  const [password, setPassword] = useState('')
-  const [phoneNo, setPhoneNo] = useState('')
+  const navigate = useNavigate()
+  const [userName, setUserName] = useState()
+  const [companyName, setCompanyName] = useState()
+  const [companyAddress, setCompanyAddress] = useState()
+  const [companyType, setCompanyType] = useState()
+  const [emailAddress, setEmailAddress] = useState()
+  const [password, setPassword] = useState()
+  const [phoneNo, setPhoneNo] = useState()
+  const [selectedImage, setSelectedImage] = useState()
 
   useEffect(() => {
-    if (existingValues) {
+    const setExistingValues = () => {
+      console.log('existingValues', existingValues)
       setUserName(existingValues.userName)
       setCompanyName(existingValues.companyName)
       setCompanyAddress(existingValues.companyAddress)
@@ -21,6 +25,10 @@ const ProfileEditForm = ({ existingValues }) => {
       setEmailAddress(existingValues.emailAddress)
       setPassword(existingValues.password)
       setPhoneNo(existingValues.phoneNo)
+      setSelectedImage(existingValues.selectedImage)
+    }
+    if (existingValues) {
+      setExistingValues()
     }
   }, [existingValues])
 
@@ -28,7 +36,9 @@ const ProfileEditForm = ({ existingValues }) => {
     let newValue = event.target.value
     setter(newValue)
   }
-  async function postData() {
+  async function postData(e) {
+    e.preventDefault()
+
     let updatedUserDetails = {
       _id: existingValues._id,
       userName,
@@ -39,61 +49,120 @@ const ProfileEditForm = ({ existingValues }) => {
       password,
       phoneNo,
     }
-    const response = await axios.put('/user/updateUser', updatedUserDetails)
-    console.log('response', response);
+
+    const updatedUser = new FormData()
+    updatedUser.append('image', selectedImage)
+    updatedUser.append('formData', JSON.stringify(updatedUserDetails))
+
+    const response = await axios.put('/user/updateUser', updatedUser)
+    if (response.statusText === 'OK') {
+      navigate(0)
+    }
+    
   }
 
   return (
     <div>
       <h2>User Edit Form </h2>
-      <label> Name </label>
-      <input
-        value={userName}
-        onChange={(event) => onInputUpdate(event, setUserName)}
-      />
-      <label> Company Name </label>
-      <input
-        value={companyName}
-        onChange={(event) => onInputUpdate(event, setCompanyName)}
-      />
-      <label> Company Address </label>
-      <input
-        value={companyAddress}
-        onChange={(event) => onInputUpdate(event, setCompanyAddress)}
-      />
-      <label htmlFor="cType">Company Type:</label>
-      <select
-        name="companyType"
-        id="cType"
-        value={existingValues.companyType}
-        onChange={(event) => onInputUpdate(event, setCompanyType)}
-      >
-        {/* <option value={existingValues.companyType}>
+      <div className="profile-page-form">
+        <form>
+          <label htmlFor="name"> Name </label>
+          <input
+            id="name"
+            value={userName}
+            className="input-form"
+            onChange={(event) => onInputUpdate(event, setUserName)}
+          />
+          <label htmlFor="cname"> Company Name </label>
+          <input
+            id="cname"
+            value={companyName}
+            className="input-form"
+            onChange={(event) => onInputUpdate(event, setCompanyName)}
+          />
+          <label htmlFor="address"> Company Address </label>
+          <input
+            id="address"
+            value={companyAddress}
+            className="input-form"
+            onChange={(event) => onInputUpdate(event, setCompanyAddress)}
+          />
+          <label htmlFor="cType">Company Type:</label>
+          <select
+            name="companyType"
+            id="cType"
+            value={companyType}
+            className="input-form"
+            onChange={(event) => onInputUpdate(event, setCompanyType)}
+          >
+            {/* <option value={existingValues.companyType}>
           {existingValues.companyType}
         </option> */}
-        <option value="artisan">artisan</option>
-        <option value="independent">independent</option>
-        <option value="consignment">consignment</option>
-        <option value="vintage">vintage</option>
-        <option value="resale">resale</option>
-        <option value="other">other</option>
-      </select>
-      <label> Email Address </label>
-      <input
-        value={emailAddress}
-        onChange={(event) => onInputUpdate(event, setEmailAddress)}
-      />
-      <label> Password </label>
-      <input
-        value={password}
-        onChange={(event) => onInputUpdate(event, setPassword)}
-      />
-      <label> Phone No </label>
-      <input
-        value={phoneNo}
-        onChange={(event) => onInputUpdate(event, setPhoneNo)}
-      />
-      <button onClick={postData}>Save</button>
+            <option value="artisan">artisan</option>
+            <option value="independent">independent</option>
+            <option value="consignment">consignment</option>
+            <option value="vintage">vintage</option>
+            <option value="resale">resale</option>
+            <option value="other">other</option>
+          </select>
+          <label htmlFor="email"> Email Address </label>
+          <input
+            id="email"
+            value={emailAddress}
+            className="input-form"
+            onChange={(event) => onInputUpdate(event, setEmailAddress)}
+          />
+          <label htmlFor="password"> Password </label>
+          <input
+            id="password"
+            value={password}
+            className="input-form"
+            onChange={(event) => onInputUpdate(event, setPassword)}
+          />
+          <label htmlFor="phoneNo"> Phone No </label>
+          <input
+            id="phoneNo"
+            value={phoneNo}
+            className="input-form"
+            onChange={(event) => onInputUpdate(event, setPhoneNo)}
+          />
+          <div>
+            {selectedImage && (
+              <div>
+                <img
+                  alt="not fount"
+                  width={'100px'}
+                  src={URL.createObjectURL(selectedImage)}
+                />
+                <br />
+                <button
+                  className="input-button"
+                  onClick={() => setSelectedImage(null)}
+                >
+                  Remove
+                </button>
+              </div>
+            )}
+
+            <input
+              type="file"
+              name="myImage"
+              onChange={(event) => {
+                console.log(event.target.files[0])
+                setSelectedImage(event.target.files[0])
+              }}
+            />
+          </div>
+          <input
+            type="submit"
+            value="Submit"
+            className="input-submit"
+            onClick={(e) => {
+              postData(e)
+            }}
+          />
+        </form>
+      </div>
     </div>
   )
 }
@@ -113,5 +182,6 @@ const ProfileEditForm = ({ existingValues }) => {
 //     </div>
 //   )
 // // }
+// <button onClick={postData}>Save</button>
 
 export default ProfileEditForm

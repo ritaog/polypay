@@ -10,7 +10,7 @@ import InstagramIcon from '@mui/icons-material/Instagram'
 import Typography from '@mui/material/Typography'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Box } from '@mui/system'
+// import { Box } from '@mui/system'
 
 export default function CustomizedTimeline({ userData }) {
   const [timeline, setTimeline] = useState([])

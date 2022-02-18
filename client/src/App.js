@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import "./App.css"
+import './App.css'
 import HomePage from './pages/HomePage'
 import ProfilePage from './pages/ProfilePage'
 import LinkAccountPage from './pages/LinkAccountPage'
@@ -12,10 +12,13 @@ import MediaLibraryPage from './pages/MediaLibraryPage'
 import CheckoutPage from './pages/CheckoutPage'
 import ResponsiveDrawer from './components/navigation/ResponsiveDrawer'
 import LinkFacebookCardModal from './components/modals/SetUpMyStuffModals/LinkFacebookCardModal'
+import SalePageHeader from './components/navigation/SalePageHeader'
+import MiniDrawer from './components/navigation/MiniDrawer'
 
 const App = () => {
   //user state set by user login
   const [user, setUser] = useState({})
+  const [vendorName, setVendorName] = useState()
   //function that sets user: this function is passed to the "/"
   const getObject = (userData) => {
     console.log(userData)
@@ -28,7 +31,7 @@ const App = () => {
       const response = await axios.get('auth/getLoggedInUser')
       setUser(response.data)
     }
-      getUser()
+    getUser()
   }, [])
 
   return (
@@ -58,7 +61,7 @@ const App = () => {
         <Route
           path="/schedule-post"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               children={<SchedulePostPage userData={user} />}
@@ -71,7 +74,7 @@ const App = () => {
             <ResponsiveDrawer
               userData={user}
               getUserState={getObject}
-              children={<ProfilePage userData={user}/>}
+              children={<ProfilePage userData={user} />}
             />
           }
         />
@@ -94,15 +97,13 @@ const App = () => {
               children={<MediaLibraryPage userData={user} />}
             />
           }
-
         />
         <Route
           path="/sales/:id"
           element={
-            <ResponsiveDrawer
-              userData={user}
-              getUserState={getObject}
-              children={<DisplayItemsPage userData={user} guest={true}/>}
+            <SalePageHeader
+              vendorName={vendorName}
+              children={<DisplayItemsPage setVendorName={setVendorName} />}
             />
           }
         />

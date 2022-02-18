@@ -1,16 +1,13 @@
 
 
-import DisplayItems from '../components/DisplayItems'
+import SaleListGuest from '../components/ui/SaleListGuest'
 import { useParams } from 'react-router-dom'
 
-const DisplayItemsPage = ({ userData, guest }) => {
+const DisplayItemsPage = ({setVendorName}) => {
   const profileId = useParams()
-
-
   return (
-    <div>
-      {/* <h1>Display Items as a Grid</h1> */}
-      <DisplayItems userData={userData} profileId={profileId} guest={guest}/>
+    <div style={{ padding: '0px' }}>
+      <SaleListGuest profileId={profileId} setVendorName={setVendorName}/>
     </div>
   )
 }

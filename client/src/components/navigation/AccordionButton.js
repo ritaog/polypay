@@ -32,7 +32,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }))
 
-export default function CustomizedAccordions() {
+export default function CustomizedAccordions({open}) {
   const navigate = useNavigate()
   const [expanded, setExpanded] = React.useState('panel1')
 
@@ -50,7 +50,7 @@ export default function CustomizedAccordions() {
           sx={{ padding: '0px' }}
         >
           <PostAddIcon />
-          <Typography sx={{ paddingLeft: '10px' }}>Posts</Typography>
+          <Typography sx={{ paddingLeft: '35px' }}>Posts</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <List>
@@ -92,7 +92,7 @@ export default function CustomizedAccordions() {
           sx={{ padding: '0px' }}
         >
           <SupervisorAccountIcon />
-          <Typography sx={{ paddingLeft: '10px' }}>Accounts</Typography>
+          <Typography sx={{ paddingLeft: '35px' }}>Accounts</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <List>
@@ -105,7 +105,7 @@ export default function CustomizedAccordions() {
               <AccountBoxIcon />
               <ListItemText
                 primary="Link Profiles"
-                sx={{ paddingLeft: '10px' }}
+                sx={{ paddingLeft: '35px' }}
               />
             </ListItem>
           </List>
@@ -122,7 +122,7 @@ export default function CustomizedAccordions() {
           sx={{ padding: '0px' }}
         >
           <ReceiptIcon />
-          <Typography sx={{ paddingLeft: '10px' }}>Sales</Typography>
+          <Typography sx={{ paddingLeft: '35px' }}>Sales</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>

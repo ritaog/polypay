@@ -4,14 +4,17 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+
 const ProfilePageForm = () => {
-  const [name, setName] = useState('')
-  const [companyName, setCompanyName] = useState('')
-  const [companyAddress, setCompanyAddress] = useState('')
-  const [companyType, setCompanyType] = useState('')
-  const [emailAddress, setEmailAddress] = useState('')
-  const [password, setPassword] = useState('')
-  const [phoneNo, setPhoneNo] = useState('')
+  const [name, setName] = useState()
+  const [companyName, setCompanyName] = useState()
+  const [companyAddress, setCompanyAddress] = useState()
+  const [companyType, setCompanyType] = useState()
+  const [emailAddress, setEmailAddress] = useState()
+  const [password, setPassword] = useState()
+  const [phoneNo, setPhoneNo] = useState()
+  const [selectedImage, setSelectedImage] = useState(null);
+    
   const navigate = useNavigate()
 
   const onInputUpdate = (event, setter) => {
@@ -32,11 +35,16 @@ const ProfilePageForm = () => {
       phoneNo: phoneNo,
       userReview: 5,
       instagramBusinessId: '',
+      selectedImage:'',
       permanentToken: '',
       saleItems: [],
     }
+    const imageData = new FormData()
+    imageData.append('image', selectedImage)
+    imageData.append('formData', JSON.stringify(userProfile))
+
     console.log(userProfile)
-    const response = await axios.post('user/addUser', userProfile)
+    const response = await axios.post('user/addUser', imageData)
     console.log(response.statusText)
     if (response.statusText === 'OK') {
       navigate('/')
@@ -50,6 +58,7 @@ const ProfilePageForm = () => {
           <label htmlFor="name">Name</label>
           <input
             value={name}
+            className="input-form"
             type="text"
             id="name"
             name="name"
@@ -60,6 +69,7 @@ const ProfilePageForm = () => {
           <label htmlFor="cname">Company Name </label>
           <input
             value={companyName}
+            className="input-form"
             type="text"
             id="cname"
             name="companyName"
@@ -70,6 +80,7 @@ const ProfilePageForm = () => {
           <label htmlFor="cAddress">Company Address </label>
           <input
             value={companyAddress}
+            className="input-form"
             type="text"
             id="cAddress"
             name="companyAddress"
@@ -80,6 +91,8 @@ const ProfilePageForm = () => {
           <label htmlFor="cType">Company Type:</label>
           <select
             name="companyType"
+            value={companyType}
+            className="input-form"
             id="cType"
             onChange={(event) => onInputUpdate(event, setCompanyType)}
           >
@@ -95,6 +108,7 @@ const ProfilePageForm = () => {
           <label htmlFor="email">Email Address </label>
           <input
             value={emailAddress}
+            className="input-form"
             type="email"
             id="email"
             name="emailAddress"
@@ -105,6 +119,7 @@ const ProfilePageForm = () => {
           <label htmlFor="pword">Password </label>
           <input
             value={password}
+            className="input-form"
             type="text"
             id="pword"
             name="password"
@@ -115,14 +130,37 @@ const ProfilePageForm = () => {
           <label htmlFor="pNumber">Phone No </label>
           <input
             value={phoneNo}
+            className="input-form"
             type="tel"
             id="pNumber"
             name="phoneNumber"
             placeholder="Phone Number.."
             onChange={(event) => onInputUpdate(event, setPhoneNo)}
           />
+          <div>
+            {selectedImage && (
+              <div>
+                <img
+                  alt="not fount"
+                  width={'100px'}
+                  src={URL.createObjectURL(selectedImage)}
+                />
+                <br />
+                <button className="input-button" onClick={() => setSelectedImage(null)}>Remove</button>
+              </div>
+            )}
 
-          <input type="submit" value="Submit" onClick={postData} />
+            <input
+              type="file"
+              name="myImage"
+              onChange={(event) => {
+                console.log(event.target.files[0])
+                setSelectedImage(event.target.files[0])
+              }}
+            />
+          </div>
+
+          <input type="submit" value="Submit" className="input-submit" onClick={postData} />
         </form>
       </div>
     </div>
