@@ -12,6 +12,7 @@ import MediaLibraryPage from './pages/MediaLibraryPage'
 import CheckoutPage from './pages/CheckoutPage'
 import ResponsiveDrawer from './components/navigation/ResponsiveDrawer'
 import SalePageHeader from './components/navigation/SalePageHeader'
+import MiniDrawer from './components/navigation/MiniDrawer'
 
 const App = () => {
   //user state set by user login
@@ -58,7 +59,7 @@ const App = () => {
         <Route
           path="/schedule-post"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               children={<SchedulePostPage userData={user} />}
