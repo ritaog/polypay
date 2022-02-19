@@ -21,16 +21,23 @@ import {
 
 const SchedulePostForm = ({
   setPostTitle,
+  postTitle,
   setPrice,
+  price,
   setCaption,
+  caption,
   setAbout,
+  about,
   setCanShip,
+  canShip,
   setLocation,
+  location,
   setPostTime,
+  postTime,
+  quantity,
   handleIncrement,
   handleDecrement,
-  quantity,
-  postTime,
+  edit,
 }) => {
   return (
     <Grid item xs={12} sm={12} md={12}>
@@ -44,6 +51,8 @@ const SchedulePostForm = ({
           fullWidth
           label="Product Title"
           id="fullWidth"
+          value={postTitle}
+          disabled={edit}
           onChange={(e) => {
             setPostTitle(e.target.value)
           }}
@@ -61,6 +70,8 @@ const SchedulePostForm = ({
           id="fullWidth"
           multiline
           rows={6}
+          disabled={edit}
+          value={caption}
           onChange={(e) => {
             setCaption(e.target.value)
           }}
@@ -88,6 +99,8 @@ const SchedulePostForm = ({
           fullWidth
           label="About Your Product"
           id="fullWidth"
+          value={about}
+          disabled={edit}
           multiline
           rows={4}
           onChange={(e) => {
@@ -105,6 +118,8 @@ const SchedulePostForm = ({
           fullWidth
           label="Location"
           id="fullWidth"
+          value={location}
+          disabled={edit}
           onChange={(e) => {
             setLocation(e.target.value)
           }}
@@ -116,10 +131,11 @@ const SchedulePostForm = ({
         }}
       >
         <FormControlLabel
-          value="end"
           control={<Switch color="primary" />}
           label="Item Available to Ship"
           labelPlacement="end"
+          value={canShip}
+          disabled={edit}
           onChange={(e) => {
             setCanShip(e.target.checked)
           }}
@@ -143,9 +159,13 @@ const SchedulePostForm = ({
           >
             Quantity Available
           </Typography>
-          <Button onClick={handleDecrement}>-</Button>
+          <Button onClick={handleDecrement} disabled={edit}>
+            -
+          </Button>
           <Button>{quantity}</Button>
-          <Button onClick={handleIncrement}>+</Button>
+          <Button onClick={handleIncrement} disabled={edit}>
+            +
+          </Button>
         </ButtonGroup>
       </Box>
       <Box
@@ -161,6 +181,8 @@ const SchedulePostForm = ({
             id="price"
             placeholder="0.00"
             type="number"
+            disabled={edit}
+            value={parseFloat(price.$numberDecimal)}
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             onChange={(e) => {
               setPrice(e.target.value)
@@ -186,6 +208,7 @@ const SchedulePostForm = ({
           <DateTimePicker
             renderInput={(props) => <TextField {...props} />}
             value={postTime}
+            disabled={edit}
             onChange={(newValue) => {
               setPostTime(newValue)
             }}
@@ -206,6 +229,7 @@ const SchedulePostForm = ({
 
         <FormControlLabel
           value="end"
+          disabled={edit}
           control={<Switch color="primary" />}
           label="Publish to Instagram"
           labelPlacement="end"
