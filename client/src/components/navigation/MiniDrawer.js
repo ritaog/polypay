@@ -5,9 +5,7 @@ import MuiDrawer from '@mui/material/Drawer'
 import MuiAppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import List from '@mui/material/List'
-import CssBaseline from '@mui/material/CssBaseline'
-import {Typography, Button} from '@mui/material'
-import Divider from '@mui/material/Divider'
+import { Typography, Button } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
@@ -15,10 +13,20 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
 import AccordionButton from './AccordionButton'
+import CssBaseline from '@mui/material/CssBaseline'
+import Divider from '@mui/material/Divider'
+import InboxIcon from '@mui/icons-material/MoveToInbox'
+import Menu from '@mui/material/Menu'
+import Avatar from '@mui/material/Avatar'
+import Tooltip from '@mui/material/Tooltip'
+import MenuItem from '@mui/material/MenuItem'
+import Link from '@mui/material/Link'
+import SignUpButton from '../modals/SignUpModal'
 
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 const drawerWidth = 240
 
 const openedMixin = (theme) => ({
@@ -86,8 +94,10 @@ const Drawer = styled(MuiDrawer, {
   }),
 }))
 
-export default function MiniDrawer({children}) {
+export default function MiniDrawer({ children, userData, getUserState }) {
   const theme = useTheme()
+  const navigate = useNavigate()
+  const [anchorElUser, setAnchorElUser] = React.useState(null)
   const [open, setOpen] = React.useState(false)
 
   const handleDrawerOpen = () => {
@@ -98,10 +108,31 @@ export default function MiniDrawer({children}) {
     setOpen(false)
   }
 
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget)
+  }
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null)
+  }
+
+  const handleSignOut = async () => {
+    setAnchorElUser(null)
+
+    let logout = await axios.get('auth/logout')
+    console.log('Trying to logout', logout)
+    getUserState(null)
+    navigate('/')
+  }
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{backgroundColor: 'white', borderRadius: '25px'}}>
+      <AppBar
+        position="fixed"
+        open={open}
+        sx={{ backgroundColor: 'white'}}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -113,9 +144,14 @@ export default function MiniDrawer({children}) {
               ...(open && { display: 'none' }),
             }}
           >
-            <MenuIcon sx={{color: "black"}}/>
+            <MenuIcon sx={{ color: 'black' }} />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{color: 'black', paddingRight: '10px'}}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ color: 'black', paddingRight: '10px' }}
+          >
             PolyPay
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -128,6 +164,51 @@ export default function MiniDrawer({children}) {
             <Button sx={{ my: 2, color: 'black', display: 'block' }}>
               Blog
             </Button>
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+            {userData ? (
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt="User Name"
+                    src={userData?.photos?.[0] || '/static/images/avatar/2.jpg'}
+                  />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <SignUpButton getUserState={getUserState} />
+            )}
+
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              <MenuItem
+                component={Link}
+                href="/profile"
+                onClick={handleCloseUserMenu}
+              >
+                <Typography textAlign="center">Profile</Typography>
+              </MenuItem>
+              <MenuItem component={Link} href="/" onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">Dashboard</Typography>
+              </MenuItem>
+              <MenuItem component={Button} onClick={handleSignOut}>
+                <Typography textAlign="center">Sign Out</Typography>
+              </MenuItem>
+            </Menu>
           </Box>
         </Toolbar>
       </AppBar>
