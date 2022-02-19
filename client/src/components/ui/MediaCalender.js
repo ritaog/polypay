@@ -4,11 +4,19 @@ import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { Card, CardContent } from '@mui/material'
+import PostInfoModal from '../modals/PostInfoModal'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 const MediaCalender = ({userData}) => {
   const [postEvents, setPostEvents] = useState()
+  const [postInfo, setPostInfo] = useState()
+  const [edit, setEdit] = useState(true)
+   const [open, setOpen] = React.useState(false)
+   const handleClose = () => {
+     setOpen(false)
+     setEdit(true)
+    }
 
   useEffect(() => {
     const getPosts = async () => {
@@ -16,7 +24,8 @@ const MediaCalender = ({userData}) => {
       const events = response.data.map((post) => {
         return ({
           title: post.postTitle,
-          date: post.postTime
+          date: post.postTime,
+          postData: post
         })
       })
       setPostEvents(events)
@@ -27,13 +36,28 @@ const MediaCalender = ({userData}) => {
   }, [userData])
 
   const handleDateSelect = (e) => {
-    console.log("selected", e.event._instance.range.start)
+    setPostInfo(e.event._def.extendedProps.postData)
+    setOpen(true)
     console.log('calenderApi', e)
   }
 
-  console.log('postEvents', postEvents)
+  const handleEdit = () => {
+    if (postInfo.available === 'Scheduled') {
+      setEdit(false)
+    }
+  }
+
+  // console.log('postEvents', postEvents)
   return (
     <Card sx={{ borderRadius: '25px', height: '875px' }}>
+      <PostInfoModal
+        open={open}
+        handleClose={handleClose}
+        postInfo={postInfo}
+        userData={userData}
+        handleEdit={handleEdit}
+        edit={edit}
+      />
       <CardContent>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -44,7 +68,9 @@ const MediaCalender = ({userData}) => {
           }}
           selectable={true}
           selectMirror={true}
-          eventClick={(e) => {handleDateSelect(e)}}
+          eventClick={(e) => {
+            handleDateSelect(e)
+          }}
           initialView="dayGridMonth"
           height={825}
           events={postEvents}
