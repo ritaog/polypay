@@ -4,8 +4,7 @@ import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import { Link } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import MobileFbPageSetupModal from './MobileFbPageSetupModal'
-import DesktopFbPageSetupModal from './DesktopFbPageSetupModal'
+
     
 const style = {
   position: 'absolute',
@@ -33,7 +32,7 @@ const styleHeader = {
     
 
 
-export default function FacebookPageSetupModal() {
+export default function DesktopFbPageSetupModal() {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -41,36 +40,35 @@ export default function FacebookPageSetupModal() {
 
   return (
     <div>
-      <Link onClick={handleOpen}>No page or not linked yet?  Learn how!</Link>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
+    <Link onClick={handleOpen}>Desktop </Link>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
           <Box sx={style}>
             <Box sx={styleHeader}>
               <Typography id="modal-modal-title" variant="h7" component="h2">
-                Create a Facebook Page for Your Business<br/>
+                Create a Facebook Page on Desktop<br/>
               </Typography>
             </Box>
             <Box sx={{padding:"5px"}}> 
-              <Typography id="modal-modal-description" variant="h6" sx={{ mt: 2 }}>
-
-              Before you begin<br/>
-              1. You must have a Facebook profile <br/>
-              2. At this time, Meta will only allow one Facebook Page 
-              to be connected to your business account.<br/><br/>
-
-              Are you using a mobile Device?<br/>
-              <MobileFbPageSetupModal/><br/><br/>
-
-              Are you using a desktop?<br/>
-              <DesktopFbPageSetupModal/>
+              <Typography id="modal-modal-description" variant="h6" sx={{ mt: 2 }}>         
+              1.	Open your Facebook profile<br/>
+              2.	At the top of the homepage, select Create and choose Page<br/>
+              3.	Name your Page<br/>
+              4.	Add a category to describe your Page<br/>
+              5.	Enter your business information, address and contact information<br/>
+              6.	Select Continue<br/>
+              7.	You can add a profile photo to your Page. If you add a photo, 
+              select Next or select Skip to complete later<br/>
+              8.	You can add a cover photo to your Page. If you add a photo, 
+              select Next or Select Skip to complete later<br/>
+              9.	When you have completed the steps, select Next to go to your new Page<br/>
               </Typography>
             </Box>
           </Box>
-        </Modal>
+      </Modal>
     </div>
   )
 }

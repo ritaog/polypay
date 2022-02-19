@@ -4,8 +4,7 @@ import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import { Link } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import MobileFbPageSetupModal from './MobileFbPageSetupModal'
-import DesktopFbPageSetupModal from './DesktopFbPageSetupModal'
+
     
 const style = {
   position: 'absolute',
@@ -33,7 +32,7 @@ const styleHeader = {
     
 
 
-export default function FacebookPageSetupModal() {
+export default function MobileFbPageSetupModal() {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -41,36 +40,38 @@ export default function FacebookPageSetupModal() {
 
   return (
     <div>
-      <Link onClick={handleOpen}>No page or not linked yet?  Learn how!</Link>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
+      <Link onClick={handleOpen}>Mobile </Link>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"      >
           <Box sx={style}>
             <Box sx={styleHeader}>
               <Typography id="modal-modal-title" variant="h7" component="h2">
-                Create a Facebook Page for Your Business<br/>
+                Create a Facebook Page on Mobile Device<br/>
               </Typography>
             </Box>
             <Box sx={{padding:"5px"}}> 
               <Typography id="modal-modal-description" variant="h6" sx={{ mt: 2 }}>
-
-              Before you begin<br/>
-              1. You must have a Facebook profile <br/>
-              2. At this time, Meta will only allow one Facebook Page 
-              to be connected to your business account.<br/><br/>
-
-              Are you using a mobile Device?<br/>
-              <MobileFbPageSetupModal/><br/><br/>
-
-              Are you using a desktop?<br/>
-              <DesktopFbPageSetupModal/>
+              1.	Open your Newsfeed<br/>
+              2.	Tap the Pages icon. If this tab isn't available,
+               you can tap the menu icon and select Pages<br/>
+              3.	Tap + Create<br/>
+              4.	Tap Get Started<br/>
+              5.	Add a name and up to three categories to 
+              describe your Page and tap Next<br/>
+              6.	You can add an address to your Page 
+              to make it easier for people to 
+              find your business, or tap I don't want 
+              to add an address. Tap Next or
+              to complete this step later, tap Skip<br/>
+              7.	You can add a profile and cover photo 
+              to your Page. Tap Done<br/>
               </Typography>
-            </Box>
           </Box>
-        </Modal>
+        </Box>
+      </Modal>
     </div>
   )
 }
