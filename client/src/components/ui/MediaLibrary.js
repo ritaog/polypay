@@ -69,7 +69,6 @@ const MediaLibrary = ({ userData }) => {
   }
 
   const handlePostSchedule = (item) => {
-
     setScheduleItem(item)
     setOpen(true)
     console.log('schedule photo', item)

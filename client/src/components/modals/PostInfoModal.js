@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import SchedulePostForm from '../ui/SchedulePostForm'
+import EditPostForm from '../ui/EditPostForm'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import Image from 'mui-image'
 import {
@@ -181,7 +181,7 @@ const PostInfoModal = ({ open, handleClose, handleEdit, edit, postInfo, userData
                   alignItems="center"
                 >
                   <Grid item>
-                    <SchedulePostForm
+                    <EditPostForm
                       setPostTitle={setPostTitle}
                       postTitle={postTitle}
                       setPrice={setPrice}

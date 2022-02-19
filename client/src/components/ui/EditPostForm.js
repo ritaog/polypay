@@ -19,7 +19,7 @@ import {
 } from '@mui/material'
 // import { useState } from 'react'
 
-const SchedulePostForm = ({
+const EditPostForm = ({
   setPostTitle,
   postTitle,
   setPrice,
@@ -182,7 +182,7 @@ const SchedulePostForm = ({
             placeholder="0.00"
             type="number"
             disabled={edit}
-            value={price}
+            value={parseFloat(price.$numberDecimal)}
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             onChange={(e) => {
               setPrice(e.target.value)
@@ -239,4 +239,4 @@ const SchedulePostForm = ({
   )
 }
 
-export default SchedulePostForm
+export default EditPostForm
