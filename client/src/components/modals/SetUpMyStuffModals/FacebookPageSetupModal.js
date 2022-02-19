@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
-import { Link } from '@mui/material'
+import { Button, Link } from '@mui/material'
 import MobileFbPageSetupModal from './MobileFbPageSetupModal'
 import DesktopFbPageSetupModal from './DesktopFbPageSetupModal'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -51,16 +51,14 @@ export default function FacebookPageSetupModal() {
               <Typography id="modal-modal-title" variant="h7" component="h2">
                 Create a Facebook Page for Your Business<br/>
               </Typography>
+                <Button variant= "contained">
                 <IconButton
-                  aria-label="delete"
                   onClick={handleClose}
-                  sx={{ margin: '10px'}}
-                  style={{
-                  backgroundColor: "cornflowerBlue"
-                  }}
+                  sx={{ margin: '2px'}}
                 >
                   <ArrowBackIcon />
                 </IconButton>
+                </Button>
             </Box>
             <Box sx={{padding:"5px"}}> 
               <Typography id="modal-modal-description" variant="h6" sx={{ mt: 2 }}>

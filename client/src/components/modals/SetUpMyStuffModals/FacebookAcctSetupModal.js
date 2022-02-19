@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import {Modal,IconButton} from '@mui/material'
+import {Modal,IconButton, Button} from '@mui/material'
 import Link from '@mui/material/Link'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
     
@@ -55,17 +55,15 @@ export default function FacebookAcctSetupModal() {
           <Box sx={styleHeader}>
             <Typography id="modal-modal-title" variant="h7" component="h2">
               How do I create a Facebook account?
-            </Typography>           
-            <IconButton
-              aria-label="delete"
-              onClick={handleClose}
-              sx={{ margin: '10px'}}
-              style={{
-              backgroundColor: "cornflowerBlue",
-              }}
-            >
-              <ArrowBackIcon/>
-            </IconButton>
+            </Typography>       
+            <Button variant= "contained">
+                <IconButton
+                  onClick={handleClose}
+                  sx={{ margin: '2px'}}
+                >
+                  <ArrowBackIcon />
+                </IconButton>
+                </Button>
           </Box>
           <Box sx={{ padding: '5px' }}>
             <Typography

@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
-import { Link } from '@mui/material'
+import { Button, Link } from '@mui/material'
 import InstaAcctSetupModal from './InstaAcctSetupModal'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { IconButton } from '@mui/material'
@@ -49,16 +49,14 @@ export default function InstaBusAcctSetupModal() {
         <Typography id="modal-modal-title" variant="h7" component="h2">
         How do I create an Instagram business account?
         </Typography>
-        <IconButton
-          aria-label="delete"
-          onClick={handleClose}
-          sx={{ margin: '10px'}}
-          style={{
-          backgroundColor: "cornflowerBlue",
-          }}
-        >
-          <ArrowBackIcon />
-        </IconButton>
+        <Button variant= "contained">
+                <IconButton
+                  onClick={handleClose}
+                  sx={{ margin: '2px'}}
+                >
+                  <ArrowBackIcon />
+                </IconButton>
+                </Button>
       </Box>   
       <Box sx={{padding:"5px"}}> 
         <Typography id="modal-modal-description" variant="h6" sx={{ mt: 2 }}>  
