@@ -13,8 +13,9 @@ import PhotoIcon from '@mui/icons-material/Photo'
 import AddIcon from '@mui/icons-material/Add'
 import { ListItemText } from '@mui/material'
 import { List, ListItem } from '@mui/material'
-
 import { useNavigate } from 'react-router-dom'
+import LinkFacebookCardModal from '../modals/SetUpMyStuffModals/LinkFacebookCardModal'
+
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -32,16 +33,20 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }))
 
-export default function CustomizedAccordions({open}) {
+export default function CustomizedAccordions() {
   const navigate = useNavigate()
   const [expanded, setExpanded] = React.useState('panel1')
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false)
   }
+  const [open, setOpen] = React.useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
   return (
     <div>
+      <LinkFacebookCardModal handleClose={handleClose} handleOpen={handleOpen} open={open}/>
       <Accordion onChange={handleChange('panel1')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -98,9 +103,7 @@ export default function CustomizedAccordions({open}) {
           <List>
             <ListItem
               button
-              onClick={() => {
-                navigate('/link-accounts')
-              }}
+              onClick= {handleOpen}
             >
               <AccountBoxIcon />
               <ListItemText
