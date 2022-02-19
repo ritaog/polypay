@@ -2,7 +2,6 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
-// import { useNavigate } from 'react-router-dom'
 import FacebookLogin from 'react-facebook-login'
 import { useState, useEffect } from 'react'
 import '../../ui/LinkFaceBookCard.css'
@@ -11,7 +10,8 @@ import InstaBusAcctSetupModal from './InstaBusAcctSetupModal'
 import FacebookAcctSetupModal from './FacebookAcctSetupModal'
 import FacebookPageSetupModal from './FacebookPageSetupModal'
 import LinkInstaToFbSetupModal from './LinkInstaToFbSetupModal'
-
+import { IconButton } from '@mui/material'
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
     
 const style = {
   position: 'absolute',
@@ -41,13 +41,11 @@ const styleHeaderAlt = {
   alignItems: "center",
   justifyContent: "center",
   height: "100px",
-  // borderBottom: "3px solid lightGray",
   borderTop: "3px solid lightGray",
 } 
     
     export default function LinkFacebookCardModal({ userData, handleClose, handleOpen, open }) {
       const [dataBundle, setDataBundle] = useState()
-      // const navigate = useNavigate()
 
       const responseFacebook = (response) => {
         // bundles together data from response from facebook above and userData from the users state passed down from 'app.js'
@@ -79,6 +77,16 @@ const styleHeaderAlt = {
               <Typography id="modal-modal-title" variant="h7" component="h2">
               Schedule Posts Directly to Instagram                
               </Typography>
+
+              <IconButton
+                      aria-label="delete"
+                      onClick={handleClose}
+                      sx={{ margin: '10px' }}
+                    >
+                      <CloseOutlinedIcon />
+                    </IconButton>
+
+
               </Box>
               <Box sx={{padding:"5px"}}> 
               <Typography id="modal-modal-title" variant="h6" component="h2">

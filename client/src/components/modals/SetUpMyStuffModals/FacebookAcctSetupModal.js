@@ -1,12 +1,9 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import {Modal, Button} from '@mui/material'
-// import { useNavigate } from 'react-router-dom'
+import {Modal,IconButton} from '@mui/material'
 import Link from '@mui/material/Link'
-
-
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
     
 const style = {
   position: 'absolute',
@@ -38,15 +35,12 @@ const styleHeaderAlt = {
   height: "100px",
   borderBottom: "3px solid lightGray",
   borderTop: "3px solid lightGray",
-}   
-
-
+} 
 
 export default function FacebookAcctSetupModal() {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  // const navigate = useNavigate()
 
   return (
     <div>
@@ -61,8 +55,17 @@ export default function FacebookAcctSetupModal() {
           <Box sx={styleHeader}>
             <Typography id="modal-modal-title" variant="h7" component="h2">
               How do I create a Facebook account?
-            </Typography>
-            <Button onClick={handleClose}>Back</Button>
+            </Typography>           
+            <IconButton
+              aria-label="delete"
+              onClick={handleClose}
+              sx={{ margin: '10px'}}
+              style={{
+              backgroundColor: "cornflowerBlue",
+              }}
+            >
+              <ArrowBackIcon/>
+            </IconButton>
           </Box>
           <Box sx={{ padding: '5px' }}>
             <Typography

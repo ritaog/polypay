@@ -3,9 +3,10 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import { Link } from '@mui/material'
-// import { useNavigate } from 'react-router-dom'
 import MobileFbPageSetupModal from './MobileFbPageSetupModal'
 import DesktopFbPageSetupModal from './DesktopFbPageSetupModal'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { IconButton } from '@mui/material'
     
 const style = {
   position: 'absolute',
@@ -29,15 +30,12 @@ const styleHeader = {
   justifyContent: "center",
   height: "100px",
   borderBottom: "3px solid lightGray",
-}
-    
-
+}   
 
 export default function FacebookPageSetupModal() {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  // const navigate = useNavigate()
 
   return (
     <div>
@@ -53,18 +51,25 @@ export default function FacebookPageSetupModal() {
               <Typography id="modal-modal-title" variant="h7" component="h2">
                 Create a Facebook Page for Your Business<br/>
               </Typography>
+                <IconButton
+                  aria-label="delete"
+                  onClick={handleClose}
+                  sx={{ margin: '10px'}}
+                  style={{
+                  backgroundColor: "cornflowerBlue"
+                  }}
+                >
+                  <ArrowBackIcon />
+                </IconButton>
             </Box>
             <Box sx={{padding:"5px"}}> 
               <Typography id="modal-modal-description" variant="h6" sx={{ mt: 2 }}>
-
               Before you begin<br/>
               1. You must have a Facebook profile <br/>
               2. At this time, Meta will only allow one Facebook Page 
               to be connected to your business account.<br/><br/>
-
               Are you using a mobile Device?<br/>
               <MobileFbPageSetupModal/><br/><br/>
-
               Are you using a desktop?<br/>
               <DesktopFbPageSetupModal/>
               </Typography>

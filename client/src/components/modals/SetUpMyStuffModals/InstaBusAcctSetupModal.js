@@ -2,10 +2,10 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
-// import { useNavigate } from 'react-router-dom'
 import { Link } from '@mui/material'
 import InstaAcctSetupModal from './InstaAcctSetupModal'
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { IconButton } from '@mui/material'
 
 const style = {
   position: 'absolute',
@@ -30,20 +30,11 @@ const styleHeader = {
   height: "100px",
   borderBottom: "3px solid lightGray",
 }
-// const styleHeaderAlt = {
-//   display: "flex",
-//   alignItems: "center",
-//   justifyContent: "center",
-//   height: "100px",
-//   borderBottom: "3px solid lightGray",
-//   borderTop: "3px solid lightGray",
-// }
 
 export default function InstaBusAcctSetupModal() {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  // const navigate = useNavigate()
 
   return (
     <div>
@@ -58,9 +49,17 @@ export default function InstaBusAcctSetupModal() {
         <Typography id="modal-modal-title" variant="h7" component="h2">
         How do I create an Instagram business account?
         </Typography>
-      </Box>
-     
-    
+        <IconButton
+          aria-label="delete"
+          onClick={handleClose}
+          sx={{ margin: '10px'}}
+          style={{
+          backgroundColor: "cornflowerBlue",
+          }}
+        >
+          <ArrowBackIcon />
+        </IconButton>
+      </Box>   
       <Box sx={{padding:"5px"}}> 
         <Typography id="modal-modal-description" variant="h6" sx={{ mt: 2 }}>  
             First you must have an Instagram account<br/>
