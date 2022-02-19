@@ -2,10 +2,11 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import FacebookLogin from 'react-facebook-login'
 import { useState, useEffect } from 'react'
 import '../../ui/LinkFaceBookCard.css'
+import axios from 'axios'
 import InstaBusAcctSetupModal from './InstaBusAcctSetupModal'
 import FacebookAcctSetupModal from './FacebookAcctSetupModal'
 import FacebookPageSetupModal from './FacebookPageSetupModal'
@@ -46,7 +47,7 @@ const styleHeaderAlt = {
     
     export default function LinkFacebookCardModal({ userData, handleClose, handleOpen, open }) {
       const [dataBundle, setDataBundle] = useState()
-      const navigate = useNavigate()
+      // const navigate = useNavigate()
 
       const responseFacebook = (response) => {
         // bundles together data from response from facebook above and userData from the users state passed down from 'app.js'
@@ -56,7 +57,15 @@ const styleHeaderAlt = {
         }
         setDataBundle(userDataBundle)
       }
-      
+      useEffect(() => {
+        const getData = async () => {
+          const response = await axios.post('auth/validateFb', dataBundle)
+          console.log(response)
+        }
+        if (dataBundle) {
+          getData()
+        }
+      }, [dataBundle])
     
       return (
         <div>

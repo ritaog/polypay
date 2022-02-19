@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { Link } from '@mui/material'
 
 
@@ -29,20 +29,20 @@ const styleHeader = {
   height: "100px",
   borderBottom: "3px solid lightGray",
 }
-const styleHeaderAlt = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  height: "100px",
-  borderBottom: "3px solid lightGray",
-  borderTop: "3px solid lightGray",
-}
+// const styleHeaderAlt = {
+//   display: "flex",
+//   alignItems: "center",
+//   justifyContent: "center",
+//   height: "100px",
+//   borderBottom: "3px solid lightGray",
+//   borderTop: "3px solid lightGray",
+// }
 
 export default function InstaAcctSetupModal() {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   return (
     <div>

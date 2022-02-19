@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import { Link } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
     
 const style = {
@@ -36,7 +36,7 @@ export default function DesktopFbPageSetupModal() {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   return (
     <div>

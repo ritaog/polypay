@@ -1,8 +1,8 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import Modal from '@mui/material/Modal'
-import { useNavigate } from 'react-router-dom'
+import {Modal, Button} from '@mui/material'
+// import { useNavigate } from 'react-router-dom'
 import Link from '@mui/material/Link'
 
 
@@ -46,7 +46,7 @@ export default function FacebookAcctSetupModal() {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   return (
     <div>
@@ -55,35 +55,55 @@ export default function FacebookAcctSetupModal() {
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
+        aria-describedby="modal-modal-description"
+      >
         <Box sx={style}>
           <Box sx={styleHeader}>
             <Typography id="modal-modal-title" variant="h7" component="h2">
-            How do I create a Facebook account?
+              How do I create a Facebook account?
             </Typography>
+            <Button onClick={handleClose}>Back</Button>
           </Box>
-          <Box sx={{padding:"5px"}}> 
-            <Typography id="modal-modal-description" variant="h6" sx={{ mt: 2 }}>
-            1.	Go to facebook.com/r.php<br/>
-            2.	Enter the name you go by in everyday life.<br/>
-            3.	Enter your date of birth.<br/>
-            4.	Enter your mobile phone number. To use an email instead, tap Sign up with email.<br/>
-            5.	Tap Female, Male or Custom to select your gender.<br/>
-            6.	Choose a password and tap Sign Up.<br/><br/>
+          <Box sx={{ padding: '5px' }}>
+            <Typography
+              id="modal-modal-description"
+              variant="h6"
+              sx={{ mt: 2 }}
+            >
+              1. Go to facebook.com/r.php
+              <br />
+              2. Enter the name you go by in everyday life.
+              <br />
+              3. Enter your date of birth.
+              <br />
+              4. Enter your mobile phone number. To use an email instead, tap
+              Sign up with email.
+              <br />
+              5. Tap Female, Male or Custom to select your gender.
+              <br />
+              6. Choose a password and tap Sign Up.
+              <br />
+              <br />
             </Typography>
           </Box>
           <Box sx={styleHeaderAlt}>
             <Typography id="modal-modal-title" variant="h7" component="h2">
-            How do I create a Facebook business account?
+              How do I create a Facebook business account?
             </Typography>
           </Box>
-          <Box sx={{padding:"5px"}}> 
-            <Typography id="modal-modal-description" variant="h6" sx={{ mt: 2 }}>
-            1. Go to business.facebook.com/overview. <br/>
-            2. Click Create Account. <br/>
-            3. Enter your name, a name for your business and work email address <br/>
-            and click Next. <br/>
-            4.Enter your business details and click Submit.<br/>
+          <Box sx={{ padding: '5px' }}>
+            <Typography
+              id="modal-modal-description"
+              variant="h6"
+              sx={{ mt: 2 }}
+            >
+              1. Go to business.facebook.com/overview. <br />
+              2. Click Create Account. <br />
+              3. Enter your name, a name for your business and work email
+              address <br />
+              and click Next. <br />
+              4.Enter your business details and click Submit.
+              <br />
             </Typography>
           </Box>
         </Box>

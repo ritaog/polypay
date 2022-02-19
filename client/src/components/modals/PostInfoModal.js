@@ -1,7 +1,10 @@
-import * as React from 'react'
-import Image from 'mui-image'
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import React from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import SchedulePostForm from '../ui/SchedulePostForm'
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import Image from 'mui-image'
 import {
   Modal,
   Grid,
@@ -12,9 +15,6 @@ import {
   Button,
   Box,
 } from '@mui/material'
-import axios from 'axios'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 const style = {
   position: 'absolute',
@@ -33,7 +33,7 @@ const style = {
   overflow: 'hidden',
 }
 
-const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
+const PostInfoModal = ({open, handleClose, scheduleItem, userData}) => {
   const navigate = useNavigate()
   const [postTitle, setPostTitle] = useState('')
   const [price, setPrice] = useState('')
@@ -221,4 +221,4 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
   )
 }
 
-export default SchedulePostModal
+export default PostInfoModal
