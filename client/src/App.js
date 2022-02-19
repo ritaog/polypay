@@ -40,7 +40,7 @@ const App = () => {
         <Route
           path="/"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               children={<HomePage userData={user} />}
@@ -50,7 +50,7 @@ const App = () => {
         <Route
           path="/link-accounts"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               // children={<LinkAccountPage userData={user} />} this is original.  I am playing with
@@ -71,7 +71,7 @@ const App = () => {
         <Route
           path="/profile"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               children={<ProfilePage userData={user} />}
@@ -81,7 +81,7 @@ const App = () => {
         <Route
           path="/portfolio"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               children={<DisplayItemsPage userData={user} />}
@@ -91,7 +91,7 @@ const App = () => {
         <Route
           path="/media-library"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               children={<MediaLibraryPage userData={user} />}
@@ -110,7 +110,7 @@ const App = () => {
         <Route
           path="/checkout/:id"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               children={<CheckoutPage />}
