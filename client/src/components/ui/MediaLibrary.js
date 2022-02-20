@@ -6,8 +6,9 @@ import {
   Grid,
   CardMedia,
   Button,
+  Box,
 } from '@mui/material'
-
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -26,10 +27,10 @@ const MediaLibrary = ({ userData }) => {
       response.data.sort(function (a, b) {
         return new Date(b.postTime) - new Date(a.postTime)
       })
-      response.data.unshift({
-        _id: 'upload-image',
-        blankPhoto: 'images/480px-OOjs_UI_icon_add.png',
-      })
+      // response.data.unshift({
+      //   _id: 'upload-image',
+      //   blankPhoto: 'images/480px-OOjs_UI_icon_add.png',
+      // })
       setSaleItems(response.data)
     }
     if (userData) {
@@ -89,28 +90,29 @@ const MediaLibrary = ({ userData }) => {
             },
           }}
         >
-          {item.blankPhoto ? (
-            <Button
+          {/* {item.blankPhoto ? ( */}
+            {/* <Button
               component="label"
               onChange={(e) => {
                 handlePhotoUpload(e)
               }}
             >
-              {/* <Box> */}
+              <Box>
                 <input type="file" hidden />
+                
                 <CardMedia
-                  component="img"
+                  component="span"
                   sx={{
                     height: '100%',
-                    width: '100%',
-                    border: '1px solid lightGray',
+                    width: '300%',
+                    // border: '1px solid lightGray',
                   }}
-                  image={item.blankPhoto}
-                  alt="random"
-                />
-              {/* </Box> */}
-            </Button>
-          ) : (
+                >
+                <AddPhotoAlternateIcon />  
+                </CardMedia>
+              </Box>
+            </Button> */}
+          {/* ) : ( */}
             <CardMedia
               onClick={() => {
                 handlePostSchedule(item)
@@ -126,7 +128,7 @@ const MediaLibrary = ({ userData }) => {
                 .join('')}`}
               alt="random"
             />
-          )}
+          {/* )} */}
         </Card>
       </Grid>
     )
@@ -139,10 +141,19 @@ const MediaLibrary = ({ userData }) => {
         height: '875px',
         overflowY: 'scroll',
         scrollbarWidth: 'none',
+        '::-webkit-scrollbar': {
+            display: 'none',
+          }
+
         // minWidth: '200px'
       }}
     >
-      <SchedulePostModal open={open} handleClose={handleClose} scheduleItem={scheduleItem} userData={userData}/>
+      <SchedulePostModal
+        open={open}
+        handleClose={handleClose}
+        scheduleItem={scheduleItem}
+        userData={userData}
+      />
       <CardContent sx={{ padding: '0 0' }}>
         <Grid
           container
@@ -155,6 +166,31 @@ const MediaLibrary = ({ userData }) => {
               Media Library
             </Typography>
           </Grid>
+          <Box>
+            <Button
+              component="label"
+              onChange={(e) => {
+                handlePhotoUpload(e)
+              }}
+            >
+              <Box>
+                <input type="file" hidden />
+
+                <CardMedia
+                  component="span"
+                  sx={{
+                    height: '100%',
+                    width: '300%',
+                    // border: '1px solid lightGray',
+                  }}
+                >
+                  <AddPhotoAlternateIcon
+                    sx={{ fontSize: '40px', color: 'black' }}
+                  />
+                </CardMedia>
+              </Box>
+            </Button>
+          </Box>
         </Grid>
         <Grid container>{displayItems}</Grid>
       </CardContent>
