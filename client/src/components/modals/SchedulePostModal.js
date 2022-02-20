@@ -56,7 +56,7 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
 
   const handleSubmit = async (postNow) => {
     const postData = {
-      id: scheduleItem._id,
+      mediaId: scheduleItem._id,
       vendorName: scheduleItem.vendorName,
       vendorId: scheduleItem.vendorId,
       postTitle: postTitle,
@@ -68,6 +68,7 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
       canShip: canShip,
       available: 'Scheduled',
       postTime: postTime,
+      uploadTime: scheduleItem.uploadTime,
       location: location,
     }
     // shortcut to combine the response from first post and user data from user state to be sent to back end as one object

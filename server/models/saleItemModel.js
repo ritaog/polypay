@@ -14,6 +14,7 @@ const SaleItemSchema = new mongoose.Schema({
   canShip: Boolean,
   available: String,
   postTime: { type: Date, required: true },
+  uploadTime: Date,
   location: String,
 })
 

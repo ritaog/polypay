@@ -11,11 +11,13 @@ import { useEffect, useState } from 'react'
 const MediaCalender = ({userData}) => {
   const [postEvents, setPostEvents] = useState()
   const [postInfo, setPostInfo] = useState()
-  const [edit, setEdit] = useState(true)
+  const [editDisabled, setEditDisabled] = useState(true)
+  const [submitDisabled, setSubmitDisabled] = useState(true)
    const [open, setOpen] = React.useState(false)
    const handleClose = () => {
      setOpen(false)
-     setEdit(true)
+     setEditDisabled(true)
+     setSubmitDisabled(true)
     }
 
   useEffect(() => {
@@ -43,7 +45,8 @@ const MediaCalender = ({userData}) => {
 
   const handleEdit = () => {
     if (postInfo.available === 'Scheduled') {
-      setEdit(false)
+      setEditDisabled(false)
+      setSubmitDisabled(false)
     }
   }
 
@@ -56,7 +59,10 @@ const MediaCalender = ({userData}) => {
         postInfo={postInfo}
         userData={userData}
         handleEdit={handleEdit}
-        edit={edit}
+        editDisabled={editDisabled}
+        setEditDisabled={setEditDisabled}
+        submitDisabled={submitDisabled}
+        setSubmitDisabled={setSubmitDisabled}
       />
       <CardContent>
         <FullCalendar

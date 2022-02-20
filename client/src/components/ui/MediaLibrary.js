@@ -21,19 +21,19 @@ const MediaLibrary = ({ userData }) => {
   const handleClose = () => setOpen(false)
 
   useEffect(() => {
-    const getSaleItemsByLoggedUser = async () => {
-      const response = await axios.get('/saleItem/listImagesByLoggedUser')
+    const getMediaByLoggedUser = async () => {
+      const response = await axios.get('/media/listImagesByLoggedUser')
       response.data.sort(function (a, b) {
         return new Date(b.postTime) - new Date(a.postTime)
       })
-      response.data.push({
+      response.data.unshift({
         _id: 'upload-image',
         blankPhoto: 'images/480px-OOjs_UI_icon_add.png',
       })
       setSaleItems(response.data)
     }
     if (userData) {
-      getSaleItemsByLoggedUser()
+      getMediaByLoggedUser()
     }
   }, [userData])
 
@@ -45,16 +45,8 @@ const MediaLibrary = ({ userData }) => {
     const postData = {
       vendorName: userData?.userName,
       vendorId: userData?._id,
-      postTitle: '',
-      price: 0,
-      quantity: 0,
       photos: [],
-      description: '',
-      about: '',
-      canShip: false,
-      available: 'Scheduled',
-      postTime: new Date(),
-      location: '',
+      uploadTime: new Date(),
     }
 
     const imageData = new FormData()
@@ -62,7 +54,7 @@ const MediaLibrary = ({ userData }) => {
     imageData.append('formData', JSON.stringify(postData))
 
     // first post sends photo file and form data to back end. response is the compiled sale item object with image url from cloudinary
-    const responseUpload = await axios.post('/saleItem/upload', imageData)
+    const responseUpload = await axios.post('/media/upload', imageData)
     if (responseUpload) {
       navigate(0)
     }

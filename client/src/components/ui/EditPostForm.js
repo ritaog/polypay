@@ -182,7 +182,7 @@ const EditPostForm = ({
             placeholder="0.00"
             type="number"
             disabled={edit}
-            value={parseFloat(price.$numberDecimal)}
+            value={price}
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             onChange={(e) => {
               setPrice(e.target.value)
@@ -208,7 +208,7 @@ const EditPostForm = ({
           <DateTimePicker
             renderInput={(props) => <TextField {...props} />}
             value={postTime}
-            disabled={edit}
+            disabled={true}
             onChange={(newValue) => {
               setPostTime(newValue)
             }}

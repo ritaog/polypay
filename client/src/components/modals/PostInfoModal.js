@@ -33,8 +33,7 @@ const style = {
   overflow: 'hidden',
 }
 
-const PostInfoModal = ({ open, handleClose, handleEdit, edit, postInfo, userData }) => {
-  console.log('postInfo', postInfo)
+const PostInfoModal = ({ open, handleClose, handleEdit, editDisabled, submitDisabled, postInfo, userData }) => {
   const navigate = useNavigate()
   const [postTitle, setPostTitle] = useState()
   const [price, setPrice] = useState()
@@ -44,11 +43,12 @@ const PostInfoModal = ({ open, handleClose, handleEdit, edit, postInfo, userData
   const [canShip, setCanShip] = useState()
   const [location, setLocation] = useState()
   const [postTime, setPostTime] = useState()
+  // let newPrice = parseFloat(postInfo.price)
 
   useEffect(() => {
     const populateModal = () => {
       setPostTitle(postInfo.postTitle)
-      setPrice(postInfo.price)
+      setPrice(postInfo.price.$numberDecimal)
       setQuantity(postInfo.quantity)
       setCaption(postInfo.description)
       setAbout(postInfo.about)
@@ -71,7 +71,7 @@ const PostInfoModal = ({ open, handleClose, handleEdit, edit, postInfo, userData
     }
   }
 
-  const handleSubmit = async (postNow) => {
+  const handleSubmit = async () => {
     const postData = {
       id: postInfo._id,
       vendorName: postInfo.vendorName,
@@ -84,24 +84,11 @@ const PostInfoModal = ({ open, handleClose, handleEdit, edit, postInfo, userData
       about: about,
       canShip: canShip,
       available: 'Scheduled',
-      postTime: postTime,
       location: location,
-    }
-    // shortcut to combine the response from first post and user data from user state to be sent to back end as one object
-    const { instagramBusinessId, permanentToken, saleItems } = userData
-    const saleItemDataBundle = {
-      ...postData,
-      instagramBusinessId,
-      permanentToken,
-      saleItems,
-    }
-
-    if (postNow) {
-      saleItemDataBundle.postTime = new Date()
     }
 
     // second post sends combine object from above to back end to be posted to instagram and added to the users sale que
-    const response = await axios.post('saleItem/schedule', saleItemDataBundle)
+    const response = await axios.put(`saleItem/editSchedule/${postInfo._id}`, postData)
     if (response.statusText === 'Accepted') {
       navigate(0)
     }
@@ -201,7 +188,7 @@ const PostInfoModal = ({ open, handleClose, handleEdit, edit, postInfo, userData
                       handleSubmit={handleSubmit}
                       handleIncrement={handleIncrement}
                       handleDecrement={handleDecrement}
-                      edit={edit}
+                      edit={editDisabled}
                     />
                   </Grid>
                 </Grid>
@@ -217,9 +204,10 @@ const PostInfoModal = ({ open, handleClose, handleEdit, edit, postInfo, userData
                 }}
               >
                 <Stack spacing={2} direction="row">
-                  <Button variant="contained" size="large" onClick={handleEdit}>
+                  <Button  size="large" disabled={!submitDisabled} onClick={handleEdit}>
                     Edit Post
                   </Button>
+                  <Button variant="contained" disabled={submitDisabled} onClick={handleSubmit}>Submit</Button>
                 </Stack>
               </Box>
             </Grid>
