@@ -52,8 +52,10 @@ const ProfilePageForm = () => {
     }
   }
   return (
-    <div>
-       Create New Profile
+    <div><div>
+       <h1>Create New Profile</h1>  
+       </div>
+      
       <div className="profile-page-form">
         <form>
           <label htmlFor="name">Name</label>
