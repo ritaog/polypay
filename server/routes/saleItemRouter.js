@@ -7,6 +7,7 @@ import User from '../models/userModel.js'
 import {
   findUserAndUpdate,
   findSaleItemAndUpdate,
+  findSaleItemAndDelete,
 } from '../models/controller.js'
 
 const router = express.Router()
@@ -84,7 +85,13 @@ router.post('/schedule', async (req, res) => {
   const delayTime = scheduleTime.getTime() - currentTime.getTime()
 
   console.log('delay time', delayTime)
-  res.status(202).json({ postStatus: 'scheduled', postTime: scheduleTime, postItem: newSaleItem })
+  res
+    .status(202)
+    .json({
+      postStatus: 'scheduled',
+      postTime: scheduleTime,
+      postItem: newSaleItem,
+    })
   // function that is called after specified delay determined on line 49, delay statement is on line 69
   const postSaleItem = async () => {
     // incoming cloudinary url is spliced at specifice spot. this is because first part of url is always the same and aspect ratio and width
@@ -136,11 +143,21 @@ router.post('/schedule', async (req, res) => {
 })
 
 // PUT endpoint || description: localhost:5000/saleItem/editSchedule
-router.put('/editSchedule/:id', async (req,res) => {
+router.put('/editSchedule/:id', async (req, res) => {
   const editData = req.body
   const saleItemToUpdate = req.params.id
-  const updatedSaleItem = await findSaleItemAndUpdate(saleItemToUpdate, editData)
-  res.status(202).json({updatedItem: updatedSaleItem})
+  const updatedSaleItem = await findSaleItemAndUpdate(
+    saleItemToUpdate,
+    editData
+  )
+  res.status(202).json({ updatedItem: updatedSaleItem })
+})
+
+// DELETE endpoint || description: localhost:5000/saleItem/cancelSchedule
+router.delete('/cancelSchedule/:id', async (req, res) => {
+  const saleItemToDelete = req.params.id
+  const deletedSaleItem = await findSaleItemAndDelete(saleItemToDelete)
+  res.status(204).json({ deletedItem: deletedSaleItem })
 })
 
 //GET endpoint || description: localhost:5000/saleItem/listSaleItems
