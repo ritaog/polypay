@@ -93,7 +93,7 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-          display: { backgroundColor: 'black' },
+          display: { backgroundColor: 'white' },
         }}
       >
         <Toolbar>
