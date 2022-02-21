@@ -25,5 +25,8 @@
     "url": "https://github.com/ritaog/polypay/issues"
   },
   "homepage": "https://github.com/ritaog/polypay#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@material-ui/icons": "^4.11.2"
+  }
 }

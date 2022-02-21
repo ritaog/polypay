@@ -3,7 +3,7 @@ import './ProfilePageForm.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-
+import { ReactDOM } from 'react'
 
 const ProfilePageForm = () => {
   const [name, setName] = useState()
@@ -39,6 +39,7 @@ const ProfilePageForm = () => {
       permanentToken: '',
       saleItems: [],
     }
+    
     const imageData = new FormData()
     imageData.append('image', selectedImage)
     imageData.append('formData', JSON.stringify(userProfile))
@@ -52,7 +53,7 @@ const ProfilePageForm = () => {
   }
   return (
     <div>
-      This is ProfilePageForm
+       Create New Profile
       <div className="profile-page-form">
         <form>
           <label htmlFor="name">Name</label>

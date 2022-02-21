@@ -26,7 +26,7 @@ import AccordionButton from './AccordionButton'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const drawerWidth = 240
+const drawerWidth = 300
 
 function ResponsiveDrawer({ userData, getUserState, children }) {
   const { window } = { userData, getUserState, children }
@@ -60,6 +60,7 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
     <div>
       <Toolbar />
       <Divider />
+
       <List>
         <ListItem>
           <AccordionButton />
@@ -80,7 +81,7 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
       </List>
     </div>
   )
-
+ 
   const container =
     window !== undefined ? () => window().document.body : undefined
 
@@ -92,7 +93,7 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-          display: { backgroundColor: 'pink' },
+          display: { backgroundColor: 'black' },
         }}
       >
         <Toolbar>
@@ -101,7 +102,7 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none', color: 'black' } }}
+            sx={{ mr: 2, display: { sm: 'none', color: 'blue' } }}
           >
             <MenuIcon />
           </IconButton>
@@ -114,28 +115,29 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
               display: {
                 xs: 'none',
                 md: 'flex',
-                color: 'black',
+                color: 'white',
                 fontWeight: '600',
+                fontStyle: 'calibri'
               },
             }}
           >
             PolyPay
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button href="/" sx={{ my: 2, color: 'black', display: 'block' }}>
+            <Button href="/" sx={{ my: 2, color: 'blue', display: 'block' }}>
               Home
             </Button>
-            <Button sx={{ my: 2, color: 'black', display: 'block' }}>
+            <Button sx={{ my: 2, color: 'blue', display: 'block' }}>
               About
             </Button>
-            <Button sx={{ my: 2, color: 'black', display: 'block' }}>
+            <Button sx={{ my: 2, color: 'blue', display: 'block' }}>
               Blog
             </Button>
           </Box>
           <Typography
             variant="h6"
             component="h2"
-            sx={{ display: { color: 'black', paddingRight: '10px' } }}
+            sx={{ display: { color: 'blue', paddingRight: '40px' } }}
           >
             {userData ? userData.userName : 'Welcome'}
           </Typography>
