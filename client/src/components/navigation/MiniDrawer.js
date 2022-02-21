@@ -100,7 +100,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null)
   const [open, setOpen] = React.useState(false)
 
-  const [expanded, setExpanded] = React.useState('panel1')
+  const [expanded, setExpanded] = React.useState()
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false)
