@@ -13,8 +13,8 @@ import PhotoIcon from '@mui/icons-material/Photo'
 import AddIcon from '@mui/icons-material/Add'
 import { ListItemText } from '@mui/material'
 import { List, ListItem } from '@mui/material'
-
 import { useNavigate } from 'react-router-dom'
+import LinkFacebookCardModal from '../modals/SetUpMyStuffModals/LinkFacebookCardModal'
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -39,9 +39,13 @@ export default function CustomizedAccordions() {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false)
   }
+  const [open, setOpen] = React.useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
   return (
     <div>
+      <LinkFacebookCardModal handleClose={handleClose} handleOpen={handleOpen} open={open}/>
       <Accordion onChange={handleChange('panel1')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -50,7 +54,7 @@ export default function CustomizedAccordions() {
           sx={{ padding: '0px' }}
         >
           <PostAddIcon />
-          <Typography sx={{ paddingLeft: '10px' }}>Posts</Typography>
+          <Typography sx={{ paddingLeft: '35px' }}>Posts</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <List>
@@ -92,20 +96,18 @@ export default function CustomizedAccordions() {
           sx={{ padding: '0px' }}
         >
           <SupervisorAccountIcon />
-          <Typography sx={{ paddingLeft: '10px' }}>Accounts</Typography>
+          <Typography sx={{ paddingLeft: '35px' }}>Accounts</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <List>
             <ListItem
               button
-              onClick={() => {
-                navigate('/link-accounts')
-              }}
+              onClick= {handleOpen}
             >
               <AccountBoxIcon />
               <ListItemText
                 primary="Link Profiles"
-                sx={{ paddingLeft: '10px' }}
+                sx={{ paddingLeft: '35px' }}
               />
             </ListItem>
           </List>
@@ -122,7 +124,7 @@ export default function CustomizedAccordions() {
           sx={{ padding: '0px' }}
         >
           <ReceiptIcon />
-          <Typography sx={{ paddingLeft: '10px' }}>Sales</Typography>
+          <Typography sx={{ paddingLeft: '35px' }}>Sales</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>

@@ -5,13 +5,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import HomePage from './pages/HomePage'
 import ProfilePage from './pages/ProfilePage'
-import LinkAccountPage from './pages/LinkAccountPage'
+// import LinkAccountPage from './pages/LinkAccountPage'
 import SchedulePostPage from './pages/SchedulePostPage'
 import DisplayItemsPage from './pages/DisplayItemsPage'
 import MediaLibraryPage from './pages/MediaLibraryPage'
 import CheckoutPage from './pages/CheckoutPage'
-import ResponsiveDrawer from './components/navigation/ResponsiveDrawer'
+import LinkFacebookCardModal from './components/modals/SetUpMyStuffModals/LinkFacebookCardModal'
 import SalePageHeader from './components/navigation/SalePageHeader'
+import MiniDrawer from './components/navigation/MiniDrawer'
 
 const App = () => {
   //user state set by user login
@@ -38,7 +39,7 @@ const App = () => {
         <Route
           path="/"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               children={<HomePage userData={user} />}
@@ -48,17 +49,18 @@ const App = () => {
         <Route
           path="/link-accounts"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
-              children={<LinkAccountPage userData={user} />}
+              // children={<LinkAccountPage userData={user} />} this is original.  I am playing with
+              children={<LinkFacebookCardModal userData={user} />}
             />
           }
         />
         <Route
           path="/schedule-post"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               children={<SchedulePostPage userData={user} />}
@@ -68,7 +70,7 @@ const App = () => {
         <Route
           path="/profile"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               children={<ProfilePage userData={user} />}
@@ -78,7 +80,7 @@ const App = () => {
         <Route
           path="/portfolio"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               children={<DisplayItemsPage userData={user} />}
@@ -88,7 +90,7 @@ const App = () => {
         <Route
           path="/media-library"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               children={<MediaLibraryPage userData={user} />}
@@ -107,7 +109,7 @@ const App = () => {
         <Route
           path="/checkout/:id"
           element={
-            <ResponsiveDrawer
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               children={<CheckoutPage />}

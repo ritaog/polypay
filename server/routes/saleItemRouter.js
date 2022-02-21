@@ -40,7 +40,6 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 router.post('/schedule', async (req, res) => {
   // sale item data from front end is received
   let postItem = req.body
-  console.log('postItem', postItem.id)
 
   // Date() constructor is used to find the current time of the request
   let currentTime = new Date()
@@ -49,8 +48,6 @@ router.post('/schedule', async (req, res) => {
   let scheduleTime = new Date(postItem.postTime)
 
   console.log('postItem', postItem)
-
-  postItem.saleItems.unshift(postItem.id)
 
   let updatedInfo = {
     vendorName: postItem.vendorName,
@@ -64,13 +61,20 @@ router.post('/schedule', async (req, res) => {
     canShip: postItem.canShip,
     available: postItem.available,
     postTime: postItem.postTime,
+    uploadTime: postItem.uploadTime,
     location: postItem.location,
   }
+  // adds saleItem object (all important information for sale on instagram) to the SaleItem constructor from "../models/saleItemModel"
+  const newData = await new SaleItem(updatedInfo)
+
+  // saves "newData" to the saleItems collection in database
+  const newSaleItem = await newData.save()
+
+  console.log('newSaleItem', newSaleItem)
+
+  postItem.saleItems.unshift(newSaleItem._id)
 
   await findUserAndUpdate(postItem.vendorId, { saleItems: postItem.saleItems })
-  await findSaleItemAndUpdate(postItem.id, updatedInfo)
-
-  console.log('postItem', postItem)
 
   console.log('current time', currentTime.getTime())
   console.log('schedule  time', scheduleTime.getTime())
@@ -80,7 +84,7 @@ router.post('/schedule', async (req, res) => {
   const delayTime = scheduleTime.getTime() - currentTime.getTime()
 
   console.log('delay time', delayTime)
-
+  res.status(202).json({ postStatus: 'scheduled', postTime: scheduleTime, postItem: newSaleItem })
   // function that is called after specified delay determined on line 49, delay statement is on line 69
   const postSaleItem = async () => {
     // incoming cloudinary url is spliced at specifice spot. this is because first part of url is always the same and aspect ratio and width
@@ -115,16 +119,11 @@ router.post('/schedule', async (req, res) => {
 
     // new array spread to add new sale item id to user saleItems array
 
-    const updatedSaleItem = await findSaleItemAndUpdate(postItem.id, {
+    const updatedSaleItem = await findSaleItemAndUpdate(newSaleItem._id, {
       available: 'Posted',
     })
 
     console.log('updatedSaleItem', updatedSaleItem)
-
-    // function from "../models/controller.js" finds user by id and updates sale items array with new array created on line 86
-
-    // sends instagram response back to front end
-    res.send(resPostText)
   }
 
   // delay statement that calls postSaleItem after determined delay time. if delay time is less than 0 it is posted immediately
@@ -134,6 +133,14 @@ router.post('/schedule', async (req, res) => {
   } else {
     postSaleItem()
   }
+})
+
+// PUT endpoint || description: localhost:5000/saleItem/editSchedule
+router.put('/editSchedule/:id', async (req,res) => {
+  const editData = req.body
+  const saleItemToUpdate = req.params.id
+  const updatedSaleItem = await findSaleItemAndUpdate(saleItemToUpdate, editData)
+  res.status(202).json({updatedItem: updatedSaleItem})
 })
 
 //GET endpoint || description: localhost:5000/saleItem/listSaleItems

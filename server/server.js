@@ -10,6 +10,7 @@ const __dirname = path.resolve()
 
 import saleItemRouter from './routes/saleItemRouter.js'
 import userRouter from './routes/userRouter.js'
+import mediaRouter from './routes/mediaRouter.js'
 import authRoutes from './routes/auth.js'
 import paymentRouter from './routes/paymentRouter.js'
 
@@ -39,6 +40,7 @@ connectDb()
 /////////////////////ROUTES//////////////
 //description: http://localhost:5000/
 app.use('/saleItem', saleItemRouter)
+app.use('/media', mediaRouter)
 app.use('/user', userRouter)
 app.use('/auth', authRoutes)
 app.use('/payment', paymentRouter)

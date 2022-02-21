@@ -1,7 +1,10 @@
-import * as React from 'react'
-import Image from 'mui-image'
+import React from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import EditPostForm from '../ui/EditPostForm'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-import SchedulePostForm from '../ui/SchedulePostForm'
+import Image from 'mui-image'
 import {
   Modal,
   Grid,
@@ -12,9 +15,6 @@ import {
   Button,
   Box,
 } from '@mui/material'
-import axios from 'axios'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 const style = {
   position: 'absolute',
@@ -33,16 +33,33 @@ const style = {
   overflow: 'hidden',
 }
 
-const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
+const PostInfoModal = ({ open, handleClose, handleEdit, editDisabled, submitDisabled, postInfo, userData }) => {
   const navigate = useNavigate()
-  const [postTitle, setPostTitle] = useState('')
-  const [price, setPrice] = useState('')
-  const [quantity, setQuantity] = useState(0)
-  const [caption, setCaption] = useState('')
-  const [about, setAbout] = useState('')
-  const [canShip, setCanShip] = useState(false)
-  const [location, setLocation] = useState('')
-  const [postTime, setPostTime] = useState(new Date())
+  const [postTitle, setPostTitle] = useState()
+  const [price, setPrice] = useState()
+  const [quantity, setQuantity] = useState()
+  const [caption, setCaption] = useState()
+  const [about, setAbout] = useState()
+  const [canShip, setCanShip] = useState()
+  const [location, setLocation] = useState()
+  const [postTime, setPostTime] = useState()
+  // let newPrice = parseFloat(postInfo.price)
+
+  useEffect(() => {
+    const populateModal = () => {
+      setPostTitle(postInfo.postTitle)
+      setPrice(postInfo.price.$numberDecimal)
+      setQuantity(postInfo.quantity)
+      setCaption(postInfo.description)
+      setAbout(postInfo.about)
+      setCanShip(postInfo.canShip)
+      setLocation(postInfo.location)
+      setPostTime(postInfo.postTime)
+    }
+    if (postInfo) {
+      populateModal()
+    }
+  }, [postInfo])
 
   const handleIncrement = () => {
     setQuantity(quantity + 1)
@@ -54,38 +71,24 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
     }
   }
 
-  const handleSubmit = async (postNow) => {
+  const handleSubmit = async () => {
     const postData = {
-      mediaId: scheduleItem._id,
-      vendorName: scheduleItem.vendorName,
-      vendorId: scheduleItem.vendorId,
+      id: postInfo._id,
+      vendorName: postInfo.vendorName,
+      vendorId: postInfo.vendorId,
       postTitle: postTitle,
       price: price,
       quantity: quantity,
-      photos: scheduleItem.photos,
+      photos: postInfo.photos,
       description: caption,
       about: about,
       canShip: canShip,
       available: 'Scheduled',
-      postTime: postTime,
-      uploadTime: scheduleItem.uploadTime,
       location: location,
-    }
-    // shortcut to combine the response from first post and user data from user state to be sent to back end as one object
-    const { instagramBusinessId, permanentToken, saleItems } = userData
-    const saleItemDataBundle = {
-      ...postData,
-      instagramBusinessId,
-      permanentToken,
-      saleItems,
-    }
-
-    if (postNow) {
-      saleItemDataBundle.postTime = new Date()
     }
 
     // second post sends combine object from above to back end to be posted to instagram and added to the users sale que
-    const response = await axios.post('saleItem/schedule', saleItemDataBundle)
+    const response = await axios.put(`saleItem/editSchedule/${postInfo._id}`, postData)
     if (response.statusText === 'Accepted') {
       navigate(0)
     }
@@ -102,9 +105,9 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
         <Box sx={style}>
           <Grid container>
             <Grid item xs={7} sm={7} md={7}>
-              {scheduleItem ? (
+              {postInfo ? (
                 <Image
-                  src={scheduleItem.photos[0]}
+                  src={postInfo.photos[0]}
                   height="100%"
                   width="100%"
                   duration={0}
@@ -126,7 +129,7 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                   sx={{ borderBottom: '1px solid lightGray' }}
                 >
                   <Grid item xs={1} sm={1} md={1} sx={{ margin: '10px' }}>
-                    {scheduleItem ? (
+                    {postInfo ? (
                       <Avatar
                         alt={userData.userName}
                         src={userData.photos[0]}
@@ -135,9 +138,9 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                       ''
                     )}
                   </Grid>
-                  <Grid item xs={9} sm={9} md={9}>
-                    <Typography align="left">
-                      {scheduleItem ? scheduleItem.vendorName : ''}
+                  <Grid item xs={9} sm={9} md={9} sx={{ display: 'flex' }}>
+                    <Typography>
+                      {postInfo ? `Status: ${postInfo.available}` : ''}
                     </Typography>
                   </Grid>
                   <Grid item xs={1} sm={1} md={1}>
@@ -165,20 +168,27 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <SchedulePostForm
+                    <EditPostForm
                       setPostTitle={setPostTitle}
+                      postTitle={postTitle}
                       setPrice={setPrice}
+                      price={price}
                       setQuantity={setQuantity}
+                      quantity={quantity}
                       setCaption={setCaption}
+                      caption={caption}
                       setAbout={setAbout}
+                      about={about}
                       setCanShip={setCanShip}
+                      canShip={canShip}
                       setLocation={setLocation}
+                      location={location}
                       setPostTime={setPostTime}
+                      postTime={postTime}
                       handleSubmit={handleSubmit}
                       handleIncrement={handleIncrement}
                       handleDecrement={handleDecrement}
-                      quantity={quantity}
-                      postTime={postTime}
+                      edit={editDisabled}
                     />
                   </Grid>
                 </Grid>
@@ -194,24 +204,10 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                 }}
               >
                 <Stack spacing={2} direction="row">
-                  <Button
-                    variant="text"
-                    size="large"
-                    onClick={() => {
-                      handleSubmit(true)
-                    }}
-                  >
-                    Post Now
+                  <Button  size="large" disabled={!submitDisabled} onClick={handleEdit}>
+                    Edit Post
                   </Button>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    onClick={() => {
-                      handleSubmit(false)
-                    }}
-                  >
-                    Schedule
-                  </Button>
+                  <Button variant="contained" disabled={submitDisabled} onClick={handleSubmit}>Submit</Button>
                 </Stack>
               </Box>
             </Grid>
@@ -222,4 +218,4 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
   )
 }
 
-export default SchedulePostModal
+export default PostInfoModal
