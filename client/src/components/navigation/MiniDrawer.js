@@ -100,6 +100,12 @@ export default function MiniDrawer({ children, userData, getUserState }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null)
   const [open, setOpen] = React.useState(false)
 
+  const [expanded, setExpanded] = React.useState('panel1')
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false)
+  }
+
   const handleDrawerOpen = () => {
     setOpen(true)
   }
@@ -218,14 +224,14 @@ export default function MiniDrawer({ children, userData, getUserState }) {
             {theme.direction === 'rtl' ? (
               <ChevronRightIcon />
             ) : (
-              <ChevronLeftIcon />
+              <ChevronLeftIcon onClick={handleChange('panel2')}/>
             )}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
           <ListItem>
-            <AccordionButton open={open} handleDrawerOpen={handleDrawerOpen} />
+            <AccordionButton open={open} handleDrawerOpen={handleDrawerOpen} handleChange={handleChange} setExpanded={setExpanded} expanded={expanded}/>
           </ListItem>
         </List>
         <Divider />

@@ -32,10 +32,10 @@ const SchedulePostPage = ({ userData }) => {
         spacing={3}
         sx={{ padding: '0 20px 0 20px', height: '100%' }}
       >
-        <Grid item xs={3} sm={3} md={3} >
+        <Grid item xs={4} sm={4} md={4} >
           <MediaLibrary userData={userData} />
         </Grid>
-        <Grid item xs={9} sm={9} md={9}>
+        <Grid item xs={8} sm={8} md={8}>
           <MediaCalender userData={userData} />
         </Grid>
       </Grid>

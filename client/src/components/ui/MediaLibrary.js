@@ -138,7 +138,8 @@ const MediaLibrary = ({ userData }) => {
     <Card
       sx={{
         borderRadius: '25px',
-        height: '875px',
+        height: '650px',
+        width: '100%',
         overflowY: 'scroll',
         scrollbarWidth: 'none',
         '::-webkit-scrollbar': {

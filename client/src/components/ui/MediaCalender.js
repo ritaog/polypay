@@ -52,7 +52,18 @@ const MediaCalender = ({userData}) => {
 
   // console.log('postEvents', postEvents)
   return (
-    <Card sx={{ borderRadius: '25px', height: '875px' }}>
+    <Card
+      sx={{
+        borderRadius: '25px',
+        height: '650px',
+        width: '100%',
+        overflowY: 'scroll',
+        scrollbarWidth: 'none',
+        '::-webkit-scrollbar': {
+          display: 'none',
+        },
+      }}
+    >
       <PostInfoModal
         open={open}
         handleClose={handleClose}
