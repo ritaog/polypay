@@ -12,6 +12,8 @@ import FacebookPageSetupModal from './FacebookPageSetupModal'
 import LinkInstaToFbSetupModal from './LinkInstaToFbSetupModal'
 import { IconButton } from '@mui/material'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import UnlinkAccountModal from './UnlinkAccountModal'
+// import FacebookLogin from 'react-facebook-login'
     
 const style = {
   position: 'absolute',
@@ -135,9 +137,12 @@ const styleHeaderAlt = {
               callback={responseFacebook}
             />
               </Box>
+              <br/>
+              <UnlinkAccountModal/>
             </Box>
             </Box>
           </Modal>
+
         </div>
       )
     }
