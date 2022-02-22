@@ -71,6 +71,7 @@ const App = () => {
           path="/profile"
           element={
             <MiniDrawer
+            style = {{background:"red"}}
               userData={user}
               getUserState={getObject}
               children={<ProfilePage userData={user} />}

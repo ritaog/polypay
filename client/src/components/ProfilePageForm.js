@@ -51,11 +51,11 @@ const ProfilePageForm = () => {
       navigate('/')
     }
   }
-  return (
-    <div><div>
-       <h1>Create New Profile</h1>  
-       </div>
-      
+    return (
+      <div className='profile-page-container'>
+      <div>
+         <div className="h1Title">Let's Create Profile</div>
+    <div/>
       <div className="profile-page-form">
         <form>
           <label htmlFor="name">Name</label>
@@ -166,6 +166,7 @@ const ProfilePageForm = () => {
           <input type="submit" value="Submit" className="input-submit" onClick={postData} />
         </form>
       </div>
+    </div>
     </div>
   )
 }
