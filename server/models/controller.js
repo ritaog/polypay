@@ -23,6 +23,11 @@ export async function findSaleItemAndUpdate(id, saleItemData) {
   return updatedSaleItem
 }
 
+export async function findSaleItemAndDelete(id) {
+  let deletedSaleItem = await SaleItem.findByIdAndDelete(id)
+  return deletedSaleItem
+}
+
 export async function findUserAndUpdate(id, userData) {
   let updatedUser = await User.findByIdAndUpdate(id, userData)
   return updatedUser

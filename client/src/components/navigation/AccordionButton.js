@@ -32,24 +32,30 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }))
 
-export default function CustomizedAccordions() {
+export default function CustomizedAccordions({handleDrawerOpen, handleChange, setExpanded, expanded}) {
   const navigate = useNavigate()
-  const [expanded, setExpanded] = React.useState('panel1')
+  // const [expanded, setExpanded] = React.useState('panel1')
 
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false)
-  }
+  // const handleChange = (panel) => (event, newExpanded) => {
+  //   setExpanded(newExpanded ? panel : false)
+  // }
+
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
   return (
     <div>
-      <LinkFacebookCardModal handleClose={handleClose} handleOpen={handleOpen} open={open}/>
-      <Accordion onChange={handleChange('panel1')}>
+      <LinkFacebookCardModal
+        handleClose={handleClose}
+        handleOpen={handleOpen}
+        open={open}
+      />
+      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
+          onClick={handleDrawerOpen}
           id="panel1bh-header"
           sx={{ padding: '0px' }}
         >
@@ -93,6 +99,7 @@ export default function CustomizedAccordions() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
           id="panel1bh-header"
+          onClick={handleDrawerOpen}
           sx={{ padding: '0px' }}
         >
           <SupervisorAccountIcon />
@@ -100,10 +107,7 @@ export default function CustomizedAccordions() {
         </AccordionSummary>
         <AccordionDetails>
           <List>
-            <ListItem
-              button
-              onClick= {handleOpen}
-            >
+            <ListItem button onClick={handleOpen}>
               <AccountBoxIcon />
               <ListItemText
                 primary="Link Profiles"
@@ -120,6 +124,7 @@ export default function CustomizedAccordions() {
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
+          onClick={handleDrawerOpen}
           id="panel1bh-header"
           sx={{ padding: '0px' }}
         >

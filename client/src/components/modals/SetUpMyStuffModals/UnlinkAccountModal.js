@@ -37,14 +37,14 @@ const styleHeaderAlt = {
   borderTop: "3px solid lightGray",
 } 
 
-export default function FacebookAcctSetupModal() {
+export default function UnlinkAccountModal() {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
   return (
     <div>
-      <Link onClick={handleOpen}>Don't have one? Learn how! </Link>
+      <Link onClick={handleOpen}>Need to Unlink an Account? </Link>
       <Modal
         open={open}
         onClose={handleClose}
@@ -54,7 +54,7 @@ export default function FacebookAcctSetupModal() {
         <Box sx={style}>
           <Box sx={styleHeader}>
             <Typography id="modal-modal-title" variant="h7" component="h2">
-              How do I create a Facebook account?
+              How do I unlink my Instagram from Facebook?
             </Typography>       
             <Button variant= "contained">
                 <IconButton
@@ -71,25 +71,20 @@ export default function FacebookAcctSetupModal() {
               variant="h6"
               sx={{ mt: 2 }}
             >
-              1. Go to facebook.com/r.php
+              1. Open your Facebook Page
               <br />
-              2. Enter the name you go by in everyday life
+              2. Select settings from the menu
               <br />
-              3. Enter your date of birth
+              3. Select Instagram
               <br />
-              4. Enter your mobile phone number. To use an email instead, tap
-              Sign up with email
-              <br />
-              5. Tap Female, Male or Custom to select your gender
-              <br />
-              6. Choose a password and tap Sign Up
+              4. Select Disconnect and confirm that you would like to remove the Instagram account. 
               <br />
               <br />
             </Typography>
           </Box>
           <Box sx={styleHeaderAlt}>
             <Typography id="modal-modal-title" variant="h7" component="h2">
-              How do I create a Facebook business account?
+              How do I unlink Facebook from third party apps?
             </Typography>
           </Box>
           <Box sx={{ padding: '5px' }}>
@@ -98,11 +93,10 @@ export default function FacebookAcctSetupModal() {
               variant="h6"
               sx={{ mt: 2 }}
             >
-              1. Go to business.facebook.com/overview <br />
-              2. Click Create Account <br />
-              3. Enter your name, a name for your business a work email
-              address and click Next <br />
-              4.Enter your business details and click Submit
+              1. Go to account settings <br />
+              2. Click apps on the left hand side bar <br />
+              3. Click on the X on the right of each app to revoke access to your data <br />
+              4. Confirm remove when the window promps you to do so
               <br />
             </Typography>
           </Box>

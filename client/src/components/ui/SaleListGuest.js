@@ -60,6 +60,7 @@ export default function SaleListGuest({ profileId, setVendorName }) {
       response.data.sort(function (a, b) {
         return new Date(b.postTime) - new Date(a.postTime)
       })
+      console.log('response', response)
       setSaleItems(response.data)
       setVendorName(response.data[0].vendorName)
     }

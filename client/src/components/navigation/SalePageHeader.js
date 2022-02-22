@@ -11,8 +11,8 @@ import Tooltip from '@mui/material/Tooltip'
 const SalePageHeader = ({children, vendorName}) => {
   return (
     <Box>
-      <AppBar position="static">
-        <Container maxWidth="xl" sx={{ backgroundColor: 'white' }}>
+      <AppBar position="static" sx={{ backgroundColor: 'white' }}>
+        <Container maxWidth="xl" >
           <Toolbar disableGutters>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
@@ -47,7 +47,7 @@ const SalePageHeader = ({children, vendorName}) => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Box sx={{paddingTop: '10px'}}>{children}</Box>
+      <Box sx={{ paddingTop: '10px' }}>{children}</Box>
     </Box>
   )
 }
