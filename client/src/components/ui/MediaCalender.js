@@ -52,11 +52,6 @@ const MediaCalender = ({ userData }) => {
     }
   }
 
-  const datePickHandler = (e) => {
-    console.log('e', e)
-    // calender.goToDate(e.date)
-  }
-
   // console.log('postEvents', postEvents)
   return (
     <Card
@@ -99,9 +94,6 @@ const MediaCalender = ({ userData }) => {
           initialView="dayGridMonth"
           height={620}
           events={postEvents}
-          dateClick={(e) => {
-            datePickHandler(e)
-          }}
         />
       </CardContent>
     </Card>
