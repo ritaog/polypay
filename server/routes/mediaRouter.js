@@ -1,7 +1,7 @@
 import express from 'express'
 import cloudinary from '../utils/cloudinary.js'
 import upload from '../utils/multer.js'
-import Media from '../models/MediaModel.js'
+import Media from '../models/mediaModel.js'
 
 const router = express.Router()
 
