@@ -134,11 +134,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        open={open}
-        sx={{ backgroundColor: 'white'}}
-      >
+      <AppBar position="fixed" open={open} sx={{ backgroundColor: 'white' }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -224,14 +220,20 @@ export default function MiniDrawer({ children, userData, getUserState }) {
             {theme.direction === 'rtl' ? (
               <ChevronRightIcon />
             ) : (
-              <ChevronLeftIcon onClick={handleChange('panel2')}/>
+              <ChevronLeftIcon onClick={handleChange('panel2')} />
             )}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
           <ListItem>
-            <AccordionButton open={open} handleDrawerOpen={handleDrawerOpen} handleChange={handleChange} setExpanded={setExpanded} expanded={expanded}/>
+            <AccordionButton
+              open={open}
+              handleDrawerOpen={handleDrawerOpen}
+              handleChange={handleChange}
+              setExpanded={setExpanded}
+              expanded={expanded}
+            />
           </ListItem>
         </List>
         <Divider />

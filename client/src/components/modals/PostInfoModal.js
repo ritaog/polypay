@@ -294,7 +294,7 @@ const PostInfoModal = ({
                     variant="contained"
                     disabled={submitDisabled}
                     loading={editLoading}
-                    loadingPosition="start"
+                    // loadingPosition="start"
                     startIcon={editLoading ? <SaveIcon /> : ''}
                     onClick={handleSubmit}
                   >

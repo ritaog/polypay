@@ -207,9 +207,8 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                   <LoadingButton
                     variant="text"
                     size="large"
-               
                     loading={postNowLoading}
-                    loadingPosition="start"
+                    // loadingPosition="start"
                     startIcon={postNowLoading ? <SaveIcon /> : ''}
                     onClick={() => {
                       handleSubmit(true)
@@ -220,9 +219,8 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                   <LoadingButton
                     variant="contained"
                     size="large"
-                
                     loading={scheduleLoading}
-                    loadingPosition="start"
+                    // loadingPosition="start"
                     startIcon={scheduleLoading ? <SaveIcon /> : ''}
                     onClick={() => {
                       handleSubmit(false)
