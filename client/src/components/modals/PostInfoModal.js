@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import EditPostForm from '../ui/EditPostForm'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import LoadingButton from '@mui/lab/LoadingButton'
+import SaveIcon from '@mui/icons-material/Save'
 import Image from 'mui-image'
 import {
   Modal,
@@ -55,6 +57,8 @@ const PostInfoModal = ({
   const [postTime, setPostTime] = useState()
   const [posted, setPosted] = useState()
 
+  const [editLoading, setEditLoading] = useState(false)
+
   const [openCancelPostModal, setOpenCancelPostModal] = React.useState(false)
   const handleOpenCancelModal = () => {
     setOpenCancelPostModal(true)
@@ -103,6 +107,7 @@ const PostInfoModal = ({
   }
 
   const handleSubmit = async () => {
+    setEditLoading(true)
     const postData = {
       id: postInfo._id,
       vendorName: postInfo.vendorName,
@@ -133,6 +138,7 @@ const PostInfoModal = ({
       `saleItem/cancelSchedule/${postInfo._id}`
     )
     if (response.statusText === 'No Content') {
+      setEditLoading(false)
       navigate(0)
     }
   }
@@ -284,13 +290,16 @@ const PostInfoModal = ({
                   >
                     Edit Post
                   </Button>
-                  <Button
+                  <LoadingButton
                     variant="contained"
                     disabled={submitDisabled}
+                    loading={editLoading}
+                    loadingPosition="start"
+                    startIcon={editLoading ? <SaveIcon /> : ''}
                     onClick={handleSubmit}
                   >
                     Submit
-                  </Button>
+                  </LoadingButton>
                 </Stack>
               </Box>
             </Grid>
