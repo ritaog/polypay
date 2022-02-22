@@ -97,6 +97,7 @@ const App = () => {
             />
           }
         />
+        
         <Route
           path="/sales/:id"
           element={
