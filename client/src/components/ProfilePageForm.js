@@ -47,7 +47,9 @@ const ProfilePageForm = () => {
     console.log(userProfile)
     const response = await axios.post('user/addUser', imageData)
     console.log(response.statusText)
+
     if (response.statusText === 'OK') {
+      console.log(response.data)
       navigate('/')
     }
   }

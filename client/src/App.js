@@ -7,7 +7,12 @@ import HomePage from './pages/HomePage'
 import ProfilePage from './pages/ProfilePage'
 // import LinkAccountPage from './pages/LinkAccountPage'
 import SchedulePostPage from './pages/SchedulePostPage'
+import SetUpStripePage from './pages/SetUpStripePage'
+import PaymentDashboard from './pages/PaymentDashboard'
 import DisplayItemsPage from './pages/DisplayItemsPage'
+import StripeSuccess from './pages/StripeSuccess'
+import StripeFailure from './pages/StripeFailure'
+import StripeSuccessfulCheckout from './pages/StripeSuccessfulCheckout'
 import MediaLibraryPage from './pages/MediaLibraryPage'
 import CheckoutPage from './pages/CheckoutPage'
 import LinkFacebookCardModal from './components/modals/SetUpMyStuffModals/LinkFacebookCardModal'
@@ -67,11 +72,12 @@ const App = () => {
             />
           }
         />
+
         <Route
           path="/profile"
           element={
             <MiniDrawer
-            style = {{background:"red"}}
+              style={{ background: 'red' }}
               userData={user}
               getUserState={getObject}
               children={<ProfilePage userData={user} />}
@@ -116,6 +122,35 @@ const App = () => {
               children={<CheckoutPage />}
             />
           }
+        />
+
+        <Route
+          path="/setup-stripe"
+          element={
+            <MiniDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<SetUpStripePage userData={user} />}
+            />
+          }
+        />
+
+        <Route
+          path="/earnings-dashboard"
+          element={
+            <MiniDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<PaymentDashboard userData={user} />}
+            />
+          }
+        />
+
+        <Route path="/success" element={<StripeSuccess />} />
+        <Route path="/failure" element={<StripeFailure />} />
+        <Route
+          path="/successfulCheckout"
+          element={<StripeSuccessfulCheckout userData={user} />}
         />
       </Routes>
     </BrowserRouter>

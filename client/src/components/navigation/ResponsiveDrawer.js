@@ -49,7 +49,6 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
     console.log('Trying to logout', logout)
     getUserState(null)
     navigate('/')
-    
   }
 
   const handleDrawerToggle = () => {
@@ -68,16 +67,14 @@ function ResponsiveDrawer({ userData, getUserState, children }) {
       </List>
       <Divider />
       <List>
-        {['About Us', 'Contact Us', 'Help'].map(
-          (text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          )
-        )}
+        {['About Us', 'Contact Us', 'Help'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
       </List>
     </div>
   )

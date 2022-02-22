@@ -1,5 +1,6 @@
 import express from 'express'
 import fetch from 'node-fetch'
+import stripe from 'stripe'
 import {
   findUserByEmail,
   findUserById,
@@ -10,6 +11,7 @@ const router = express.Router()
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 
+const stripeConfig = stripe(process.env.STRIPE_PRIVATE_KEY)
 // Authentication Server Routes
 
 // passport middle ware runs when the '/login' endpoint is called
@@ -63,7 +65,7 @@ router.post(
   '/login',
   passport.authenticate('local'),
   async function (req, res) {
-    console.log(req.user)
+    console.log('This is req.user', req.user)
     res.send(req.user)
   }
 )
