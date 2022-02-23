@@ -36,13 +36,13 @@ const style = {
 
 const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
   const navigate = useNavigate()
-  const [postTitle, setPostTitle] = useState('')
-  const [price, setPrice] = useState('')
-  const [quantity, setQuantity] = useState(0)
-  const [caption, setCaption] = useState('')
-  const [about, setAbout] = useState('')
+  const [postTitle, setPostTitle] = useState()
+  const [price, setPrice] = useState()
+  const [quantity, setQuantity] = useState(1)
+  const [caption, setCaption] = useState()
+  const [about, setAbout] = useState()
   const [canShip, setCanShip] = useState(false)
-  const [location, setLocation] = useState('')
+  const [location, setLocation] = useState()
   const [postTime, setPostTime] = useState(new Date())
 
   const [postNowLoading, setPostNowLoading] = useState(false)
@@ -207,7 +207,9 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                     variant="text"
                     size="large"
                     loading={postNowLoading}
-                    // loadingPosition="start"
+                    disabled={
+                      !postTitle || !price || !caption || !about || !location
+                    }
                     startIcon={postNowLoading ? <SaveIcon /> : ''}
                     onClick={() => {
                       handleSubmit(true)
@@ -219,7 +221,9 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                     variant="contained"
                     size="large"
                     loading={scheduleLoading}
-                    // loadingPosition="start"
+                    disabled={
+                      !postTitle || !price || !caption || !about || !location
+                    }
                     startIcon={scheduleLoading ? <SaveIcon /> : ''}
                     onClick={() => {
                       handleSubmit(false)

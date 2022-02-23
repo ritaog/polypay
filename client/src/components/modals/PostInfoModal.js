@@ -282,24 +282,31 @@ const PostInfoModal = ({
                       Cancel Post
                     </Button>
                   )}
-
-                  <Button
-                    size="large"
-                    disabled={!submitDisabled}
-                    onClick={handleEdit}
-                  >
-                    Edit Post
-                  </Button>
-                  <LoadingButton
-                    variant="contained"
-                    disabled={submitDisabled}
-                    loading={editLoading}
-                    // loadingPosition="start"
-                    startIcon={editLoading ? <SaveIcon /> : ''}
-                    onClick={handleSubmit}
-                  >
-                    Submit
-                  </LoadingButton>
+                  {posted ? (
+                    ''
+                  ) : (
+                    <Button
+                      size="large"
+                      disabled={!submitDisabled}
+                      onClick={handleEdit}
+                    >
+                      Edit Post
+                    </Button>
+                  )}
+                  {posted ? (
+                    ''
+                  ) : (
+                    <LoadingButton
+                      variant="contained"
+                      disabled={submitDisabled}
+                      loading={editLoading}
+                      // loadingPosition="start"
+                      startIcon={editLoading ? <SaveIcon /> : ''}
+                      onClick={handleSubmit}
+                    >
+                      Submit
+                    </LoadingButton>
+                  )}
                 </Stack>
               </Box>
             </Grid>
