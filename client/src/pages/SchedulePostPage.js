@@ -29,13 +29,13 @@ const SchedulePostPage = ({ userData }) => {
     <Box>
       <Grid
         container
-        spacing={3}
-        sx={{ padding: '0 20px 0 20px', height: '100%' }}
+        spacing={0}
+        sx={{ padding: '0', height: '100%' }}
       >
-        <Grid item xs={4} sm={4} md={4} >
+        <Grid item xs={4} sm={4} md={3} >
           <MediaLibrary userData={userData} />
         </Grid>
-        <Grid item xs={8} sm={8} md={8}>
+        <Grid item xs={12} sm={12} md={9} sx={{minWidth: '900px'}}>
           <MediaCalender userData={userData} />
         </Grid>
       </Grid>

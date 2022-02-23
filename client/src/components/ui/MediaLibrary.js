@@ -8,6 +8,7 @@ import {
   Button,
   Box,
 } from '@mui/material'
+import Image from 'mui-image'
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
@@ -90,30 +91,20 @@ const MediaLibrary = ({ userData }) => {
             },
           }}
         >
-          {/* {item.blankPhoto ? ( */}
-            {/* <Button
-              component="label"
-              onChange={(e) => {
-                handlePhotoUpload(e)
-              }}
-            >
-              <Box>
-                <input type="file" hidden />
-                
-                <CardMedia
-                  component="span"
-                  sx={{
-                    height: '100%',
-                    width: '300%',
-                    // border: '1px solid lightGray',
-                  }}
-                >
-                <AddPhotoAlternateIcon />  
-                </CardMedia>
-              </Box>
-            </Button> */}
-          {/* ) : ( */}
-            <CardMedia
+          <Image
+            src={`https://res.cloudinary.com/ddcynhc98/image/upload/${item.photos[0]
+              .split('')
+              .splice(50)
+              .join('')}`}
+            height="100px"
+            width="100px"
+            onClick={() => {
+              handlePostSchedule(item)
+            }}
+            duration={0}
+            fit="fill"
+          />
+          {/* <CardMedia
               onClick={() => {
                 handlePostSchedule(item)
               }}
@@ -122,13 +113,12 @@ const MediaLibrary = ({ userData }) => {
                 height: '100%',
                 width: '100%',
               }}
-              image={`https://res.cloudinary.com/ddcynhc98/image/upload/c_crop,h_1500,w_1500/${item.photos[0]
+              image={`https://res.cloudinary.com/ddcynhc98/image/upload/${item.photos[0]
                 .split('')
                 .splice(50)
                 .join('')}`}
               alt="random"
-            />
-          {/* )} */}
+            /> */}
         </Card>
       </Grid>
     )
@@ -139,7 +129,7 @@ const MediaLibrary = ({ userData }) => {
       sx={{
         borderRadius: '25px',
         height: '650px',
-        width: '100%',
+        width: '300px',
         overflowY: 'scroll',
         scrollbarWidth: 'none',
         '::-webkit-scrollbar': {
@@ -193,7 +183,7 @@ const MediaLibrary = ({ userData }) => {
             </Button>
           </Box>
         </Grid>
-        <Grid container>{displayItems}</Grid>
+        <Grid container >{displayItems}</Grid>
       </CardContent>
     </Card>
   )

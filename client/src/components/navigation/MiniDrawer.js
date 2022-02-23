@@ -25,8 +25,10 @@ import MenuItem from '@mui/material/MenuItem'
 import Link from '@mui/material/Link'
 import SignUpButton from '../modals/SignUpModal'
 
+
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import SalePageLink from '../ui/SalePageLink'
 const drawerWidth = 240
 
 const openedMixin = (theme) => ({
@@ -102,6 +104,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
 
   const [expanded, setExpanded] = React.useState()
 
+
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false)
   }
@@ -166,6 +169,9 @@ export default function MiniDrawer({ children, userData, getUserState }) {
             <Button sx={{ my: 2, color: 'black', display: 'block' }}>
               Blog
             </Button>
+            <Box sx={{display: "flex", alignItems: 'center'}}>
+              {userData ? <SalePageLink userData={userData} /> : ""}
+            </Box>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             {userData ? (
@@ -248,7 +254,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, background:" #b7e7fa"}}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, background: ' #b7e7fa' }}>
         <DrawerHeader />
         {children}
       </Box>
