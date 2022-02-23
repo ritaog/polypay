@@ -32,7 +32,12 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }))
 
-export default function CustomizedAccordions({handleDrawerOpen, handleChange, setExpanded, expanded}) {
+export default function CustomizedAccordions({
+  handleDrawerOpen,
+  handleChange,
+  setExpanded,
+  expanded,
+}) {
   const navigate = useNavigate()
   // const [expanded, setExpanded] = React.useState('panel1')
 
@@ -51,7 +56,10 @@ export default function CustomizedAccordions({handleDrawerOpen, handleChange, se
         handleOpen={handleOpen}
         open={open}
       />
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+      <Accordion
+        expanded={expanded === 'panel1'}
+        onChange={handleChange('panel1')}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
@@ -91,6 +99,7 @@ export default function CustomizedAccordions({handleDrawerOpen, handleChange, se
           </List>
         </AccordionDetails>
       </Accordion>
+
       <Accordion
         expanded={expanded === 'panel2'}
         onChange={handleChange('panel2')}
@@ -103,7 +112,8 @@ export default function CustomizedAccordions({handleDrawerOpen, handleChange, se
           sx={{ padding: '0px' }}
         >
           <SupervisorAccountIcon />
-          <Typography sx={{ paddingLeft: '35px' }}>Accounts</Typography>
+
+          <Typography sx={{ paddingLeft: '10px' }}>Accounts</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <List>
@@ -117,9 +127,53 @@ export default function CustomizedAccordions({handleDrawerOpen, handleChange, se
           </List>
         </AccordionDetails>
       </Accordion>
+
+      {/*////////////STRIPE TOP/////////*/}
+      <Accordion onChange={handleChange('panel3')}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
+          sx={{ padding: '0px' }}
+        >
+          <PostAddIcon />
+          <Typography sx={{ paddingLeft: '10px' }}>Payment</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <List>
+            <ListItem
+              button
+              onClick={() => {
+                navigate('/setup-stripe')
+              }}
+            >
+              <AddIcon />
+              <ListItemText
+                primary="Set Up Stripe"
+                sx={{ paddingLeft: '10px' }}
+              />
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => {
+                navigate('/earnings-dashboard')
+              }}
+            >
+              <PhotoIcon />
+              <ListItemText
+                primary="Earnings Dashboard"
+                sx={{ paddingLeft: '10px' }}
+              />
+            </ListItem>
+          </List>
+        </AccordionDetails>
+      </Accordion>
+
+      {/*////////// STRIPE BOT///////////////// */}
+
       <Accordion
-        expanded={expanded === 'panel3'}
-        onChange={handleChange('panel3')}
+        expanded={expanded === 'panel4'}
+        onChange={handleChange('panel4')}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

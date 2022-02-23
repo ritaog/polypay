@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
@@ -32,6 +33,24 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
   const handleQuant = (e) => {
     const newValue = Math.min(Math.max(e.target.value, minValue), maxValue)
     setPurchaseQuantity(newValue)
+  }
+
+  const handlePurchase = async () => {
+    const purchaseInfo = [{ id: buyModalItem._id, purchaseQuantity }]
+
+    console.log(purchaseInfo)
+
+    const response = await axios.post(
+      'http://localhost:5000/payment/create-checkout-session',
+      purchaseInfo
+    )
+
+    console.log(response)
+    /*
+      const { url } = response.data
+
+      if (!url) throw new Error('Cannot find payment page!')
+      window.location = url */
   }
 
   return (
@@ -208,7 +227,9 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
         >
           <Stack spacing={2} direction="row">
             <Button variant="contained">Add To Cart</Button>
-            <Button variant="contained">Buy Now</Button>
+            <Button variant="contained" onClick={handlePurchase}>
+              Buy Now
+            </Button>
           </Stack>
         </Box>
       </Box>
