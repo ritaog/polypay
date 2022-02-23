@@ -81,7 +81,7 @@ export default function CustomizedAccordions({
               <AddIcon />
               <ListItemText
                 primary="Schedule Post"
-                sx={{ paddingLeft: '10px' }}
+                sx={{ paddingLeft: '35px' }}
               />
             </ListItem>
             <ListItem
@@ -93,7 +93,7 @@ export default function CustomizedAccordions({
               <PhotoIcon />
               <ListItemText
                 primary="Media Library"
-                sx={{ paddingLeft: '10px' }}
+                sx={{ paddingLeft: '35px' }}
               />
             </ListItem>
           </List>
@@ -113,7 +113,7 @@ export default function CustomizedAccordions({
         >
           <SupervisorAccountIcon />
 
-          <Typography sx={{ paddingLeft: '10px' }}>Accounts</Typography>
+          <Typography sx={{ paddingLeft: '35px' }}>Accounts</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <List>
@@ -129,15 +129,19 @@ export default function CustomizedAccordions({
       </Accordion>
 
       {/*////////////STRIPE TOP/////////*/}
-      <Accordion onChange={handleChange('panel3')}>
+      <Accordion
+        expanded={expanded === 'panel3'}
+        onChange={handleChange('panel3')}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
+          onClick={handleDrawerOpen}
           id="panel1bh-header"
           sx={{ padding: '0px' }}
         >
           <PostAddIcon />
-          <Typography sx={{ paddingLeft: '10px' }}>Payment</Typography>
+          <Typography sx={{ paddingLeft: '35px' }}>Payment</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <List>
