@@ -107,6 +107,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false)
+    handleDrawerClose()
   }
 
   const handleDrawerOpen = () => {
@@ -169,8 +170,8 @@ export default function MiniDrawer({ children, userData, getUserState }) {
             <Button sx={{ my: 2, color: 'black', display: 'block' }}>
               Blog
             </Button>
-            <Box sx={{display: "flex", alignItems: 'center'}}>
-              {userData ? <SalePageLink userData={userData} /> : ""}
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              {userData ? <SalePageLink userData={userData} /> : ''}
             </Box>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
@@ -222,11 +223,11 @@ export default function MiniDrawer({ children, userData, getUserState }) {
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleChange('panel2')}>
             {theme.direction === 'rtl' ? (
               <ChevronRightIcon />
             ) : (
-              <ChevronLeftIcon onClick={handleChange('panel2')} />
+              <ChevronLeftIcon  />
             )}
           </IconButton>
         </DrawerHeader>

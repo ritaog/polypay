@@ -7,9 +7,12 @@ import {
   CardMedia,
   Button,
   Box,
+  IconButton,
 } from '@mui/material'
+
 import Image from 'mui-image'
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
+import DeleteIcon from '@mui/icons-material/Delete'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -20,6 +23,7 @@ const MediaLibrary = ({ userData }) => {
   const [saleItems, setSaleItems] = useState([])
   const [scheduleItem, setScheduleItem] = useState()
   const [open, setOpen] = React.useState(false)
+  const [deleteHover, setDeleteHover] = useState()
   const handleClose = () => setOpen(false)
 
   useEffect(() => {
@@ -38,6 +42,7 @@ const MediaLibrary = ({ userData }) => {
       getMediaByLoggedUser()
     }
   }, [userData])
+
 
   const handlePhotoUpload = async (e) => {
     // assigns a new form data constructor to append data to to send to back end. 'image' is file selected by user to be uploaded to instagram
@@ -79,8 +84,11 @@ const MediaLibrary = ({ userData }) => {
         sx={{ minHeight: '100px', minWidth: '100px' }}
       >
         <Card
+          // onMouseEnter={() => {
+          //   handleMouseOver(item)
+          // }}
           sx={{
-            minWidth: '100%',
+            width: '300px',
             display: 'flex',
             flexDirection: 'column',
             borderRadius: '0px',
@@ -91,6 +99,14 @@ const MediaLibrary = ({ userData }) => {
             },
           }}
         >
+          <Box>
+            <IconButton sx={{ position: 'absolute' }}>
+              <DeleteIcon
+                fontSize="small"
+                sx={{ color: 'lightGray', opacity: '0.4' }}
+              />
+            </IconButton>
+          </Box>
           <Image
             src={`https://res.cloudinary.com/ddcynhc98/image/upload/${item.photos[0]
               .split('')
@@ -104,21 +120,6 @@ const MediaLibrary = ({ userData }) => {
             duration={0}
             fit="fill"
           />
-          {/* <CardMedia
-              onClick={() => {
-                handlePostSchedule(item)
-              }}
-              component="img"
-              sx={{
-                height: '100%',
-                width: '100%',
-              }}
-              image={`https://res.cloudinary.com/ddcynhc98/image/upload/${item.photos[0]
-                .split('')
-                .splice(50)
-                .join('')}`}
-              alt="random"
-            /> */}
         </Card>
       </Grid>
     )
@@ -133,8 +134,8 @@ const MediaLibrary = ({ userData }) => {
         overflowY: 'scroll',
         scrollbarWidth: 'none',
         '::-webkit-scrollbar': {
-            display: 'none',
-          }
+          display: 'none',
+        },
 
         // minWidth: '200px'
       }}
@@ -183,7 +184,7 @@ const MediaLibrary = ({ userData }) => {
             </Button>
           </Box>
         </Grid>
-        <Grid container >{displayItems}</Grid>
+        <Grid container>{displayItems}</Grid>
       </CardContent>
     </Card>
   )

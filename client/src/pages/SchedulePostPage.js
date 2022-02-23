@@ -26,19 +26,23 @@ const SchedulePostPage = ({ userData }) => {
   //   setImageSelect(image)
   // }
   return (
-    <Box>
-      <Grid
+    <Box sx={{display: 'flex'}}>
+      {/* <Grid
         container
         spacing={0}
         sx={{ padding: '0', height: '100%' }}
       >
-        <Grid item xs={4} sm={4} md={3} >
+        <Grid item xs={4} sm={4} md={3} > */}
+        <Box sx={{marginRight: '10px', width: "300px"}}>
           <MediaLibrary userData={userData} />
-        </Grid>
-        <Grid item xs={12} sm={12} md={9} sx={{minWidth: '900px'}}>
+        </Box>
+        {/* </Grid>
+        <Grid item xs={12} sm={12} md={9} sx={{minWidth: '900px'}}> */}
+        <Box sx={{marginLeft: '10px', width: '100%'}}>
           <MediaCalender userData={userData} />
-        </Grid>
-      </Grid>
+        </Box>
+        {/* </Grid> */}
+      {/* </Grid> */}
     </Box>
     /* <Box sx={{ width: '100%' }}>
         <Masonry columns={2} spacing={2}>

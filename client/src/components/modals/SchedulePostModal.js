@@ -105,6 +105,7 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
       <Modal
         open={open}
         onClose={handleClose}
+        // zIndex={0}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
