@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import Button from '@mui/material/Button'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const style = {
   position: 'absolute',
@@ -23,10 +24,14 @@ const ConfirmDeleteModal = ({
   openConfirmDeleteModal,
   selectedPhoto
 }) => {
+  const navigate = useNavigate()
+
   console.log('selectedPhoto', selectedPhoto)
   const handleDelete = async () => {
     const response = await axios.delete(`/media/deleteImageById/${selectedPhoto._id}`)
-    console.log('response', response)
+    if (response.statusText === 'No Content') {
+      navigate(0)
+    }
   }
   return (
     <React.Fragment>
