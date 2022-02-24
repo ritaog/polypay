@@ -41,16 +41,16 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
     console.log(purchaseInfo)
 
     const response = await axios.post(
-      'http://localhost:5000/payment/create-checkout-session',
+      '/payment/create-checkout-session',
       purchaseInfo
     )
 
     console.log(response)
-    /*
-      const { url } = response.data
 
-      if (!url) throw new Error('Cannot find payment page!')
-      window.location = url */
+    const { url } = response.data
+
+    if (!url) throw new Error('Cannot find payment page!')
+    window.location = url
   }
 
   return (
