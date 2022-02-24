@@ -93,7 +93,7 @@ export default function SignUpModal({ getUserState }) {
                 <Typography component="h1" variant="h5">
                   PolyPay Sign In
                 </Typography>
-                ``````````````````````````````````````````````````````````````````````````````````````{' '}
+                {' '}
                 <Box
                   component="form"
                   onSubmit={handleSubmit}

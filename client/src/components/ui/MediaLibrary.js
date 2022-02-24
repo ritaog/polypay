@@ -13,6 +13,7 @@ import {
 import Image from 'mui-image'
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
 import DeleteIcon from '@mui/icons-material/Delete'
+import InstagramIcon from '@mui/icons-material/Instagram'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -44,7 +45,6 @@ const MediaLibrary = ({ userData }) => {
     }
   }, [userData])
 
-
   const handlePhotoUpload = async (e) => {
     // assigns a new form data constructor to append data to to send to back end. 'image' is file selected by user to be uploaded to instagram
     // "formData" is all the data collected from the schedule post form to be sent to back end
@@ -55,6 +55,7 @@ const MediaLibrary = ({ userData }) => {
       vendorId: userData?._id,
       photos: [],
       uploadTime: new Date(),
+      postedTo: [],
     }
 
     const imageData = new FormData()
@@ -107,20 +108,39 @@ const MediaLibrary = ({ userData }) => {
             },
           }}
         >
-          <Box >
-            <IconButton
-              onClick={() => {
-                handleDeletePhoto(item)
-              }}
-              sx={{ position: 'absolute', zIndex: '1000' }}
-            >
-              <DeleteIcon
-                fontSize="small"
-                variant="outlined"
-                sx={{ color: 'white', opacity: '0.8' }}
-              />
-            </IconButton>
+          <Box sx={{ width: '99px', height: '99px', position: 'absolute' }}>
+            <Box>
+              <IconButton
+                onClick={() => {
+                  handleDeletePhoto(item)
+                }}
+                sx={{ position: 'relative', zIndex: '1000' }}
+              >
+                <DeleteIcon
+                  fontSize="small"
+                  variant="outlined"
+                  sx={{ color: 'white', opacity: '0.8' }}
+                />
+              </IconButton>
+            </Box>
+            <Box>
+              {item.postedTo[0] ? (
+                <InstagramIcon
+                  fontSize="small"
+                  sx={{
+                    position: 'relative',
+                    top: '43px',
+                    zIndex: '1000',
+                    color: 'white',
+                    opacity: '0.8',
+                  }}
+                />
+              ) : (
+                ''
+              )}
+            </Box>
           </Box>
+
           <Image
             src={`https://res.cloudinary.com/ddcynhc98/image/upload/${item.photos[0]
               .split('')
@@ -165,13 +185,12 @@ const MediaLibrary = ({ userData }) => {
         scheduleItem={scheduleItem}
         userData={userData}
       />
-      <CardContent sx={{ padding: '0 0'}}>
+      <CardContent sx={{ padding: '0 0' }}>
         <Grid
           container
           direction="row"
           justifyContent="center"
           alignItems="center"
-          
         >
           <Grid item>
             <Typography variant="h4" component="div" sx={{ margin: '5px 5px' }}>
