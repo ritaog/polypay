@@ -17,14 +17,19 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SchedulePostModal from '../modals/SchedulePostModal'
+import ConfirmDeleteModal from '../modals/ConfirmDeleteModal'
 
 const MediaLibrary = ({ userData }) => {
   const navigate = useNavigate()
   const [saleItems, setSaleItems] = useState([])
   const [scheduleItem, setScheduleItem] = useState()
-  const [open, setOpen] = React.useState(false)
-  const [deleteHover, setDeleteHover] = useState()
+  const [selectedPhoto, setSelectedPhoto] = useState()
+
+  const [open, setOpen] = useState(false)
   const handleClose = () => setOpen(false)
+
+  const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false)
+  const handleCloseConfirmDeleteModal = () => setOpenConfirmDeleteModal(false)
 
   useEffect(() => {
     const getMediaByLoggedUser = async () => {
@@ -32,10 +37,6 @@ const MediaLibrary = ({ userData }) => {
       response.data.sort(function (a, b) {
         return new Date(b.postTime) - new Date(a.postTime)
       })
-      // response.data.unshift({
-      //   _id: 'upload-image',
-      //   blankPhoto: 'images/480px-OOjs_UI_icon_add.png',
-      // })
       setSaleItems(response.data)
     }
     if (userData) {
@@ -67,6 +68,11 @@ const MediaLibrary = ({ userData }) => {
     }
   }
 
+  const handleDeletePhoto = async (item) => {
+    setSelectedPhoto(item)
+    setOpenConfirmDeleteModal(true)
+  }
+
   const handlePostSchedule = (item) => {
     setScheduleItem(item)
     setOpen(true)
@@ -81,7 +87,7 @@ const MediaLibrary = ({ userData }) => {
         xs={4}
         sm={4}
         md={4}
-        sx={{ minHeight: '100px', minWidth: '100px' }}
+        sx={{ height: '100%', width: '100%' }}
       >
         <Card
           // onMouseEnter={() => {
@@ -90,20 +96,28 @@ const MediaLibrary = ({ userData }) => {
           sx={{
             width: '300px',
             display: 'flex',
+            border: '0px',
             flexDirection: 'column',
             borderRadius: '0px',
-            padding: '1px',
+            margin: '1px',
+            boxShadow: 'none',
 
             '&:hover': {
               cursor: 'pointer',
             },
           }}
         >
-          <Box>
-            <IconButton sx={{ position: 'absolute' }}>
+          <Box >
+            <IconButton
+              onClick={() => {
+                handleDeletePhoto(item)
+              }}
+              sx={{ position: 'absolute', zIndex: '1000' }}
+            >
               <DeleteIcon
                 fontSize="small"
-                sx={{ color: 'lightGray', opacity: '0.4' }}
+                variant="outlined"
+                sx={{ color: 'white', opacity: '0.8' }}
               />
             </IconButton>
           </Box>
@@ -112,8 +126,8 @@ const MediaLibrary = ({ userData }) => {
               .split('')
               .splice(50)
               .join('')}`}
-            height="100px"
-            width="100px"
+            height="99px"
+            width="99px"
             onClick={() => {
               handlePostSchedule(item)
             }}
@@ -140,18 +154,24 @@ const MediaLibrary = ({ userData }) => {
         // minWidth: '200px'
       }}
     >
+      <ConfirmDeleteModal
+        openConfirmDeleteModal={openConfirmDeleteModal}
+        handleClose={handleCloseConfirmDeleteModal}
+        selectedPhoto={selectedPhoto}
+      />
       <SchedulePostModal
         open={open}
         handleClose={handleClose}
         scheduleItem={scheduleItem}
         userData={userData}
       />
-      <CardContent sx={{ padding: '0 0' }}>
+      <CardContent sx={{ padding: '0 0'}}>
         <Grid
           container
           direction="row"
           justifyContent="center"
           alignItems="center"
+          
         >
           <Grid item>
             <Typography variant="h4" component="div" sx={{ margin: '5px 5px' }}>

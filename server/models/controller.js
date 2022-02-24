@@ -1,7 +1,10 @@
 import User from './userModel.js'
 import SaleItem from './saleItemModel.js'
+import Media from './mediaModel.js'
 
 // Controller for Data Models
+
+// USER FUNCTIONS
 
 export async function findUserByEmail(email) {
   let profile = await User.findOne({ emailAddress: email })
@@ -13,8 +16,15 @@ export async function findUserById(id) {
   return user
 }
 
+export async function findUserAndUpdate(id, userData) {
+  let updatedUser = await User.findByIdAndUpdate(id, userData)
+  return updatedUser
+}
+
+// SALE ITEM FUNCTIONS
+
 export async function findSaleItemById(id) {
-  let saleItem = await SaleItem.findbyId(id)
+  let saleItem = await SaleItem.findById(id)
   return saleItem
 }
 
@@ -28,7 +38,9 @@ export async function findSaleItemAndDelete(id) {
   return deletedSaleItem
 }
 
-export async function findUserAndUpdate(id, userData) {
-  let updatedUser = await User.findByIdAndUpdate(id, userData)
-  return updatedUser
+// MEDIA FUNCTIONS
+
+export async function findMediaAndDelete(id) {
+  let deletedSaleItem = await Media.findByIdAndDelete(id)
+  return deletedSaleItem
 }

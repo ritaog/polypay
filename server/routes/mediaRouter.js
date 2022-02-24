@@ -1,7 +1,8 @@
 import express from 'express'
 import cloudinary from '../utils/cloudinary.js'
 import upload from '../utils/multer.js'
-import Media from '../models/MediaModel.js'
+import Media from '../models/mediaModel.js'
+import { findMediaAndDelete } from '../models/controller.js'
 
 const router = express.Router()
 
@@ -35,6 +36,14 @@ router.get('/listImagesByLoggedUser', async (req, res) => {
   const userId = req.user.id
   const mediaArray = await Media.find({ vendorId: userId })
   res.json(mediaArray)
+})
+
+// DELETE endpoint || description: localhost:5000/media/deleteImageById
+router.delete('/deleteImageById/:id', async (req, res) => {
+  const imageId = req.params.id
+  console.log('imageId', imageId)
+  const media = await findMediaAndDelete(imageId)
+  res.status(204).send({deletedMedia: media})
 })
 
 export default router

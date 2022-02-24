@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-// Sale Item Schema
+// Media Schema
 
 const MediaSchema = new mongoose.Schema({
   vendorName: { type: String, required: true },
@@ -9,4 +9,4 @@ const MediaSchema = new mongoose.Schema({
   photos: [String]
 })
 
-export default mongoose.model('media', MediaSchema)
+export default mongoose.model('Media', MediaSchema)

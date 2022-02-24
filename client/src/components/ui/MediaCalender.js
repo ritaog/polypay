@@ -13,9 +13,11 @@ const MediaCalender = ({ userData }) => {
   const [postInfo, setPostInfo] = useState()
   const [editDisabled, setEditDisabled] = useState(true)
   const [submitDisabled, setSubmitDisabled] = useState(true)
-  const [open, setOpen] = React.useState(false)
-
+  const [open, setOpen] = useState(false)
   
+  // const [calenderUpdate, setCalenderUpdate] = useState(0)
+
+
   useEffect(() => {
     const getPosts = async () => {
       const response = await axios.get('/saleItem/listSaleItemsByLoggedUser')
@@ -44,7 +46,7 @@ const MediaCalender = ({ userData }) => {
     setOpen(true)
     console.log('calenderApi', e)
   }
-  
+
   const handleEdit = () => {
     if (postInfo.available === 'Scheduled') {
       setEditDisabled(false)
