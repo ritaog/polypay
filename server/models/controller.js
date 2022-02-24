@@ -44,3 +44,8 @@ export async function findMediaAndDelete(id) {
   let deletedSaleItem = await Media.findByIdAndDelete(id)
   return deletedSaleItem
 }
+
+export async function findMediaAndUpdate(id, mediaData) {
+  let updatedMedia = await Media.findByIdAndUpdate(id, mediaData)
+  return updatedMedia
+}

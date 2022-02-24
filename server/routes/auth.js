@@ -48,7 +48,7 @@ passport.serializeUser(function (user, done) {
 })
 // passport middle ware checks if there is a cookie saved in the browser and returns logged in user
 passport.deserializeUser(function (id, done) {
-  console.log('passport is trying to recover the user from a cookie')
+  // console.log('passport is trying to recover the user from a cookie')
   findUserById(id)
     .then((user) => {
       if (!user) {

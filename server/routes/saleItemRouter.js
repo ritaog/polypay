@@ -8,6 +8,7 @@ import {
   findUserAndUpdate,
   findSaleItemAndUpdate,
   findSaleItemAndDelete,
+  findMediaAndUpdate
 } from '../models/controller.js'
 
 const router = express.Router()
@@ -41,7 +42,6 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 router.post('/schedule', async (req, res) => {
   // sale item data from front end is received
   let postItem = req.body
-
   // Date() constructor is used to find the current time of the request
   let currentTime = new Date()
 
@@ -130,7 +130,10 @@ router.post('/schedule', async (req, res) => {
       available: 'Posted',
     })
 
+    const response = await findMediaAndUpdate(postItem.mediaId, {postedTo: ['instagram']})
+
     console.log('updatedSaleItem', updatedSaleItem)
+    console.log('mediaItemResponse', response)
   }
 
   // delay statement that calls postSaleItem after determined delay time. if delay time is less than 0 it is posted immediately
