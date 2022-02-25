@@ -3,7 +3,6 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import { Button, Link } from '@mui/material'
-import InstaAcctSetupModal from './InstaAcctSetupModal'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { IconButton } from '@mui/material'
 
@@ -31,14 +30,14 @@ const styleHeader = {
   borderBottom: "3px solid lightGray",
 }
 
-export default function InstaBusAcctSetupModal() {
+export default function LinkInBioModal() {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
   return (
     <div>
-      <Link onClick={handleOpen}>Don't have one? Learn how! </Link>
+      <Link onClick={handleOpen}> Learn how! </Link>
       <Modal
         open={open}
         onClose={handleClose}
@@ -47,7 +46,7 @@ export default function InstaBusAcctSetupModal() {
       <Box sx={style}>
       <Box sx={styleHeader}>
         <Typography id="modal-modal-title" variant="h7" component="h2">
-        How do I create an Instagram business account?
+        How do I get my link in my Bio?
         </Typography>
         <Button variant= "contained">
                 <IconButton
@@ -57,21 +56,17 @@ export default function InstaBusAcctSetupModal() {
                   <ArrowBackIcon />
                 </IconButton>
                 </Button>
-      </Box>   
+      </Box>
       <Box sx={{padding:"5px"}}> 
-        <Typography id="modal-modal-description" variant="h6" sx={{ mt: 2 }}>  
-            First you must have an Instagram account<br/>
-            <InstaAcctSetupModal/>
-            To switch your profile to a business account:<br/>
-            1.  Go to your profile and tap the menu         
-            in the upper right corner<br/>
-            2.  Tap Settings - some accounts the switch to professional account option
-            will be listed directly under settings<br/>
-            3.  Tap Account.  Tap Switch to Professional Account. Tap Continue<br/>
-            4.  Select a category for your busisess and tap Done.  Tap OK to confirm<br/>
-            5.  Tap Business.  Tap Next.  Add your contact details and tap Next  
-            or tap don't use my contact info to skip this step <br/>  
-            6.  12.	Tap X on the top right corner to return to your profile
+        <Typography id="modal-modal-description" variant="h6" sx={{ mt: 2 }}>
+        <br/>
+          1.  On the top of PolyPay, copy the storefront link<br/><br/>
+          2. Go to your instagram<br/> <br/>
+          3. Go to Edit Profile<br/> <br/>
+          4. There are two options of where to put it...<br/><br/>
+          a. If you paste the link into Website, anyone can click on it and go straignt to your sales page<br/><br/>
+          b. If you paste the link into Bio, you may wand to add a note like "Paste this link into your browser to purchase items" as it will not be clickable<br/><br/>
+          Now when anyone views your instagram, the link will be displayed at the top, easy for anyone to find!
         </Typography>
       </Box>
       </Box>
