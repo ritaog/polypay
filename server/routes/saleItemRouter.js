@@ -8,7 +8,7 @@ import {
   findUserAndUpdate,
   findSaleItemAndUpdate,
   findSaleItemAndDelete,
-  findMediaAndUpdate
+  findMediaAndUpdate,
 } from '../models/controller.js'
 
 const router = express.Router()
@@ -42,56 +42,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 router.post('/schedule', async (req, res) => {
   // sale item data from front end is received
   let postItem = req.body
-  // Date() constructor is used to find the current time of the request
-  let currentTime = new Date()
 
-  // uses the postTime the was selected by user in front end. adds time to Date() constructor
-  let scheduleTime = new Date(postItem.postTime)
-
-  console.log('postItem', postItem)
-
-  let updatedInfo = {
-    vendorName: postItem.vendorName,
-    vendorId: postItem.vendorId,
-    postTitle: postItem.postTitle,
-    price: postItem.price,
-    quantity: postItem.quantity,
-    photos: postItem.photos,
-    description: postItem.description,
-    about: postItem.about,
-    canShip: postItem.canShip,
-    available: postItem.available,
-    postTime: postItem.postTime,
-    uploadTime: postItem.uploadTime,
-    location: postItem.location,
-  }
-  // adds saleItem object (all important information for sale on instagram) to the SaleItem constructor from "../models/saleItemModel"
-  const newData = await new SaleItem(updatedInfo)
-
-  // saves "newData" to the saleItems collection in database
-  const newSaleItem = await newData.save()
-
-  console.log('newSaleItem', newSaleItem)
-
-  postItem.saleItems.unshift(newSaleItem._id)
-
-  await findUserAndUpdate(postItem.vendorId, { saleItems: postItem.saleItems })
-
-  console.log('current time', currentTime.getTime())
-  console.log('schedule  time', scheduleTime.getTime())
-
-  // .getTime() used on both scheduleTime and current time converts date received from user in front end and current time into milliseconds
-  // times are subtracted to determine the delay time for post
-  const delayTime = scheduleTime.getTime() - currentTime.getTime()
-
-  console.log('delay time', delayTime)
-  res
-    .status(202)
-    .json({
-      postStatus: 'scheduled',
-      postTime: scheduleTime,
-      postItem: newSaleItem,
-    })
   // function that is called after specified delay determined on line 49, delay statement is on line 69
   const postSaleItem = async () => {
     // incoming cloudinary url is spliced at specifice spot. this is because first part of url is always the same and aspect ratio and width
@@ -130,19 +81,85 @@ router.post('/schedule', async (req, res) => {
       available: 'Posted',
     })
 
-    const response = await findMediaAndUpdate(postItem.mediaId, {postedTo: ['instagram']})
+    const response = await findMediaAndUpdate(postItem.mediaId, {
+      postedTo: ['instagram'],
+    })
 
     console.log('updatedSaleItem', updatedSaleItem)
     console.log('mediaItemResponse', response)
   }
 
-  // delay statement that calls postSaleItem after determined delay time. if delay time is less than 0 it is posted immediately
-  if (delayTime > 0) {
-    // timeout function for delay
-    setTimeout(postSaleItem, delayTime)
+  const pingInsta = await fetch(
+    `https://graph.facebook.com/v12.0/${postItem.instagramBusinessId}/media?access_token=${postItem.permanentToken}`,
+    {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+    }
+  )
+
+  if (pingInsta.statusText === 'Bad Request') {
+    res.sendStatus(400)
   } else {
-    postSaleItem()
+      let currentTime = new Date()
+
+      // uses the postTime the was selected by user in front end. adds time to Date() constructor
+      let scheduleTime = new Date(postItem.postTime)
+
+      console.log('postItem', postItem)
+
+      let updatedInfo = {
+        vendorName: postItem.vendorName,
+        vendorId: postItem.vendorId,
+        postTitle: postItem.postTitle,
+        price: postItem.price,
+        quantity: postItem.quantity,
+        photos: postItem.photos,
+        description: postItem.description,
+        about: postItem.about,
+        canShip: postItem.canShip,
+        available: postItem.available,
+        postTime: postItem.postTime,
+        uploadTime: postItem.uploadTime,
+        location: postItem.location,
+      }
+      // adds saleItem object (all important information for sale on instagram) to the SaleItem constructor from "../models/saleItemModel"
+      const newData = await new SaleItem(updatedInfo)
+
+      // saves "newData" to the saleItems collection in database
+      const newSaleItem = await newData.save()
+
+      console.log('newSaleItem', newSaleItem)
+
+      postItem.saleItems.unshift(newSaleItem._id)
+
+      await findUserAndUpdate(postItem.vendorId, {
+        saleItems: postItem.saleItems,
+      })
+
+      console.log('current time', currentTime.getTime())
+      console.log('schedule  time', scheduleTime.getTime())
+
+      // .getTime() used on both scheduleTime and current time converts date received from user in front end and current time into milliseconds
+      // times are subtracted to determine the delay time for post
+      const delayTime = scheduleTime.getTime() - currentTime.getTime()
+
+      console.log('delay time', delayTime)
+
+    res.status(202).json({
+      postStatus: 'scheduled',
+      postTime: scheduleTime,
+      postItem: newSaleItem,
+    })
+
+    if (delayTime > 0) {
+      // timeout function for delay
+      setTimeout(postSaleItem, delayTime)
+    } else {
+      postSaleItem()
+    }
   }
+
+  // delay statement that calls postSaleItem after determined delay time. if delay time is less than 0 it is posted immediately
 })
 
 // PUT endpoint || description: localhost:5000/saleItem/editSchedule
