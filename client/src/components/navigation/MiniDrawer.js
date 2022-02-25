@@ -240,6 +240,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
               handleChange={handleChange}
               setExpanded={setExpanded}
               expanded={expanded}
+              userData={userData}
             />
           </ListItem>
         </List>

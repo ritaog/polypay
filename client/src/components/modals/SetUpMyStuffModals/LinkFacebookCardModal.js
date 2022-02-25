@@ -52,10 +52,12 @@ const styleHeaderAlt = {
 
       const responseFacebook = (response) => {
         // bundles together data from response from facebook above and userData from the users state passed down from 'app.js'
+        console.log('userData', userData)
         let userDataBundle = {
           userData,
           response,
         }
+        console.log('response', response)
         setDataBundle(userDataBundle)
       }
       useEffect(() => {

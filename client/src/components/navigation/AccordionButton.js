@@ -37,6 +37,7 @@ export default function CustomizedAccordions({
   handleChange,
   setExpanded,
   expanded,
+  userData,
 }) {
   const navigate = useNavigate()
   // const [expanded, setExpanded] = React.useState('panel1')
@@ -52,6 +53,7 @@ export default function CustomizedAccordions({
   return (
     <div>
       <LinkFacebookCardModal
+        userData={userData}
         handleClose={handleClose}
         handleOpen={handleOpen}
         open={open}

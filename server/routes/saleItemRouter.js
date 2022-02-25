@@ -52,22 +52,21 @@ router.post('/schedule', async (req, res) => {
     // first api call uploads image from cloudinary. data required, instagram business id, spliced url, caption from user, and permanent token.
     // api returns an ID for a media container. post is in instagram DB but will not be displayed until media container ID is sent in new api call
     try {
-    const resContainer = await fetch(
-      `https://graph.facebook.com/v12.0/${postItem.instagramBusinessId}/media?fields=status_code&image_url=https://res.cloudinary.com/ddcynhc98/image/upload/ar_4:5,c_scale,w_1080/${urlSplice}&caption=${postItem.description}&access_token=${postItem.permanentToken}`,
-      {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-      }
-    )
-  
+      const resContainer = await fetch(
+        `https://graph.facebook.com/v12.0/${postItem.instagramBusinessId}/media?fields=status_code&image_url=https://res.cloudinary.com/ddcynhc98/image/upload/ar_4:5,c_scale,w_1080/${urlSplice}&caption=${postItem.description}&access_token=${postItem.permanentToken}`,
+        {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
 
-    // converts response from api call to create container to json
-    const resContainerText = await resContainer.json()
-    } catch (e){
-console.log('resContainerText', resContainerText.error.code)
-if (resContainerText.error.code === 100){
-  res.status(401).send({access_token:"Rejected"})
-}
+      // converts response from api call to create container to json
+      const resContainerText = await resContainer.json()
+    } catch (e) {
+      console.log('resContainerText', resContainerText.error.code)
+      if (resContainerText.error.code === 100) {
+        res.status(401).send({ access_token: 'Rejected' })
+      }
     }
     // second api call sends media container ID back to instagram. data required, instagram business ID, media container ID, and permanent token
     // item will now be displayed on instagram as post
@@ -107,50 +106,50 @@ if (resContainerText.error.code === 100){
   if (pingInsta.statusText === 'Bad Request') {
     res.sendStatus(400)
   } else {
-      let currentTime = new Date()
+    let currentTime = new Date()
 
-      // uses the postTime the was selected by user in front end. adds time to Date() constructor
-      let scheduleTime = new Date(postItem.postTime)
+    // uses the postTime the was selected by user in front end. adds time to Date() constructor
+    let scheduleTime = new Date(postItem.postTime)
 
-      console.log('postItem', postItem)
+    console.log('postItem', postItem)
 
-      let updatedInfo = {
-        vendorName: postItem.vendorName,
-        vendorId: postItem.vendorId,
-        postTitle: postItem.postTitle,
-        price: postItem.price,
-        quantity: postItem.quantity,
-        photos: postItem.photos,
-        description: postItem.description,
-        about: postItem.about,
-        canShip: postItem.canShip,
-        available: postItem.available,
-        postTime: postItem.postTime,
-        uploadTime: postItem.uploadTime,
-        location: postItem.location,
-      }
-      // adds saleItem object (all important information for sale on instagram) to the SaleItem constructor from "../models/saleItemModel"
-      const newData = await new SaleItem(updatedInfo)
+    let updatedInfo = {
+      vendorName: postItem.vendorName,
+      vendorId: postItem.vendorId,
+      postTitle: postItem.postTitle,
+      price: postItem.price,
+      quantity: postItem.quantity,
+      photos: postItem.photos,
+      description: postItem.description,
+      about: postItem.about,
+      canShip: postItem.canShip,
+      available: postItem.available,
+      postTime: postItem.postTime,
+      uploadTime: postItem.uploadTime,
+      location: postItem.location,
+    }
+    // adds saleItem object (all important information for sale on instagram) to the SaleItem constructor from "../models/saleItemModel"
+    const newData = await new SaleItem(updatedInfo)
 
-      // saves "newData" to the saleItems collection in database
-      const newSaleItem = await newData.save()
+    // saves "newData" to the saleItems collection in database
+    const newSaleItem = await newData.save()
 
-      console.log('newSaleItem', newSaleItem)
+    console.log('newSaleItem', newSaleItem)
 
-      postItem.saleItems.unshift(newSaleItem._id)
+    postItem.saleItems.unshift(newSaleItem._id)
 
-      await findUserAndUpdate(postItem.vendorId, {
-        saleItems: postItem.saleItems,
-      })
+    await findUserAndUpdate(postItem.vendorId, {
+      saleItems: postItem.saleItems,
+    })
 
-      console.log('current time', currentTime.getTime())
-      console.log('schedule  time', scheduleTime.getTime())
+    console.log('current time', currentTime.getTime())
+    console.log('schedule  time', scheduleTime.getTime())
 
-      // .getTime() used on both scheduleTime and current time converts date received from user in front end and current time into milliseconds
-      // times are subtracted to determine the delay time for post
-      const delayTime = scheduleTime.getTime() - currentTime.getTime()
+    // .getTime() used on both scheduleTime and current time converts date received from user in front end and current time into milliseconds
+    // times are subtracted to determine the delay time for post
+    const delayTime = scheduleTime.getTime() - currentTime.getTime()
 
-      console.log('delay time', delayTime)
+    console.log('delay time', delayTime)
 
     res.status(202).json({
       postStatus: 'scheduled',
