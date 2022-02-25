@@ -42,7 +42,8 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 router.post('/schedule', async (req, res) => {
   // sale item data from front end is received
   let postItem = req.body
-
+  let newSaleItemId
+  console.log('postItem', postItem)
   // function that is called after specified delay determined on line 49, delay statement is on line 69
   const postSaleItem = async () => {
     // incoming cloudinary url is spliced at specifice spot. this is because first part of url is always the same and aspect ratio and width
@@ -51,7 +52,7 @@ router.post('/schedule', async (req, res) => {
 
     // first api call uploads image from cloudinary. data required, instagram business id, spliced url, caption from user, and permanent token.
     // api returns an ID for a media container. post is in instagram DB but will not be displayed until media container ID is sent in new api call
-    try {
+  
       const resContainer = await fetch(
         `https://graph.facebook.com/v12.0/${postItem.instagramBusinessId}/media?fields=status_code&image_url=https://res.cloudinary.com/ddcynhc98/image/upload/ar_4:5,c_scale,w_1080/${urlSplice}&caption=${postItem.description}&access_token=${postItem.permanentToken}`,
         {
@@ -62,12 +63,7 @@ router.post('/schedule', async (req, res) => {
 
       // converts response from api call to create container to json
       const resContainerText = await resContainer.json()
-    } catch (e) {
-      console.log('resContainerText', resContainerText.error.code)
-      if (resContainerText.error.code === 100) {
-        res.status(401).send({ access_token: 'Rejected' })
-      }
-    }
+
     // second api call sends media container ID back to instagram. data required, instagram business ID, media container ID, and permanent token
     // item will now be displayed on instagram as post
     const resPost = await fetch(
@@ -83,7 +79,7 @@ router.post('/schedule', async (req, res) => {
 
     // new array spread to add new sale item id to user saleItems array
 
-    const updatedSaleItem = await findSaleItemAndUpdate(newSaleItem._id, {
+    const updatedSaleItem = await findSaleItemAndUpdate(newSaleItemId, {
       available: 'Posted',
     })
 
@@ -98,12 +94,12 @@ router.post('/schedule', async (req, res) => {
   const pingInsta = await fetch(
     `https://graph.facebook.com/v12.0/${postItem.instagramBusinessId}/media?access_token=${postItem.permanentToken}`,
     {
-      method: 'post',
+      method: 'get',
       headers: { 'Content-Type': 'application/json' },
     }
   )
-
-  if (pingInsta.statusText === 'Bad Request') {
+    console.log('pingInsta', pingInsta)
+  if (pingInsta.statusText === 'Bad Request' || pingInsta.statusText === 'Forbidden') {
     res.sendStatus(400)
   } else {
     let currentTime = new Date()
@@ -133,7 +129,7 @@ router.post('/schedule', async (req, res) => {
 
     // saves "newData" to the saleItems collection in database
     const newSaleItem = await newData.save()
-
+    newSaleItemId = newSaleItem._id
     console.log('newSaleItem', newSaleItem)
 
     postItem.saleItems.unshift(newSaleItem._id)
