@@ -1,35 +1,50 @@
 import * as React from 'react'
-import ImageList from '@mui/material/ImageList'
-import ImageListItem from '@mui/material/ImageListItem'
-import ImageListItemBar from '@mui/material/ImageListItemBar'
-import ListSubheader from '@mui/material/ListSubheader'
-import IconButton from '@mui/material/IconButton'
-import InstagramIcon from '@mui/icons-material/Instagram'
+import InstagramEmbed from 'react-instagram-embed'
 
-import axios from 'axios'
-import { useState, useEffect } from 'react'
+// import ImageList from '@mui/material/ImageList'
+// import ImageListItem from '@mui/material/ImageListItem'
+// import ImageListItemBar from '@mui/material/ImageListItemBar'
+// import ListSubheader from '@mui/material/ListSubheader'
+// import IconButton from '@mui/material/IconButton'
+// import InstagramIcon from '@mui/icons-material/Instagram'
+
+// import axios from 'axios'
+// import { useState, useEffect } from 'react'
 
 export default function SaleListUser({userData}) {
 
-  const [saleItems, setSaleItems] = useState([])
+  // const [saleItems, setSaleItems] = useState([])
 
-  useEffect(() => {  
-    const getSaleItemsByLoggedUser = async () => {
-      const response = await axios.get('/saleItem/listSaleItemsByLoggedUser')
-      response.data.sort(function (a, b) {
-        return new Date(b.postTime) - new Date(a.postTime)
-      })
+  // useEffect(() => {  
+  //   const getSaleItemsByLoggedUser = async () => {
+  //     const response = await axios.get('/saleItem/listSaleItemsByLoggedUser')
+  //     response.data.sort(function (a, b) {
+  //       return new Date(b.postTime) - new Date(a.postTime)
+  //     })
 
-      setSaleItems(response.data)
-    }
-    if (userData) {
-      getSaleItemsByLoggedUser()
-    }
-  }, [userData])
+  //     setSaleItems(response.data)
+  //   }
+  //   if (userData) {
+  //     getSaleItemsByLoggedUser()
+  //   }
+  // }, [userData])
 
   return (
     <div>
-      <ImageList sx={{ width: '100%' }}>
+      <InstagramEmbed
+        url="https://instagr.am/p/Zw9o4/"
+        clientAccessToken="123|456"
+        maxWidth={320}
+        hideCaption={false}
+        containerTagName="div"
+        protocol=""
+        injectScript
+        onLoading={() => {}}
+        onSuccess={() => {}}
+        onAfterRender={() => {}}
+        onFailure={() => {}}
+      />
+      {/* <ImageList sx={{ width: '100%' }}>
         <ImageListItem key="Subheader" cols={2}>
           <ListSubheader component="div">
             {userData ? `${userData.userName}'s Recent Posts` : ''}
@@ -59,7 +74,7 @@ export default function SaleListUser({userData}) {
               </ImageListItem>
             ))
           : ''}
-      </ImageList>
+      </ImageList> */}
     </div>
   )
 }
