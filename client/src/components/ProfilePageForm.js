@@ -3,7 +3,7 @@ import './ProfilePageForm.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { ReactDOM } from 'react'
+// import { ReactDOM } from 'react'
 
 const ProfilePageForm = () => {
   const [name, setName] = useState()
@@ -47,13 +47,17 @@ const ProfilePageForm = () => {
     console.log(userProfile)
     const response = await axios.post('user/addUser', imageData)
     console.log(response.statusText)
+
     if (response.statusText === 'OK') {
+      console.log(response.data)
       navigate('/')
     }
   }
-  return (
-    <div>
-       Create New Profile
+    return (
+      <div className='profile-page-container'>
+      <div>
+         <div className="h1Title">Let's Create Profile</div>
+    <div/>
       <div className="profile-page-form">
         <form>
           <label htmlFor="name">Name</label>
@@ -164,6 +168,7 @@ const ProfilePageForm = () => {
           <input type="submit" value="Submit" className="input-submit" onClick={postData} />
         </form>
       </div>
+    </div>
     </div>
   )
 }

@@ -25,8 +25,10 @@ import MenuItem from '@mui/material/MenuItem'
 import Link from '@mui/material/Link'
 import SignUpButton from '../modals/SignUpModal'
 
+
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import SalePageLink from '../ui/SalePageLink'
 const drawerWidth = 240
 
 const openedMixin = (theme) => ({
@@ -100,6 +102,14 @@ export default function MiniDrawer({ children, userData, getUserState }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null)
   const [open, setOpen] = React.useState(false)
 
+  const [expanded, setExpanded] = React.useState()
+
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false)
+    handleDrawerClose()
+  }
+
   const handleDrawerOpen = () => {
     setOpen(true)
   }
@@ -128,11 +138,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        open={open}
-        sx={{ backgroundColor: 'white'}}
-      >
+      <AppBar position="fixed" open={open} sx={{ backgroundColor: 'white' }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -164,6 +170,9 @@ export default function MiniDrawer({ children, userData, getUserState }) {
             <Button sx={{ my: 2, color: 'black', display: 'block' }}>
               Blog
             </Button>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              {userData ? <SalePageLink userData={userData} /> : ''}
+            </Box>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             {userData ? (
@@ -214,18 +223,24 @@ export default function MiniDrawer({ children, userData, getUserState }) {
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleChange('panel2')}>
             {theme.direction === 'rtl' ? (
               <ChevronRightIcon />
             ) : (
-              <ChevronLeftIcon />
+              <ChevronLeftIcon  />
             )}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
           <ListItem>
-            <AccordionButton open={open} handleDrawerOpen={handleDrawerOpen} />
+            <AccordionButton
+              open={open}
+              handleDrawerOpen={handleDrawerOpen}
+              handleChange={handleChange}
+              setExpanded={setExpanded}
+              expanded={expanded}
+            />
           </ListItem>
         </List>
         <Divider />
@@ -240,7 +255,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, background: ' #b7e7fa' }}>
         <DrawerHeader />
         {children}
       </Box>

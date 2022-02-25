@@ -1,31 +1,40 @@
 
 
 .input-form {
-  width: 100%;
-  padding: 5px 30px;
-  margin: 8px 0;
+   width:100%; 
+  padding: 5px 10px;
+  margin: 8px 50px;
   display: inline-block;
-  border: 1px solid rgb(101, 19, 209);
+  border: 1px solid rgb(68, 26, 122);
   border-radius: 100px;
   box-sizing: border-box;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
   font-weight: 100;
 }
 
+.h1Title {
+  text-align: center;
+  font-weight: bold;
+  font-size: xx-large;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 .input-submit {
-  width: 100%;
-  background-color: rgb(3, 3, 3);
-  color: whitesmoke;
-  padding: 10px 15px;
-  margin: 8px 0;
+  background-position: center;
+  width: 50%;
+  background-color: rgb(15, 14, 14);
+  color: rgb(241, 189, 189);
+  padding: 20px 15px;
+  margin: 8px 50px;
   border: none;
   border-radius: 200px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight:200;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .input-button {
-  width: 100%;
+  width: 50%;
   background-color: rgb(209, 28, 28);
   color: white;
   padding: 14px 20px;
@@ -33,6 +42,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  
 }
 
 .input-submit:hover {
@@ -40,18 +50,29 @@
 }
 
 .profile-page-form {
-  border-radius: 5px;
-  background-color: #52cff5;
-  width: '100px';
-  height: '100px';
-  padding: 20px 100px 20px 100px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-weight: bold;
-  font-style: italic;
+  
+    border-radius: 100px;
+    background-color: #44178b;
+    display: flex;
+    width:min-content;
+    margin: auto;
+    padding: 20px 80px 20px 80px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size:large;
+    color:rgb(148, 174, 196);
+    text-align:left;
 }
-
+.profile-page-form form{
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
 .heading {
-  color: #a50606;
+  color: #b7e7fa;
   text-align: center;
   text-transform: capitalize;
   font-weight: bold;
