@@ -1,5 +1,5 @@
 import * as React from 'react'
-import InstagramEmbed from 'react-instagram-embed'
+// import InstagramEmbed from 'react-instagram-embed'
 
 // import ImageList from '@mui/material/ImageList'
 // import ImageListItem from '@mui/material/ImageListItem'
@@ -31,7 +31,7 @@ export default function SaleListUser({userData}) {
 
   return (
     <div>
-      <InstagramEmbed
+      {/* <InstagramEmbed
         url="https://instagr.am/p/Zw9o4/"
         clientAccessToken="123|456"
         maxWidth={320}
@@ -43,7 +43,7 @@ export default function SaleListUser({userData}) {
         onSuccess={() => {}}
         onAfterRender={() => {}}
         onFailure={() => {}}
-      />
+      /> */}
       {/* <ImageList sx={{ width: '100%' }}>
         <ImageListItem key="Subheader" cols={2}>
           <ListSubheader component="div">
