@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import {Modal,IconButton, Button} from '@mui/material'
-import Link from '@mui/material/Link'
+// import Link from '@mui/material/Link'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
     
 const style = {
@@ -11,8 +11,8 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '500px',
-  height: '750px',
-  minHeight: '650px',
+  height: '200px',
+  // minHeight: '650px',
   bgcolor: 'white',
   boxShadow: 24,
   p: 4,
@@ -37,14 +37,11 @@ const styleHeaderAlt = {
   borderTop: "3px solid lightGray",
 } 
 
-export default function ErrorEmailAlreadyUsed() {
-  const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+export default function ErrorEmailAlreadyUsed({open, handleClose}) {
 
   return (
     <div>
-      <Link onClick={handleOpen}>Oops!  Something went wrong!   </Link>
+      {/* <Link onClick={handleOpen}>Oops!  Something went wrong!   </Link> */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -54,14 +51,16 @@ export default function ErrorEmailAlreadyUsed() {
         <Box sx={style}>
           <Box sx={styleHeader}>
             <Typography id="modal-modal-title" variant="h7" component="h2">
-            This email has already been used.  
-            Try logging in or create a profile with an alternate email!
-            </Typography>       
-            <Button variant= "contained">
-                <IconButton onClick={handleClose} sx={{ margin: '2px'}}>
-                  <ArrowBackIcon />
-                </IconButton>
-                </Button>
+              This email has already been used. Try logging in or create a
+              profile with an alternate email!
+            </Typography>
+          </Box>
+          <Box sx={{ paddingTop: '10px' }}>
+            <Button variant="contained">
+              <IconButton onClick={handleClose} sx={{ margin: '2px' }}>
+                <ArrowBackIcon />
+              </IconButton>
+            </Button>
           </Box>
         </Box>
       </Modal>
