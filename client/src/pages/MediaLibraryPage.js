@@ -21,7 +21,7 @@ const MediaLibraryPage = ({ userData }) => {
       <div>Media Library</div>
       <Masonry columns={2} spacing={2}>
         <Item sx={{ maxWidth: '50%', minWidth: '450px'}}>
-          <DisplayMedia userData={userData} />
+          {/* <DisplayMedia userData={userData} /> */}
         </Item>
         <Item
           sx={{
@@ -31,7 +31,7 @@ const MediaLibraryPage = ({ userData }) => {
             overflowY: 'auto',
           }}
         >
-          <TimeLine userData={userData} />
+          {/* <TimeLine userData={userData} /> */}
         </Item>
         <Item>
           <SaleListUser userData={userData} />

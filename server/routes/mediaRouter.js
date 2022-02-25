@@ -45,7 +45,14 @@ router.get('/getInstagramPostsByLoggedInUser/:id', async (req, res) => {
   if (resPosts.statusText === 'OK') {
   const resPostsJson = await resPosts.json()
     console.log('in good post')
-    res.status(202).send(resPostsJson)
+      const resUserInfo = await fetch(
+        `https://graph.facebook.com/v12.0/${userData.instagramBusinessId}/media?fields=caption,comments_count,like_count,permalink,owner,timestamp,username,media_url,is_comment_enabled&access_token=${userData.permanentToken}`,
+        {
+          method: 'get',
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
+    // res.status(202).send(resPostsJson)
   } else {
     res.sendStatus(404)
   }
