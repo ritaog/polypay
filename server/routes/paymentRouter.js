@@ -25,7 +25,9 @@ router.post('/onboardVendorToStripe', async (req, res) => {
     return_url: 'http://localhost:3000/success',
     type: 'account_onboarding',
   })
+  console.log('This is the accoutLink object', accountLink)
   console.log('This is the linking url', accountLink.url)
+
   res.send(accountLink.url)
 })
 

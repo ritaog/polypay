@@ -92,13 +92,18 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
     }
 
     // second post sends combine object from above to back end to be posted to instagram and added to the users sale que
-    const response = await axios.post('saleItem/schedule', saleItemDataBundle)
-    if (response.statusText === 'Accepted') {
-      setTimeout(() => {
-        setPostNowLoading(false)
-        setScheduleLoading(false)
-        navigate(0)
-      }, 1000);
+    try {
+      const response = await axios.post('saleItem/schedule', saleItemDataBundle)
+      if (response.statusText === 'Accepted') {
+        setTimeout(() => {
+          setPostNowLoading(false)
+          setScheduleLoading(false)
+          navigate(0)
+        }, 1000)
+      }
+    } catch (err) {
+      console.log('err', err)
+      console.log('do something here Modal')
     }
   }
 
@@ -111,7 +116,7 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} zIndex={0} >
+        <Box sx={style} zIndex={0}>
           <Grid container>
             <Grid item xs={7} sm={7} md={7}>
               {scheduleItem ? (

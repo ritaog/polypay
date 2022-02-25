@@ -38,6 +38,7 @@ const ProfilePageForm = () => {
       selectedImage:'',
       permanentToken: '',
       saleItems: [],
+      photos: [],
     }
     
     const imageData = new FormData()
@@ -48,7 +49,7 @@ const ProfilePageForm = () => {
     const response = await axios.post('user/addUser', imageData)
     console.log(response.statusText)
 
-    if (response.statusText === 'OK') {
+    if (response.statusText === 'Created') {
       console.log(response.data)
       navigate('/')
     }
