@@ -1,8 +1,9 @@
 import express from 'express'
 import cloudinary from '../utils/cloudinary.js'
 import upload from '../utils/multer.js'
+import fetch from 'node-fetch'
 import Media from '../models/mediaModel.js'
-import { findMediaAndDelete } from '../models/controller.js'
+import { findMediaAndDelete, findUserById } from '../models/controller.js'
 
 const router = express.Router()
 
@@ -31,6 +32,24 @@ router.post('/upload', upload.single('image'), async (req, res) => {
   res.status(200).json(newItem)
 })
 
+// GET endpoint || description: localhost:5000/media/getInstagramPostsByLoggedInUser
+router.get('/getInstagramPostsByLoggedInUser/:id', async (req, res) => {
+  const userData = await findUserById(req.params.id)
+  const resPosts = await fetch(
+    `https://graph.facebook.com/v12.0/${userData.instagramBusinessId}/media?fields=caption,comments_count,like_count,permalink,owner,timestamp,username,media_url,is_comment_enabled&access_token=${userData.permanentToken}`,
+    {
+      method: 'get',
+      headers: { 'Content-Type': 'application/json' },
+    }
+  )
+  if (resPosts.statusText === 'OK') {
+  const resPostsJson = await resPosts.json()
+    console.log('in good post')
+    res.status(202).send(resPostsJson)
+  } else {
+    res.sendStatus(404)
+  }
+})
 // GET endpoint || description: localhost:5000/media/listImagesBLoggedUser
 router.get('/listImagesByLoggedUser', async (req, res) => {
   const userId = req.user.id
@@ -43,7 +62,7 @@ router.delete('/deleteImageById/:id', async (req, res) => {
   const imageId = req.params.id
   console.log('imageId', imageId)
   const media = await findMediaAndDelete(imageId)
-  res.status(204).send({deletedMedia: media})
+  res.status(204).send({ deletedMedia: media })
 })
 
 export default router
