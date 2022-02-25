@@ -6,7 +6,7 @@ const StripeSuccess = () => {
       <h1>Successful onboarding!</h1>
       <p>Congratulations, you have been successfully authenticated!</p>
       <Link to="/">
-        <button>Back</button>
+        <button>Home Page</button>
       </Link>
     </div>
   )
