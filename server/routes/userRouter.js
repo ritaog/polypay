@@ -59,7 +59,8 @@ router.post('/addUser', upload.single('image'), async (req, res) => {
       },
     })
 
-    console.log('accountttttttt', account)
+    console.log('acounttttt', account)
+
     newProfile.stripeAccountId = account.id
     console.log('newProfileeee', newProfile)
 
