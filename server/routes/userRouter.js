@@ -39,6 +39,7 @@ router.post('/addUser', upload.single('image'), async (req, res) => {
     const result = await cloudinary.uploader.upload(req.file.path)
     // adds received data to User constructor
     let newProfile = await new User(incomingData)
+    console.log('Just verifying new profile', newProfile)
     newProfile.photos[0] = result.secure_url
     //creating express account in stripe
     const account = await stripeConfig.accounts.create({
@@ -56,7 +57,8 @@ router.post('/addUser', upload.single('image'), async (req, res) => {
       },
     })
 
-    console.log('accountttttttt', account)
+    console.log('acounttttt', account)
+
     newProfile.stripeAccountId = account.id
     console.log('newProfileeee', newProfile)
 
