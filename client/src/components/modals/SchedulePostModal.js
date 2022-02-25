@@ -16,6 +16,7 @@ import {
 import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ErrorInstaAccountSetup from './ErrorModals/ErrorInstaAccountSetup'
 
 const style = {
   position: 'absolute',
@@ -45,8 +46,12 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
   const [location, setLocation] = useState()
   const [postTime, setPostTime] = useState(new Date())
 
+  const [openError, setOpenError] = useState(false)
+
   const [postNowLoading, setPostNowLoading] = useState(false)
   const [scheduleLoading, setScheduleLoading] = useState(false)
+
+  const handleOpenErrorModal = () => setOpenError(true)
 
   const handleIncrement = () => {
     setQuantity(quantity + 1)
@@ -103,12 +108,13 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
       }
     } catch (err) {
       console.log('err', err)
-      console.log('do something here Modal')
+      handleOpenErrorModal()
     }
   }
 
   return (
     <div>
+      <ErrorInstaAccountSetup open={openError} setOpen={setOpenError} />
       <Modal
         open={open}
         onClose={handleClose}
