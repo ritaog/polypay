@@ -71,15 +71,15 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
           fullWidth
           sx={{ borderBottom: '1px solid lightGray', marginBottom: '10px' }}
         >
-          <Grid item sm={4} sx={{ margin: '10px' }}>
+          <Grid item xs={1} sm={1} md={1} sx={{ margin: '10px' }}>
             <Avatar alt="User Name" src="/static/images/avatar/2.jpg" />
           </Grid>
-          <Grid item sm={4}>
+          <Grid item xs={6} sm={6} md={6}>
             <Typography align="left">
               {buyModalItem ? buyModalItem.vendorName : ''}
             </Typography>
           </Grid>
-          <Grid item sm={4}>
+          <Grid item xs={2} sm={2} md={2}>
             <IconButton
               aria-label="delete"
               onClick={handleClose}
