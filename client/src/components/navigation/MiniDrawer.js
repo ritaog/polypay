@@ -24,7 +24,8 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import Link from '@mui/material/Link'
 import SignUpButton from '../modals/SignUpModal'
-
+import Image from 'mui-image'
+// import logo from 'images/polypay_armadillo.png'
 
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -152,11 +153,20 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           >
             <MenuIcon sx={{ color: 'black' }} />
           </IconButton>
+          <Box sx={{ paddingRight: '10px' }}>
+            <Image
+              src="images/polypay_armadillo.png"
+              alt="logo"
+              height="50px"
+              width="50px"
+              fit="fill"
+            />
+          </Box>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ color: 'black', paddingRight: '10px' }}
+            sx={{ color: 'black', paddingRight: '10px', fontSize: '30px' }}
           >
             PolyPay
           </Typography>
@@ -227,7 +237,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
             {theme.direction === 'rtl' ? (
               <ChevronRightIcon />
             ) : (
-              <ChevronLeftIcon  />
+              <ChevronLeftIcon />
             )}
           </IconButton>
         </DrawerHeader>
