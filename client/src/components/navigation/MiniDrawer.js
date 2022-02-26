@@ -155,7 +155,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           </IconButton>
           <Box sx={{ paddingRight: '10px' }}>
             <Image
-              src="images/polypay_armadillo.png"
+              src="/images/polypay_armadillo.png"
               alt="logo"
               height="50px"
               width="50px"
