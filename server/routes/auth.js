@@ -119,6 +119,7 @@ router.post('/validateFb', async function (req, res) {
   }
 
   // user is updated in the database
+  console.log('data.userData', data)
   const updatedUser = await findUserAndUpdate(data.userData._id, instaAccess)
 
   // updated user is sent back to the front end

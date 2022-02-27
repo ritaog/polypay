@@ -35,6 +35,16 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 // GET endpoint || description: localhost:5000/media/getInstagramPostsByLoggedInUser
 router.get('/getInstagramPostsByLoggedInUser/:id', async (req, res) => {
   const userData = await findUserById(req.params.id)
+
+  const resUserInfo = await fetch(
+    `https://graph.facebook.com/v12.0/${userData.instagramBusinessId}?fields=username,followers_count,profile_picture_url&access_token=${userData.permanentToken}`,
+    {
+      method: 'get',
+      headers: { 'Content-Type': 'application/json' },
+    }
+  )
+  const resUserInfoJson = await resUserInfo.json()
+  
   const resPosts = await fetch(
     `https://graph.facebook.com/v12.0/${userData.instagramBusinessId}/media?fields=caption,comments_count,like_count,permalink,owner,timestamp,username,media_url,is_comment_enabled&access_token=${userData.permanentToken}`,
     {
@@ -42,21 +52,30 @@ router.get('/getInstagramPostsByLoggedInUser/:id', async (req, res) => {
       headers: { 'Content-Type': 'application/json' },
     }
   )
-  if (resPosts.statusText === 'OK') {
   const resPostsJson = await resPosts.json()
-    console.log('in good post')
-      const resUserInfo = await fetch(
-        `https://graph.facebook.com/v12.0/${userData.instagramBusinessId}/media?fields=caption,comments_count,like_count,permalink,owner,timestamp,username,media_url,is_comment_enabled&access_token=${userData.permanentToken}`,
-        {
-          method: 'get',
-          headers: { 'Content-Type': 'application/json' },
-        }
-      )
-    // res.status(202).send(resPostsJson)
-  } else {
-    res.sendStatus(404)
-  }
+  // console.log('resPostsJson', resPostsJson)
+
+  const postsWithComments = resPostsJson.data.map( async (post) => {
+    const postComments = await fetch(
+      `https://graph.facebook.com/v12.0/${post.id}/comments?access_token=${userData.permanentToken}`,
+      {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    )
+    const postCommentsJson = await postComments.json()
+    post.comments = postCommentsJson.data
+    return post
+  })
+  Promise.all(postsWithComments).then((values) => {
+    const instaData = {
+      userData: resUserInfoJson,
+      postData: values
+    }
+  res.status(200).send(instaData)  
+  })
 })
+
 // GET endpoint || description: localhost:5000/media/listImagesBLoggedUser
 router.get('/listImagesByLoggedUser', async (req, res) => {
   const userId = req.user.id

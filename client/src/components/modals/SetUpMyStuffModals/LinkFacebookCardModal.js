@@ -51,6 +51,7 @@ const styleHeaderAlt = {
 
       const responseFacebook = (response) => {
         // bundles together data from response from facebook above and userData from the users state passed down from 'app.js'
+        console.log('response', response)
         let userDataBundle = {
           userData,
           response,
@@ -59,6 +60,7 @@ const styleHeaderAlt = {
       }
       useEffect(() => {
         const getData = async () => {
+          console.log('userData', userData)
           const response = await axios.post('auth/validateFb', dataBundle)
           console.log(response)
         }
@@ -74,56 +76,61 @@ const styleHeaderAlt = {
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
-          ><Box sx={style}>
-            <Box sx={styleHeader}>
-              <Typography id="modal-modal-title" variant="h7" component="h2">
-              Schedule Posts Directly to Instagram                
-              </Typography>
+          >
+            <Box sx={style}>
+              <Box sx={styleHeader}>
+                <Typography id="modal-modal-title" variant="h7" component="h2">
+                  Schedule Posts Directly to Instagram
+                </Typography>
 
-              <IconButton
-                      aria-label="delete"
-                      onClick={handleClose}
-                      sx={{ margin: '10px' }}
-                    >
-                      <CloseOutlinedIcon />
-                    </IconButton>
-
-
+                <IconButton
+                  aria-label="delete"
+                  onClick={handleClose}
+                  sx={{ margin: '10px' }}
+                >
+                  <CloseOutlinedIcon />
+                </IconButton>
               </Box>
-              <Box sx={{padding:"5px"}}> 
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                <br/>
-              1. Do you have access to a Facebook account?  
-              <FacebookAcctSetupModal/>             
-              </Typography>
-              <br/>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-              2. Do you have a business instagram account?    
-              <InstaBusAcctSetupModal/>           
-              </Typography>
-              <br/>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-              3. Do you have a facebook page linked to your instagram account?    
-              <FacebookPageSetupModal/>           
-              </Typography>
-              <br/>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-              3. Is your instagram account linked to your facebook account?    
-              <LinkInstaToFbSetupModal/>           
-              </Typography>
-              <br/>
-              <br/>
-              <Box sx={styleHeaderAlt}>
-              <Typography id="modal-modal-title" variant="h7" component="h2">
-                <br/>
-              Have everything above? Click Login!                
-              </Typography><br/>             
-              <FacebookLogin
-              appId="2632625433548280"
-              autoLoad={false}
-              fields="name,email,picture"
-              cssClass="FbBtn"
-              scope="
+              <Box sx={{ padding: '5px' }}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  <br />
+                  1. Do you have access to a Facebook account?
+                  <FacebookAcctSetupModal />
+                </Typography>
+                <br />
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  2. Do you have a business instagram account?
+                  <InstaBusAcctSetupModal />
+                </Typography>
+                <br />
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  3. Do you have a facebook page linked to your instagram
+                  account?
+                  <FacebookPageSetupModal />
+                </Typography>
+                <br />
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  3. Is your instagram account linked to your facebook account?
+                  <LinkInstaToFbSetupModal />
+                </Typography>
+                <br />
+                <br />
+                <Box sx={styleHeaderAlt}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h7"
+                    component="h2"
+                  >
+                    <br />
+                    Have everything above? Click Login!
+                  </Typography>
+                  <br />
+                  <FacebookLogin
+                    appId="2632625433548280"
+                    autoLoad={false}
+                    fields="name,email,picture"
+                    cssClass="FbBtn"
+                    scope="
                 public_profile, 
                 instagram_basic, 
                 pages_show_list,
@@ -132,17 +139,19 @@ const styleHeaderAlt = {
                 business_management, 
                 instagram_content_publish, 
                 pages_read_engagement,
-                instagram_manage_comments
+                instagram_manage_comments,
+                instagram_manage_insights,
+                pages_read_engagement,
+                pages_show_list
                 "
-              callback={responseFacebook}
-            />
+                    callback={responseFacebook}
+                  />
+                </Box>
+                <br />
+                <UnlinkAccountModal />
               </Box>
-              <br/>
-              <UnlinkAccountModal/>
-            </Box>
             </Box>
           </Modal>
-
         </div>
       )
     }

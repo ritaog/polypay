@@ -236,6 +236,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           <ListItem>
             <AccordionButton
               open={open}
+              userData={userData}
               handleDrawerOpen={handleDrawerOpen}
               handleChange={handleChange}
               setExpanded={setExpanded}
