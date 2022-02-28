@@ -69,7 +69,7 @@ const styleHeaderAlt = {
         if (dataBundle) {
           getData()
         }
-      }, [dataBundle])
+      }, [dataBundle, userData])
     
       return (
         <div>

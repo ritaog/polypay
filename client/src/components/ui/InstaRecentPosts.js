@@ -18,7 +18,7 @@ import { useState, useEffect } from 'react'
 export default function InstaRecentPosts({ userData }) {
   const [recentPosts, setRecentPosts] = useState({ postData: [], userData: [] })
   const [comment, setComment] = useState()
-
+  
   useEffect(() => {
     const getInstaMedia = async () => {
       const response = await axios.get(
@@ -30,7 +30,7 @@ export default function InstaRecentPosts({ userData }) {
     if (userData) {
       getInstaMedia()
     }
-  }, [])
+  }, [userData])
 
   const postedTimeHandler = (postedDate) => {
     let currentDate = new Date()
@@ -48,11 +48,9 @@ export default function InstaRecentPosts({ userData }) {
     }
   }
 
-  console.log('recentPosts', recentPosts)
-
   const postDisplay = recentPosts.postData.map((post) => {
     return (
-      <Box>
+      <Box key={post.id}>
         {/* Instagram user icon and header and followers */}
 
         <Box
@@ -222,14 +220,18 @@ export default function InstaRecentPosts({ userData }) {
             paddingLeft: '10px',
           }}
         >
+
+          {/* Comment on post input */}
+
           <TextField
             id="standard-basic"
             placeholder="Add Comment"
             multiline
             rows={2}
             variant="standard"
-            disableUnderline="true"
-            inputProps={{ disableUnderline: 'true' }}
+            value={comment}
+            // disableUnderline="true"
+            // inputProps={{ disableUnderline: 'true' }}
             sx={{ width: '250px' }}
             onChange={(e) => {
               setComment(e.target.value)
