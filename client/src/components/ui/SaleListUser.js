@@ -7,13 +7,22 @@ import * as React from 'react'
 // import ListSubheader from '@mui/material/ListSubheader'
 // import IconButton from '@mui/material/IconButton'
 // import InstagramIcon from '@mui/icons-material/Instagram'
-import { Card, CardContent, Grid, Typography, Box, Avatar } from '@mui/material'
+import {
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+  Box,
+  Avatar,
+  Link,
+} from '@mui/material'
 
+import Image from 'mui-image'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
 export default function SaleListUser({ userData }) {
-  const [recentPosts, setRecentPosts] = useState()
+  const [recentPosts, setRecentPosts] = useState({ postData: [], userData: [] })
 
   useEffect(() => {
     const getInstaMedia = async () => {
@@ -28,43 +37,184 @@ export default function SaleListUser({ userData }) {
     }
   }, [])
 
-  const postDisplay = (
-    <Box>
-      <Box sx={{ height: '60px', width: '340px' }}>
-        <Box sx={{padding: '14px 16px'}}>
-          {recentPosts ? (
-            <Avatar
-              alt="user-image"
-              src={recentPosts.userData.profile_picture_url}
-              sx={{
-                width: '32px',
-                height: '32px',
-                border: '1px solid lightGray',
-              }}
-            />
+  const postedTimeHandler = (postedDate) => {
+    let currentDate = new Date()
+    let postDate = new Date(postedDate)
+    let timeDifference = currentDate.getTime() - postDate.getTime()
+    let timeDifferenceDays = Math.floor(timeDifference / (1000 * 3600 * 24))
+    let timeDifferenceHours = Math.floor(timeDifference / (1000 * 3600))
+    let timeDifferenceMin = Math.floor(timeDifference / (1000 * 60))
+    if (timeDifferenceDays >= 1) {
+      return `${timeDifferenceDays} day(s) ago`
+    } else if (timeDifferenceHours >= 1) {
+      return `${timeDifferenceHours} hour(s) ago`
+    } else {
+      return `${timeDifferenceMin} minute(s) ago`
+    }
+  }
+
+  console.log('recentPosts', recentPosts)
+
+  const postDisplay = recentPosts.postData.map((post, index) => {
+    return (
+      <Box>
+        {/* Instagram user icon and header and followers */}
+
+        <Box
+          sx={{
+            height: '60px',
+            width: '340px',
+            borderBottom: '1px solid lightGray',
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '14px 16px',
+            }}
+          >
+            {post ? (
+              <Avatar
+                alt="user-image"
+                src={recentPosts.userData.profile_picture_url}
+                sx={{
+                  width: '32px',
+                  height: '32px',
+                  border: '1px solid lightGray',
+                }}
+              />
+            ) : (
+              ''
+            )}
+            <Box>
+              {post ? (
+                <Typography variant="subtitle2" sx={{ marginLeft: '12px' }}>
+                  {recentPosts.userData.username}
+                </Typography>
+              ) : (
+                ''
+              )}
+            </Box>
+            <Box>
+              {post ? (
+                <Typography
+                  variant="caption"
+                  sx={{ marginLeft: '12px', height: '5px', color: 'gray' }}
+                >{`${recentPosts.userData.followers_count} followers`}</Typography>
+              ) : (
+                ''
+              )}
+            </Box>
+          </Box>
+        </Box>
+
+        {/* instagram post image */}
+
+        <Box sx={{ height: '425px', width: '340px' }}>
+          {post ? <Image alt="post" src={post.media_url} /> : ''}
+        </Box>
+
+        {/* view on instagram link */}
+
+        <Box
+          sx={{
+            height: '42px',
+            width: '340px',
+            display: 'flex',
+            alignItems: 'center',
+            borderBottom: '1px solid lightGray',
+            padding: '10px',
+          }}
+        >
+          {post ? (
+            <Link href={post.permalink} underline="none">
+              View on Instagram
+            </Link>
           ) : (
             ''
           )}
-          {/* <Typography>TopBar</Typography> */}
+        </Box>
+
+        {/* likes and comment count */}
+
+        <Box sx={{ height: '60px', width: '340px' }}>
+          <Box sx={{ padding: '10px 10px 0 10px' }}>
+            {post ? (
+              <Typography variant="caption">{`You have ${post.like_count} likes and ${post.comments_count} comments`}</Typography>
+            ) : (
+              ''
+            )}
+          </Box>
+          <Box sx={{ padding: '0 10px 0 10px' }}>
+            {post ? (
+              <Typography variant="caption">{`Posted ${postedTimeHandler(
+                post.timestamp
+              )}`}</Typography>
+            ) : (
+              ''
+            )}
+          </Box>
+        </Box>
+
+        {/* instagram caption */}
+
+        <Box
+          sx={{
+            width: '340px',
+            padding: '10px',
+            borderTop: '1px solid lightGray',
+            borderBottom: '1px solid lightGray',
+          }}
+        >
+          {post ? <Typography variant="body1">{post.caption}</Typography> : ''}
+        </Box>
+
+        {/* post comments */}
+
+        <Box
+          sx={{
+            height: '150px',
+            width: '340px',
+            padding: '10px 10px 0 10px',
+            overflowY: 'scroll',
+            scrollbarWidth: 'none',
+            '::-webkit-scrollbar': {
+              display: 'none',
+            },
+          }}
+        >
+          {post.comments ? (
+            post.comments.map((comment) => {
+              return (
+                <Box key={comment.id} sx={{ paddingBottom: '10px' }}>
+                  <Typography>{`${comment.text}`}</Typography>
+                  <Typography variant="caption">
+                    {postedTimeHandler(comment.timestamp)}
+                  </Typography>
+                </Box>
+              )
+            })
+          ) : (
+            <Typography variant="caption">No Comments</Typography>
+          )}
+        </Box>
+
+        {/* add comment to post */}
+
+        <Box
+          sx={{
+            height: '60px',
+            width: '340px',
+            borderTop: '1px solid lightGray',
+            borderBottom: '2px solid lightGray',
+          }}
+        >
+          <Typography>Comment Here</Typography>
         </Box>
       </Box>
-      <Box sx={{ height: '425px', width: '340px' }}>
-        <Typography>image</Typography>
-      </Box>
-      <Box sx={{ height: '42px', width: '340px' }}>
-        <Typography>insights</Typography>
-      </Box>
-      <Box sx={{ height: '42px', width: '340px' }}>
-        <Typography>likes and postDate</Typography>
-      </Box>
-      <Box sx={{ height: '42px', width: '340px' }}>
-        <Typography>Description</Typography>
-      </Box>
-      <Box sx={{ height: '100px', width: '340px' }}>
-        <Typography>comments</Typography>
-      </Box>
-    </Box>
-  )
+    )
+  })
 
   return (
     <div>
@@ -73,11 +223,6 @@ export default function SaleListUser({ userData }) {
           borderRadius: '25px',
           height: '650px',
           width: '340px',
-          overflowY: 'scroll',
-          scrollbarWidth: 'none',
-          '::-webkit-scrollbar': {
-            display: 'none',
-          },
         }}
       >
         <CardContent sx={{ padding: '0 0' }}>
@@ -86,6 +231,10 @@ export default function SaleListUser({ userData }) {
             direction="row"
             justifyContent="center"
             alignItems="center"
+            sx={{
+              borderBottom: '1px solid lightGray',
+              boxShadow: '0 1px 1px lightGray',
+            }}
           >
             <Grid item>
               <Typography
@@ -96,9 +245,20 @@ export default function SaleListUser({ userData }) {
                 Recent Posts
               </Typography>
             </Grid>
-            <Box></Box>
           </Grid>
-          <Grid container>{postDisplay}</Grid>
+          <Box
+            sx={{
+              width: '340px',
+              height: '598px',
+              overflowY: 'scroll',
+              scrollbarWidth: 'none',
+              '::-webkit-scrollbar': {
+                display: 'none',
+              },
+            }}
+          >
+            <Grid container>{postDisplay}</Grid>
+          </Box>
         </CardContent>
       </Card>
 
