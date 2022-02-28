@@ -60,7 +60,8 @@ router.post('/createLoginLink', async (req, res) => {
 //POST end-point || description: http://localhost:5000/payment/create-checkout-session
 router.post('/create-checkout-session', async (req, res) => {
   let storeItem
-  const productsInfo = req.body.map(async (item) => {
+  const purchaseInfo = req.body
+  const productsInfo = purchaseInfo.map(async (item) => {
     storeItem = await SaleItem.findById(item.id)
 
     console.log('storeItem', storeItem)
@@ -79,7 +80,6 @@ router.post('/create-checkout-session', async (req, res) => {
   })
 
   const listofProducts = await Promise.all(productsInfo)
-  console.log('results', listofProducts)
 
   const user = await User.findById(storeItem.vendorId)
 
@@ -139,21 +139,18 @@ router.post('/create-checkout-session', async (req, res) => {
       cancel_url: `${process.env.CLIENT_URL}/failedCheckout`,
       payment_intent_data: {
         application_fee_amount:
-          0.05 * storeItem.price * 100 * item.purchaseQuantity,
+          0.05 * storeItem.price * 100 * purchaseInfo.purchaseQuantity,
+
         transfer_data: {
           destination: user.stripeAccountId,
         },
       },
     })
 
-    console.log('This is session.url', session)
-    console.log({ url: session.url })
     res.json({ url: session.url })
   } catch (e) {
     res.status(500).json({ error: e.message })
   }
-
-  console.log('Here is the user', user)
 })
 
 export default router
