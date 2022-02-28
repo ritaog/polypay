@@ -13,7 +13,7 @@ const StripeFailure = () => {
       </Link>
 
       <Link to="/">
-        <button>Back</button>
+        <button>Home Page</button>
       </Link>
     </div>
   )

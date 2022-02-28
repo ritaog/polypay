@@ -13,6 +13,7 @@ import LinkInstaToFbSetupModal from './LinkInstaToFbSetupModal'
 import { IconButton } from '@mui/material'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import UnlinkAccountModal from './UnlinkAccountModal'
+import LinkInBioModal from './LinkInBioModal'
 // import FacebookLogin from 'react-facebook-login'
     
 const style = {
@@ -56,6 +57,7 @@ const styleHeaderAlt = {
           userData,
           response,
         }
+        console.log('response', response)
         setDataBundle(userDataBundle)
       }
       useEffect(() => {
@@ -91,46 +93,44 @@ const styleHeaderAlt = {
                   <CloseOutlinedIcon />
                 </IconButton>
               </Box>
-              <Box sx={{ padding: '5px' }}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  <br />
-                  1. Do you have access to a Facebook account?
-                  <FacebookAcctSetupModal />
-                </Typography>
-                <br />
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  2. Do you have a business instagram account?
-                  <InstaBusAcctSetupModal />
-                </Typography>
-                <br />
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  3. Do you have a facebook page linked to your instagram
-                  account?
-                  <FacebookPageSetupModal />
-                </Typography>
-                <br />
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  3. Is your instagram account linked to your facebook account?
-                  <LinkInstaToFbSetupModal />
-                </Typography>
-                <br />
-                <br />
-                <Box sx={styleHeaderAlt}>
-                  <Typography
-                    id="modal-modal-title"
-                    variant="h7"
-                    component="h2"
-                  >
-                    <br />
-                    Have everything above? Click Login!
-                  </Typography>
-                  <br />
-                  <FacebookLogin
-                    appId="2632625433548280"
-                    autoLoad={false}
-                    fields="name,email,picture"
-                    cssClass="FbBtn"
-                    scope="
+              <Box sx={{padding:"5px"}}> 
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+              
+              1. Do you have access to a Facebook account?  
+              <FacebookAcctSetupModal/>             
+              </Typography>
+              <br/>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+              2. Do you have a business instagram account?    
+              <InstaBusAcctSetupModal/>           
+              </Typography>
+              <br/>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+              3. Do you have a facebook page linked to your instagram account?    
+              <FacebookPageSetupModal/>           
+              </Typography>
+              <br/>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+              3. Is your instagram account linked to your facebook account?    
+              <LinkInstaToFbSetupModal/>           
+              </Typography>
+              <br/>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+              4.  Put your sales link into your bio!   
+              <LinkInBioModal/>           
+              </Typography>
+            
+              <Box sx={styleHeaderAlt}>
+              <Typography id="modal-modal-title" variant="h7" component="h2">
+              
+              Have everything above? Click Login!                
+              </Typography><br/>             
+              <FacebookLogin
+              appId="2632625433548280"
+              autoLoad={false}
+              fields="name,email,picture"
+              cssClass="FbBtn"
+              scope="
                 public_profile, 
                 instagram_basic, 
                 pages_show_list,

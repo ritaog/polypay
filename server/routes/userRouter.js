@@ -27,19 +27,22 @@ router.post('/addUser', upload.single('image'), async (req, res) => {
   try {
     // receives new profile data from front end
     let incomingData = JSON.parse(req.body.formData)
-
+    // console.log('incomingData', incomingData)
     ///Verifying that user does not exist yet, before creating account
     const user = await User.findOne({ emailAddress: incomingData.emailAddress })
+    console.log('user', user)
     if (user) {
+      console.log('in duplicate user')
       return res.status(400).send({ error: 'This email already exists' })
     }
 
-    /////////////MY NEW CODE //////////////////////
-
-    const result = await cloudinary.uploader.upload(req.file.path)
-    // adds received data to User constructor
     let newProfile = await new User(incomingData)
-    newProfile.photos[0] = result.secure_url
+    /////////////MY NEW CODE //////////////////////
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path)
+      // adds received data to User constructor
+      newProfile.photos[0] = result.secure_url
+    }
     //creating express account in stripe
     const account = await stripeConfig.accounts.create({
       email: newProfile.emailAddress,
@@ -56,7 +59,8 @@ router.post('/addUser', upload.single('image'), async (req, res) => {
       },
     })
 
-    console.log('accountttttttt', account)
+    console.log('acounttttt', account)
+
     newProfile.stripeAccountId = account.id
     console.log('newProfileeee', newProfile)
 
@@ -65,6 +69,7 @@ router.post('/addUser', upload.single('image'), async (req, res) => {
     res.status(201).json(profile)
   } catch (err) {
     console.log(err)
+    res.sendStatus(403)
   }
 })
 
