@@ -1,12 +1,5 @@
 import * as React from 'react'
-// import InstagramEmbed from 'react-instagram-embed'
 
-// import ImageList from '@mui/material/ImageList'
-// import ImageListItem from '@mui/material/ImageListItem'
-// import ImageListItemBar from '@mui/material/ImageListItemBar'
-// import ListSubheader from '@mui/material/ListSubheader'
-// import IconButton from '@mui/material/IconButton'
-// import InstagramIcon from '@mui/icons-material/Instagram'
 import {
   Card,
   CardContent,
@@ -57,7 +50,7 @@ export default function InstaRecentPosts({ userData }) {
 
   console.log('recentPosts', recentPosts)
 
-  const postDisplay = recentPosts.postData.map((post, index) => {
+  const postDisplay = recentPosts.postData.map((post) => {
     return (
       <Box>
         {/* Instagram user icon and header and followers */}
@@ -295,38 +288,6 @@ export default function InstaRecentPosts({ userData }) {
           </Box>
         </CardContent>
       </Card>
-
-      {/* <ImageList sx={{ width: '100%' }}>
-        <ImageListItem key="Subheader" cols={2}>
-          <ListSubheader component="div">
-            {userData ? `${userData.userName}'s Recent Posts` : ''}
-          </ListSubheader>
-        </ImageListItem>
-        {saleItems
-          ? saleItems.map((item, index) => (
-              <ImageListItem key={item._id + index + 'user'}>
-                <img
-                  src={`${item.photos[0]}?w=248&fit=crop&auto=format`}
-                  srcSet={`${item.photos[0]}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.description}
-                  loading="lazy"
-                />
-                <ImageListItemBar
-                  title={`Price: $ ${parseFloat(item.price.$numberDecimal)}`}
-                  subtitle={'Status: ' + item.available}
-                  actionIcon={
-                    <IconButton
-                      sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                      aria-label={`info about ${item.title}`}
-                    >
-                      <InstagramIcon />
-                    </IconButton>
-                  }
-                />
-              </ImageListItem>
-            ))
-          : ''}
-      </ImageList> */}
     </div>
   )
 }
