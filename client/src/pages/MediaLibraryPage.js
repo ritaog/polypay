@@ -18,24 +18,23 @@ const Item = styled(Paper)(({ theme }) => ({
 const MediaLibraryPage = ({ userData }) => {
   return (
     <Box sx={{ width: '100%' }}>
-      <div>Media Library</div>
+      {/* <div>Media Library</div> */}
       <Masonry columns={2} spacing={2}>
-        <Item sx={{ maxWidth: '50%', minWidth: '450px'}}>
+        {/* <Item sx={{ maxWidth: '50%', minWidth: '450px'}}> */}
           {/* <DisplayMedia userData={userData} /> */}
-        </Item>
-        <Item
+        {/* </Item> */}
+        {/* <Item
           sx={{
             maxWidth: '50%',
             minWidth: '450px',
             maxHeight: '750px',
             overflowY: 'auto',
           }}
-        >
+        > */}
           {/* <TimeLine userData={userData} /> */}
-        </Item>
-        <Item>
+        {/* </Item> */}
           <SaleListUser userData={userData} />
-        </Item>
+      
       </Masonry>
     </Box>
   )

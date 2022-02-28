@@ -7,58 +7,101 @@ import * as React from 'react'
 // import ListSubheader from '@mui/material/ListSubheader'
 // import IconButton from '@mui/material/IconButton'
 // import InstagramIcon from '@mui/icons-material/Instagram'
+import { Card, CardContent, Grid, Typography, Box, Avatar } from '@mui/material'
 
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
-export default function SaleListUser({userData}) {
+export default function SaleListUser({ userData }) {
+  const [recentPosts, setRecentPosts] = useState()
 
-useEffect(() => {
-  const getInstaMedia = async () => {
-    console.log('userData', userData)
-    const response = await axios.get(`/media/getInstagramPostsByLoggedInUser/${userData._id}`)
-    console.log('response', response)
-  }
-  if (userData) {
-    getInstaMedia()
-  }
-}, [])
+  useEffect(() => {
+    const getInstaMedia = async () => {
+      const response = await axios.get(
+        `/media/getInstagramPostsByLoggedInUser/${userData._id}`
+      )
+      console.log('response.data', response.data)
+      setRecentPosts(response.data)
+    }
+    if (userData) {
+      getInstaMedia()
+    }
+  }, [])
 
-  // const [saleItems, setSaleItems] = useState([])
-
-  // useEffect(() => {  
-  //   const getSaleItemsByLoggedUser = async () => {
-  //     const response = await axios.get('/saleItem/listSaleItemsByLoggedUser')
-  //     response.data.sort(function (a, b) {
-  //       return new Date(b.postTime) - new Date(a.postTime)
-  //     })
-
-  //     setSaleItems(response.data)
-  //   }
-  //   if (userData) {
-  //     getSaleItemsByLoggedUser()
-  //   }
-  // }, [userData])
+  const postDisplay = (
+    <Box>
+      <Box sx={{ height: '60px', width: '340px' }}>
+        <Box sx={{padding: '14px 16px'}}>
+          {recentPosts ? (
+            <Avatar
+              alt="user-image"
+              src={recentPosts.userData.profile_picture_url}
+              sx={{
+                width: '32px',
+                height: '32px',
+                border: '1px solid lightGray',
+              }}
+            />
+          ) : (
+            ''
+          )}
+          {/* <Typography>TopBar</Typography> */}
+        </Box>
+      </Box>
+      <Box sx={{ height: '425px', width: '340px' }}>
+        <Typography>image</Typography>
+      </Box>
+      <Box sx={{ height: '42px', width: '340px' }}>
+        <Typography>insights</Typography>
+      </Box>
+      <Box sx={{ height: '42px', width: '340px' }}>
+        <Typography>likes and postDate</Typography>
+      </Box>
+      <Box sx={{ height: '42px', width: '340px' }}>
+        <Typography>Description</Typography>
+      </Box>
+      <Box sx={{ height: '100px', width: '340px' }}>
+        <Typography>comments</Typography>
+      </Box>
+    </Box>
+  )
 
   return (
     <div>
+      <Card
+        sx={{
+          borderRadius: '25px',
+          height: '650px',
+          width: '340px',
+          overflowY: 'scroll',
+          scrollbarWidth: 'none',
+          '::-webkit-scrollbar': {
+            display: 'none',
+          },
+        }}
+      >
+        <CardContent sx={{ padding: '0 0' }}>
+          <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Grid item>
+              <Typography
+                variant="h4"
+                component="div"
+                sx={{ margin: '5px 5px' }}
+              >
+                Recent Posts
+              </Typography>
+            </Grid>
+            <Box></Box>
+          </Grid>
+          <Grid container>{postDisplay}</Grid>
+        </CardContent>
+      </Card>
 
-
-
-
-      {/* <InstagramEmbed
-        url="https://instagr.am/p/Zw9o4/"
-        clientAccessToken="123|456"
-        maxWidth={320}
-        hideCaption={false}
-        containerTagName="div"
-        protocol=""
-        injectScript
-        onLoading={() => {}}
-        onSuccess={() => {}}
-        onAfterRender={() => {}}
-        onFailure={() => {}}
-      /> */}
       {/* <ImageList sx={{ width: '100%' }}>
         <ImageListItem key="Subheader" cols={2}>
           <ListSubheader component="div">
@@ -93,4 +136,3 @@ useEffect(() => {
     </div>
   )
 }
-
