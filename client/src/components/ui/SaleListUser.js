@@ -15,8 +15,10 @@ import {
   Box,
   Avatar,
   Link,
+  TextField,
+  Button,
 } from '@mui/material'
-
+import InputUnstyled from '@mui/base/InputUnstyled'
 import Image from 'mui-image'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
@@ -62,7 +64,7 @@ export default function SaleListUser({ userData }) {
 
         <Box
           sx={{
-            height: '60px',
+            height: '50px',
             width: '340px',
             borderBottom: '1px solid lightGray',
           }}
@@ -71,7 +73,7 @@ export default function SaleListUser({ userData }) {
             sx={{
               display: 'flex',
               alignItems: 'center',
-              padding: '14px 16px',
+              margin: '6px 16px 0 14px',
             }}
           >
             {post ? (
@@ -88,20 +90,34 @@ export default function SaleListUser({ userData }) {
               ''
             )}
             <Box>
-              {post ? (
-                <Typography variant="subtitle2" sx={{ marginLeft: '12px' }}>
-                  {recentPosts.userData.username}
-                </Typography>
-              ) : (
-                ''
-              )}
+              <Box>
+                {post ? (
+                  <Typography variant="subtitle2" sx={{ marginLeft: '12px' }}>
+                    {recentPosts.userData.username}
+                  </Typography>
+                ) : (
+                  ''
+                )}
+              </Box>
+              <Box>
+                {post ? (
+                  <Typography
+                    variant="caption"
+                    sx={{ marginLeft: '12px', height: '5px', color: 'gray' }}
+                  >{`${recentPosts.userData.followers_count} followers`}</Typography>
+                ) : (
+                  ''
+                )}
+              </Box>
             </Box>
             <Box>
               {post ? (
                 <Typography
                   variant="caption"
                   sx={{ marginLeft: '12px', height: '5px', color: 'gray' }}
-                >{`${recentPosts.userData.followers_count} followers`}</Typography>
+                >{`Posted on: ${new Date(
+                  post.timestamp
+                ).toDateString()}`}</Typography>
               ) : (
                 ''
               )}
@@ -184,7 +200,7 @@ export default function SaleListUser({ userData }) {
             },
           }}
         >
-          {post.comments ? (
+          {post.comments[0] ? (
             post.comments.map((comment) => {
               return (
                 <Box key={comment.id} sx={{ paddingBottom: '10px' }}>
@@ -204,13 +220,28 @@ export default function SaleListUser({ userData }) {
 
         <Box
           sx={{
+            display: 'flex',
+            alignItems: 'center',
             height: '60px',
             width: '340px',
             borderTop: '1px solid lightGray',
-            borderBottom: '2px solid lightGray',
+            borderBottom: '5px solid black',
+            paddingLeft: '10px',
           }}
         >
-          <Typography>Comment Here</Typography>
+          <TextField
+            id="standard-basic"
+            placeholder="Add Comment"
+            multiline
+            rows={2}
+            variant="standard"
+            disableUnderline="true"
+            inputProps={{ disableUnderline: 'true' }}
+            sx={{ width: '250px' }}
+          />
+          <Box>
+            <Button>Post</Button>
+          </Box>
         </Box>
       </Box>
     )
