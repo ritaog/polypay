@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { Modal, IconButton, Button } from '@mui/material'
-import Link from '@mui/material/Link'
+// import Link from '@mui/material/Link'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { useNavigate } from 'react-router-dom'
 const style = {
@@ -28,14 +28,14 @@ const styleHeader = {
   height: '250px',
   borderBottom: '3px solid lightGray',
 }
-const styleHeaderAlt = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '100px',
-  borderBottom: '3px solid lightGray',
-  borderTop: '3px solid lightGray',
-}
+// const styleHeaderAlt = {
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'center',
+//   height: '100px',
+//   borderBottom: '3px solid lightGray',
+//   borderTop: '3px solid lightGray',
+// }
 
 export default function ErrorInstaAccountSetup({ open, setOpen }) {
   const navigate = useNavigate()

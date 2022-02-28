@@ -28,14 +28,14 @@ const styleHeader = {
   height: "100px",
   borderBottom: "3px solid lightGray",
 }
-const styleHeaderAlt = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  height: "100px",
-  borderBottom: "3px solid lightGray",
-  borderTop: "3px solid lightGray",
-} 
+// const styleHeaderAlt = {
+//   display: "flex",
+//   alignItems: "center",
+//   justifyContent: "center",
+//   height: "100px",
+//   borderBottom: "3px solid lightGray",
+//   borderTop: "3px solid lightGray",
+// } 
 
 export default function ErrorEmailAlreadyUsed({open, handleClose}) {
 

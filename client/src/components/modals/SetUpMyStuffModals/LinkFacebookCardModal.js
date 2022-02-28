@@ -47,7 +47,7 @@ const styleHeaderAlt = {
   borderTop: "3px solid lightGray",
 } 
     
-    export default function LinkFacebookCardModal({ userData, handleClose, handleOpen, open }) {
+    export default function LinkFacebookCardModal({ userData, handleClose, open }) {
       const [dataBundle, setDataBundle] = useState()
 
       const responseFacebook = (response) => {
