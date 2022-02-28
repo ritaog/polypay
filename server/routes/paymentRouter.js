@@ -59,8 +59,9 @@ router.post('/createLoginLink', async (req, res) => {
 
 //POST end-point || description: http://localhost:5000/payment/create-checkout-session
 router.post('/create-checkout-session', async (req, res) => {
+  let storeItem
   const productsInfo = req.body.map(async (item) => {
-    const storeItem = await SaleItem.findById(item.id)
+    storeItem = await SaleItem.findById(item.id)
 
     console.log('storeItem', storeItem)
 
@@ -79,6 +80,8 @@ router.post('/create-checkout-session', async (req, res) => {
 
   const listofProducts = await Promise.all(productsInfo)
   console.log('results', listofProducts)
+
+  const user = await User.findById(storeItem.vendorId)
 
   try {
     const session = await stripeConfig.checkout.sessions.create({
@@ -134,12 +137,23 @@ router.post('/create-checkout-session', async (req, res) => {
       line_items: listofProducts,
       success_url: `${process.env.CLIENT_URL}/successfulCheckout`,
       cancel_url: `${process.env.CLIENT_URL}/failedCheckout`,
+      payment_intent_data: {
+        application_fee_amount:
+          0.05 * storeItem.price * 100 * item.purchaseQuantity,
+        transfer_data: {
+          destination: user.stripeAccountId,
+        },
+      },
     })
+
+    console.log('This is session.url', session)
     console.log({ url: session.url })
     res.json({ url: session.url })
   } catch (e) {
     res.status(500).json({ error: e.message })
   }
+
+  console.log('Here is the user', user)
 })
 
 export default router
