@@ -89,7 +89,7 @@ export default function CustomizedAccordions({
             <ListItem
               button
               onClick={() => {
-                navigate('/media-library')
+                navigate('/post-dashboard')
               }}
             >
               <PhotoIcon />

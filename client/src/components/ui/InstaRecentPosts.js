@@ -22,7 +22,7 @@ import Image from 'mui-image'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
-export default function SaleListUser({ userData }) {
+export default function InstaRecentPosts({ userData }) {
   const [recentPosts, setRecentPosts] = useState({ postData: [], userData: [] })
   const [comment, setComment] = useState()
 

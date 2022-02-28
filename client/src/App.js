@@ -13,7 +13,7 @@ import DisplayItemsPage from './pages/DisplayItemsPage'
 import StripeSuccess from './pages/StripeSuccess'
 import StripeFailure from './pages/StripeFailure'
 import StripeSuccessfulCheckout from './pages/StripeSuccessfulCheckout'
-import MediaLibraryPage from './pages/MediaLibraryPage'
+import PostDashboardPage from './pages/PostDashboardPage'
 import CheckoutPage from './pages/CheckoutPage'
 import LinkFacebookCardModal from './components/modals/SetUpMyStuffModals/LinkFacebookCardModal'
 import SalePageHeader from './components/navigation/SalePageHeader'
@@ -95,12 +95,12 @@ const App = () => {
           }
         />
         <Route
-          path="/media-library"
+          path="/post-dashboard"
           element={
             <MiniDrawer
               userData={user}
               getUserState={getObject}
-              children={<MediaLibraryPage userData={user} />}
+              children={<PostDashboardPage userData={user} />}
             />
           }
         />
