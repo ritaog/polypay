@@ -18,13 +18,13 @@ import {
   TextField,
   Button,
 } from '@mui/material'
-import InputUnstyled from '@mui/base/InputUnstyled'
 import Image from 'mui-image'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
 export default function SaleListUser({ userData }) {
   const [recentPosts, setRecentPosts] = useState({ postData: [], userData: [] })
+  const [comment, setComment] = useState()
 
   useEffect(() => {
     const getInstaMedia = async () => {
@@ -238,9 +238,12 @@ export default function SaleListUser({ userData }) {
             disableUnderline="true"
             inputProps={{ disableUnderline: 'true' }}
             sx={{ width: '250px' }}
+            onChange={(e) => {
+              setComment(e.target.value)
+            }}
           />
           <Box>
-            <Button>Post</Button>
+            <Button disabled={!comment}>Post</Button>
           </Box>
         </Box>
       </Box>

@@ -53,7 +53,7 @@ export default function CustomizedAccordions({
   return (
     <div>
       <LinkFacebookCardModal
-      userData={userData}
+        userData={userData}
         handleClose={handleClose}
         handleOpen={handleOpen}
         open={open}
@@ -94,7 +94,7 @@ export default function CustomizedAccordions({
             >
               <PhotoIcon />
               <ListItemText
-                primary="Media Library"
+                primary="Post Dashboard"
                 sx={{ paddingLeft: '35px' }}
               />
             </ListItem>
