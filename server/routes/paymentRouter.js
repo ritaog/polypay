@@ -79,12 +79,12 @@ router.post('/create-checkout-session', async (req, res) => {
     }
   })
 
-  const listofProducts = await Promise.all(productsInfo)
+  const listOfPurchasedItemss = await Promise.all(productsInfo)
 
   const user = await User.findById(storeItem.vendorId)
 
   //application fee for PolyPay is 5% (0.05)
-  const totalApplicationFee = listofProducts.reduce((acc, curr) => {
+  const totalApplicationFee = listOfPurchasedItems.reduce((acc, curr) => {
     return acc + 0.05 * curr.price_data.unit_amount * curr.quantity
   }, 0)
 
@@ -139,7 +139,7 @@ router.post('/create-checkout-session', async (req, res) => {
         },
       ],
       mode: 'payment',
-      line_items: listofProducts,
+      line_items: listOfPurchasedItems,
       success_url: `${process.env.CLIENT_URL}/successfulCheckout`,
       cancel_url: `${process.env.CLIENT_URL}/failedCheckout`,
       payment_intent_data: {
