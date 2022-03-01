@@ -79,7 +79,7 @@ router.post('/create-checkout-session', async (req, res) => {
     }
   })
 
-  const listOfPurchasedItemss = await Promise.all(productsInfo)
+  const listOfPurchasedItems = await Promise.all(productsInfo)
 
   const user = await User.findById(storeItem.vendorId)
 
