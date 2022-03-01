@@ -64,7 +64,7 @@ router.post('/create-checkout-session', async (req, res) => {
   const productsInfo = purchaseInfo.map(async (item) => {
     storeItem = await SaleItem.findById(item.id)
 
-    console.log('storeItem', storeItem)
+    //console.log('storeItem', storeItem)
 
     return {
       price_data: {
@@ -82,6 +82,11 @@ router.post('/create-checkout-session', async (req, res) => {
   const listofProducts = await Promise.all(productsInfo)
 
   const user = await User.findById(storeItem.vendorId)
+
+  //application fee for PolyPay is 5% (0.05)
+  const totalApplicationFee = listofProducts.reduce((acc, curr) => {
+    return acc + 0.05 * curr.price_data.unit_amount * curr.quantity
+  }, 0)
 
   try {
     const session = await stripeConfig.checkout.sessions.create({
@@ -138,9 +143,7 @@ router.post('/create-checkout-session', async (req, res) => {
       success_url: `${process.env.CLIENT_URL}/successfulCheckout`,
       cancel_url: `${process.env.CLIENT_URL}/failedCheckout`,
       payment_intent_data: {
-        application_fee_amount:
-          0.05 * storeItem.price * 100 * purchaseInfo.purchaseQuantity,
-
+        application_fee_amount: totalApplicationFee,
         transfer_data: {
           destination: user.stripeAccountId,
         },
