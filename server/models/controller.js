@@ -49,3 +49,9 @@ export async function findMediaAndUpdate(id, mediaData) {
   let updatedMedia = await Media.findByIdAndUpdate(id, mediaData)
   return updatedMedia
 }
+
+export async function findAllUser() {
+  let allUser = await User.find({})
+  console.log("in controller", allUser)
+  return allUser
+}

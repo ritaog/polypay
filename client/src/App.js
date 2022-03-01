@@ -18,6 +18,7 @@ import CheckoutPage from './pages/CheckoutPage'
 import LinkFacebookCardModal from './components/modals/SetUpMyStuffModals/LinkFacebookCardModal'
 import SalePageHeader from './components/navigation/SalePageHeader'
 import MiniDrawer from './components/navigation/MiniDrawer'
+import AdminPage from './pages/AdminPage'
 
 const App = () => {
   //user state set by user login
@@ -41,6 +42,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/Admin" element={ <MiniDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<AdminPage userData={user} />}
+            />}/>
         <Route
           path="/"
           element={
