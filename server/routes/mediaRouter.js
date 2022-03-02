@@ -33,9 +33,9 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 })
 
 // GET endpoint || description: localhost:5000/media/getInstagramPostsByLoggedInUser
-router.get('/getInstagramPostsByLoggedInUser/:id', async (req, res) => {
-  const userId = req.params.id
-  const userData = await findUserById(userId)
+router.get('/getInstagramPostsByLoggedInUser', async (req, res) => {
+
+  const userData = await findUserById(req.user.id)
   try {
     const resUserInfo = await fetch(
       `https://graph.facebook.com/v12.0/${userData.instagramBusinessId}?fields=username,followers_count,profile_picture_url&access_token=${userData.permanentToken}`,
