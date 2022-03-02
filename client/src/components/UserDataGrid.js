@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
 import axios from 'axios';
+import './UserDataGrid.css'
 
 
 const columns = [
@@ -40,7 +41,8 @@ const UserDataGrid = () => {
   }, [])
    
   return (
-    <div style={{ height: 300, width: '100%' }}>
+    <div className = "style">
+      <h1 className="title">Admin Dashboard</h1>
       <DataGrid rows={totalUserData} columns={columns} />
     </div>
   )
