@@ -10,12 +10,15 @@ import {
   Link,
   TextField,
   Button,
+  bottomNavigationClasses,
 } from '@mui/material'
 import Image from 'mui-image'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function InstaRecentPosts({ userData }) {
+  const navigate = useNavigate()
   const [recentPosts, setRecentPosts] = useState({ postData: [], userData: [] })
   const [comment, setComment] = useState()
   const [commentId, setCommentId] = useState()
@@ -57,7 +60,11 @@ export default function InstaRecentPosts({ userData }) {
         const commentRes = await axios.post(
           `/media/reply?comment_id=${commentId}&user_id=${userData.permanentToken}&message=${comment}`
         )
-        console.log('commentRes', commentRes)
+        if (commentRes.statusText === 'Created') {
+          navigate(0)
+        } else {
+          console.log('replyError')
+        }
   }
 
   const postDisplay = recentPosts.postData.map((post) => {
