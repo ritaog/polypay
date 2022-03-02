@@ -76,6 +76,25 @@ router.get('/getInstagramPostsByLoggedInUser/:id', async (req, res) => {
   })
 })
 
+// POST endpoint || description: localhost:5000/media/replyToInstagramComment
+router.post('/reply', async (req, res) => {
+
+      const postReply = await fetch(
+        `https://graph.facebook.com/v12.0/${req.query.comment_id}/replies?message=${req.query.message}&access_token=${req.query.user_id}`,
+        {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
+      const postReplyJson = await postReply.json()
+      console.log('postReply', postReply.statusText)
+      if (postReply.statusText === 'OK') {
+        res.status(201).json(postReplyJson)
+      } else {
+        res.sendStatus(400)
+      }
+})
+
 // GET endpoint || description: localhost:5000/media/listImagesBLoggedUser
 router.get('/listImagesByLoggedUser', async (req, res) => {
   const userId = req.user.id

@@ -18,7 +18,8 @@ import { useState, useEffect } from 'react'
 export default function InstaRecentPosts({ userData }) {
   const [recentPosts, setRecentPosts] = useState({ postData: [], userData: [] })
   const [comment, setComment] = useState()
-  
+  const [commentId, setCommentId] = useState()
+
   useEffect(() => {
     const getInstaMedia = async () => {
       const response = await axios.get(
@@ -46,6 +47,17 @@ export default function InstaRecentPosts({ userData }) {
     } else {
       return `${timeDifferenceMin} minute(s) ago`
     }
+  }
+
+  const handleReply = (id) => {
+    setCommentId(id)
+  }
+
+  const handlePost = async () => {
+        const commentRes = await axios.post(
+          `/media/reply?comment_id=${commentId}&user_id=${userData.permanentToken}&message=${comment}`
+        )
+        console.log('commentRes', commentRes)
   }
 
   const postDisplay = recentPosts.postData.map((post) => {
@@ -185,6 +197,7 @@ export default function InstaRecentPosts({ userData }) {
             width: '340px',
             padding: '10px 10px 0 10px',
             overflowY: 'scroll',
+            borderBottom: '5px solid black',
             scrollbarWidth: 'none',
             '::-webkit-scrollbar': {
               display: 'none',
@@ -197,7 +210,16 @@ export default function InstaRecentPosts({ userData }) {
                 <Box key={comment.id} sx={{ paddingBottom: '10px' }}>
                   <Typography>{`${comment.text}`}</Typography>
                   <Typography variant="caption">
-                    {postedTimeHandler(comment.timestamp)}
+                    {`${postedTimeHandler(comment.timestamp)} - `}{' '}
+                    <Link
+                      component="button"
+                      variant="caption"
+                      onClick={() => {
+                        handleReply(comment.id)
+                      }}
+                    >
+                      reply
+                    </Link>
                   </Typography>
                 </Box>
               )
@@ -208,39 +230,43 @@ export default function InstaRecentPosts({ userData }) {
         </Box>
 
         {/* add comment to post */}
-
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            height: '60px',
-            width: '340px',
-            borderTop: '1px solid lightGray',
-            borderBottom: '5px solid black',
-            paddingLeft: '10px',
-          }}
-        >
-
-          {/* Comment on post input */}
-
-          <TextField
-            id="standard-basic"
-            placeholder="Add Comment"
-            multiline
-            rows={2}
-            variant="standard"
-            value={comment}
-            // disableUnderline="true"
-            // inputProps={{ disableUnderline: 'true' }}
-            sx={{ width: '250px' }}
-            onChange={(e) => {
-              setComment(e.target.value)
+        {commentId ? (
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              height: '60px',
+              width: '340px',
+              borderTop: '1px solid lightGray',
+              borderBottom: '5px solid black',
+              paddingLeft: '10px',
             }}
-          />
-          <Box>
-            <Button disabled={!comment}>Post</Button>
+          >
+            {/* Comment on post input */}
+
+            <TextField
+              id="standard-basic"
+              placeholder="Add Comment"
+              multiline
+              rows={2}
+              variant="standard"
+              value={comment}
+              // disableUnderline="true"
+              // inputProps={{ disableUnderline: 'true' }}
+              sx={{ width: '250px' }}
+              onChange={(e) => {
+                setComment(e.target.value)
+              }}
+            />
+            <Box>
+              <Button disabled={!comment} onClick={handlePost}>
+                Post
+              </Button>
+            </Box>
           </Box>
-        </Box>
+        ) : (
+          ''
+        )}
       </Box>
     )
   })
