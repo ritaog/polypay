@@ -14,6 +14,7 @@ import { IconButton } from '@mui/material'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import UnlinkAccountModal from './UnlinkAccountModal'
 import LinkInBioModal from './LinkInBioModal'
+import { useNavigate } from 'react-router-dom'
 // import FacebookLogin from 'react-facebook-login'
     
 const style = {
@@ -48,6 +49,7 @@ const styleHeaderAlt = {
 } 
     
     export default function LinkFacebookCardModal({ userData, handleClose, handleOpen, open }) {
+      const navigate = useNavigate()
       const [dataBundle, setDataBundle] = useState()
 
       const responseFacebook = (response) => {
@@ -63,7 +65,10 @@ const styleHeaderAlt = {
       useEffect(() => {
         const getData = async () => {
           const response = await axios.post('auth/validateFb', dataBundle)
-          console.log(response)
+          console.log('response', response)
+          if (response.statusText === "OK") {
+            navigate(0)
+          }
         }
         if (dataBundle) {
           getData()

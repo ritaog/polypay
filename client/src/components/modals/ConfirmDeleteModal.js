@@ -26,7 +26,6 @@ const ConfirmDeleteModal = ({
 }) => {
   const navigate = useNavigate()
 
-  console.log('selectedPhoto', selectedPhoto)
   const handleDelete = async () => {
     const response = await axios.delete(`/media/deleteImageById/${selectedPhoto._id}`)
     if (response.statusText === 'No Content') {

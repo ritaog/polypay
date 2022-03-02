@@ -19,6 +19,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SchedulePostModal from '../modals/SchedulePostModal'
 import ConfirmDeleteModal from '../modals/ConfirmDeleteModal'
+import LinkFacebookCardModal from '../modals/SetUpMyStuffModals/LinkFacebookCardModal'
 
 const MediaLibrary = ({ userData }) => {
   const navigate = useNavigate()
@@ -31,6 +32,9 @@ const MediaLibrary = ({ userData }) => {
 
   const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false)
   const handleCloseConfirmDeleteModal = () => setOpenConfirmDeleteModal(false)
+
+  const [openLinkModal, setOpenLinkModal] = useState(false)
+  const handleCloseLinkModal = () => setOpenLinkModal(false)
 
   useEffect(() => {
     const getMediaByLoggedUser = async () => {
@@ -77,13 +81,12 @@ const MediaLibrary = ({ userData }) => {
   }
 
   const handlePostSchedule = (item) => {
-    // if (userData.permanentToken) {
+    if (userData.permanentToken) {
       setScheduleItem(item)
       setOpen(true)
-      console.log('schedule photo', item)
-    // }else{
-      
-    // }
+    } else {
+      setOpenLinkModal(true)
+    }
   }
 
   let displayItems = saleItems.map((item, index) => {
@@ -189,6 +192,11 @@ const MediaLibrary = ({ userData }) => {
         open={open}
         handleClose={handleClose}
         scheduleItem={scheduleItem}
+        userData={userData}
+      />
+      <LinkFacebookCardModal
+        open={openLinkModal}
+        handleClose={handleCloseLinkModal}
         userData={userData}
       />
       <CardContent sx={{ padding: '0 0' }}>
