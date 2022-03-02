@@ -266,7 +266,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, background: ' #b7e7fa' }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, background: 'white' }}>
         <DrawerHeader />
         {children}
       </Box>

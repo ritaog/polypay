@@ -8,20 +8,20 @@ import {
   Box,
   Avatar,
   Link,
-  TextField,
-  Button,
-  bottomNavigationClasses,
 } from '@mui/material'
 import Image from 'mui-image'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import InstaComments from './InstaComments'
+import InstaReply from './InstaReply'
 
 export default function InstaRecentPosts({ userData }) {
   const navigate = useNavigate()
   const [recentPosts, setRecentPosts] = useState({ postData: [], userData: [] })
   const [comment, setComment] = useState()
   const [commentId, setCommentId] = useState()
+  const [commentFrom, setCommentFrom] = useState()
 
   useEffect(() => {
     const getInstaMedia = async () => {
@@ -52,19 +52,20 @@ export default function InstaRecentPosts({ userData }) {
     }
   }
 
-  const handleReply = (id) => {
+  const handleReply = (id, from) => {
     setCommentId(id)
+    setCommentFrom(from)
   }
 
   const handlePost = async () => {
-        const commentRes = await axios.post(
-          `/media/reply?comment_id=${commentId}&user_id=${userData.permanentToken}&message=${comment}`
-        )
-        if (commentRes.statusText === 'Created') {
-          navigate(0)
-        } else {
-          console.log('replyError')
-        }
+    const commentRes = await axios.post(
+      `/media/reply?comment_id=${commentId}&user_id=${userData.permanentToken}&message=${comment}`
+    )
+    if (commentRes.statusText === 'Created') {
+      navigate(0)
+    } else {
+      console.log('replyError')
+    }
   }
 
   const postDisplay = recentPosts.postData.map((post) => {
@@ -196,83 +197,21 @@ export default function InstaRecentPosts({ userData }) {
           {post ? <Typography variant="body1">{post.caption}</Typography> : ''}
         </Box>
 
-        {/* post comments */}
-
-        <Box
-          sx={{
-            height: '150px',
-            width: '340px',
-            padding: '10px 10px 0 10px',
-            overflowY: 'scroll',
-            borderBottom: '5px solid black',
-            scrollbarWidth: 'none',
-            '::-webkit-scrollbar': {
-              display: 'none',
-            },
-          }}
-        >
-          {post.comments[0] ? (
-            post.comments.map((comment) => {
-              return (
-                <Box key={comment.id} sx={{ paddingBottom: '10px' }}>
-                  <Typography>{`${comment.text}`}</Typography>
-                  <Typography variant="caption">
-                    {`${postedTimeHandler(comment.timestamp)} - `}{' '}
-                    <Link
-                      component="button"
-                      variant="caption"
-                      onClick={() => {
-                        handleReply(comment.id)
-                      }}
-                    >
-                      reply
-                    </Link>
-                  </Typography>
-                </Box>
-              )
-            })
-          ) : (
-            <Typography variant="caption">No Comments</Typography>
-          )}
-        </Box>
-
-        {/* add comment to post */}
+        {/* reply to comments */}
         {commentId ? (
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              height: '60px',
-              width: '340px',
-              borderTop: '1px solid lightGray',
-              borderBottom: '5px solid black',
-              paddingLeft: '10px',
-            }}
-          >
-            {/* Comment on post input */}
-
-            <TextField
-              id="standard-basic"
-              placeholder="Add Comment"
-              multiline
-              rows={2}
-              variant="standard"
-              value={comment}
-              // disableUnderline="true"
-              // inputProps={{ disableUnderline: 'true' }}
-              sx={{ width: '250px' }}
-              onChange={(e) => {
-                setComment(e.target.value)
-              }}
-            />
-            <Box>
-              <Button disabled={!comment} onClick={handlePost}>
-                Post
-              </Button>
-            </Box>
-          </Box>
+          <InstaReply
+            commentFrom={commentFrom}
+            comment={comment}
+            handlePost={handlePost}
+            setComment={setComment}
+            setCommentId={setCommentId}
+          />
         ) : (
-          ''
+          <InstaComments
+            post={post}
+            postedTimeHandler={postedTimeHandler}
+            handleReply={handleReply}
+          />
         )}
       </Box>
     )

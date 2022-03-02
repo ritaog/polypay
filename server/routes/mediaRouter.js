@@ -57,7 +57,7 @@ router.get('/getInstagramPostsByLoggedInUser/:id', async (req, res) => {
 
   const postsWithComments = resPostsJson.data.map( async (post) => {
     const postComments = await fetch(
-      `https://graph.facebook.com/v12.0/${post.id}/comments?access_token=${userData.permanentToken}`,
+      `https://graph.facebook.com/v12.0/${post.id}/comments?fields=from,like_count,replies,text,timestamp,id&access_token=${userData.permanentToken}`,
       {
         method: 'get',
         headers: { 'Content-Type': 'application/json' },
