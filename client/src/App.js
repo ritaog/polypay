@@ -47,7 +47,7 @@ const App = () => {
             <MiniDrawer
               userData={user}
               getUserState={getObject}
-              children={<HomePage userData={user} />}
+              children={<PostDashboardPage userData={user} />}
             />
           }
         />

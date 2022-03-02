@@ -12,8 +12,12 @@ export async function findUserByEmail(email) {
 }
 
 export async function findUserById(id) {
-  let user = await User.findById(id)
-  return user
+  try {
+    let user = await User.findById(id)
+    return user
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 export async function findUserAndUpdate(id, userData) {

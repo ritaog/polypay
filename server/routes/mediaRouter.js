@@ -34,65 +34,68 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 
 // GET endpoint || description: localhost:5000/media/getInstagramPostsByLoggedInUser
 router.get('/getInstagramPostsByLoggedInUser/:id', async (req, res) => {
-  const userData = await findUserById(req.params.id)
-
-  const resUserInfo = await fetch(
-    `https://graph.facebook.com/v12.0/${userData.instagramBusinessId}?fields=username,followers_count,profile_picture_url&access_token=${userData.permanentToken}`,
-    {
-      method: 'get',
-      headers: { 'Content-Type': 'application/json' },
-    }
-  )
-  const resUserInfoJson = await resUserInfo.json()
-  
-  const resPosts = await fetch(
-    `https://graph.facebook.com/v12.0/${userData.instagramBusinessId}/media?fields=caption,comments_count,like_count,permalink,owner,timestamp,username,media_url,is_comment_enabled&access_token=${userData.permanentToken}`,
-    {
-      method: 'get',
-      headers: { 'Content-Type': 'application/json' },
-    }
-  )
-  const resPostsJson = await resPosts.json()
-  // console.log('resPostsJson', resPostsJson)
-
-  const postsWithComments = resPostsJson.data.map( async (post) => {
-    const postComments = await fetch(
-      `https://graph.facebook.com/v12.0/${post.id}/comments?fields=from,like_count,replies,text,timestamp,id&access_token=${userData.permanentToken}`,
+  const userId = req.params.id
+  const userData = await findUserById(userId)
+  try {
+    const resUserInfo = await fetch(
+      `https://graph.facebook.com/v12.0/${userData.instagramBusinessId}?fields=username,followers_count,profile_picture_url&access_token=${userData.permanentToken}`,
       {
         method: 'get',
         headers: { 'Content-Type': 'application/json' },
       }
     )
-    const postCommentsJson = await postComments.json()
-    post.comments = postCommentsJson.data
-    return post
-  })
-  Promise.all(postsWithComments).then((values) => {
-    const instaData = {
-      userData: resUserInfoJson,
-      postData: values
-    }
-  res.status(200).send(instaData)  
-  })
+    const resUserInfoJson = await resUserInfo.json()
+
+    const resPosts = await fetch(
+      `https://graph.facebook.com/v12.0/${userData.instagramBusinessId}/media?fields=caption,comments_count,like_count,permalink,owner,timestamp,username,media_url,is_comment_enabled&access_token=${userData.permanentToken}`,
+      {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    )
+    const resPostsJson = await resPosts.json()
+    // console.log('resPostsJson', resPostsJson)
+
+    const postsWithComments = resPostsJson.data.map(async (post) => {
+      const postComments = await fetch(
+        `https://graph.facebook.com/v12.0/${post.id}/comments?fields=from,like_count,replies,text,timestamp,id&access_token=${userData.permanentToken}`,
+        {
+          method: 'get',
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
+      const postCommentsJson = await postComments.json()
+      post.comments = postCommentsJson.data
+      return post
+    })
+    Promise.all(postsWithComments).then((values) => {
+      const instaData = {
+        userData: resUserInfoJson,
+        postData: values,
+      }
+      res.status(200).send(instaData)
+    })
+  } catch (e) {
+    console.log('error', error)
+  }
 })
 
 // POST endpoint || description: localhost:5000/media/replyToInstagramComment
 router.post('/reply', async (req, res) => {
-
-      const postReply = await fetch(
-        `https://graph.facebook.com/v12.0/${req.query.comment_id}/replies?message=${req.query.message}&access_token=${req.query.user_id}`,
-        {
-          method: 'post',
-          headers: { 'Content-Type': 'application/json' },
-        }
-      )
-      const postReplyJson = await postReply.json()
-      console.log('postReply', postReply.statusText)
-      if (postReply.statusText === 'OK') {
-        res.status(201).json(postReplyJson)
-      } else {
-        res.sendStatus(400)
-      }
+  const postReply = await fetch(
+    `https://graph.facebook.com/v12.0/${req.query.comment_id}/replies?message=${req.query.message}&access_token=${req.query.user_id}`,
+    {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+    }
+  )
+  const postReplyJson = await postReply.json()
+  console.log('postReply', postReply.statusText)
+  if (postReply.statusText === 'OK') {
+    res.status(201).json(postReplyJson)
+  } else {
+    res.sendStatus(400)
+  }
 })
 
 // GET endpoint || description: localhost:5000/media/listImagesBLoggedUser

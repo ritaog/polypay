@@ -18,7 +18,7 @@ import InstaReply from './InstaReply'
 
 export default function InstaRecentPosts({ userData }) {
   const navigate = useNavigate()
-  const [recentPosts, setRecentPosts] = useState({ postData: [], userData: [] })
+  const [recentPosts, setRecentPosts] = useState({ postData: [] })
   const [comment, setComment] = useState()
   const [commentId, setCommentId] = useState()
   const [commentFrom, setCommentFrom] = useState()
@@ -26,11 +26,16 @@ export default function InstaRecentPosts({ userData }) {
 
   useEffect(() => {
     const getInstaMedia = async () => {
-      const response = await axios.get(
-        `/media/getInstagramPostsByLoggedInUser/${userData._id}`
-      )
-      console.log('response.data', response.data)
-      setRecentPosts(response.data)
+      try {
+          const response = await axios.get(
+            `/media/getInstagramPostsByLoggedInUser/${userData._id}`
+          )
+          console.log('response.data', response)
+          setRecentPosts(response.data)
+
+      } catch (e) {
+        console.log(e)
+      }
     }
     if (userData) {
       getInstaMedia()
@@ -200,8 +205,7 @@ export default function InstaRecentPosts({ userData }) {
         </Box>
 
         {/* reply to comments */}
-        {commentId && (postId === post.id) ? (
-
+        {commentId && postId === post.id ? (
           <InstaReply
             commentFrom={commentFrom}
             comment={comment}
