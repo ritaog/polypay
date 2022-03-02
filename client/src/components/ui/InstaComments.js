@@ -34,7 +34,7 @@ const InstaComments = ({post, postedTimeHandler, handleReply}) => {
                   component="button"
                   variant="caption"
                   onClick={() => {
-                    handleReply(comment.id, comment.from)
+                    handleReply(comment.id, post.id, comment.from)
                   }}
                 >
                   reply

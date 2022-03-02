@@ -22,6 +22,7 @@ export default function InstaRecentPosts({ userData }) {
   const [comment, setComment] = useState()
   const [commentId, setCommentId] = useState()
   const [commentFrom, setCommentFrom] = useState()
+  const [postId, setPostId] = useState()
 
   useEffect(() => {
     const getInstaMedia = async () => {
@@ -52,9 +53,10 @@ export default function InstaRecentPosts({ userData }) {
     }
   }
 
-  const handleReply = (id, from) => {
-    setCommentId(id)
+  const handleReply = (commentId, postId, from) => {
+    setCommentId(commentId)
     setCommentFrom(from)
+    setPostId(postId)
   }
 
   const handlePost = async () => {
@@ -198,7 +200,8 @@ export default function InstaRecentPosts({ userData }) {
         </Box>
 
         {/* reply to comments */}
-        {commentId ? (
+        {commentId && (postId === post.id) ? (
+
           <InstaReply
             commentFrom={commentFrom}
             comment={comment}

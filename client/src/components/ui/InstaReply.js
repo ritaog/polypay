@@ -1,8 +1,19 @@
 import React from 'react'
 import { Box, TextField, Button } from '@mui/material'
 
-const InstaReply = ({comment, handlePost, setComment, commentFrom, setCommentId}) => {
-  console.log('comment', comment)
+const InstaReply = ({
+  comment,
+  handlePost,
+  setComment,
+  commentFrom,
+  setCommentId,
+}) => {
+
+  const backHandler = () => {
+    setCommentId(null)
+    setComment('')
+  }
+
   return (
     <Box
       sx={{
@@ -46,7 +57,12 @@ const InstaReply = ({comment, handlePost, setComment, commentFrom, setCommentId}
           </Button>
         </Box>
         <Box>
-          <Button onClick={() => {setCommentId(null)}} sx={{ fontSize: '10px', padding: '0px' }}>Back</Button>
+          <Button
+            onClick={backHandler}
+            sx={{ fontSize: '10px', padding: '0px' }}
+          >
+            Back
+          </Button>
         </Box>
       </Box>
     </Box>
