@@ -116,12 +116,12 @@ const styleHeaderAlt = {
               </Typography>
               <br/>
               <Typography id="modal-modal-title" variant="h6" component="h2">
-              3. Is your instagram account linked to your facebook account?    
+              4. Is your instagram account linked to your facebook account?    
               <LinkInstaToFbSetupModal/>           
               </Typography>
               <br/>
               <Typography id="modal-modal-title" variant="h6" component="h2">
-              4.  Put your sales link into your bio!   
+              5.  Put your sales link into your bio!   
               <LinkInBioModal/>           
               </Typography>
             
