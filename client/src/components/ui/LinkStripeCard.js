@@ -25,7 +25,7 @@ export default function LinkStripeCard({ userData }) {
 
     const url = response.data
 
-    window.location = url
+    window.open(url)
   }
 
   const card = (
