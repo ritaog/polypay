@@ -35,8 +35,7 @@ const InstaReply = ({
         rows={2}
         variant="standard"
         value={comment}
-        // disableUnderline="true"
-        // inputProps={{ disableUnderline: 'true' }}
+        InputProps={{ disableUnderline: true }}
         sx={{ width: '250px' }}
         onChange={(e) => {
           setComment(e.target.value)

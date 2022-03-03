@@ -184,7 +184,12 @@ export default function MiniDrawer({ children, userData, getUserState }) {
               {userData ? <SalePageLink userData={userData} /> : ''}
             </Box>
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box
+            sx={{
+              flexGrow: 0,
+              display: { xs: 'flex'},
+            }}
+          >
             {userData ? (
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
