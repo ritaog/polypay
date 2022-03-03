@@ -34,7 +34,6 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 
 // GET endpoint || description: localhost:5000/media/getInstagramPostsByLoggedInUser
 router.get('/getInstagramPostsByLoggedInUser', async (req, res) => {
-
   const userData = await findUserById(req.user.id)
   try {
     const resUserInfo = await fetch(
@@ -80,6 +79,20 @@ router.get('/getInstagramPostsByLoggedInUser', async (req, res) => {
   }
 })
 
+// GET endpoint || description: localhost:500/media/getDailyData
+router.get('/getDailyData', async (req, res) => {
+  const userData = await findUserById(req.user.id)
+
+  const resDailyInsights = await fetch(
+    `https://graph.facebook.com/v12.0/${userData.instagramBusinessId}/insights?metric=email_contacts,follower_count,get_directions_clicks,phone_call_clicks,profile_views,text_message_clicks,website_clicks&period=day&access_token=${userData.permanentToken}`,
+    {
+      method: 'get',
+      headers: { 'Content-Type': 'application/json' },
+    }
+  )
+  const resDailyInsightsJson = await resDailyInsights.json()
+  res.status(200).send(resDailyInsightsJson)
+})
 // POST endpoint || description: localhost:5000/media/replyToInstagramComment
 router.post('/reply', async (req, res) => {
   const postReply = await fetch(

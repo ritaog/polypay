@@ -22,7 +22,7 @@ import AdminPage from './pages/AdminPage'
 
 const App = () => {
   //user state set by user login
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState()
   const [vendorName, setVendorName] = useState()
   //function that sets user: this function is passed to the "/"
   const getObject = (userData) => {

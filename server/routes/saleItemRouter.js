@@ -202,11 +202,28 @@ router.get('/listSaleItemsByLoggedUser', async (req, res) => {
   })
   res.json(saleItemArray)
 })
+
+// GET endpoint || description: localhost:5000/saleItem/getScheduled
+router.get('/getScheduled', async (req, res) => {
+  const userId = req.user.id
+  const responseUser = await User.findOne({ _id: userId })
+  const saleItemArray = await SaleItem.find({
+    _id: { $in: responseUser.saleItems },
+  })
+  let scheduledArray = []
+  saleItemArray.map((item) => {
+    if (item.available === "Scheduled") {
+      scheduledArray.push(item)
+    }
+  })
+  res.status(200).json(scheduledArray)
+})
+
 // GET endpoint || description: localhost:5000/saleItem/listImagesBLoggedUser
 router.get('/listImagesByLoggedUser', async (req, res) => {
   const userId = req.user.id
   const saleItemArray = await SaleItem.find({ vendorId: userId })
-  res.json(saleItemArray)
+  console.log('saleItemArray', saleItemArray)
 })
 
 //GET endpoint || description: localhost:5000/saleItem/getSaleItemById
