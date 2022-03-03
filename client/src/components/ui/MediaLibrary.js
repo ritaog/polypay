@@ -19,6 +19,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SchedulePostModal from '../modals/SchedulePostModal'
 import ConfirmDeleteModal from '../modals/ConfirmDeleteModal'
+import LinkFacebookCardModal from '../modals/SetUpMyStuffModals/LinkFacebookCardModal'
 
 const MediaLibrary = ({ userData }) => {
   const navigate = useNavigate()
@@ -31,6 +32,9 @@ const MediaLibrary = ({ userData }) => {
 
   const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false)
   const handleCloseConfirmDeleteModal = () => setOpenConfirmDeleteModal(false)
+
+  const [openLinkModal, setOpenLinkModal] = useState(false)
+  const handleCloseLinkModal = () => setOpenLinkModal(false)
 
   useEffect(() => {
     const getMediaByLoggedUser = async () => {
@@ -50,6 +54,8 @@ const MediaLibrary = ({ userData }) => {
     // "formData" is all the data collected from the schedule post form to be sent to back end
 
     console.log('uploadPhoto', e.target.files[0])
+    console.log(userData.permanentToken)
+
     const postData = {
       vendorName: userData?.userName,
       vendorId: userData?._id,
@@ -75,9 +81,12 @@ const MediaLibrary = ({ userData }) => {
   }
 
   const handlePostSchedule = (item) => {
-    setScheduleItem(item)
-    setOpen(true)
-    console.log('schedule photo', item)
+    if (userData.permanentToken) {
+      setScheduleItem(item)
+      setOpen(true)
+    } else {
+      setOpenLinkModal(true)
+    }
   }
 
   let displayItems = saleItems.map((item, index) => {
@@ -185,6 +194,11 @@ const MediaLibrary = ({ userData }) => {
         scheduleItem={scheduleItem}
         userData={userData}
       />
+      <LinkFacebookCardModal
+        open={openLinkModal}
+        handleClose={handleCloseLinkModal}
+        userData={userData}
+      />
       <CardContent sx={{ padding: '0 0' }}>
         <Grid
           container
@@ -200,6 +214,7 @@ const MediaLibrary = ({ userData }) => {
           <Box>
             <Button
               component="label"
+              disabled={!userData}
               onChange={(e) => {
                 handlePhotoUpload(e)
               }}

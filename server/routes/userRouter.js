@@ -2,7 +2,7 @@ import express from 'express'
 import cloudinary from '../utils/cloudinary.js'
 import upload from '../utils/multer.js'
 import stripe from 'stripe'
-import { findUserAndUpdate } from '../models/controller.js'
+import { findUserAndUpdate, findAllUser } from '../models/controller.js'
 import User from '../models/userModel.js'
 const router = express.Router()
 
@@ -88,5 +88,11 @@ router.put('/updateUser', upload.single('image'), async (req, res) => {
   const response = findUserAndUpdate(updateUserData._id, updateUserData)
   res.send(response)
 })
+
+// get endpoint || description: http://localhost:5000/user/getAllUser
+router.get('/getAllUser',async (req, res) => {
+ const allUser = await findAllUser()
+ res.status(200).json(allUser)
+} )
 
 export default router
