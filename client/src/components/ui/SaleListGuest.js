@@ -6,6 +6,7 @@ import BuyItemModal from '../modals/BuyItemModal'
 import CardMedia from '@mui/material/CardMedia'
 import Container from '@mui/material/Container'
 
+import Image from 'mui-image'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 // import { styled, Box } from '@mui/system'
@@ -79,7 +80,7 @@ export default function SaleListGuest({ profileId, setVendorName }) {
       >
         <Card
           sx={{
-            minWidth: '100%',
+            width: '100%',
             display: 'flex',
             flexDirection: 'column',
             borderRadius: '0px',
@@ -97,12 +98,23 @@ export default function SaleListGuest({ profileId, setVendorName }) {
               height: '100%',
               width: '100%',
             }}
-            image={`https://res.cloudinary.com/ddcynhc98/image/upload/c_crop,h_1500,w_1500/${item.photos[0]
+            image={`https://res.cloudinary.com/ddcynhc98/image/upload/c_crop,h_650,w_650/${item.photos[0]
               .split('')
               .splice(50)
               .join('')}`}
             alt="random"
           />
+          {/* <Image
+            src={`https://res.cloudinary.com/ddcynhc98/image/upload/${item.photos[0]
+              .split('')
+              .splice(50)
+              .join('')}`}
+            height="150px"
+            width="150px"
+            onClick={() => handleOpenModal(item)}
+            duration={0}
+            fit="fill"
+          /> */}
         </Card>
       </Grid>
     )

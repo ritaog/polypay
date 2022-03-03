@@ -15,7 +15,7 @@ const Views = ({ dailyInstaData }) => {
           Today's Profile Views
         </Typography>
         {dailyInstaData ? (
-          <Typography variant="h6" align="left">{dailyInstaData[3].values[1].value}</Typography>
+          <Typography variant="h6" align="left">{dailyInstaData[3].values[0].value}</Typography>
         ) : (
           ''
         )}
