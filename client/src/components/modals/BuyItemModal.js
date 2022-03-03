@@ -50,7 +50,9 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
     const { url } = response.data
 
     if (!url) throw new Error('Cannot find payment page!')
-    window.location = url
+
+    //open url in a new tab
+    window.open(url)
   }
 
   return (

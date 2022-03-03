@@ -25,8 +25,6 @@ router.post('/onboardVendorToStripe', async (req, res) => {
     return_url: 'http://localhost:3000/success',
     type: 'account_onboarding',
   })
-  console.log('This is the accoutLink object', accountLink)
-  console.log('This is the linking url', accountLink.url)
 
   res.send(accountLink.url)
 })
@@ -64,16 +62,16 @@ router.post('/create-checkout-session', async (req, res) => {
   const productsInfo = purchaseInfo.map(async (item) => {
     storeItem = await SaleItem.findById(item.id)
 
-    //console.log('storeItem', storeItem)
-
     return {
       price_data: {
         currency: 'cad',
         product_data: {
           name: storeItem.postTitle,
+          tax_code: 'txcd_99999999',
         },
 
         unit_amount: storeItem.price * 100,
+        tax_behavior: 'exclusive',
       },
       quantity: item.purchaseQuantity,
     }
@@ -114,6 +112,7 @@ router.post('/create-checkout-session', async (req, res) => {
                 value: 7,
               },
             },
+            tax_behavior: 'exclusive',
           },
         },
         {
@@ -135,11 +134,15 @@ router.post('/create-checkout-session', async (req, res) => {
                 value: 1,
               },
             },
+            tax_behavior: 'exclusive',
           },
         },
       ],
       mode: 'payment',
       line_items: listOfPurchasedItems,
+      automatic_tax: {
+        enabled: true,
+      },
       success_url: `${process.env.CLIENT_URL}/successfulCheckout`,
       cancel_url: `${process.env.CLIENT_URL}/failedCheckout`,
       payment_intent_data: {
