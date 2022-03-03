@@ -17,7 +17,7 @@ const Views = ({ dailyInstaData }) => {
         {dailyInstaData ? (
           <Typography variant="h6" align="left">{dailyInstaData[3].values[1].value}</Typography>
         ) : (
-          'Loading...'
+          ''
         )}
       </Grid>
       <Grid item>

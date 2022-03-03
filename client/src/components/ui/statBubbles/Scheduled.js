@@ -19,7 +19,7 @@ const Scheduled = ({scheduledPosts}) => {
             {scheduledPosts.length}
           </Typography>
         ) : (
-          'Loading...'
+          ''
         )}
       </Grid>
       <Grid item>
