@@ -156,7 +156,7 @@ const App = () => {
         <Route path="/failure" element={<StripeFailure />} />
         <Route
           path="/successfulCheckout"
-          element={<StripeSuccessfulCheckout userData={user} />}
+          element={<StripeSuccessfulCheckout/>}
         />
       </Routes>
     </BrowserRouter>
