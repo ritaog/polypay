@@ -11,6 +11,7 @@ import PostAddIcon from '@mui/icons-material/PostAdd'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import PhotoIcon from '@mui/icons-material/Photo'
 import AddIcon from '@mui/icons-material/Add'
+import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
 import { ListItemText } from '@mui/material'
 import { List, ListItem } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
@@ -142,7 +143,7 @@ export default function CustomizedAccordions({
           id="panel1bh-header"
           sx={{ padding: '0px' }}
         >
-          <PostAddIcon />
+          <AccountBalanceRoundedIcon />
           <Typography sx={{ paddingLeft: '35px' }}>Payment</Typography>
         </AccordionSummary>
         <AccordionDetails>
