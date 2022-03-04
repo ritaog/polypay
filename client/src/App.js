@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
-import HomePage from './pages/HomePage'
+// import HomePage from './pages/HomePage'
 import ProfilePage from './pages/ProfilePage'
 // import LinkAccountPage from './pages/LinkAccountPage'
 import SchedulePostPage from './pages/SchedulePostPage'
@@ -42,11 +42,16 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/Admin" element={ <MiniDrawer
+        <Route
+          path="/Admin"
+          element={
+            <MiniDrawer
               userData={user}
               getUserState={getObject}
               children={<AdminPage userData={user} />}
-            />}/>
+            />
+          }
+        />
         <Route
           path="/"
           element={
@@ -156,7 +161,7 @@ const App = () => {
         <Route path="/failure" element={<StripeFailure />} />
         <Route
           path="/successfulCheckout"
-          element={<StripeSuccessfulCheckout/>}
+          element={<StripeSuccessfulCheckout />}
         />
       </Routes>
     </BrowserRouter>

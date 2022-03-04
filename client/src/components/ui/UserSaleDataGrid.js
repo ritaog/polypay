@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Chip } from '@mui/material'
+import { Card } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 
 const columns = [

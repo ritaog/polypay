@@ -104,7 +104,6 @@ export default function MiniDrawer({ children, userData, getUserState }) {
 
   const [expanded, setExpanded] = React.useState()
 
-
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false)
     handleDrawerClose()
@@ -138,7 +137,11 @@ export default function MiniDrawer({ children, userData, getUserState }) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{ backgroundColor: 'white' }}>
+      <AppBar
+        position="fixed"
+        open={open}
+        sx={{ backgroundColor: 'white' }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -186,7 +189,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           <Box
             sx={{
               flexGrow: 0,
-              display: { xs: 'flex'},
+              display: { xs: 'flex' },
             }}
           >
             {userData ? (
@@ -270,7 +273,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, background: 'white' }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         {children}
       </Box>
