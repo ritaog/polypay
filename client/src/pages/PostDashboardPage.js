@@ -87,11 +87,11 @@ const PostDashboardPage = ({ userData }) => {
           </Item>
         </Box>
       </Box>
-      <Box sx={{display: 'flex'}}>
-        <Box>
+      <Box sx={{ display: 'flex' }}>
+        <Box sx={{ paddingRight: '20px' }}>
           <InstaRecentPosts userData={userData} />
         </Box>
-          <UserSaleDataGrid userSaleData={userSaleData} />
+        <UserSaleDataGrid userSaleData={userSaleData} />
       </Box>
     </Box>
   )
