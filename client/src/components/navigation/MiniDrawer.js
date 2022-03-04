@@ -25,7 +25,6 @@ import MenuItem from '@mui/material/MenuItem'
 import Link from '@mui/material/Link'
 import SignUpButton from '../modals/SignUpModal'
 import Image from 'mui-image'
-// import logo from 'images/polypay_armadillo.png'
 
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'

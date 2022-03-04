@@ -13,6 +13,7 @@ import userRouter from './routes/userRouter.js'
 import mediaRouter from './routes/mediaRouter.js'
 import authRoutes from './routes/auth.js'
 import paymentRouter from './routes/paymentRouter.js'
+import saleDataRouter from './routes/saleDataRouter.js'
 
 const app = express()
 dotenv.config({ path: './config/config.env' })
@@ -44,6 +45,7 @@ app.use('/media', mediaRouter)
 app.use('/user', userRouter)
 app.use('/auth', authRoutes)
 app.use('/payment', paymentRouter)
+app.use('/saleData', saleDataRouter)
 app.use('/', express.static('../client/build'))
 app.use('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'))

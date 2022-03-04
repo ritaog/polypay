@@ -9,6 +9,7 @@ import Views from '../components/ui/statBubbles/Views'
 import axios from 'axios'
 import PayPeriod from '../components/ui/statBubbles/PayPeriod'
 import Scheduled from '../components/ui/statBubbles/Scheduled'
+import UserSaleDataGrid from '../components/ui/UserSaleDataGrid'
 // import AddImage from '../components/ui/AddImage'
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -23,6 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
 const PostDashboardPage = ({ userData }) => {
   const [dailyInstaData, setDailyInstaData] = useState()
   const [scheduledPosts, setScheduledPosts] = useState()
+  const [userSaleData, setUserSaleData] = useState()
 
   useEffect(() => {
     const getDailyData = async () => {
@@ -45,6 +47,19 @@ const PostDashboardPage = ({ userData }) => {
     }
     if (userData) {
       getScheduled()
+    }
+  }, [userData])
+
+  useEffect(() => {
+    const getSaleData = async () => {
+      const response = await axios.get('/saleData/listSaleDataByLoggedUser')
+      // console.log('response', response)
+      if (response.statusText === 'Accepted') {
+        setUserSaleData(response.data)
+      }
+    }
+    if (userData) {
+      getSaleData()
     }
   }, [userData])
 
@@ -72,8 +87,12 @@ const PostDashboardPage = ({ userData }) => {
           </Item>
         </Box>
       </Box>
-
-      <InstaRecentPosts userData={userData} />
+      <Box sx={{display: 'flex'}}>
+        <Box>
+          <InstaRecentPosts userData={userData} />
+        </Box>
+          <UserSaleDataGrid userSaleData={userSaleData} />
+      </Box>
     </Box>
   )
 }
