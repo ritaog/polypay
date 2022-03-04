@@ -40,7 +40,7 @@ export default function StripeSuccessfulCheckout() {
         address you provided at checkout.
         </Typography>
         <br/><br/><br/><br/> <br/> <br/>      
-        <Typography  variant="h7" component="h2">
+        {/* <Typography  variant="h7" component="h2">
         Want to learn more about PolyPay? <br/><br/>
         Click the button below to visit our home page!
         <br/>
@@ -48,7 +48,7 @@ export default function StripeSuccessfulCheckout() {
         <Link to = "/">
         <button>PolyPay Home Page</button>
         </Link>
-        </Typography>
+        </Typography> */}
       </Box>
     </div>
   )
