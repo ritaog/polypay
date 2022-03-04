@@ -37,22 +37,32 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
 
   const handlePurchase = async () => {
     const purchaseInfo = [{ id: buyModalItem._id, purchaseQuantity }]
+    const saleData = {
+      itemTitle: buyModalItem.postTitle,
+      itemId: buyModalItem._id,
+      vendorId: buyModalItem.vendorId,
+      saleTotal: buyModalItem.price,
+      saleDate: new Date(),
+      fulfilled: false,
+      quantity: purchaseQuantity,
 
-    console.log(purchaseInfo)
-
+    }
+    // console.log(purchaseInfo)
+    const resData = await axios.post('/saleData/saveSaleData', saleData)
+    console.log('resData', resData)
     const response = await axios.post(
       '/payment/create-checkout-session',
       purchaseInfo
     )
 
-    console.log(response)
+    // console.log(response)
 
     const { url } = response.data
 
     if (!url) throw new Error('Cannot find payment page!')
 
     //open url in a new tab
-    window.open(url)
+    // window.open(url)
   }
 
   return (
@@ -70,7 +80,7 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
           justifyContent="space-between"
           alignItems="center"
           spacing={0}
-          fullWidth
+          fullwidth="true"
           sx={{ borderBottom: '1px solid lightGray' }}
         >
           <Grid item xs={1} sm={1} md={1} sx={{ margin: '10px' }}>
@@ -176,7 +186,7 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
                     : ''
                 }`}
               </Typography>
-              <Typography
+              {/* <Typography
                 variant="body2"
                 gutterBottom
                 sx={{ paddingRight: '20px' }}
@@ -225,7 +235,7 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
                   : ''
               }
                 
-                `}</Typography>
+                `}</Typography> */}
             </Grid>
           </Grid>
           <Box
@@ -238,7 +248,7 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
             }}
           >
             <Stack spacing={2} direction="row">
-              <Button variant="contained">Add To Cart</Button>
+              {/* <Button variant="contained">Add To Cart</Button> */}
               <Button variant="contained" onClick={handlePurchase}>
                 Buy Now
               </Button>
