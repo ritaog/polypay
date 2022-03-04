@@ -13,6 +13,8 @@ import LinkInstaToFbSetupModal from './LinkInstaToFbSetupModal'
 import { IconButton } from '@mui/material'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import UnlinkAccountModal from './UnlinkAccountModal'
+import LinkInBioModal from './LinkInBioModal'
+import { useNavigate } from 'react-router-dom'
 // import FacebookLogin from 'react-facebook-login'
     
 const style = {
@@ -47,25 +49,32 @@ const styleHeaderAlt = {
 } 
     
     export default function LinkFacebookCardModal({ userData, handleClose, handleOpen, open }) {
+      const navigate = useNavigate()
       const [dataBundle, setDataBundle] = useState()
 
       const responseFacebook = (response) => {
         // bundles together data from response from facebook above and userData from the users state passed down from 'app.js'
+        console.log('response', response)
         let userDataBundle = {
           userData,
           response,
         }
+        console.log('response', response)
         setDataBundle(userDataBundle)
       }
       useEffect(() => {
         const getData = async () => {
+          console.log('userData', userData)
           const response = await axios.post('auth/validateFb', dataBundle)
-          console.log(response)
+          console.log('response', response)
+          if (response.statusText === "OK") {
+            navigate(0)
+          }
         }
         if (dataBundle) {
           getData()
         }
-      }, [dataBundle])
+      }, [dataBundle, userData])
     
       return (
         <div>
@@ -74,25 +83,24 @@ const styleHeaderAlt = {
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
-          ><Box sx={style}>
-            <Box sx={styleHeader}>
-              <Typography id="modal-modal-title" variant="h7" component="h2">
-              Schedule Posts Directly to Instagram                
-              </Typography>
+          >
+            <Box sx={style}>
+              <Box sx={styleHeader}>
+                <Typography id="modal-modal-title" variant="h7" component="h2">
+                  Schedule Posts Directly to Instagram
+                </Typography>
 
-              <IconButton
-                      aria-label="delete"
-                      onClick={handleClose}
-                      sx={{ margin: '10px' }}
-                    >
-                      <CloseOutlinedIcon />
-                    </IconButton>
-
-
+                <IconButton
+                  aria-label="delete"
+                  onClick={handleClose}
+                  sx={{ margin: '10px' }}
+                >
+                  <CloseOutlinedIcon />
+                </IconButton>
               </Box>
               <Box sx={{padding:"5px"}}> 
               <Typography id="modal-modal-title" variant="h6" component="h2">
-                <br/>
+              
               1. Do you have access to a Facebook account?  
               <FacebookAcctSetupModal/>             
               </Typography>
@@ -108,14 +116,18 @@ const styleHeaderAlt = {
               </Typography>
               <br/>
               <Typography id="modal-modal-title" variant="h6" component="h2">
-              3. Is your instagram account linked to your facebook account?    
+              4. Is your instagram account linked to your facebook account?    
               <LinkInstaToFbSetupModal/>           
               </Typography>
               <br/>
-              <br/>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+              5.  Put your sales link into your bio!   
+              <LinkInBioModal/>           
+              </Typography>
+            
               <Box sx={styleHeaderAlt}>
               <Typography id="modal-modal-title" variant="h7" component="h2">
-                <br/>
+              
               Have everything above? Click Login!                
               </Typography><br/>             
               <FacebookLogin
@@ -132,17 +144,19 @@ const styleHeaderAlt = {
                 business_management, 
                 instagram_content_publish, 
                 pages_read_engagement,
-                instagram_manage_comments
+                instagram_manage_comments,
+                instagram_manage_insights,
+                pages_read_engagement,
+                pages_show_list
                 "
-              callback={responseFacebook}
-            />
+                    callback={responseFacebook}
+                  />
+                </Box>
+                <br />
+                <UnlinkAccountModal />
               </Box>
-              <br/>
-              <UnlinkAccountModal/>
-            </Box>
             </Box>
           </Modal>
-
         </div>
       )
     }

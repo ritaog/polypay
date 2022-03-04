@@ -11,6 +11,7 @@ import PostAddIcon from '@mui/icons-material/PostAdd'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import PhotoIcon from '@mui/icons-material/Photo'
 import AddIcon from '@mui/icons-material/Add'
+import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
 import { ListItemText } from '@mui/material'
 import { List, ListItem } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
@@ -32,7 +33,13 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }))
 
-export default function CustomizedAccordions({handleDrawerOpen, handleChange, setExpanded, expanded}) {
+export default function CustomizedAccordions({
+  handleDrawerOpen,
+  handleChange,
+  setExpanded,
+  expanded,
+  userData,
+}) {
   const navigate = useNavigate()
   // const [expanded, setExpanded] = React.useState('panel1')
 
@@ -47,11 +54,15 @@ export default function CustomizedAccordions({handleDrawerOpen, handleChange, se
   return (
     <div>
       <LinkFacebookCardModal
+        userData={userData}
         handleClose={handleClose}
         handleOpen={handleOpen}
         open={open}
       />
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+      <Accordion
+        expanded={expanded === 'panel1'}
+        onChange={handleChange('panel1')}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
@@ -73,24 +84,25 @@ export default function CustomizedAccordions({handleDrawerOpen, handleChange, se
               <AddIcon />
               <ListItemText
                 primary="Schedule Post"
-                sx={{ paddingLeft: '10px' }}
+                sx={{ paddingLeft: '35px' }}
               />
             </ListItem>
             <ListItem
               button
               onClick={() => {
-                navigate('/media-library')
+                navigate('/post-dashboard')
               }}
             >
               <PhotoIcon />
               <ListItemText
-                primary="Media Library"
-                sx={{ paddingLeft: '10px' }}
+                primary="Post Dashboard"
+                sx={{ paddingLeft: '35px' }}
               />
             </ListItem>
           </List>
         </AccordionDetails>
       </Accordion>
+
       <Accordion
         expanded={expanded === 'panel2'}
         onChange={handleChange('panel2')}
@@ -103,6 +115,7 @@ export default function CustomizedAccordions({handleDrawerOpen, handleChange, se
           sx={{ padding: '0px' }}
         >
           <SupervisorAccountIcon />
+
           <Typography sx={{ paddingLeft: '35px' }}>Accounts</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -117,9 +130,57 @@ export default function CustomizedAccordions({handleDrawerOpen, handleChange, se
           </List>
         </AccordionDetails>
       </Accordion>
+
+      {/*////////////STRIPE TOP/////////*/}
       <Accordion
         expanded={expanded === 'panel3'}
         onChange={handleChange('panel3')}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1bh-content"
+          onClick={handleDrawerOpen}
+          id="panel1bh-header"
+          sx={{ padding: '0px' }}
+        >
+          <AccountBalanceRoundedIcon />
+          <Typography sx={{ paddingLeft: '35px' }}>Payment</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <List>
+            <ListItem
+              button
+              onClick={() => {
+                navigate('/setup-stripe')
+              }}
+            >
+              <AddIcon />
+              <ListItemText
+                primary="Set Up Stripe"
+                sx={{ paddingLeft: '10px' }}
+              />
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => {
+                navigate('/earnings-dashboard')
+              }}
+            >
+              <PhotoIcon />
+              <ListItemText
+                primary="Earnings Dashboard"
+                sx={{ paddingLeft: '10px' }}
+              />
+            </ListItem>
+          </List>
+        </AccordionDetails>
+      </Accordion>
+
+      {/*////////// STRIPE BOT///////////////// */}
+
+      <Accordion
+        expanded={expanded === 'panel4'}
+        onChange={handleChange('panel4')}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

@@ -7,16 +7,22 @@ import HomePage from './pages/HomePage'
 import ProfilePage from './pages/ProfilePage'
 // import LinkAccountPage from './pages/LinkAccountPage'
 import SchedulePostPage from './pages/SchedulePostPage'
+import SetUpStripePage from './pages/SetUpStripePage'
+import PaymentDashboard from './pages/PaymentDashboard'
 import DisplayItemsPage from './pages/DisplayItemsPage'
-import MediaLibraryPage from './pages/MediaLibraryPage'
+import StripeSuccess from './pages/StripeSuccess'
+import StripeFailure from './pages/StripeFailure'
+import StripeSuccessfulCheckout from './pages/StripeSuccessfulCheckout'
+import PostDashboardPage from './pages/PostDashboardPage'
 import CheckoutPage from './pages/CheckoutPage'
 import LinkFacebookCardModal from './components/modals/SetUpMyStuffModals/LinkFacebookCardModal'
 import SalePageHeader from './components/navigation/SalePageHeader'
 import MiniDrawer from './components/navigation/MiniDrawer'
+import AdminPage from './pages/AdminPage'
 
 const App = () => {
   //user state set by user login
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState()
   const [vendorName, setVendorName] = useState()
   //function that sets user: this function is passed to the "/"
   const getObject = (userData) => {
@@ -36,13 +42,18 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/Admin" element={ <MiniDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<AdminPage userData={user} />}
+            />}/>
         <Route
           path="/"
           element={
             <MiniDrawer
               userData={user}
               getUserState={getObject}
-              children={<HomePage userData={user} />}
+              children={<PostDashboardPage userData={user} />}
             />
           }
         />
@@ -67,10 +78,12 @@ const App = () => {
             />
           }
         />
+
         <Route
           path="/profile"
           element={
             <MiniDrawer
+              style={{ background: 'red' }}
               userData={user}
               getUserState={getObject}
               children={<ProfilePage userData={user} />}
@@ -88,12 +101,12 @@ const App = () => {
           }
         />
         <Route
-          path="/media-library"
+          path="/post-dashboard"
           element={
             <MiniDrawer
               userData={user}
               getUserState={getObject}
-              children={<MediaLibraryPage userData={user} />}
+              children={<PostDashboardPage userData={user} />}
             />
           }
         />
@@ -116,6 +129,35 @@ const App = () => {
               children={<CheckoutPage />}
             />
           }
+        />
+
+        <Route
+          path="/setup-stripe"
+          element={
+            <MiniDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<SetUpStripePage userData={user} />}
+            />
+          }
+        />
+
+        <Route
+          path="/earnings-dashboard"
+          element={
+            <MiniDrawer
+              userData={user}
+              getUserState={getObject}
+              children={<PaymentDashboard userData={user} />}
+            />
+          }
+        />
+
+        <Route path="/success" element={<StripeSuccess />} />
+        <Route path="/failure" element={<StripeFailure />} />
+        <Route
+          path="/successfulCheckout"
+          element={<StripeSuccessfulCheckout/>}
         />
       </Routes>
     </BrowserRouter>

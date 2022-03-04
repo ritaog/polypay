@@ -11,12 +11,12 @@ import {
   Avatar,
   Typography,
   IconButton,
-  Button,
   Box,
 } from '@mui/material'
 import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ErrorInstaAccountSetup from './ErrorModals/ErrorInstaAccountSetup'
 
 const style = {
   position: 'absolute',
@@ -37,17 +37,21 @@ const style = {
 
 const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
   const navigate = useNavigate()
-  const [postTitle, setPostTitle] = useState('')
-  const [price, setPrice] = useState('')
-  const [quantity, setQuantity] = useState(0)
-  const [caption, setCaption] = useState('')
-  const [about, setAbout] = useState('')
+  const [postTitle, setPostTitle] = useState()
+  const [price, setPrice] = useState()
+  const [quantity, setQuantity] = useState(1)
+  const [caption, setCaption] = useState()
+  const [about, setAbout] = useState()
   const [canShip, setCanShip] = useState(false)
-  const [location, setLocation] = useState('')
+  const [location, setLocation] = useState()
   const [postTime, setPostTime] = useState(new Date())
+
+  const [openError, setOpenError] = useState(false)
 
   const [postNowLoading, setPostNowLoading] = useState(false)
   const [scheduleLoading, setScheduleLoading] = useState(false)
+
+  const handleOpenErrorModal = () => setOpenError(true)
 
   const handleIncrement = () => {
     setQuantity(quantity + 1)
@@ -93,23 +97,32 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
     }
 
     // second post sends combine object from above to back end to be posted to instagram and added to the users sale que
-    const response = await axios.post('saleItem/schedule', saleItemDataBundle)
-    if (response.statusText === 'Accepted') {
-      setPostNowLoading(false)
-      setScheduleLoading(false)
-      navigate(0)
+    try {
+      const response = await axios.post('saleItem/schedule', saleItemDataBundle)
+      if (response.statusText === 'Accepted') {
+        setTimeout(() => {
+          setPostNowLoading(false)
+          setScheduleLoading(false)
+          navigate(0)
+        }, 1000)
+      }
+    } catch (err) {
+      console.log('err', err)
+      handleOpenErrorModal()
     }
   }
 
   return (
     <div>
+      <ErrorInstaAccountSetup open={openError} setOpen={setOpenError} />
       <Modal
         open={open}
         onClose={handleClose}
+        // zIndex={0}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style} zIndex={0}>
           <Grid container>
             <Grid item xs={7} sm={7} md={7}>
               {scheduleItem ? (
@@ -208,7 +221,9 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                     variant="text"
                     size="large"
                     loading={postNowLoading}
-                    // loadingPosition="start"
+                    disabled={
+                      !postTitle || !price || !caption || !about || !location
+                    }
                     startIcon={postNowLoading ? <SaveIcon /> : ''}
                     onClick={() => {
                       handleSubmit(true)
@@ -220,7 +235,9 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                     variant="contained"
                     size="large"
                     loading={scheduleLoading}
-                    // loadingPosition="start"
+                    disabled={
+                      !postTitle || !price || !caption || !about || !location
+                    }
                     startIcon={scheduleLoading ? <SaveIcon /> : ''}
                     onClick={() => {
                       handleSubmit(false)

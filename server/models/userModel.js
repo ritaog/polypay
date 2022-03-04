@@ -15,7 +15,8 @@ const UserSchema = new mongoose.Schema({
   instagramBusinessId: String,
   permanentToken: String,
   saleItems: [String],
-  photos: [String]
+  photos: [String],
+  stripeAccountId: String,
 })
 
 export default mongoose.model('User', UserSchema)

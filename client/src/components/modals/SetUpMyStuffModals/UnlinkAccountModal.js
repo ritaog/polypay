@@ -71,13 +71,11 @@ export default function UnlinkAccountModal() {
               variant="h6"
               sx={{ mt: 2 }}
             >
-              1. Open your Facebook Page
-              <br />
-              2. Select settings from the menu
-              <br />
-              3. Select Instagram
-              <br />
-              4. Select Disconnect and confirm that you would like to remove the Instagram account. 
+              1. Open your Facebook Page<br />
+              2. Select settings from the menu<br />
+              3. Select Meta Accounts Centre on the bottom left<br />
+              4. Select Instagram, remove from accounts Centre<br/>
+              5. Select Disconnect and confirm that you would like to remove the Instagram account. 
               <br />
               <br />
             </Typography>
@@ -93,10 +91,11 @@ export default function UnlinkAccountModal() {
               variant="h6"
               sx={{ mt: 2 }}
             >
-              1. Go to account settings <br />
-              2. Click apps on the left hand side bar <br />
-              3. Click on the X on the right of each app to revoke access to your data <br />
-              4. Confirm remove when the window promps you to do so
+              1. Go to Facebook account settings <br />
+              2. Click Business Integrations on the left side bar <br />
+              3. Click on view and edit on the right of the app <br />
+              4. Scroll down and select remove<br/>
+              5. Confirm remove when the window promps you to do so
               <br />
             </Typography>
           </Box>

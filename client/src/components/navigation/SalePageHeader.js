@@ -2,24 +2,31 @@ import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
+// import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import Avatar from '@mui/material/Avatar'
-import Tooltip from '@mui/material/Tooltip'
+// import Avatar from '@mui/material/Avatar'
+// import Tooltip from '@mui/material/Tooltip'
+import Image from 'mui-image'
 
 const SalePageHeader = ({children, vendorName}) => {
   return (
     <Box>
       <AppBar position="static" sx={{ backgroundColor: 'white' }}>
-        <Container maxWidth="xl" >
+        <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton sx={{ paddingRight: '10px' }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
+     
+                <Box sx={{ paddingRight: '10px' }}>
+                  <Image
+                    src="/images/polypay_armadillo.png"
+                    alt="otherlogo"
+                    height="50px"
+                    width="50px"
+                    fit="fill"
+                  />
+                </Box>
+       
             </Box>
             <Typography
               variant="h6"

@@ -7,19 +7,34 @@ import {
   CardMedia,
   Button,
   Box,
+  IconButton,
 } from '@mui/material'
+
+import Image from 'mui-image'
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
+import DeleteIcon from '@mui/icons-material/Delete'
+import InstagramIcon from '@mui/icons-material/Instagram'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SchedulePostModal from '../modals/SchedulePostModal'
+import ConfirmDeleteModal from '../modals/ConfirmDeleteModal'
+import LinkFacebookCardModal from '../modals/SetUpMyStuffModals/LinkFacebookCardModal'
 
 const MediaLibrary = ({ userData }) => {
   const navigate = useNavigate()
   const [saleItems, setSaleItems] = useState([])
   const [scheduleItem, setScheduleItem] = useState()
-  const [open, setOpen] = React.useState(false)
+  const [selectedPhoto, setSelectedPhoto] = useState()
+
+  const [open, setOpen] = useState(false)
   const handleClose = () => setOpen(false)
+
+  const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState(false)
+  const handleCloseConfirmDeleteModal = () => setOpenConfirmDeleteModal(false)
+
+  const [openLinkModal, setOpenLinkModal] = useState(false)
+  const handleCloseLinkModal = () => setOpenLinkModal(false)
 
   useEffect(() => {
     const getMediaByLoggedUser = async () => {
@@ -27,10 +42,6 @@ const MediaLibrary = ({ userData }) => {
       response.data.sort(function (a, b) {
         return new Date(b.postTime) - new Date(a.postTime)
       })
-      // response.data.unshift({
-      //   _id: 'upload-image',
-      //   blankPhoto: 'images/480px-OOjs_UI_icon_add.png',
-      // })
       setSaleItems(response.data)
     }
     if (userData) {
@@ -43,11 +54,14 @@ const MediaLibrary = ({ userData }) => {
     // "formData" is all the data collected from the schedule post form to be sent to back end
 
     console.log('uploadPhoto', e.target.files[0])
+    console.log(userData.permanentToken)
+
     const postData = {
       vendorName: userData?.userName,
       vendorId: userData?._id,
       photos: [],
       uploadTime: new Date(),
+      postedTo: [],
     }
 
     const imageData = new FormData()
@@ -61,10 +75,18 @@ const MediaLibrary = ({ userData }) => {
     }
   }
 
+  const handleDeletePhoto = async (item) => {
+    setSelectedPhoto(item)
+    setOpenConfirmDeleteModal(true)
+  }
+
   const handlePostSchedule = (item) => {
-    setScheduleItem(item)
-    setOpen(true)
-    console.log('schedule photo', item)
+    if (userData.permanentToken) {
+      setScheduleItem(item)
+      setOpen(true)
+    } else {
+      setOpenLinkModal(true)
+    }
   }
 
   let displayItems = saleItems.map((item, index) => {
@@ -75,60 +97,72 @@ const MediaLibrary = ({ userData }) => {
         xs={4}
         sm={4}
         md={4}
-        sx={{ minHeight: '100px', minWidth: '100px' }}
+        sx={{ height: '100%', width: '100%' }}
       >
         <Card
+          // onMouseEnter={() => {
+          //   handleMouseOver(item)
+          // }}
           sx={{
-            minWidth: '100%',
+            width: '300px',
             display: 'flex',
+            border: '0px',
             flexDirection: 'column',
             borderRadius: '0px',
-            padding: '1px',
+            margin: '1px',
+            boxShadow: 'none',
 
             '&:hover': {
               cursor: 'pointer',
             },
           }}
         >
-          {/* {item.blankPhoto ? ( */}
-            {/* <Button
-              component="label"
-              onChange={(e) => {
-                handlePhotoUpload(e)
-              }}
-            >
-              <Box>
-                <input type="file" hidden />
-                
-                <CardMedia
-                  component="span"
+          <Box sx={{ width: '99px', height: '99px', position: 'absolute' }}>
+            <Box>
+              <IconButton
+                onClick={() => {
+                  handleDeletePhoto(item)
+                }}
+                sx={{ position: 'relative', zIndex: '1000' }}
+              >
+                <DeleteIcon
+                  fontSize="small"
+                  variant="outlined"
+                  sx={{ color: 'white', opacity: '0.8' }}
+                />
+              </IconButton>
+            </Box>
+            <Box>
+              {item.postedTo[0] ? (
+                <InstagramIcon
+                  fontSize="small"
                   sx={{
-                    height: '100%',
-                    width: '300%',
-                    // border: '1px solid lightGray',
+                    position: 'relative',
+                    top: '43px',
+                    zIndex: '1000',
+                    color: 'white',
+                    opacity: '0.8',
                   }}
-                >
-                <AddPhotoAlternateIcon />  
-                </CardMedia>
-              </Box>
-            </Button> */}
-          {/* ) : ( */}
-            <CardMedia
-              onClick={() => {
-                handlePostSchedule(item)
-              }}
-              component="img"
-              sx={{
-                height: '100%',
-                width: '100%',
-              }}
-              image={`https://res.cloudinary.com/ddcynhc98/image/upload/c_crop,h_1500,w_1500/${item.photos[0]
-                .split('')
-                .splice(50)
-                .join('')}`}
-              alt="random"
-            />
-          {/* )} */}
+                />
+              ) : (
+                ''
+              )}
+            </Box>
+          </Box>
+
+          <Image
+            src={`https://res.cloudinary.com/ddcynhc98/image/upload/${item.photos[0]
+              .split('')
+              .splice(50)
+              .join('')}`}
+            height="99px"
+            width="99px"
+            onClick={() => {
+              handlePostSchedule(item)
+            }}
+            duration={0}
+            fit="fill"
+          />
         </Card>
       </Grid>
     )
@@ -139,20 +173,30 @@ const MediaLibrary = ({ userData }) => {
       sx={{
         borderRadius: '25px',
         height: '650px',
-        width: '100%',
+        width: '300px',
         overflowY: 'scroll',
         scrollbarWidth: 'none',
         '::-webkit-scrollbar': {
-            display: 'none',
-          }
+          display: 'none',
+        },
 
         // minWidth: '200px'
       }}
     >
+      <ConfirmDeleteModal
+        openConfirmDeleteModal={openConfirmDeleteModal}
+        handleClose={handleCloseConfirmDeleteModal}
+        selectedPhoto={selectedPhoto}
+      />
       <SchedulePostModal
         open={open}
         handleClose={handleClose}
         scheduleItem={scheduleItem}
+        userData={userData}
+      />
+      <LinkFacebookCardModal
+        open={openLinkModal}
+        handleClose={handleCloseLinkModal}
         userData={userData}
       />
       <CardContent sx={{ padding: '0 0' }}>
@@ -170,6 +214,7 @@ const MediaLibrary = ({ userData }) => {
           <Box>
             <Button
               component="label"
+              disabled={!userData}
               onChange={(e) => {
                 handlePhotoUpload(e)
               }}

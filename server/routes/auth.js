@@ -1,5 +1,6 @@
 import express from 'express'
 import fetch from 'node-fetch'
+import stripe from 'stripe'
 import {
   findUserByEmail,
   findUserById,
@@ -10,6 +11,7 @@ const router = express.Router()
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 
+const stripeConfig = stripe(process.env.STRIPE_PRIVATE_KEY)
 // Authentication Server Routes
 
 // passport middle ware runs when the '/login' endpoint is called
@@ -46,7 +48,7 @@ passport.serializeUser(function (user, done) {
 })
 // passport middle ware checks if there is a cookie saved in the browser and returns logged in user
 passport.deserializeUser(function (id, done) {
-  console.log('passport is trying to recover the user from a cookie')
+  // console.log('passport is trying to recover the user from a cookie')
   findUserById(id)
     .then((user) => {
       if (!user) {
@@ -63,7 +65,7 @@ router.post(
   '/login',
   passport.authenticate('local'),
   async function (req, res) {
-    console.log(req.user)
+    console.log('This is req.user', req.user)
     res.send(req.user)
   }
 )
@@ -117,6 +119,7 @@ router.post('/validateFb', async function (req, res) {
   }
 
   // user is updated in the database
+  console.log('data.userData', data)
   const updatedUser = await findUserAndUpdate(data.userData._id, instaAccess)
 
   // updated user is sent back to the front end

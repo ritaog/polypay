@@ -24,9 +24,12 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import Link from '@mui/material/Link'
 import SignUpButton from '../modals/SignUpModal'
+import Image from 'mui-image'
+// import logo from 'images/polypay_armadillo.png'
 
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import SalePageLink from '../ui/SalePageLink'
 const drawerWidth = 240
 
 const openedMixin = (theme) => ({
@@ -102,8 +105,10 @@ export default function MiniDrawer({ children, userData, getUserState }) {
 
   const [expanded, setExpanded] = React.useState()
 
+
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false)
+    handleDrawerClose()
   }
 
   const handleDrawerOpen = () => {
@@ -148,11 +153,20 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           >
             <MenuIcon sx={{ color: 'black' }} />
           </IconButton>
+          <Box sx={{ paddingRight: '10px' }}>
+            <Image
+              src="/images/polypay_armadillo.png"
+              alt="logo"
+              height="50px"
+              width="50px"
+              fit="fill"
+            />
+          </Box>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ color: 'black', paddingRight: '10px' }}
+            sx={{ color: 'black', paddingRight: '10px', fontSize: '30px' }}
           >
             PolyPay
           </Typography>
@@ -166,8 +180,16 @@ export default function MiniDrawer({ children, userData, getUserState }) {
             <Button sx={{ my: 2, color: 'black', display: 'block' }}>
               Blog
             </Button>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              {userData ? <SalePageLink userData={userData} /> : ''}
+            </Box>
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box
+            sx={{
+              flexGrow: 0,
+              display: { xs: 'flex'},
+            }}
+          >
             {userData ? (
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -216,11 +238,11 @@ export default function MiniDrawer({ children, userData, getUserState }) {
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleChange('panel2')}>
             {theme.direction === 'rtl' ? (
               <ChevronRightIcon />
             ) : (
-              <ChevronLeftIcon onClick={handleChange('panel2')} />
+              <ChevronLeftIcon />
             )}
           </IconButton>
         </DrawerHeader>
@@ -229,6 +251,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           <ListItem>
             <AccordionButton
               open={open}
+              userData={userData}
               handleDrawerOpen={handleDrawerOpen}
               handleChange={handleChange}
               setExpanded={setExpanded}
@@ -248,7 +271,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, background: 'white' }}>
         <DrawerHeader />
         {children}
       </Box>

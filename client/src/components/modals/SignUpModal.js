@@ -44,9 +44,11 @@ export default function SignUpModal({ getUserState }) {
       password: password,
     }
 
-    console.log(user)
+    //console.log(user)
     // data is sent to login endpoint
     const response = await axios.post('/auth/login', user)
+
+    console.log('This is the response from the server', response.data)
 
     console.log(getUserState)
     // response from authentication endpoint (userdata if corrrect email/password) is assigned to the users state function on 'app.js'
@@ -91,6 +93,7 @@ export default function SignUpModal({ getUserState }) {
                 <Typography component="h1" variant="h5">
                   PolyPay Sign In
                 </Typography>
+                {' '}
                 <Box
                   component="form"
                   onSubmit={handleSubmit}
