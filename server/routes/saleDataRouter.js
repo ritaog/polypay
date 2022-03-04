@@ -13,12 +13,6 @@ import saleData from '../models/saleDataModel.js'
 
 const router = express.Router()
 
-router.get('/listSalesByLoggedUser', async (req, res) => {
-  const userId = req.user.id
-  const saleArray = await Media.find({ vendorId: userId })
-  res.json(saleArray)
-})
-
 router.post('/saveSaleData', async (req, res) => {
   const saleItem = req.body
   const newSaleData = new SaleData(saleItem)
@@ -26,5 +20,10 @@ router.post('/saveSaleData', async (req, res) => {
   res.status(201).json(savedData)
 })
 
+router.get('/listSaleDataByLoggedUser', async (req, res) => {
+  const userId = req.user.id
+  const saleArray = await SaleData.find({ vendorId: userId })
+  res.status(202).json(saleArray)
+})
 
 export default router

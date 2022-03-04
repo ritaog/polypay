@@ -2,7 +2,7 @@ import { Typography, Grid } from '@mui/material'
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
 
 const Views = ({ dailyInstaData }) => {
-  console.log('dailyInstaData', dailyInstaData)
+  // console.log('dailyInstaData', dailyInstaData)
   return (
     <Grid
       container

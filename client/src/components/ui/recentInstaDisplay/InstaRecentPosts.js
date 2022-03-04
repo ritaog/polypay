@@ -30,7 +30,7 @@ export default function InstaRecentPosts({ userData }) {
           const response = await axios.get(
             `/media/getInstagramPostsByLoggedInUser`
           )
-          console.log('response.data', response)
+          // console.log('response.data', response)
           setRecentPosts(response.data)
 
       } catch (e) {

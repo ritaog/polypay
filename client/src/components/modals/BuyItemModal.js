@@ -38,8 +38,8 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
   const handlePurchase = async () => {
     const purchaseInfo = [{ id: buyModalItem._id, purchaseQuantity }]
     const saleData = {
-      itemTitle: buyModalItem.postTitle,
-      itemId: buyModalItem._id,
+      saleItemTitle: buyModalItem.postTitle,
+      saleItemId: buyModalItem._id,
       vendorId: buyModalItem.vendorId,
       saleTotal: buyModalItem.price,
       saleDate: new Date(),
@@ -62,7 +62,7 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
     if (!url) throw new Error('Cannot find payment page!')
 
     //open url in a new tab
-    // window.open(url)
+    window.open(url)
   }
 
   return (
