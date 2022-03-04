@@ -49,13 +49,14 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
     }
     // console.log(purchaseInfo)
     const resData = await axios.post('/saleData/saveSaleData', saleData)
-    console.log('resData', resData)
+    // console.log('resData', resData)
+
     const response = await axios.post(
       '/payment/create-checkout-session',
       purchaseInfo
     )
 
-    // console.log(response)
+    console.log(response)
 
     const { url } = response.data
 
