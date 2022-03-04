@@ -68,7 +68,7 @@ const PostDashboardPage = ({ userData }) => {
       <Box sx={{ display: 'flex' }}>
         <Box sx={{ width: '25%', minWidth: '220px', padding: '0 20px 20px 0' }}>
           <Item>
-            <TodaysSales />
+            <TodaysSales userSaleData={userSaleData} />
           </Item>
         </Box>
         <Box sx={{ width: '25%', minWidth: '220px', padding: '0 20px 20px 0' }}>
@@ -78,7 +78,7 @@ const PostDashboardPage = ({ userData }) => {
         </Box>
         <Box sx={{ width: '25%', minWidth: '220px', padding: '0 20px 20px 0' }}>
           <Item>
-            <PayPeriod />
+            <PayPeriod userSaleData={userSaleData} />
           </Item>
         </Box>
         <Box sx={{ width: '25%', minWidth: '220px', padding: '0 20px 20px 0' }}>
@@ -87,11 +87,11 @@ const PostDashboardPage = ({ userData }) => {
           </Item>
         </Box>
       </Box>
-      <Box sx={{display: 'flex'}}>
-        <Box>
+      <Box sx={{ display: 'flex' }}>
+        <Box sx={{ paddingRight: '20px' }}>
           <InstaRecentPosts userData={userData} />
         </Box>
-          <UserSaleDataGrid userSaleData={userSaleData} />
+        <UserSaleDataGrid userSaleData={userSaleData} />
       </Box>
     </Box>
   )
