@@ -68,7 +68,7 @@ const PostDashboardPage = ({ userData }) => {
       <Box sx={{ display: 'flex' }}>
         <Box sx={{ width: '25%', minWidth: '220px', padding: '0 20px 20px 0' }}>
           <Item>
-            <TodaysSales />
+            <TodaysSales userSaleData={userSaleData} />
           </Item>
         </Box>
         <Box sx={{ width: '25%', minWidth: '220px', padding: '0 20px 20px 0' }}>
@@ -78,7 +78,7 @@ const PostDashboardPage = ({ userData }) => {
         </Box>
         <Box sx={{ width: '25%', minWidth: '220px', padding: '0 20px 20px 0' }}>
           <Item>
-            <PayPeriod />
+            <PayPeriod userSaleData={userSaleData} />
           </Item>
         </Box>
         <Box sx={{ width: '25%', minWidth: '220px', padding: '0 20px 20px 0' }}>
