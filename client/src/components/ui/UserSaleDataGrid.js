@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card } from '@mui/material'
+import { Card, Button, Box } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 
 const columns = [
@@ -34,25 +34,15 @@ const UserSaleDataGrid = ({ userSaleData }) => {
   })
 
   return (
-    <Card sx={{ borderRadius: '25px', width: '74%' }}>
-      {/* <Box> */}
-      {userSaleData ? (
-        <DataGrid rows={userSaleDataGrid} columns={columns} />
-      ) : (
-        ''
-      )}
-      {/* </Box> */}
-    </Card>
-
-    // <Card
-    //   sx={{ width: '100%', padding: ' 0 20px 0 20px', borderRadius: '25px' }}
-    // >
-    /* <CardContent> */
-    // <div>
-
-    /* </div> */
-    /* </CardContent> */
-    /* </Card> */
+    <>
+      <Card sx={{ borderRadius: '25px', width: '74%' }}>
+        {userSaleData ? (
+          <DataGrid rows={userSaleDataGrid} columns={columns} />
+        ) : (
+          ''
+        )}
+      </Card>
+ </>
   )
 }
 

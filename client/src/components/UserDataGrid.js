@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { DataGrid } from '@mui/x-data-grid'
+import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 import axios from 'axios'
 import './UserDataGrid.css'
 
@@ -42,7 +42,11 @@ const UserDataGrid = () => {
   return (
     <div className="style">
       <h1 className="title">Admin Dashboard</h1>
-      <DataGrid rows={totalUserData} columns={columns} />
+      <DataGrid
+        rows={totalUserData}
+        columns={columns}
+        components={{ Toolbar: GridToolbar }}
+      />
     </div>
   )
 }
