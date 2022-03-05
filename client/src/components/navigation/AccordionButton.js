@@ -10,6 +10,7 @@ import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount'
 import PostAddIcon from '@mui/icons-material/PostAdd'
 // import ReceiptIcon from '@mui/icons-material/Receipt'
 import PhotoIcon from '@mui/icons-material/Photo'
+import DashboardIcon from '@mui/icons-material/Dashboard'
 import AddIcon from '@mui/icons-material/Add'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
 import { ListItemText } from '@mui/material'
@@ -78,24 +79,24 @@ export default function CustomizedAccordions({
             <ListItem
               button
               onClick={() => {
-                navigate('/schedule-post')
+                navigate('/post-dashboard')
               }}
             >
-              <AddIcon />
+              <DashboardIcon />
               <ListItemText
-                primary="Schedule Post"
+                primary="Post Dashboard"
                 sx={{ paddingLeft: '35px' }}
               />
             </ListItem>
             <ListItem
               button
               onClick={() => {
-                navigate('/post-dashboard')
+                navigate('/schedule-post')
               }}
             >
-              <PhotoIcon />
+              <AddIcon />
               <ListItemText
-                primary="Post Dashboard"
+                primary="Schedule Post"
                 sx={{ paddingLeft: '35px' }}
               />
             </ListItem>
