@@ -1,6 +1,7 @@
 import User from './userModel.js'
 import SaleItem from './saleItemModel.js'
 import Media from './mediaModel.js'
+import SaleData from './saleDataModel.js'
 
 // Controller for Data Models
 
@@ -58,4 +59,16 @@ export async function findAllUser() {
   let allUser = await User.find({})
   console.log("in controller", allUser)
   return allUser
+}
+
+// SALE DATA FUNCTIONS
+
+export async function findSaleDataAndUpdate(id, updateData) {
+  let updatedSaleData = await SaleData.findByIdAndUpdate(id, updateData)
+  return updatedSaleData
+}
+
+export async function findSaleDataAndDelete(id) {
+  let deletedSaleData = await SaleData.findByIdAndDelete(id)
+  return deletedSaleData
 }

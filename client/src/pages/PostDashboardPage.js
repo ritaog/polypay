@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
-import Box from '@mui/material/Box'
+import { Box } from '@mui/material'
 import { useState, useEffect } from 'react'
 import InstaRecentPosts from '../components/ui/recentInstaDisplay/InstaRecentPosts'
 import TodaysSales from '../components/ui/statBubbles/TodaysSales'

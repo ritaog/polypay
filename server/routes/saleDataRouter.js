@@ -5,6 +5,8 @@ import SaleData from '../models/saleDataModel.js'
 import User from '../models/userModel.js'
 import {
   findUserAndUpdate,
+  findSaleDataAndUpdate,
+  findSaleDataAndDelete,
   findSaleItemAndUpdate,
   findSaleItemAndDelete,
   findMediaAndUpdate,
@@ -25,5 +27,31 @@ router.get('/listSaleDataByLoggedUser', async (req, res) => {
   const saleArray = await SaleData.find({ vendorId: userId })
   res.status(202).json(saleArray)
 })
+
+router.put('/updateSaleDataByIds', async (req, res) => {
+  const incomingData = req.body
+  const updatedData = incomingData.ids.map(async (id) => {
+    const newSaleData = await findSaleDataAndUpdate(id, {
+      fulfilled: incomingData.fulfilled,
+    })
+    return newSaleData
+  })
+  Promise.all(updatedData).then((values) => {
+    res.sendStatus(201)
+  })
+})
+
+// router.delete('/deleteSaleDataByIds', async (req, res) => {
+//   const incomingData = req.body
+//   console.log('incomingData', req)
+  // const deletedData = incomingData.map(async (id) => {
+  //   const deletedId = await findSaleDataAndDelete(id)
+  //   return deletedId
+  // })
+  // Promise.all(deletedData).then((values) => {
+  //   console.log('values', values)
+  //   res.status(204).send(values)
+  // })
+// })
 
 export default router
