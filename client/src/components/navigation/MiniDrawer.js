@@ -29,7 +29,7 @@ import Image from 'mui-image'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import SalePageLink from '../ui/SalePageLink'
-const drawerWidth = 240
+const drawerWidth = 270
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -137,11 +137,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        open={open}
-        sx={{ backgroundColor: 'white' }}
-      >
+      <AppBar position="fixed" open={open} sx={{ backgroundColor: 'white' }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -172,16 +168,24 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           >
             PolyPay
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box>
             <Button href="/" sx={{ my: 2, color: 'black', display: 'block' }}>
               Home
             </Button>
-            <Button sx={{ my: 2, color: 'black', display: 'block' }}>
+          </Box>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
+              justifyContent: 'flex-end',
+            }}
+          >
+            {/* <Button sx={{ my: 2, color: 'black', display: 'block' }}>
               About
             </Button>
             <Button sx={{ my: 2, color: 'black', display: 'block' }}>
               Blog
-            </Button>
+            </Button> */}
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               {userData ? <SalePageLink userData={userData} /> : ''}
             </Box>
@@ -262,7 +266,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           </ListItem>
         </List>
         <Divider />
-        <List>
+        {/* <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
@@ -271,7 +275,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />

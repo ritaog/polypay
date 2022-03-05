@@ -178,7 +178,7 @@ export default function CustomizedAccordions({
 
       {/*////////// STRIPE BOT///////////////// */}
 
-      <Accordion
+      {/* <Accordion
         expanded={expanded === 'panel4'}
         onChange={handleChange('panel4')}
       >
@@ -200,7 +200,7 @@ export default function CustomizedAccordions({
             lacus ex, sit amet blandit leo lobortis eget.
           </Typography>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
     </div>
   )
 }
