@@ -1,11 +1,16 @@
 import express from 'express'
 import stripe from 'stripe'
+import bodyParser from 'body-parser'
 import SaleItem from '../models/saleItemModel.js'
 import User from '../models/userModel.js'
 
 const router = express.Router()
 
 const stripeConfig = stripe(process.env.STRIPE_PRIVATE_KEY)
+
+//Ensure the source of  webhook request is Stripe
+const endpointSecret =
+  'whsec_9fc5802202cb8abcc1b50ae0c696c3ae314c54071a6b0e7d1eb70b52a396722a'
 
 //POST Endpoint || description: "http://localhost:5000/payment/onboardVendorToStripe"
 
@@ -158,5 +163,54 @@ router.post('/create-checkout-session', async (req, res) => {
     res.status(500).json({ error: e.message })
   }
 })
+
+//POST Endpoint || description: "http://localhost:5000/payment/webhook"
+
+router.post(
+  '/webhook',
+  express.raw({ type: 'application/json' }),
+  (request, response) => {
+    let event
+
+    //Verify that this request is coming from Stripe
+    if (endpointSecret) {
+      // Get the signature sent by Stripe
+      const signature = request.headers['stripe-signature']
+      console.log('This is the signature', signature)
+      try {
+        event = stripeConfig.webhooks.constructEvent(
+          request.body,
+          signature,
+          endpointSecret
+        )
+      } catch (err) {
+        console.log(`⚠️  Webhook signature verification failed.`, err.message)
+        return response.sendStatus(400)
+      }
+    }
+
+    // Handle the event
+    switch (event.type) {
+      case 'payment_intent.succeeded':
+        const paymentIntent = event.data.object
+        console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`)
+        // Then define and call a method to handle the successful payment intent.
+        // handlePaymentIntentSucceeded(paymentIntent);
+        break
+      case 'payment_method.attached':
+        const paymentMethod = event.data.object
+        // Then define and call a method to handle the successful attachment of a PaymentMethod.
+        // handlePaymentMethodAttached(paymentMethod);
+        break
+      default:
+        // Unexpected event type
+        console.log(`Unhandled event type ${event.type}.`)
+    }
+
+    // Return a 200 response to acknowledge receipt of the event
+
+    response.send()
+  }
+)
 
 export default router
