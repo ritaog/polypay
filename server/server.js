@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 5000
 
 // Use JSON parser for all non-webhook routes
 app.use((req, res, next) => {
-  if (req.originalUrl === 'payment/webhook') {
+  if (req.originalUrl === '/payment/webhook') {
     next()
   } else {
     express.json()(req, res, next)
