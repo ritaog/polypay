@@ -38,6 +38,8 @@ const SchedulePostForm = ({
   handleIncrement,
   handleDecrement,
   edit,
+  setForSale,
+  forSale,
 }) => {
   return (
     <Grid item xs={12} sm={12} md={12}>
@@ -45,23 +47,6 @@ const SchedulePostForm = ({
         sx={{
           width: '100%',
           padding: ' 10px 10px 10px 10px',
-        }}
-      >
-        <TextField
-          fullWidth
-          label="Product Title"
-          id="fullWidth"
-          value={postTitle}
-          disabled={edit}
-          onChange={(e) => {
-            setPostTitle(e.target.value)
-          }}
-        />
-      </Box>
-      <Box
-        sx={{
-          width: '100%',
-          padding: ' 0 10px 10px 10px',
         }}
       >
         <TextField
@@ -77,41 +62,22 @@ const SchedulePostForm = ({
           }}
         />
       </Box>
-      <Box
+      {/* <Box
         sx={{
           padding: ' 0 10px 10px 10px',
         }}
-      >
-        <FormControlLabel
+      > */}
+      {/* <FormControlLabel
           value="end"
           control={<Switch color="primary" />}
           label="Save Hashtags (pre-populates future posts)"
           labelPlacement="end"
-        />
-      </Box>
+        /> */}
+      {/* </Box> */}
       <Box
         sx={{
           width: '100%',
           padding: ' 0 10px 10px 10px',
-        }}
-      >
-        <TextField
-          fullWidth
-          label="About Your Product"
-          id="fullWidth"
-          value={about}
-          disabled={edit}
-          multiline
-          rows={4}
-          onChange={(e) => {
-            setAbout(e.target.value)
-          }}
-        />
-      </Box>
-      <Box
-        sx={{
-          width: '100%',
-          padding: ' 10px 10px 10px 10px',
         }}
       >
         <TextField
@@ -124,73 +90,6 @@ const SchedulePostForm = ({
             setLocation(e.target.value)
           }}
         />
-      </Box>
-      <Box
-        sx={{
-          padding: ' 0 10px 10px 10px',
-        }}
-      >
-        <FormControlLabel
-          control={<Switch color="primary" />}
-          label="Item Available to Ship"
-          labelPlacement="end"
-          value={canShip}
-          disabled={edit}
-          onChange={(e) => {
-            setCanShip(e.target.checked)
-          }}
-        />
-      </Box>
-      <Box>
-        <ButtonGroup
-          size="large"
-          aria-label="small outlined button group"
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            marginRight: '20px',
-          }}
-        >
-          <Typography
-            variant="h7"
-            component="span"
-            sx={{ paddingRight: '20px' }}
-          >
-            Quantity Available
-          </Typography>
-          <Button onClick={handleDecrement} disabled={edit}>
-            -
-          </Button>
-          <Button>{quantity}</Button>
-          <Button onClick={handleIncrement} disabled={edit}>
-            +
-          </Button>
-        </ButtonGroup>
-      </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          padding: ' 20px 20px 10px 10px',
-        }}
-      >
-        <FormControl>
-          <InputLabel htmlFor="price">Price</InputLabel>
-          <OutlinedInput
-            id="price"
-            placeholder="0.00"
-            type="number"
-            disabled={edit}
-            value={price}
-            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-            onChange={(e) => {
-              setPrice(e.target.value)
-            }}
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-            label="Amount"
-          />
-        </FormControl>
       </Box>
       <Box
         sx={{
@@ -223,18 +122,132 @@ const SchedulePostForm = ({
           alignItems: 'center',
         }}
       >
-        <InstagramIcon
+        {/* <InstagramIcon
           sx={{ marginRight: '20px', color: 'gray', fontSize: '35px' }}
-        />
+        /> */}
 
         <FormControlLabel
           value="end"
           disabled={edit}
           control={<Switch color="primary" />}
-          label="Publish to Instagram"
+          label="Post As Sale Item"
           labelPlacement="end"
+          onChange={(e) => {
+            setForSale(e.target.checked)
+          }}
         />
       </Box>
+      {forSale ? (
+        <Box>
+          <Box
+            sx={{
+              width: '100%',
+              padding: ' 0 10px 10px 10px',
+            }}
+          >
+            <TextField
+              fullWidth
+              label="Product Title"
+              id="fullWidth"
+              value={postTitle}
+              disabled={edit}
+              onChange={(e) => {
+                setPostTitle(e.target.value)
+              }}
+            />
+          </Box>
+          <Box
+            sx={{
+              width: '100%',
+              padding: ' 0 10px 10px 10px',
+            }}
+          >
+            <TextField
+              fullWidth
+              label="About Your Product"
+              id="fullWidth"
+              value={about}
+              disabled={edit}
+              multiline
+              rows={4}
+              onChange={(e) => {
+                setAbout(e.target.value)
+              }}
+            />
+          </Box>
+          <Box
+            sx={{
+              padding: ' 0 10px 10px 10px',
+            }}
+          >
+            <FormControlLabel
+              control={<Switch color="primary" />}
+              label="Item Available to Ship"
+              labelPlacement="end"
+              value={canShip}
+              disabled={edit}
+              onChange={(e) => {
+                setCanShip(e.target.checked)
+              }}
+            />
+          </Box>
+          <Box>
+            <ButtonGroup
+              size="large"
+              aria-label="small outlined button group"
+              sx={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                marginRight: '20px',
+              }}
+            >
+              <Typography
+                variant="h7"
+                component="span"
+                sx={{ paddingRight: '20px' }}
+              >
+                Quantity Available
+              </Typography>
+              <Button onClick={handleDecrement} disabled={edit}>
+                -
+              </Button>
+              <Button>{quantity}</Button>
+              <Button onClick={handleIncrement} disabled={edit}>
+                +
+              </Button>
+            </ButtonGroup>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              padding: ' 20px 20px 10px 10px',
+            }}
+          >
+            <FormControl>
+              <InputLabel htmlFor="price">Price</InputLabel>
+              <OutlinedInput
+                id="price"
+                placeholder="0.00"
+                type="number"
+                disabled={edit}
+                value={price}
+                inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                onChange={(e) => {
+                  setPrice(e.target.value)
+                }}
+                startAdornment={
+                  <InputAdornment position="start">$</InputAdornment>
+                }
+                label="Amount"
+              />
+            </FormControl>
+          </Box>
+        </Box>
+      ) : (
+        ''
+      )}
     </Grid>
   )
 }
