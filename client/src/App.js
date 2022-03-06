@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
-import HomePage from './pages/HomePage'
+// import HomePage from './pages/HomePage'
 import ProfilePage from './pages/ProfilePage'
 // import LinkAccountPage from './pages/LinkAccountPage'
 import SchedulePostPage from './pages/SchedulePostPage'
@@ -19,13 +19,15 @@ import LinkFacebookCardModal from './components/modals/SetUpMyStuffModals/LinkFa
 import SalePageHeader from './components/navigation/SalePageHeader'
 import MiniDrawer from './components/navigation/MiniDrawer'
 import AdminPage from './pages/AdminPage'
+import SignInPage from './pages/SignInPage'
+
 
 const App = () => {
   //user state set by user login
   const [user, setUser] = useState()
   const [vendorName, setVendorName] = useState()
   //function that sets user: this function is passed to the "/"
-  const getObject = (userData) => {
+  const setUserState = (userData) => {
     console.log(userData)
     setUser(userData)
   }
@@ -42,18 +44,23 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/Admin" element={ <MiniDrawer
+        <Route
+          path="/Admin"
+          element={
+            <MiniDrawer
               userData={user}
-              getUserState={getObject}
+              setUserState={setUserState}
               children={<AdminPage userData={user} />}
-            />}/>
+            />
+          }
+        />
         <Route
           path="/"
           element={
             <MiniDrawer
               userData={user}
-              getUserState={getObject}
-              children={<PostDashboardPage userData={user} />}
+              setUserState={setUserState}
+              children={<SignInPage setUserState={setUserState} userData={user} />}
             />
           }
         />
@@ -62,7 +69,7 @@ const App = () => {
           element={
             <MiniDrawer
               userData={user}
-              getUserState={getObject}
+              setUserState={setUserState}
               // children={<LinkAccountPage userData={user} />} this is original.  I am playing with
               children={<LinkFacebookCardModal userData={user} />}
             />
@@ -73,7 +80,7 @@ const App = () => {
           element={
             <MiniDrawer
               userData={user}
-              getUserState={getObject}
+              setUserState={setUserState}
               children={<SchedulePostPage userData={user} />}
             />
           }
@@ -85,7 +92,7 @@ const App = () => {
             <MiniDrawer
               style={{ background: 'red' }}
               userData={user}
-              getUserState={getObject}
+              setUserState={setUserState}
               children={<ProfilePage userData={user} />}
             />
           }
@@ -95,7 +102,7 @@ const App = () => {
           element={
             <MiniDrawer
               userData={user}
-              getUserState={getObject}
+              setUserState={setUserState}
               children={<DisplayItemsPage userData={user} />}
             />
           }
@@ -105,7 +112,7 @@ const App = () => {
           element={
             <MiniDrawer
               userData={user}
-              getUserState={getObject}
+              setUserState={setUserState}
               children={<PostDashboardPage userData={user} />}
             />
           }
@@ -125,7 +132,7 @@ const App = () => {
           element={
             <MiniDrawer
               userData={user}
-              getUserState={getObject}
+              setUserState={setUserState}
               children={<CheckoutPage />}
             />
           }
@@ -136,7 +143,7 @@ const App = () => {
           element={
             <MiniDrawer
               userData={user}
-              getUserState={getObject}
+              setUserState={setUserState}
               children={<SetUpStripePage userData={user} />}
             />
           }
@@ -147,7 +154,7 @@ const App = () => {
           element={
             <MiniDrawer
               userData={user}
-              getUserState={getObject}
+              setUserState={setUserState}
               children={<PaymentDashboard userData={user} />}
             />
           }
@@ -157,7 +164,7 @@ const App = () => {
         <Route path="/failure" element={<StripeFailure />} />
         <Route
           path="/successfulCheckout"
-          element={<StripeSuccessfulCheckout/>}
+          element={<StripeSuccessfulCheckout />}
         />
       </Routes>
     </BrowserRouter>

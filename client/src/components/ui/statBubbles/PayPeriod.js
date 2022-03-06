@@ -1,7 +1,19 @@
 import { Typography, Grid } from '@mui/material'
 import AnalyticsRoundedIcon from '@mui/icons-material/AnalyticsRounded'
 
-const PayPeriod = () => {
+const PayPeriod = ({ userSaleData }) => {
+  const monthlySales = () => {
+    let todayMonth = new Date().getMonth()
+    let totalSales = 0.0
+    userSaleData?.map((sale) => {
+      let dateCheck = new Date(sale.saleDate).getMonth()
+      if (dateCheck === todayMonth) {
+        totalSales += Number(parseFloat(sale.saleTotal.$numberDecimal))
+      }
+    })
+    return totalSales.toFixed(2)
+  }
+
   return (
     <Grid
       container
@@ -14,7 +26,7 @@ const PayPeriod = () => {
           Pay Period Sales
         </Typography>
         <Typography variant="h6" align="left">
-          $1,568.95
+          {`$${monthlySales()}`}
         </Typography>
       </Grid>
       <Grid item>

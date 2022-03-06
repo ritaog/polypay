@@ -5,12 +5,13 @@ import CssBaseline from '@mui/material/CssBaseline'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import TextField from '@mui/material/TextField'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
+// import FormControlLabel from '@mui/material/FormControlLabel'
+// import Checkbox from '@mui/material/Checkbox'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import Container from '@mui/material/Container'
 
+import Image from 'mui-image'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import axios from 'axios'
 import { useState } from 'react'
@@ -22,13 +23,15 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
+  height: 600,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  // border: '2px solid #000',
+  borderRadius: '25px',
   boxShadow: 24,
   p: 4,
 }
 
-export default function SignUpModal({ getUserState }) {
+export default function SignUpModal({ setUserState }) {
   const [open, setOpen] = React.useState(false)
   const [emailAddress, setEmailAddress] = useState('')
   const [password, setPassword] = useState('')
@@ -50,12 +53,12 @@ export default function SignUpModal({ getUserState }) {
 
     console.log('This is the response from the server', response.data)
 
-    console.log(getUserState)
+    console.log(setUserState)
     // response from authentication endpoint (userdata if corrrect email/password) is assigned to the users state function on 'app.js'
-    getUserState(response.data)
+    setUserState(response.data)
 
     // navigates to home page
-    navigate('/')
+    navigate('/post-dashboard')
   }
 
   const theme = createTheme()
@@ -84,16 +87,24 @@ export default function SignUpModal({ getUserState }) {
               <CssBaseline />
               <Box
                 sx={{
-                  marginTop: 8,
+                  marginTop: 2,
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                 }}
               >
+                <Box sx={{ paddingBottom: '10px' }}>
+                  <Image
+                    src="/images/polypay_armadillo.png"
+                    alt="logo"
+                    height="150px"
+                    width="150px"
+                    fit="fill"
+                  />
+                </Box>
                 <Typography component="h1" variant="h5">
                   PolyPay Sign In
-                </Typography>
-                {' '}
+                </Typography>{' '}
                 <Box
                   component="form"
                   onSubmit={handleSubmit}
@@ -126,10 +137,10 @@ export default function SignUpModal({ getUserState }) {
                     id="password"
                     autoComplete="current-password"
                   />
-                  <FormControlLabel
+                  {/* <FormControlLabel
                     control={<Checkbox value="remember" color="primary" />}
                     label="Remember me"
-                  />
+                  /> */}
                   <Button
                     type="submit"
                     fullWidth

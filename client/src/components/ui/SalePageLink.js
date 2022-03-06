@@ -40,7 +40,7 @@ const SalePageLink = ({ userData }) => {
   )
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', width: '450px' }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', width: '525px', paddingRight: '10px' }}>
       <Snackbar
         open={open}
         autoHideDuration={6000}
@@ -48,6 +48,9 @@ const SalePageLink = ({ userData }) => {
         message="Link Copied!"
         action={action}
       />
+      <IconButton onClick={copyHandler} sx={{ paddingLeft: '10px' }}>
+        <ContentCopyIcon />
+      </IconButton>
       <TextField
         id="sale-page-link"
         label="Storefront Link"
@@ -56,9 +59,6 @@ const SalePageLink = ({ userData }) => {
         fullWidth
         value={link ? link : ''}
       />
-      <IconButton onClick={copyHandler} sx={{ paddingLeft: '10px' }}>
-        <ContentCopyIcon />
-      </IconButton>
     </Box>
   )
 }

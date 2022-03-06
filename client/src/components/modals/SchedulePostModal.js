@@ -45,6 +45,7 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
   const [canShip, setCanShip] = useState(false)
   const [location, setLocation] = useState()
   const [postTime, setPostTime] = useState(new Date())
+  const [forSale, setForSale] = useState(false)
 
   const [openError, setOpenError] = useState(false)
 
@@ -110,6 +111,47 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
       console.log('err', err)
       handleOpenErrorModal()
     }
+  }
+
+  const handleSubmitNoSale = async (postNow) => {
+    const postData = {
+      photos: scheduleItem.photos,
+      description: caption,
+      postTime: postTime,
+      location: location,
+    }
+
+    const { instagramBusinessId, permanentToken, saleItems } = userData
+    const saleItemDataBundle = {
+      ...postData,
+      instagramBusinessId,
+      permanentToken,
+      saleItems,
+    }
+
+    if (postNow) {
+      setPostNowLoading(!postNowLoading)
+      saleItemDataBundle.postTime = new Date()
+    } else {
+      setScheduleLoading(!scheduleLoading)
+    }
+
+     try {
+       const response = await axios.post(
+         'saleItem/scheduleNoSale',
+         saleItemDataBundle
+       )
+       if (response.statusText === 'Accepted') {
+         setTimeout(() => {
+           setPostNowLoading(false)
+           setScheduleLoading(false)
+           navigate(0)
+         }, 1000)
+       }
+     } catch (err) {
+       console.log('err', err)
+       handleOpenErrorModal()
+     }
   }
 
   return (
@@ -187,7 +229,7 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                   justifyContent="flex-end"
                   alignItems="center"
                 >
-                  <Grid item>
+                  <Grid item sx={{ width: '100%' }}>
                     <SchedulePostForm
                       setPostTitle={setPostTitle}
                       setPrice={setPrice}
@@ -197,9 +239,11 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                       setCanShip={setCanShip}
                       setLocation={setLocation}
                       setPostTime={setPostTime}
+                      setForSale={setForSale}
                       handleSubmit={handleSubmit}
                       handleIncrement={handleIncrement}
                       handleDecrement={handleDecrement}
+                      forSale={forSale}
                       quantity={quantity}
                       postTime={postTime}
                     />
@@ -216,36 +260,65 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                   alignItems: 'center',
                 }}
               >
-                <Stack spacing={2} direction="row">
-                  <LoadingButton
-                    variant="text"
-                    size="large"
-                    loading={postNowLoading}
-                    disabled={
-                      !postTitle || !price || !caption || !about || !location
-                    }
-                    startIcon={postNowLoading ? <SaveIcon /> : ''}
-                    onClick={() => {
-                      handleSubmit(true)
-                    }}
-                  >
-                    Post Now
-                  </LoadingButton>
-                  <LoadingButton
-                    variant="contained"
-                    size="large"
-                    loading={scheduleLoading}
-                    disabled={
-                      !postTitle || !price || !caption || !about || !location
-                    }
-                    startIcon={scheduleLoading ? <SaveIcon /> : ''}
-                    onClick={() => {
-                      handleSubmit(false)
-                    }}
-                  >
-                    Schedule
-                  </LoadingButton>
-                </Stack>
+                {forSale ? (
+                  <Stack spacing={2} direction="row">
+                    <LoadingButton
+                      variant="text"
+                      size="large"
+                      loading={postNowLoading}
+                      disabled={
+                        !postTitle || !price || !caption || !about || !location
+                      }
+                      startIcon={postNowLoading ? <SaveIcon /> : ''}
+                      onClick={() => {
+                        handleSubmit(true)
+                      }}
+                    >
+                      Post Now
+                    </LoadingButton>
+                    <LoadingButton
+                      variant="contained"
+                      size="large"
+                      loading={scheduleLoading}
+                      disabled={
+                        !postTitle || !price || !caption || !about || !location
+                      }
+                      startIcon={scheduleLoading ? <SaveIcon /> : ''}
+                      onClick={() => {
+                        handleSubmitNoSale(false)
+                      }}
+                    >
+                      Schedule
+                    </LoadingButton>
+                  </Stack>
+                ) : (
+                  <Stack spacing={2} direction="row">
+                    <LoadingButton
+                      variant="text"
+                      size="large"
+                      loading={postNowLoading}
+                      disabled={!caption || !location}
+                      startIcon={postNowLoading ? <SaveIcon /> : ''}
+                      onClick={() => {
+                        handleSubmitNoSale(true)
+                      }}
+                    >
+                      Post Now
+                    </LoadingButton>
+                    <LoadingButton
+                      variant="contained"
+                      size="large"
+                      loading={scheduleLoading}
+                      disabled={!caption || !location}
+                      startIcon={scheduleLoading ? <SaveIcon /> : ''}
+                      onClick={() => {
+                        handleSubmitNoSale(false)
+                      }}
+                    >
+                      Schedule
+                    </LoadingButton>
+                  </Stack>
+                )}
               </Box>
             </Grid>
           </Grid>

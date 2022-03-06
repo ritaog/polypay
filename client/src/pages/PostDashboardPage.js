@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
-import Box from '@mui/material/Box'
+import { Box } from '@mui/material'
 import { useState, useEffect } from 'react'
 import InstaRecentPosts from '../components/ui/recentInstaDisplay/InstaRecentPosts'
 import TodaysSales from '../components/ui/statBubbles/TodaysSales'
@@ -9,6 +9,7 @@ import Views from '../components/ui/statBubbles/Views'
 import axios from 'axios'
 import PayPeriod from '../components/ui/statBubbles/PayPeriod'
 import Scheduled from '../components/ui/statBubbles/Scheduled'
+import UserSaleDataGrid from '../components/ui/UserSaleDataGrid'
 // import AddImage from '../components/ui/AddImage'
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -23,6 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
 const PostDashboardPage = ({ userData }) => {
   const [dailyInstaData, setDailyInstaData] = useState()
   const [scheduledPosts, setScheduledPosts] = useState()
+  const [userSaleData, setUserSaleData] = useState()
 
   useEffect(() => {
     const getDailyData = async () => {
@@ -48,12 +50,25 @@ const PostDashboardPage = ({ userData }) => {
     }
   }, [userData])
 
+  useEffect(() => {
+    const getSaleData = async () => {
+      const response = await axios.get('/saleData/listSaleDataByLoggedUser')
+      // console.log('response', response)
+      if (response.statusText === 'Accepted') {
+        setUserSaleData(response.data)
+      }
+    }
+    if (userData) {
+      getSaleData()
+    }
+  }, [userData])
+
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ display: 'flex' }}>
         <Box sx={{ width: '25%', minWidth: '220px', padding: '0 20px 20px 0' }}>
           <Item>
-            <TodaysSales />
+            <TodaysSales userSaleData={userSaleData} />
           </Item>
         </Box>
         <Box sx={{ width: '25%', minWidth: '220px', padding: '0 20px 20px 0' }}>
@@ -63,7 +78,7 @@ const PostDashboardPage = ({ userData }) => {
         </Box>
         <Box sx={{ width: '25%', minWidth: '220px', padding: '0 20px 20px 0' }}>
           <Item>
-            <PayPeriod />
+            <PayPeriod userSaleData={userSaleData} />
           </Item>
         </Box>
         <Box sx={{ width: '25%', minWidth: '220px', padding: '0 20px 20px 0' }}>
@@ -72,8 +87,12 @@ const PostDashboardPage = ({ userData }) => {
           </Item>
         </Box>
       </Box>
-
-      <InstaRecentPosts userData={userData} />
+      <Box sx={{ display: 'flex' }}>
+        <Box sx={{ paddingRight: '20px' }}>
+          <InstaRecentPosts userData={userData} />
+        </Box>
+        <UserSaleDataGrid userSaleData={userSaleData} />
+      </Box>
     </Box>
   )
 }

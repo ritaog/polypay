@@ -2,7 +2,7 @@ import React from 'react'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import DateTimePicker from '@mui/lab/DateTimePicker'
-import InstagramIcon from '@mui/icons-material/Instagram'
+// import InstagramIcon from '@mui/icons-material/Instagram'
 import {
   Grid,
   Box,
@@ -77,7 +77,7 @@ const EditPostForm = ({
           }}
         />
       </Box>
-      <Box
+      {/* <Box
         sx={{
           padding: ' 0 10px 10px 10px',
         }}
@@ -88,7 +88,7 @@ const EditPostForm = ({
           label="Save Hashtags (pre-populates future posts)"
           labelPlacement="end"
         />
-      </Box>
+      </Box> */}
       <Box
         sx={{
           width: '100%',
@@ -215,7 +215,7 @@ const EditPostForm = ({
           />
         </LocalizationProvider>
       </Box>
-      <Box
+      {/* <Box
         sx={{
           padding: ' 0 10px 10px 10px',
           display: 'flex',
@@ -234,7 +234,7 @@ const EditPostForm = ({
           label="Publish to Instagram"
           labelPlacement="end"
         />
-      </Box>
+      </Box> */}
     </Grid>
   )
 }

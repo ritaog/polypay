@@ -11,13 +11,13 @@ import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import ListItem from '@mui/material/ListItem'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import MailIcon from '@mui/icons-material/Mail'
+// import ListItemIcon from '@mui/material/ListItemIcon'
+// import ListItemText from '@mui/material/ListItemText'
+// import MailIcon from '@mui/icons-material/Mail'
 import AccordionButton from './AccordionButton'
 import CssBaseline from '@mui/material/CssBaseline'
 import Divider from '@mui/material/Divider'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
+// import InboxIcon from '@mui/icons-material/MoveToInbox'
 import Menu from '@mui/material/Menu'
 import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
@@ -25,12 +25,11 @@ import MenuItem from '@mui/material/MenuItem'
 import Link from '@mui/material/Link'
 import SignUpButton from '../modals/SignUpModal'
 import Image from 'mui-image'
-// import logo from 'images/polypay_armadillo.png'
 
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import SalePageLink from '../ui/SalePageLink'
-const drawerWidth = 240
+const drawerWidth = 270
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -97,14 +96,13 @@ const Drawer = styled(MuiDrawer, {
   }),
 }))
 
-export default function MiniDrawer({ children, userData, getUserState }) {
+export default function MiniDrawer({ children, userData, setUserState }) {
   const theme = useTheme()
   const navigate = useNavigate()
   const [anchorElUser, setAnchorElUser] = React.useState(null)
   const [open, setOpen] = React.useState(false)
 
   const [expanded, setExpanded] = React.useState()
-
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false)
@@ -132,7 +130,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
 
     let logout = await axios.get('auth/logout')
     console.log('Trying to logout', logout)
-    getUserState(null)
+    setUserState(null)
     navigate('/')
   }
 
@@ -160,26 +158,50 @@ export default function MiniDrawer({ children, userData, getUserState }) {
               height="50px"
               width="50px"
               fit="fill"
+              onClick={() => {
+                navigate('/post-dashboard')
+              }}
+              sx={{ cursor: 'pointer' }}
             />
           </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ color: 'black', paddingRight: '10px', fontSize: '30px' }}
-          >
-            PolyPay
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Link href="/post-dashboard" underline="none">
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ color: 'black', paddingRight: '10px', fontSize: '30px' }}
+            >
+              PolyPay
+            </Typography>
+          </Link>
+          {/* <Box>
             <Button href="/" sx={{ my: 2, color: 'black', display: 'block' }}>
               Home
             </Button>
-            <Button sx={{ my: 2, color: 'black', display: 'block' }}>
+          </Box> */}
+          {userData?.userType === 'admin' ? (
+            <Button
+              href="admin"
+              sx={{ my: 2, color: 'black', display: 'block' }}
+            >
+              Admin
+            </Button>
+          ) : (
+            ''
+          )}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
+              justifyContent: 'flex-end',
+            }}
+          >
+            {/* <Button sx={{ my: 2, color: 'black', display: 'block' }}>
               About
             </Button>
             <Button sx={{ my: 2, color: 'black', display: 'block' }}>
               Blog
-            </Button>
+            </Button> */}
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               {userData ? <SalePageLink userData={userData} /> : ''}
             </Box>
@@ -187,7 +209,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           <Box
             sx={{
               flexGrow: 0,
-              display: { xs: 'flex'},
+              display: { xs: 'flex' },
             }}
           >
             {userData ? (
@@ -200,7 +222,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
                 </IconButton>
               </Tooltip>
             ) : (
-              <SignUpButton getUserState={getUserState} />
+              <SignUpButton setUserState={setUserState} />
             )}
 
             <Menu
@@ -260,7 +282,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
           </ListItem>
         </List>
         <Divider />
-        <List>
+        {/* <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
@@ -269,9 +291,9 @@ export default function MiniDrawer({ children, userData, getUserState }) {
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, background: 'white' }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         {children}
       </Box>
