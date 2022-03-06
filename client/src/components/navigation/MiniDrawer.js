@@ -5,7 +5,7 @@ import MuiDrawer from '@mui/material/Drawer'
 import MuiAppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import List from '@mui/material/List'
-import { Typography, Button, ButtonUnstyled } from '@mui/material'
+import { Typography, Button } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
@@ -96,7 +96,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }))
 
-export default function MiniDrawer({ children, userData, getUserState }) {
+export default function MiniDrawer({ children, userData, setUserState }) {
   const theme = useTheme()
   const navigate = useNavigate()
   const [anchorElUser, setAnchorElUser] = React.useState(null)
@@ -130,7 +130,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
 
     let logout = await axios.get('auth/logout')
     console.log('Trying to logout', logout)
-    getUserState(null)
+    setUserState(null)
     navigate('/')
   }
 
@@ -217,7 +217,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
                 </IconButton>
               </Tooltip>
             ) : (
-              <SignUpButton getUserState={getUserState} />
+              <SignUpButton setUserState={setUserState} />
             )}
 
             <Menu
