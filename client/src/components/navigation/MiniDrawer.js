@@ -161,7 +161,7 @@ export default function MiniDrawer({ children, userData, getUserState }) {
               onClick={() => {
                 navigate('/')
               }}
-              sx={{cursor: 'pointer'}}
+              sx={{ cursor: 'pointer' }}
             />
           </Box>
           <Link href="/" underline="none">
@@ -179,6 +179,11 @@ export default function MiniDrawer({ children, userData, getUserState }) {
               Home
             </Button>
           </Box> */}
+          {userData?.userType === 'admin' ? (
+            <Button href='admin' sx={{ my: 2, color: 'black', display: 'block' }}>
+              Admin
+            </Button>
+          ) : ''}
           <Box
             sx={{
               flexGrow: 1,
