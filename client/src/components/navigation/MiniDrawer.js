@@ -5,7 +5,7 @@ import MuiDrawer from '@mui/material/Drawer'
 import MuiAppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import List from '@mui/material/List'
-import { Typography, Button } from '@mui/material'
+import { Typography, Button, ButtonUnstyled } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
@@ -158,21 +158,27 @@ export default function MiniDrawer({ children, userData, getUserState }) {
               height="50px"
               width="50px"
               fit="fill"
+              onClick={() => {
+                navigate('/')
+              }}
+              sx={{cursor: 'pointer'}}
             />
           </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ color: 'black', paddingRight: '10px', fontSize: '30px' }}
-          >
-            PolyPay
-          </Typography>
-          <Box>
+          <Link href="/" underline="none">
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ color: 'black', paddingRight: '10px', fontSize: '30px' }}
+            >
+              PolyPay
+            </Typography>
+          </Link>
+          {/* <Box>
             <Button href="/" sx={{ my: 2, color: 'black', display: 'block' }}>
               Home
             </Button>
-          </Box>
+          </Box> */}
           <Box
             sx={{
               flexGrow: 1,
