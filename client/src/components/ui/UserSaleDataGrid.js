@@ -1,7 +1,10 @@
 import React from 'react'
 import { Card, Box } from '@mui/material'
 import { useState } from 'react'
-import { DataGrid } from '@mui/x-data-grid'
+import {
+  DataGrid,
+  GridToolbar,
+} from '@mui/x-data-grid'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import DataGridButtons from './DataGridButtons'
@@ -13,6 +16,7 @@ const columns = [
   { field: 'col4', headerName: 'Status', width: 150 },
   { field: 'col5', headerName: 'Items', width: 150 },
 ]
+
 
 const UserSaleDataGrid = ({ userSaleData }) => {
   const [rowSelect, setRowSelect] = useState()
@@ -111,6 +115,7 @@ const UserSaleDataGrid = ({ userSaleData }) => {
             rows={userSaleDataGrid}
             columns={columns}
             checkboxSelection={true}
+            components={{ Toolbar: GridToolbar }}
             onRowClick={(e) => {
               handleRowClick(e)
             }}
