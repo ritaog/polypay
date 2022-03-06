@@ -119,6 +119,12 @@ const UserSaleDataGrid = ({ userSaleData }) => {
             onRowClick={(e) => {
               handleRowClick(e)
             }}
+            sx={{
+              '& .MuiDataGrid-columnHeaderCheckbox .MuiDataGrid-columnHeaderTitleContainer':
+                {
+                  display: 'none',
+                },
+            }}
           />
         ) : (
           ''
