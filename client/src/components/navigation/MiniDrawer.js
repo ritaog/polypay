@@ -159,12 +159,12 @@ export default function MiniDrawer({ children, userData, setUserState }) {
               width="50px"
               fit="fill"
               onClick={() => {
-                navigate('/')
+                navigate('/post-dashboard')
               }}
               sx={{ cursor: 'pointer' }}
             />
           </Box>
-          <Link href="/" underline="none">
+          <Link href="/post-dashboard" underline="none">
             <Typography
               variant="h6"
               noWrap
@@ -180,10 +180,15 @@ export default function MiniDrawer({ children, userData, setUserState }) {
             </Button>
           </Box> */}
           {userData?.userType === 'admin' ? (
-            <Button href='admin' sx={{ my: 2, color: 'black', display: 'block' }}>
+            <Button
+              href="admin"
+              sx={{ my: 2, color: 'black', display: 'block' }}
+            >
               Admin
             </Button>
-          ) : ''}
+          ) : (
+            ''
+          )}
           <Box
             sx={{
               flexGrow: 1,
