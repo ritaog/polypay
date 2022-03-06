@@ -20,10 +20,20 @@ dotenv.config({ path: './config/config.env' })
 
 const PORT = process.env.PORT || 5000
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+// Use JSON parser for all non-webhook routes
+app.use((req, res, next) => {
+  if (req.originalUrl === 'payment/webhook') {
+    next()
+  } else {
+    express.json()(req, res, next)
+  }
+})
+
+//app.use(json())
+//app.use(bodyParser.urlencoded({ extended: false }))
+//app.use(bodyParser.json())
 app.use(session({ secret: 'meow-meow', resave: true, saveUninitialized: true }))
-app.use(json())
+
 app.use(
   cors({
     origin: true,
