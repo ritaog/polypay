@@ -9,8 +9,7 @@ const router = express.Router()
 const stripeConfig = stripe(process.env.STRIPE_PRIVATE_KEY)
 
 //Ensure the source of  webhook request is Stripe
-const endpointSecret =
-  'whsec_9fc5802202cb8abcc1b50ae0c696c3ae314c54071a6b0e7d1eb70b52a396722a'
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET
 
 //POST Endpoint || description: "http://localhost:5000/payment/onboardVendorToStripe"
 
@@ -156,8 +155,16 @@ router.post('/create-checkout-session', async (req, res) => {
           destination: user.stripeAccountId,
         },
       },
-    })
 
+      metadata: {
+        item_id: storeItem.id,
+        vendor_id: storeItem.vendorId,
+        vendor_name: storeItem.vendorName,
+        item_sold: storeItem.postTitle,
+        polypay_fee: totalApplicationFee,
+      },
+    })
+    console.log('This is the storeItem', storeItem)
     res.json({ url: session.url })
   } catch (e) {
     res.status(500).json({ error: e.message })
@@ -176,7 +183,7 @@ router.post(
     if (endpointSecret) {
       // Get the signature sent by Stripe
       const signature = request.headers['stripe-signature']
-      console.log('This is the signature', signature)
+
       try {
         event = stripeConfig.webhooks.constructEvent(
           request.body,
@@ -191,6 +198,21 @@ router.post(
 
     // Handle the event
     switch (event.type) {
+      case 'checkout.session.completed':
+        const session = event.data.object
+
+        const checkoutSessionData = {
+          sessionId: session.id,
+          total_amount: session.amount_subtotal,
+          customer_email: session.customer_details.email,
+          customer_name: session.shipping.name,
+          customer_address: session.shipping.address,
+          data_on_item_sold: session.metadata,
+          payment_status: session.payment_status,
+          shipping_amount: session.total_details.amount_shipping,
+        }
+        console.log('metadata from checkout', checkoutSessionData)
+
       case 'payment_intent.succeeded':
         const paymentIntent = event.data.object
         console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`)
