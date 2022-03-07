@@ -37,6 +37,7 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
 
   const handlePurchase = async () => {
     const purchaseInfo = [{ id: buyModalItem._id, purchaseQuantity }]
+    /*
     const saleData = {
       saleItemTitle: buyModalItem.postTitle,
       saleItemId: buyModalItem._id,
@@ -46,9 +47,9 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
       fulfilled: false,
       quantity: purchaseQuantity,
 
-    }
+    } */
     // console.log(purchaseInfo)
-    const resData = await axios.post('/saleData/saveSaleData', saleData)
+    // const resData = await axios.post('/saleData/saveSaleData', saleData)
     // console.log('resData', resData)
 
     const response = await axios.post(
