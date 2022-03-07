@@ -9,8 +9,7 @@ const router = express.Router()
 const stripeConfig = stripe(process.env.STRIPE_PRIVATE_KEY)
 
 //Ensure the source of  webhook request is Stripe
-const endpointSecret =
-  'whsec_9fc5802202cb8abcc1b50ae0c696c3ae314c54071a6b0e7d1eb70b52a396722a'
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET
 
 //POST Endpoint || description: "http://localhost:5000/payment/onboardVendorToStripe"
 
