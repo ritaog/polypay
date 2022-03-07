@@ -3,3 +3,5 @@
 - make sure password is encrypted (hashed) in the database
 - create facebook login/instagram link
 - 
+
+
