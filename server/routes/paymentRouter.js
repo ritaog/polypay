@@ -147,8 +147,8 @@ router.post('/create-checkout-session', async (req, res) => {
       automatic_tax: {
         enabled: true,
       },
-      success_url: `http://localhost:3000/successfulCheckout`,
-      cancel_url: `http://localhost:3000/failedCheckout`,
+      success_url: `https://polypay.herokuapp.com/successfulCheckout`,
+      cancel_url: `https://polypay.herokuapp.com/failedCheckout`,
       payment_intent_data: {
         application_fee_amount: totalApplicationFee,
         transfer_data: {
