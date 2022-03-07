@@ -285,7 +285,7 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                       }
                       startIcon={scheduleLoading ? <SaveIcon /> : ''}
                       onClick={() => {
-                        handleSubmitNoSale(false)
+                        handleSubmit(false)
                       }}
                     >
                       Schedule
