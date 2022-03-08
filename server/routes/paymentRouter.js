@@ -73,6 +73,7 @@ router.post('/create-checkout-session', async (req, res) => {
         product_data: {
           name: storeItem.postTitle,
           tax_code: 'txcd_99999999',
+          images: [storeItem.photos[0]],
         },
 
         unit_amount: storeItem.price * 100,
@@ -156,6 +157,7 @@ router.post('/create-checkout-session', async (req, res) => {
           destination: user.stripeAccountId,
         },
       },
+      //livemode: true,
 
       metadata: {
         item_id: storeItem.id,
@@ -216,7 +218,7 @@ router.post(
 
         console.log('metadata from checkout', checkoutSessionData)
 
-        if (session.payment_status) {
+        if (session.payment_status === 'paid') {
           try {
             const purchasedItemInfo = new SaleData(checkoutSessionData)
 
