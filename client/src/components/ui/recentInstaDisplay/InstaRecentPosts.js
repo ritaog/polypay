@@ -246,9 +246,10 @@ export default function InstaRecentPosts({ userData }) {
           >
             <Grid item>
               <Typography
-                variant="h4"
+                variant="h6"
                 component="div"
-                sx={{ margin: '5px 5px' }}
+                sx={{ margin: '5px 5px'
+               }}
               >
                 Recent Posts
               </Typography>
