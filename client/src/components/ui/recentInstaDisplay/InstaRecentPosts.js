@@ -27,12 +27,11 @@ export default function InstaRecentPosts({ userData }) {
   useEffect(() => {
     const getInstaMedia = async () => {
       try {
-          const response = await axios.get(
-            `/media/getInstagramPostsByLoggedInUser`
-          )
-          // console.log('response.data', response)
-          setRecentPosts(response.data)
-
+        const response = await axios.get(
+          `/media/getInstagramPostsByLoggedInUser`
+        )
+        // console.log('response.data', response)
+        setRecentPosts(response.data)
       } catch (e) {
         console.log(e)
       }
@@ -248,10 +247,9 @@ export default function InstaRecentPosts({ userData }) {
               <Typography
                 variant="h6"
                 component="div"
-                sx={{ margin: '5px 5px'
-               }}
+                sx={{ margin: '5px 5px' }}
               >
-                Recent Posts
+                My Recent Posts
               </Typography>
             </Grid>
           </Grid>
