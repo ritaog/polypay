@@ -6,7 +6,7 @@ import BuyItemModal from '../modals/BuyItemModal'
 import CardMedia from '@mui/material/CardMedia'
 import Container from '@mui/material/Container'
 
-import Image from 'mui-image'
+// import Image from 'mui-image'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 // import { styled, Box } from '@mui/system'
@@ -61,7 +61,7 @@ export default function SaleListGuest({ profileId, setVendorName }) {
     if (profileId){
       getVendor()
     } 
-  }, [])
+  }, [profileId])
 
   useEffect(() => {
     const getSaleItemsByProfileId = async () => {
