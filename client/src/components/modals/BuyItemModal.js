@@ -23,12 +23,15 @@ const Img = styled('img')({
   height: '100%',
 })
 
-const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
+const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open, icon }) => {
   // console.log('buyModalItem', buyModalItem)
 
   const minValue = 1
   const maxValue = buyModalItem?.quantity
   const [purchaseQuantity, setPurchaseQuantity] = useState(1)
+
+
+  
 
   const handleQuant = (e) => {
     const newValue = Math.min(Math.max(e.target.value, minValue), maxValue)
@@ -37,7 +40,7 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
 
   const handlePurchase = async () => {
     const purchaseInfo = [{ id: buyModalItem._id, purchaseQuantity }]
-    /*
+
     const saleData = {
       saleItemTitle: buyModalItem.postTitle,
       saleItemId: buyModalItem._id,
@@ -46,11 +49,10 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
       saleDate: new Date(),
       fulfilled: false,
       quantity: purchaseQuantity,
-
-    } */
+    }
     // console.log(purchaseInfo)
-    // const resData = await axios.post('/saleData/saveSaleData', saleData)
-    // console.log('resData', resData)
+    const resData = await axios.post('/saleData/saveSaleData', saleData)
+    console.log('resData', resData)
 
     const response = await axios.post(
       '/payment/create-checkout-session',
@@ -86,7 +88,7 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
           sx={{ borderBottom: '1px solid lightGray' }}
         >
           <Grid item xs={1} sm={1} md={1} sx={{ margin: '10px' }}>
-            <Avatar alt="User Name" src="/static/images/avatar/2.jpg" />
+           {icon ? <Avatar alt="User Name" src={icon} /> : ''} 
           </Grid>
           <Grid item xs={6} sm={6} md={6}>
             <Typography align="left">
@@ -174,17 +176,19 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
                 />
               </FormControl>
             </Grid>
-            <Grid item sx={{ justifyContent: 'right', marginRight: '20px' }}>
+            <Grid item sx={{ justifyContent: 'left', marginRight: '20px' }}>
               <Typography
-                variant="body2"
+                variant="h6"
                 gutterBottom
                 sx={{ paddingRight: '20px' }}
               >
                 {' '}
                 {`Price: $${
                   buyModalItem
-                    ? parseFloat(buyModalItem.price.$numberDecimal) *
-                      purchaseQuantity
+                    ? (
+                        parseFloat(buyModalItem.price.$numberDecimal) *
+                        purchaseQuantity
+                      ).toFixed(2)
                     : ''
                 }`}
               </Typography>
@@ -244,18 +248,29 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
             sx={{
               display: 'flex',
               direction: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '80px',
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start',
+              // height: '80px',
             }}
           >
-            <Stack spacing={2} direction="row">
-              {/* <Button variant="contained">Add To Cart</Button> */}
-              <Button variant="contained" onClick={handlePurchase}>
-                Buy Now
-              </Button>
-            </Stack>
+            <Box sx={{ padding: ' 0 10px  0 10px' }}>
+              {buyModalItem ? (
+                <Typography component="div">{buyModalItem.about}</Typography>
+              ) : (
+                ''
+              )}
+            </Box>
           </Box>
+          <Stack
+            spacing={2}
+            direction="row"
+            sx={{ padding: ' 10px 20px  10px 20px' }}
+          >
+            {/* <Button variant="contained">Add To Cart</Button> */}
+            <Button variant="contained" onClick={handlePurchase} fullWidth>
+              Buy Now
+            </Button>
+          </Stack>
         </Box>
       </Box>
     </Modal>

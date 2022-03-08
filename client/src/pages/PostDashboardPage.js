@@ -10,6 +10,7 @@ import axios from 'axios'
 import PayPeriod from '../components/ui/statBubbles/PayPeriod'
 import Scheduled from '../components/ui/statBubbles/Scheduled'
 import UserSaleDataGrid from '../components/ui/UserSaleDataGrid'
+import { useNavigate } from 'react-router-dom'
 // import AddImage from '../components/ui/AddImage'
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -22,9 +23,11 @@ const Item = styled(Paper)(({ theme }) => ({
 }))
 
 const PostDashboardPage = ({ userData }) => {
+  const navigate = useNavigate()
   const [dailyInstaData, setDailyInstaData] = useState()
   const [scheduledPosts, setScheduledPosts] = useState()
   const [userSaleData, setUserSaleData] = useState()
+  const [recentPosts, setRecentPosts] = useState({ postData: [] })
 
   useEffect(() => {
     const getDailyData = async () => {
@@ -35,6 +38,23 @@ const PostDashboardPage = ({ userData }) => {
     }
     if (userData) {
       getDailyData()
+    }
+  }, [userData])
+
+  useEffect(() => {
+    const getInstaMedia = async () => {
+      try {
+        const response = await axios.get(
+          `/media/getInstagramPostsByLoggedInUser`
+        )
+        // console.log('response.data', response)
+        setRecentPosts(response.data)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    if (userData) {
+      getInstaMedia()
     }
   }, [userData])
 
@@ -53,7 +73,7 @@ const PostDashboardPage = ({ userData }) => {
   useEffect(() => {
     const getSaleData = async () => {
       const response = await axios.get('/saleData/listSaleDataByLoggedUser')
-      // console.log('response', response)
+      console.log('response', response)
       if (response.statusText === 'Accepted') {
         setUserSaleData(response.data)
       }
@@ -81,7 +101,17 @@ const PostDashboardPage = ({ userData }) => {
             <PayPeriod userSaleData={userSaleData} />
           </Item>
         </Box>
-        <Box sx={{ width: '25%', minWidth: '220px', padding: '0 20px 20px 0' }}>
+        <Box
+          onClick={() => {
+            navigate('/schedule-post')
+          }}
+          sx={{
+            width: '25%',
+            minWidth: '220px',
+            padding: '0 20px 20px 0',
+            cursor: 'pointer',
+          }}
+        >
           <Item>
             <Scheduled scheduledPosts={scheduledPosts} />
           </Item>
@@ -89,7 +119,7 @@ const PostDashboardPage = ({ userData }) => {
       </Box>
       <Box sx={{ display: 'flex' }}>
         <Box sx={{ paddingRight: '20px' }}>
-          <InstaRecentPosts userData={userData} />
+          <InstaRecentPosts userData={userData} recentPosts={recentPosts}/>
         </Box>
         <UserSaleDataGrid userSaleData={userSaleData} />
       </Box>

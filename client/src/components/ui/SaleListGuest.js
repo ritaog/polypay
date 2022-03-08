@@ -6,7 +6,7 @@ import BuyItemModal from '../modals/BuyItemModal'
 import CardMedia from '@mui/material/CardMedia'
 import Container from '@mui/material/Container'
 
-import Image from 'mui-image'
+// import Image from 'mui-image'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 // import { styled, Box } from '@mui/system'
@@ -41,25 +41,36 @@ const Backdrop = styled('div')`
 export default function SaleListGuest({ profileId, setVendorName }) {
   const [saleItems, setSaleItems] = useState([])
   const [buyModalItem, setBuyModalItem] = useState()
+  const [icon, setIcon] = useState()
   const [open, setOpen] = useState(false)
 
   const handleOpenModal = (item) => {
     setOpen(true)
     setBuyModalItem(item)
-    console.log('item', item)
   }
 
   const handleClose = () => setOpen(false)
 
   useEffect(() => {
+    const getVendor = async () => {
+      const response = await axios.get(`/user/getUser/${profileId}`)
+      if (response.statusText === 'OK') {
+        setIcon(response.data.photos[0])
+      }
+    }
+    if (profileId){
+      getVendor()
+    } 
+  }, [profileId])
+
+  useEffect(() => {
     const getSaleItemsByProfileId = async () => {
       const response = await axios.get(
-        '/saleItem/listUserSaleItemsById/' + profileId.id
+        '/saleItem/listUserSaleItemsById/' + profileId
       )
       response.data.sort(function (a, b) {
         return new Date(b.postTime) - new Date(a.postTime)
       })
-      console.log('response', response)
       setSaleItems(response.data)
       setVendorName(response.data[0].vendorName)
     }
@@ -98,7 +109,7 @@ export default function SaleListGuest({ profileId, setVendorName }) {
               height: '100%',
               width: '100%',
             }}
-            image={`https://res.cloudinary.com/ddcynhc98/image/upload/c_crop,h_1500,w_1500/${item.photos[0]
+            image={`https://res.cloudinary.com/ddcynhc98/image/upload/c_crop,h_3000,w_3000/${item.photos[0]
               .split('')
               .splice(50)
               .join('')}`}
@@ -128,6 +139,7 @@ export default function SaleListGuest({ profileId, setVendorName }) {
         Backdrop={Backdrop}
         open={open}
         buyModalItem={buyModalItem}
+        icon={icon}
       />
       <Container sx={{ py: 4, minWidth: '80px', padding: '0px' }} maxWidth="md">
         <Grid container spacing={0}>

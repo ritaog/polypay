@@ -17,14 +17,15 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ErrorInstaAccountSetup from './ErrorModals/ErrorInstaAccountSetup'
+import SaveDisclaimerModal from './SaveDisclaimerModal'
 
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '1100px',
-  height: '750px',
+  width: '1000px',
+  height: '650px',
   minHeight: '650px',
   bgcolor: 'white',
   boxShadow: 24,
@@ -48,11 +49,13 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
   const [forSale, setForSale] = useState(false)
 
   const [openError, setOpenError] = useState(false)
+  const [openSaveDisclaimerModal, setOpenSaveDisclaimerModal] = useState(false)
 
   const [postNowLoading, setPostNowLoading] = useState(false)
   const [scheduleLoading, setScheduleLoading] = useState(false)
 
   const handleOpenErrorModal = () => setOpenError(true)
+  const handleCloseDisclaimerModal = () => setOpenSaveDisclaimerModal(false)
 
   const handleIncrement = () => {
     setQuantity(quantity + 1)
@@ -62,6 +65,25 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
     if (quantity > 0) {
       setQuantity(quantity - 1)
     }
+  }
+
+  const handleDisclaimer = (add) => {
+    if (add) {
+      if (!about) {
+        setAbout(userData.disclaimer)
+      } else {
+        let disclaimerArray = userData.disclaimer.split('')
+        let stringArray = about?.split('')
+        const combinedArray = stringArray.concat(disclaimerArray)
+        setAbout(combinedArray.join(''))
+      }
+    } else {
+      setAbout(about.replace(userData.disclaimer, ''))
+    }
+  }
+
+  const handleSaveDisclaimer = () => {
+    setOpenSaveDisclaimerModal(true)
   }
 
   const handleSubmit = async (postNow) => {
@@ -157,6 +179,7 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
   return (
     <div>
       <ErrorInstaAccountSetup open={openError} setOpen={setOpenError} />
+      <SaveDisclaimerModal open={openSaveDisclaimerModal} handleClose={handleCloseDisclaimerModal} userData={userData}/>
       <Modal
         open={open}
         onClose={handleClose}
@@ -209,7 +232,7 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                     <IconButton
                       aria-label="delete"
                       onClick={handleClose}
-                      sx={{ margin: '10px' }}
+                      sx={{ paddingRight: '10px' }}
                     >
                       <CloseOutlinedIcon />
                     </IconButton>
@@ -220,7 +243,7 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                 style={{
                   overflowY: 'scroll',
                   overflowX: 'hidden',
-                  height: '610px',
+                  height: '520px',
                 }}
               >
                 <Grid
@@ -243,6 +266,9 @@ const SchedulePostModal = ({ open, handleClose, scheduleItem, userData }) => {
                       handleSubmit={handleSubmit}
                       handleIncrement={handleIncrement}
                       handleDecrement={handleDecrement}
+                      handleDisclaimer={handleDisclaimer}
+                      handleSaveDisclaimer={handleSaveDisclaimer}
+                      about={about}
                       forSale={forSale}
                       quantity={quantity}
                       postTime={postTime}

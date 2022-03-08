@@ -63,7 +63,7 @@ const ProfileEditForm = ({ existingValues }) => {
 
   return (
     <div>
-      <h2>User Edit Form </h2>
+      <h2 className = "edit-form"> User Edit Form </h2>
       <div className="profile-page-form">
         <form>
           <label htmlFor="name"> Name </label>

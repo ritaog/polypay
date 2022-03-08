@@ -83,6 +83,7 @@ const MediaCalender = ({ userData }) => {
       <CardContent>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          initialView="timeGridWeek"
           headerToolbar={{
             left: 'prev,next today',
             center: 'title',
@@ -94,7 +95,6 @@ const MediaCalender = ({ userData }) => {
           eventClick={(e) => {
             handleDateSelect(e)
           }}
-          initialView="dayGridMonth"
           height={620}
           events={postEvents}
         />
