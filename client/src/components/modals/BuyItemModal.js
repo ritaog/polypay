@@ -174,17 +174,19 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
                 />
               </FormControl>
             </Grid>
-            <Grid item sx={{ justifyContent: 'right', marginRight: '20px' }}>
+            <Grid item sx={{ justifyContent: 'left', marginRight: '20px' }}>
               <Typography
-                variant="body2"
+                variant="h6"
                 gutterBottom
                 sx={{ paddingRight: '20px' }}
               >
                 {' '}
                 {`Price: $${
                   buyModalItem
-                    ? parseFloat(buyModalItem.price.$numberDecimal) *
-                      purchaseQuantity
+                    ? (
+                        parseFloat(buyModalItem.price.$numberDecimal) *
+                        purchaseQuantity
+                      ).toFixed(2)
                     : ''
                 }`}
               </Typography>
@@ -244,18 +246,29 @@ const BuyItemModal = ({ handleClose, Backdrop, style, buyModalItem, open }) => {
             sx={{
               display: 'flex',
               direction: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '80px',
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start',
+              // height: '80px',
             }}
           >
-            <Stack spacing={2} direction="row">
-              {/* <Button variant="contained">Add To Cart</Button> */}
-              <Button variant="contained" onClick={handlePurchase}>
-                Buy Now
-              </Button>
-            </Stack>
+            <Box sx={{ padding: ' 0 10px  0 10px' }}>
+              {buyModalItem ? (
+                <Typography component="div">{buyModalItem.about}</Typography>
+              ) : (
+                ''
+              )}
+            </Box>
           </Box>
+          <Stack
+            spacing={2}
+            direction="row"
+            sx={{ padding: ' 10px 20px  10px 20px' }}
+          >
+            {/* <Button variant="contained">Add To Cart</Button> */}
+            <Button variant="contained" onClick={handlePurchase} fullWidth>
+              Buy Now
+            </Button>
+          </Stack>
         </Box>
       </Box>
     </Modal>
