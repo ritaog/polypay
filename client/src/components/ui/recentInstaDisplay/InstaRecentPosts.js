@@ -105,6 +105,7 @@ export default function InstaRecentPosts({ userData, recentPosts }) {
                 {post ? (
                   <Typography
                     variant="caption"
+                    
                     sx={{ marginLeft: '12px', height: '5px', color: 'gray' }}
                   >{`${recentPosts.userData.followers_count} followers`}</Typography>
                 ) : (
@@ -116,8 +117,9 @@ export default function InstaRecentPosts({ userData, recentPosts }) {
               {post ? (
                 <Typography
                   variant="caption"
-                  sx={{ marginLeft: '12px', height: '5px', color: 'gray' }}
-                >{`Posted on: ${new Date(
+                  // fontSize={10}
+                  sx={{ marginLeft: '20px', height: '5px', color: 'gray' }}
+                >{`${new Date(
                   post.timestamp
                 ).toDateString()}`}</Typography>
               ) : (
@@ -146,7 +148,7 @@ export default function InstaRecentPosts({ userData, recentPosts }) {
           }}
         >
           {post ? (
-            <Link href={post.permalink} underline="none">
+            <Link onClick={() => {window.open(post.permalink)}} underline="none" sx={{cursor: 'pointer'}}>
               View on Instagram
             </Link>
           ) : (

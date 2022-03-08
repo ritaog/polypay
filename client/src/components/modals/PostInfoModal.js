@@ -208,7 +208,7 @@ const PostInfoModal = ({
                     <IconButton
                       aria-label="delete"
                       onClick={handleClose}
-                      sx={{ margin: '10px' }}
+                      sx={{ padding: '10px' }}
                     >
                       <CloseOutlinedIcon />
                     </IconButton>
@@ -219,7 +219,7 @@ const PostInfoModal = ({
                 style={{
                   overflowY: 'scroll',
                   overflowX: 'hidden',
-                  height: '610px',
+                  height: '520px',
                 }}
               >
                 <Grid
