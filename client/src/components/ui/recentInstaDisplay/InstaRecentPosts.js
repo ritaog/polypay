@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import Image from 'mui-image'
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import InstaComments from './InstaComments'
 import InstaReply from './InstaReply'

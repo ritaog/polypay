@@ -4,14 +4,14 @@ import {
   Card,
   CardContent,
   Grid,
-  CardMedia,
+  // CardMedia,
   Button,
   Box,
   IconButton,
 } from '@mui/material'
 
 import Image from 'mui-image'
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
+// import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
 import DeleteIcon from '@mui/icons-material/Delete'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import axios from 'axios'
