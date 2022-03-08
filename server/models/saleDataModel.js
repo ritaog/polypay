@@ -3,6 +3,14 @@ import mongoose from 'mongoose'
 // Media Schema
 
 const SaleDataSchema = new mongoose.Schema({
+  saleItemTitle: String,
+  saleItemId: String,
+  vendorId: String,
+  saleTotal: mongoose.Types.Decimal128,
+  saleDate: Date,
+  fulfilled: String,
+  quantity: Number,
+  /*
   session_id: String,
   total_amount: mongoose.Types.Decimal128,
   customer_email: String,
@@ -13,15 +21,7 @@ const SaleDataSchema = new mongoose.Schema({
 
   shipping_amount: Number,
   saleDate: Date,
-  status: String,
-  /*
-  saleItemTitle: String,
-  saleItemId: String,
-  vendorId: String,
-  saleTotal: mongoose.Types.Decimal128,
-  saleDate: Date,
-  fulfilled: String,
-  quantity: Number */
+  status: String, */
 })
 
 export default mongoose.model('SaleData', SaleDataSchema)
