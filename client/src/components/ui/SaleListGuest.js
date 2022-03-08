@@ -98,7 +98,7 @@ export default function SaleListGuest({ profileId, setVendorName }) {
               height: '100%',
               width: '100%',
             }}
-            image={`https://res.cloudinary.com/ddcynhc98/image/upload/c_crop,h_1500,w_1500/${item.photos[0]
+            image={`https://res.cloudinary.com/ddcynhc98/image/upload/c_crop,h_3000,w_3000/${item.photos[0]
               .split('')
               .splice(50)
               .join('')}`}
