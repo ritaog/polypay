@@ -41,25 +41,36 @@ const Backdrop = styled('div')`
 export default function SaleListGuest({ profileId, setVendorName }) {
   const [saleItems, setSaleItems] = useState([])
   const [buyModalItem, setBuyModalItem] = useState()
+  const [icon, setIcon] = useState()
   const [open, setOpen] = useState(false)
 
   const handleOpenModal = (item) => {
     setOpen(true)
     setBuyModalItem(item)
-    console.log('item', item)
   }
 
   const handleClose = () => setOpen(false)
 
   useEffect(() => {
+    const getVendor = async () => {
+      const response = await axios.get(`/user/getUser/${profileId}`)
+      if (response.statusText === 'OK') {
+        setIcon(response.data.photos[0])
+      }
+    }
+    if (profileId){
+      getVendor()
+    } 
+  }, [])
+
+  useEffect(() => {
     const getSaleItemsByProfileId = async () => {
       const response = await axios.get(
-        '/saleItem/listUserSaleItemsById/' + profileId.id
+        '/saleItem/listUserSaleItemsById/' + profileId
       )
       response.data.sort(function (a, b) {
         return new Date(b.postTime) - new Date(a.postTime)
       })
-      console.log('response', response)
       setSaleItems(response.data)
       setVendorName(response.data[0].vendorName)
     }
@@ -128,6 +139,7 @@ export default function SaleListGuest({ profileId, setVendorName }) {
         Backdrop={Backdrop}
         open={open}
         buyModalItem={buyModalItem}
+        icon={icon}
       />
       <Container sx={{ py: 4, minWidth: '80px', padding: '0px' }} maxWidth="md">
         <Grid container spacing={0}>

@@ -16,30 +16,15 @@ import { useNavigate } from 'react-router-dom'
 import InstaComments from './InstaComments'
 import InstaReply from './InstaReply'
 
-export default function InstaRecentPosts({ userData }) {
+export default function InstaRecentPosts({ userData, recentPosts }) {
   const navigate = useNavigate()
-  const [recentPosts, setRecentPosts] = useState({ postData: [] })
+
   const [comment, setComment] = useState()
   const [commentId, setCommentId] = useState()
   const [commentFrom, setCommentFrom] = useState()
   const [postId, setPostId] = useState()
 
-  useEffect(() => {
-    const getInstaMedia = async () => {
-      try {
-        const response = await axios.get(
-          `/media/getInstagramPostsByLoggedInUser`
-        )
-        // console.log('response.data', response)
-        setRecentPosts(response.data)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-    if (userData) {
-      getInstaMedia()
-    }
-  }, [userData])
+
 
   const postedTimeHandler = (postedDate) => {
     let currentDate = new Date()

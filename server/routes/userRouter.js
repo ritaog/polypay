@@ -21,15 +21,22 @@ router.get('/welcome', (_, res) => {
   res.send('Hello World!!!!')
 })
 
-// POST endpoint || description: takes data from userForm and sends to DB || http://localhost:5000/user/addUser
+// GET endpoint || description: http://localhost:5000/user/getUser
+router.get('/getUser/:id', async (req, res) => {
+  const userId = req.params.id
+  const user = await User.findOne({ _id: userId })
 
+  res.status(200).send(user)
+})
+
+// POST endpoint || description: takes data from userForm and sends to DB || http://localhost:5000/user/addUser
 router.post('/addUser', upload.single('image'), async (req, res) => {
   try {
     // receives new profile data from front end
     let incomingData = JSON.parse(req.body.formData)
     // console.log('incomingData', incomingData)
     ///Verifying that user does not exist yet, before creating account
-    const user = await User.findOne({ emailAddress: incomingData.emailAddress })
+    
     console.log('user', user)
     if (user) {
       console.log('in duplicate user')
