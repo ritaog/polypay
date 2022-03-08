@@ -3,6 +3,7 @@ import stripe from 'stripe'
 import bodyParser from 'body-parser'
 import SaleItem from '../models/saleItemModel.js'
 import User from '../models/userModel.js'
+import SaleData from '../models/saleDataModel.js'
 
 const router = express.Router()
 
@@ -147,8 +148,8 @@ router.post('/create-checkout-session', async (req, res) => {
       automatic_tax: {
         enabled: true,
       },
-      success_url: `http://localhost:3000/successfulCheckout`,
-      cancel_url: `http://localhost:3000/failedCheckout`,
+      success_url: `https://polypay.herokuapp.com/successfulCheckout`,
+      cancel_url: `https://polypay.herokuapp.com/failedCheckout`,
       payment_intent_data: {
         application_fee_amount: totalApplicationFee,
         transfer_data: {
@@ -162,6 +163,7 @@ router.post('/create-checkout-session', async (req, res) => {
         vendor_name: storeItem.vendorName,
         item_sold: storeItem.postTitle,
         polypay_fee: totalApplicationFee,
+        quantity: purchaseInfo[0].purchaseQuantity,
       },
     })
     console.log('This is the storeItem', storeItem)
@@ -176,7 +178,7 @@ router.post('/create-checkout-session', async (req, res) => {
 router.post(
   '/webhook',
   express.raw({ type: 'application/json' }),
-  (request, response) => {
+  async (request, response) => {
     let event
 
     //Verify that this request is coming from Stripe
@@ -202,16 +204,29 @@ router.post(
         const session = event.data.object
 
         const checkoutSessionData = {
-          sessionId: session.id,
+          session_id: session.id,
           total_amount: session.amount_subtotal,
           customer_email: session.customer_details.email,
           customer_name: session.shipping.name,
           customer_address: session.shipping.address,
           data_on_item_sold: session.metadata,
-          payment_status: session.payment_status,
+
           shipping_amount: session.total_details.amount_shipping,
         }
+
         console.log('metadata from checkout', checkoutSessionData)
+
+        if (session.payment_status) {
+          try {
+            const purchasedItemInfo = new SaleData(checkoutSessionData)
+
+            const savedData = await purchasedItemInfo.save()
+            response.status(201).json(savedData)
+          } catch (err) {
+            console.log(err)
+            response.sendStatus(400)
+          }
+        }
 
       case 'payment_intent.succeeded':
         const paymentIntent = event.data.object
