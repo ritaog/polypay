@@ -207,22 +207,34 @@ const MediaLibrary = ({ userData }) => {
           alignItems="center"
         >
           <Grid item>
-            <Typography variant="h4" component="div" sx={{ margin: '5px 5px' }}>
+            <Typography variant="h6" component="div" sx={{ margin: '5px 5px' }}>
               Media Library
             </Typography>
           </Grid>
-          <Box>
+          <Box sx={{ paddingLeft: '10px' }}>
             <Button
+              variant="contained"
               component="label"
+              size="small"
+              // color="dark"
               disabled={!userData}
               onChange={(e) => {
                 handlePhotoUpload(e)
               }}
+              sx={{
+                backgroundColor: 'black',
+                boxShadow: 'none',
+                '&:hover': {
+                  backgroundColor: 'rgb(44 62 80)',
+                  borderColor: 'rgb(44 62 80)',
+                  boxShadow: 'none',
+                },
+              }}
             >
-              <Box>
-                <input type="file" hidden />
-
-                <CardMedia
+              {/* <Box> */}
+              <input type="file" hidden />
+              Upload
+              {/* <CardMedia
                   component="span"
                   sx={{
                     height: '100%',
@@ -233,8 +245,8 @@ const MediaLibrary = ({ userData }) => {
                   <AddPhotoAlternateIcon
                     sx={{ fontSize: '40px', color: 'black' }}
                   />
-                </CardMedia>
-              </Box>
+                </CardMedia> */}
+              {/* </Box> */}
             </Button>
           </Box>
         </Grid>
