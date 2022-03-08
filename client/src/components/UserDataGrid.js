@@ -11,7 +11,6 @@ const columns = [
   { field: 'col4', headerName: 'Company Address', width: 150 },
   { field: 'col5', headerName: 'Company Type', width: 150 },
   { field: 'col6', headerName: 'Email Address', width: 150 },
-  { field: 'col7', headerName: 'password', width: 150 },
   { field: 'col8', headerName: 'Phone No', width: 150 },
 ]
 
@@ -29,7 +28,6 @@ const UserDataGrid = () => {
           col4: user.companyAddress,
           col5: user.companyType,
           col6: user.emailAddress,
-          col7: user.password,
           col8: user.phoneNo,
         }
       })
