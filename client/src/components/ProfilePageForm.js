@@ -39,6 +39,7 @@ const ProfilePageForm = () => {
       password: password,
       phoneNo: phoneNo,
       userReview: 5,
+      disclaimer: '',
       instagramBusinessId: '',
       selectedImage: '',
       permanentToken: '',

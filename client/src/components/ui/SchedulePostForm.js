@@ -16,6 +16,7 @@ import {
   InputLabel,
   OutlinedInput,
   InputAdornment,
+  Link
 } from '@mui/material'
 // import { useState } from 'react'
 
@@ -37,6 +38,8 @@ const SchedulePostForm = ({
   quantity,
   handleIncrement,
   handleDecrement,
+  handleDisclaimer,
+  handleSaveDisclaimer,
   edit,
   setForSale,
   forSale,
@@ -158,6 +161,26 @@ const SchedulePostForm = ({
           </Box>
           <Box
             sx={{
+              padding: ' 0 10px 10px 10px',
+              display: 'flex',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+            }}
+          >
+            <FormControlLabel
+              value="end"
+              disabled={edit}
+              control={<Switch color="primary" />}
+              label="Use Product Disclaimer"
+              labelPlacement="end"
+              onChange={(e) => {
+                handleDisclaimer(e.target.checked)
+              }}
+            />
+            <Link variant="caption" onClick={handleSaveDisclaimer}>Save Disclaimer</Link>
+          </Box>
+          <Box
+            sx={{
               width: '100%',
               padding: ' 0 10px 10px 10px',
             }}
@@ -167,6 +190,7 @@ const SchedulePostForm = ({
               label="About Your Product"
               id="fullWidth"
               value={about}
+              focused={Boolean(about)}
               disabled={edit}
               multiline
               rows={4}

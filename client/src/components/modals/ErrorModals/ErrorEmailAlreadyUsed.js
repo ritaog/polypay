@@ -2,7 +2,6 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import {Modal,IconButton, Button} from '@mui/material'
-// import Link from '@mui/material/Link'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
     
 const style = {
